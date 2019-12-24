@@ -46,12 +46,11 @@ public class RequestController {
 
         List<Move> towardsFoodMoves = moveTowardsFood(request, mySnake.getBody().get(0));
 
-//        if (towardsFoodMoves != null && !towardsFoodMoves.isEmpty()) {
-//            return moveResponse.setMove(towardsFoodMoves.get(0)).setTaunt("I'm hungry");
-//        } else {
-//            return moveResponse.setMove(board.getMove());
-//        }
-        return moveResponse.setMove(board.getMove());
+        if (towardsFoodMoves != null && !towardsFoodMoves.isEmpty()) {
+            return moveResponse.setMove(towardsFoodMoves.get(0)).setTaunt("I'm hungry");
+        } else {
+            return moveResponse.setMove(board.getMove());
+        }
     }
 
     @RequestMapping(value="/end", method=RequestMethod.POST)
