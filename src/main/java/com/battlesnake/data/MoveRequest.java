@@ -25,16 +25,14 @@ public class MoveRequest {
   private Snake you; // UUID
 
   private int turn; // The current turn.
-  private int width; //integer	 
-  private int height; //integer	 
 
-  private int[][] food; //Array of all food currently on the board
-  private ArrayList<Snake> snakes; //	Array of all living snakes in the game
-  private ArrayList<Snake> deadSnakes; //Array of all dead snakes in the game
+  private Board board;
 
   public MoveRequest() {
   }
 
+  @JsonProperty("board")
+  public Board getBoard(){return this.board;}
 
   @JsonProperty("game_id")
   public String getGameId() {
@@ -46,29 +44,8 @@ public class MoveRequest {
     return this.you;
   }
 
-  public int getWidth() {
-    return this.width;
-  }
-
-  public int getHeight() {
-    return this.height;
-  }
-
   public int getTurn() {
     return this.turn;
-  }
-
-  public int[][] getFood() {
-    return this.food;
-  }
-
-  public ArrayList<Snake> getSnakes() {
-    return this.snakes;
-  }
-
-  @JsonProperty("dead_snakes")
-  public ArrayList<Snake> getDeadSnakes() {
-    return this.deadSnakes;
   }
 
   public void setGameId(String gameId) {
@@ -79,27 +56,8 @@ public class MoveRequest {
     this.you = you;
   }
 
-  public void setWidth(int width) {
-    this.width = width;
-  }
-
-  public void setHeight(int height) {
-    this.height = height;
-  }
-
   public void setTurn(int turn) {
     this.turn = turn;
   }
 
-  public void setFood(int[][] food) {
-    this.food = food;
-  }
-
-  public void setSnakes(ArrayList<Snake> snakes) {
-    this.snakes = snakes;
-  }
-
-  public void setDeadSnakes(ArrayList<Snake> deadSnakes) {
-    this.deadSnakes = deadSnakes;
-  }
 }

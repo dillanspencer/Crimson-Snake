@@ -37,16 +37,15 @@ public class RequestController {
     public MoveResponse move(@RequestBody MoveRequest request) {
         MoveResponse moveResponse = new MoveResponse();
         
-//        Snake mySnake = findOurSnake(request); // kind of handy to have our snake at this level
-//
-//        List<Move> towardsFoodMoves = moveTowardsFood(request, mySnake.getCoords()[0]);
-//
-//        if (towardsFoodMoves != null && !towardsFoodMoves.isEmpty()) {
-//            return moveResponse.setMove(towardsFoodMoves.get(0)).setTaunt("I'm hungry");
-//        } else {
-//            return moveResponse.setMove(Move.DOWN).setTaunt("Oh Drat");
-//        }
-        return moveResponse.setMove(Move.RIGHT).setTaunt("SHIIT");
+        Snake mySnake = findOurSnake(request); // kind of handy to have our snake at this level
+
+        List<Move> towardsFoodMoves = moveTowardsFood(request, mySnake.getCoords()[0]);
+
+        if (towardsFoodMoves != null && !towardsFoodMoves.isEmpty()) {
+            return moveResponse.setMove(towardsFoodMoves.get(0)).setTaunt("I'm hungry");
+        } else {
+            return moveResponse.setMove(Move.DOWN).setTaunt("Oh Drat");
+        }
     }
 
     @RequestMapping(value="/end", method=RequestMethod.POST)
@@ -64,7 +63,7 @@ public class RequestController {
      */
     private Snake findOurSnake(MoveRequest request) {
         String myUuid = request.getYou().getId();
-        List<Snake> snakes = request.getSnakes();
+        List<Snake> snakes = request.getBoard().getSnakes();
         return snakes.stream().filter(thisSnake -> thisSnake.getId().equals(myUuid)).findFirst().orElse(null);
     }
 
@@ -79,7 +78,7 @@ public class RequestController {
     public ArrayList<Move> moveTowardsFood(MoveRequest request, int[] mySnakeHead) {
         ArrayList<Move> towardsFoodMoves = new ArrayList<>();
 
-        int[] firstFoodLocation = request.getFood()[0];
+        int[] firstFoodLocation = request.getBoard().getFood()[0];
 
         if (firstFoodLocation[0] < mySnakeHead[0]) {
             towardsFoodMoves.add(Move.LEFT);
