@@ -29,7 +29,7 @@ public class RequestController {
                 .setName("Crimson Snake")
                 .setColor("#990000")
                 .setHeadType(HeadType.FANG)
-                .setTailType(TailType.PIXEL)
+                .setTailType(TailType.FATRATTLE)
                 .setTaunt("Crimson Snakeee");
     }
 
