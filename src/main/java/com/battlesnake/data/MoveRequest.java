@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MoveRequest {
   private String gameId; // UUID	 
-  private String you; // UUID 
+  private String id; // UUID
 
   private int turn; // The current turn.
   private int width; //integer	 
@@ -41,9 +41,8 @@ public class MoveRequest {
     return this.gameId;
   }
 
-  @JsonProperty("you")
   public String getYou() {
-    return this.you;
+    return this.id;
   }
 
   public int getWidth() {
@@ -76,7 +75,7 @@ public class MoveRequest {
   }
 
   public void setYou(String you) {
-    this.you = you;
+    this.id = you;
   }
 
   public void setWidth(int width) {
