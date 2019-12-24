@@ -16,6 +16,7 @@
 
 package com.battlesnake;
 
+import com.battlesnake.board.Board;
 import com.battlesnake.data.*;
 import java.util.*;
 
@@ -40,13 +41,15 @@ public class RequestController {
         MoveResponse moveResponse = new MoveResponse();
         
         Snake mySnake = findOurSnake(request); // kind of handy to have our snake at this level
+        Board board = request.getBoard();
+        board.init(mySnake);
 
         List<Move> towardsFoodMoves = moveTowardsFood(request, mySnake.getBody().get(0));
 
         if (towardsFoodMoves != null && !towardsFoodMoves.isEmpty()) {
             return moveResponse.setMove(towardsFoodMoves.get(0)).setTaunt("I'm hungry");
         } else {
-            return moveResponse.setMove(Move.DOWN).setTaunt("Oh Drat");
+            return moveResponse.setMove(board.getMove());
         }
     }
 

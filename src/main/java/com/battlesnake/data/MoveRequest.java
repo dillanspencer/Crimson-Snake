@@ -16,8 +16,7 @@
 
 package com.battlesnake.data;
 
-import java.util.List;
-import java.util.ArrayList;
+import com.battlesnake.board.Board;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MoveRequest {

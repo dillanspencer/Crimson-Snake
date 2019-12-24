@@ -18,58 +18,78 @@ package com.battlesnake.data;
 
 import com.battlesnake.math.Point;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.List;
 
 public class Snake {
 
-  private String id;        //UUID
-  private String name;      //string
-  private String taunt;     // optional
-  private int health; //0..100
-  private Point position;
+    private static int MAX_HEALTH = 100;
+    private static int MIN_HEALTH = 0;
 
-  private List<Point> body;
+    private String id;        //UUID
+    private String name;      //string
+    private String taunt;     // optional
+    private int health; //0..100
+    private Point position;
+    private List<Point> body;
 
-  public Snake() {
-  }
+    public Snake() {
+    }
 
-  public String getId() {
-    return this.id;
-  }
+    public boolean equals(Object other) {
+        if (other instanceof Snake) return equals((Snake) other);
+        return false;
+    }
 
-  public String getName() {
-    return this.name;
-  }
+    public boolean equals(Snake other){
+        return getId().equals(other.getId());
+    }
 
-  @JsonProperty("body")
-  public List<Point> getBody(){return this.body;}
+    public Point getHead(){
+        return this.body.get(0);
+    }
 
-  public String getTaunt() {
-    return this.taunt;
-  }
+    public boolean isDead(){
+        return getHealth() <= MIN_HEALTH;
+    }
 
-  @JsonProperty("health_points")
-  public int getHealth() {
-    return this.health;
-  }
+    public boolean justAte(){
+        return getHealth() == MAX_HEALTH;
+    }
 
-  public Point getPosition(){return this.body.get(0);}
+    public int length(){
+        return this.body.size();
+    }
 
-  public void setId(String id) {
-    this.id = id;
-  }
+    public boolean longerThan(int len){
+        return length() > len;
+    }
 
-  public void setName(String name) {
-    this.name = name;
-  }
+    public boolean longerThan(Snake other){
+        return longerThan(other.length());
+    }
 
-  public void setTaunt(String taunt) {
-    this.taunt = taunt;
-  }
+    public String getId() {
+        return this.id;
+    }
 
-  public void setHealth(int health) {
-    this.health = health;
-  }
+    public String getName() {
+        return this.name;
+    }
+
+    @JsonProperty("body")
+    public List<Point> getBody() {
+        return this.body;
+    }
+
+    public String getTaunt() {
+        return this.taunt;
+    }
+
+    @JsonProperty("health_points")
+    public int getHealth() {
+        return this.health;
+    }
 
 
 }
