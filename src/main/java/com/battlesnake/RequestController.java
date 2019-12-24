@@ -81,6 +81,7 @@ public class RequestController {
         ArrayList<Move> towardsFoodMoves = new ArrayList<>();
 
         Point firstFoodLocation = request.getBoard().getFood().get(0);
+        System.out.println("HELLO");
 
         if (firstFoodLocation.getX() < mySnakeHead[0]) {
             towardsFoodMoves.add(Move.LEFT);
