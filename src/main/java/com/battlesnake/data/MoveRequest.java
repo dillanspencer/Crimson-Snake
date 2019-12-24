@@ -21,8 +21,8 @@ import java.util.ArrayList;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MoveRequest {
-  private String gameId; // UUID	 
-  private String id; // UUID
+  private String gameId; // UUID
+  private Snake you; // UUID
 
   private int turn; // The current turn.
   private int width; //integer	 
@@ -41,8 +41,9 @@ public class MoveRequest {
     return this.gameId;
   }
 
-  public String getYou() {
-    return this.id;
+  @JsonProperty("you")
+  public Snake getYou() {
+    return this.you;
   }
 
   public int getWidth() {
@@ -74,8 +75,8 @@ public class MoveRequest {
     this.gameId = gameId;
   }
 
-  public void setYou(String you) {
-    this.id = you;
+  public void setYou(Snake you) {
+    this.you = you;
   }
 
   public void setWidth(int width) {

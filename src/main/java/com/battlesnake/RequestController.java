@@ -62,7 +62,7 @@ public class RequestController {
      *  @return         Your team's snake
      */
     private Snake findOurSnake(MoveRequest request) {
-        String myUuid = request.getYou();
+        String myUuid = request.getYou().getId();
         List<Snake> snakes = request.getSnakes();
         return snakes.stream().filter(thisSnake -> thisSnake.getId().equals(myUuid)).findFirst().orElse(null);
     }
