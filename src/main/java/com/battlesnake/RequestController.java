@@ -26,9 +26,9 @@ public class RequestController {
     @RequestMapping(value="/start", method=RequestMethod.POST, produces="application/json")
     public StartResponse start(@RequestBody StartRequest request) {
         return new StartResponse()
-                .setName("Simple Snake")
+                .setName("Crimson Snake")
                 .setColor("#990000")
-                .setHeadType(HeadType.DEAD)
+                .setHeadType(HeadType.FANG)
                 .setTailType(TailType.PIXEL)
                 .setTaunt("Crimson Snakeee");
     }
