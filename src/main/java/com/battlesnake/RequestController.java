@@ -37,15 +37,16 @@ public class RequestController {
     public MoveResponse move(@RequestBody MoveRequest request) {
         MoveResponse moveResponse = new MoveResponse();
         
-        Snake mySnake = findOurSnake(request); // kind of handy to have our snake at this level
-        
-        List<Move> towardsFoodMoves = moveTowardsFood(request, mySnake.getCoords()[0]);
-        
-        if (towardsFoodMoves != null && !towardsFoodMoves.isEmpty()) {
-            return moveResponse.setMove(towardsFoodMoves.get(0)).setTaunt("I'm hungry");
-        } else {
-            return moveResponse.setMove(Move.DOWN).setTaunt("Oh Drat");
-        }
+//        Snake mySnake = findOurSnake(request); // kind of handy to have our snake at this level
+//
+//        List<Move> towardsFoodMoves = moveTowardsFood(request, mySnake.getCoords()[0]);
+//
+//        if (towardsFoodMoves != null && !towardsFoodMoves.isEmpty()) {
+//            return moveResponse.setMove(towardsFoodMoves.get(0)).setTaunt("I'm hungry");
+//        } else {
+//            return moveResponse.setMove(Move.DOWN).setTaunt("Oh Drat");
+//        }
+        return moveResponse.setMove(Move.RIGHT).setTaunt("SHIIT");
     }
 
     @RequestMapping(value="/end", method=RequestMethod.POST)
