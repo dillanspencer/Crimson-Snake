@@ -58,9 +58,9 @@ public class Board {
 
         //check up
         if(y != 0 && board[x][y-1] == Tile.EMPTY) return Move.UP;
-        else if(y != height && board[x][y+1] == Tile.EMPTY) return Move.DOWN;
+        else if(y != height - 1 && board[x][y+1] == Tile.EMPTY) return Move.DOWN;
         else if(x != 0 && board[x-1][y] == Tile.EMPTY) return  Move.LEFT;
-        else if(x != width && board[x+1][y] == Tile.EMPTY) return Move.RIGHT;
+        else if(x != width-1 && board[x+1][y] == Tile.EMPTY) return Move.RIGHT;
         return Move.RIGHT;
     }
 
