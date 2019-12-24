@@ -57,10 +57,10 @@ public class Board {
         int y = you().getHead().getY();
 
         //check up
-        if(board[x][y-1] == Tile.EMPTY) return Move.UP;
-        else if(board[x][y+1] == Tile.EMPTY) return Move.DOWN;
-        else if(board[x-1][y] == Tile.EMPTY) return  Move.LEFT;
-        else if(board[x+1][y] == Tile.EMPTY) return Move.RIGHT;
+        if(board[x][y-1] == Tile.EMPTY && y != 0) return Move.UP;
+        else if(board[x][y+1] == Tile.EMPTY && y != height) return Move.DOWN;
+        else if(board[x-1][y] == Tile.EMPTY && x != 0) return  Move.LEFT;
+        else if(board[x+1][y] == Tile.EMPTY && x != width) return Move.RIGHT;
         return Move.RIGHT;
     }
 
