@@ -41,6 +41,7 @@ public class MoveRequest {
     return this.gameId;
   }
 
+  @JsonProperty("you")
   public String getYou() {
     return this.you;
   }
