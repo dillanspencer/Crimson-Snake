@@ -1,14 +1,16 @@
 package com.battlesnake.data;
 
+import com.battlesnake.math.Point;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Board {
 
     private int width;
     private int height;
-    private int[][] food; //Array of all food currently on the board
+    private List<Point> food; //Array of all food currently on the board
     private ArrayList<Snake> snakes; //	Array of all living snakes in the game
     private ArrayList<Snake> deadSnakes; //Array of all dead snakes in the game
 
@@ -28,11 +30,12 @@ public class Board {
         this.height = height;
     }
 
-    public int[][] getFood() {
+    @JsonProperty("food")
+    public List<Point> getFood() {
         return food;
     }
 
-    public void setFood(int[][] food) {
+    public void setFood(List<Point> food) {
         this.food = food;
     }
 
