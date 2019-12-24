@@ -18,6 +18,8 @@ package com.battlesnake;
 
 import com.battlesnake.data.*;
 import java.util.*;
+
+import com.battlesnake.math.Point;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -78,21 +80,21 @@ public class RequestController {
     public ArrayList<Move> moveTowardsFood(MoveRequest request, int[] mySnakeHead) {
         ArrayList<Move> towardsFoodMoves = new ArrayList<>();
 
-        int[] firstFoodLocation = request.getBoard().getFood()[0];
+        Point firstFoodLocation = request.getBoard().getFood().get(0);
 
-        if (firstFoodLocation[0] < mySnakeHead[0]) {
+        if (firstFoodLocation.getX() < mySnakeHead[0]) {
             towardsFoodMoves.add(Move.LEFT);
         }
 
-        if (firstFoodLocation[0] > mySnakeHead[0]) {
+        if (firstFoodLocation.getX() > mySnakeHead[0]) {
             towardsFoodMoves.add(Move.RIGHT);
         }
 
-        if (firstFoodLocation[1] < mySnakeHead[1]) {
+        if (firstFoodLocation.getY() < mySnakeHead[1]) {
             towardsFoodMoves.add(Move.UP);
         }
 
-        if (firstFoodLocation[1] > mySnakeHead[1]) {
+        if (firstFoodLocation.getY() > mySnakeHead[1]) {
             towardsFoodMoves.add(Move.DOWN);
         }
 
