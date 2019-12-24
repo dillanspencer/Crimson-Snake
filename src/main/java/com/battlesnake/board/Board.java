@@ -21,6 +21,7 @@ public class Board {
     private Tile[][] board;
 
     private void setupBoard(){
+        this.board = new Tile[getWidth()][getHeight()];
         //set all values on the board to empty
         for(int y = 0; y < getHeight(); y++){
             for(int x = 0; x < getWidth(); x++){
