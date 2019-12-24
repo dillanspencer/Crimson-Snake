@@ -41,7 +41,7 @@ public class RequestController {
         
         Snake mySnake = findOurSnake(request); // kind of handy to have our snake at this level
 
-        List<Move> towardsFoodMoves = moveTowardsFood(request, mySnake.getCoords()[0]);
+        List<Move> towardsFoodMoves = moveTowardsFood(request, mySnake.getBody().get(0));
 
         if (towardsFoodMoves != null && !towardsFoodMoves.isEmpty()) {
             return moveResponse.setMove(towardsFoodMoves.get(0)).setTaunt("I'm hungry");
@@ -77,24 +77,24 @@ public class RequestController {
      *  @param  request An integer array with the X,Y coordinates of your snake's head
      *  @return         A Move that gets you closer to food
      */    
-    public ArrayList<Move> moveTowardsFood(MoveRequest request, int[] mySnakeHead) {
+    public ArrayList<Move> moveTowardsFood(MoveRequest request, Point mySnakeHead) {
         ArrayList<Move> towardsFoodMoves = new ArrayList<>();
 
         Point firstFoodLocation = request.getBoard().getFood().get(0);
 
-        if (firstFoodLocation.getX() < mySnakeHead[0]) {
+        if (firstFoodLocation.getX() < mySnakeHead.getX()) {
             towardsFoodMoves.add(Move.LEFT);
         }
 
-        if (firstFoodLocation.getX() > mySnakeHead[0]) {
+        if (firstFoodLocation.getX() > mySnakeHead.getX()) {
             towardsFoodMoves.add(Move.RIGHT);
         }
 
-        if (firstFoodLocation.getY() < mySnakeHead[1]) {
+        if (firstFoodLocation.getY() < mySnakeHead.getY()) {
             towardsFoodMoves.add(Move.UP);
         }
 
-        if (firstFoodLocation.getY() > mySnakeHead[1]) {
+        if (firstFoodLocation.getY() > mySnakeHead.getY()) {
             towardsFoodMoves.add(Move.DOWN);
         }
 

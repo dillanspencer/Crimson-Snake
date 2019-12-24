@@ -16,7 +16,9 @@
 
 package com.battlesnake.data;
 
+import com.battlesnake.math.Point;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.List;
 
 public class Snake {
 
@@ -24,7 +26,9 @@ public class Snake {
   private String name;      //string
   private String taunt;     // optional
   private int health; //0..100
-  private int[][] coords;   // array of coordinates 
+  private Point position;
+
+  private List<Point> body;
 
   public Snake() {
   }
@@ -37,6 +41,9 @@ public class Snake {
     return this.name;
   }
 
+  @JsonProperty("body")
+  public List<Point> getBody(){return this.body;}
+
   public String getTaunt() {
     return this.taunt;
   }
@@ -46,10 +53,7 @@ public class Snake {
     return this.health;
   }
 
-  public int[][] getCoords() {
-    return this.coords;
-  }
-
+  public Point getPosition(){return this.body.get(0);}
 
   public void setId(String id) {
     this.id = id;
@@ -67,8 +71,5 @@ public class Snake {
     this.health = health;
   }
 
-  public void setCoords(int[][] coords) {
-    this.coords = coords;
-  }
 
 }
