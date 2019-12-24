@@ -28,7 +28,7 @@ public class RequestController {
         return new StartResponse()
                 .setName("Simple Snake")
                 .setColor("#FF3497")
-                .setHeadUrl("http://vignette1.wikia.nocookie.net/nintendo/images/6/61/Bowser_Icon.png/revision/latest?cb=20120820000805&path-prefix=en")
+                .setHeadUrl("Nothing")
                 .setHeadType(HeadType.DEAD)
                 .setTailType(TailType.PIXEL)
                 .setTaunt("I can find food!");
