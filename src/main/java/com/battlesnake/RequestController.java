@@ -80,6 +80,9 @@ public class RequestController {
     public ArrayList<Move> moveTowardsFood(MoveRequest request, Point mySnakeHead) {
         ArrayList<Move> towardsFoodMoves = new ArrayList<>();
 
+        //if no food return
+        if(request.getBoard().getFood().isEmpty()) return null;
+
         Point firstFoodLocation = request.getBoard().getFood().get(0);
 
         if (firstFoodLocation.getX() < mySnakeHead.getX()) {
