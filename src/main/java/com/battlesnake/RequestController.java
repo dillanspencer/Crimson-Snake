@@ -27,11 +27,10 @@ public class RequestController {
     public StartResponse start(@RequestBody StartRequest request) {
         return new StartResponse()
                 .setName("Simple Snake")
-                .setColor("#FF3497")
-                .setHeadUrl("Nothing")
+                .setColor("#990000")
                 .setHeadType(HeadType.DEAD)
                 .setTailType(TailType.PIXEL)
-                .setTaunt("I can find food!");
+                .setTaunt("Crimson Snakeee");
     }
 
     @RequestMapping(value="/move", method=RequestMethod.POST, produces = "application/json")
