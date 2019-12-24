@@ -18,7 +18,7 @@ package com.battlesnake.data;
 
 public class MoveResponse {
   // required fields with default values
-  private Move move = Move.UP;
+  private Move move = Move.RIGHT;
 
 	// optional parameters
   private String taunt;
