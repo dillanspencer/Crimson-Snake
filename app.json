@@ -1,5 +1,5 @@
 {
   "name": "BattleSanake on Heroku: Java",
   "description": "A Simple BattleSnake Java app using SpringBoot, which can easily be deployed to Heroku.",
-  "repository": "https://github.com/xmatters-tko/xm-battlesnake-java.git"
+  "repository": "https://github.com/DillanSpencer/Crimson-Snake.git"
 }
