@@ -36,36 +36,60 @@ public class Snake {
     public Snake() {
     }
 
+    public int checkCollision(Snake other) {
+        for (int i = 0; i < other.getBody().size() - 1; i++) {
+            if (getHead().getX() == other.getBody().get(i).getX()) {
+                if (getHead().getY() == other.getBody().get(i).getY()) {
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
+
+    public boolean checkCollision(Point other) {
+        if (getHead().getX() == other.getX()) {
+            if (getHead().getY() == other.getY()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public boolean equals(Object other) {
         if (other instanceof Snake) return equals((Snake) other);
         return false;
     }
 
-    public boolean equals(Snake other){
+    public boolean equals(Snake other) {
         return getId().equals(other.getId());
     }
 
-    public Point getHead(){
+    public Point getHead() {
         return this.body.get(0);
     }
 
-    public boolean isDead(){
+    public Point getTail() {
+        return this.body.get(this.body.size() - 1);
+    }
+
+    public boolean isDead() {
         return getHealth() <= MIN_HEALTH;
     }
 
-    public boolean justAte(){
+    public boolean justAte() {
         return getHealth() == MAX_HEALTH;
     }
 
-    public int length(){
+    public int length() {
         return this.body.size();
     }
 
-    public boolean longerThan(int len){
+    public boolean longerThan(int len) {
         return length() > len;
     }
 
-    public boolean longerThan(Snake other){
+    public boolean longerThan(Snake other) {
         return longerThan(other.length());
     }
 
