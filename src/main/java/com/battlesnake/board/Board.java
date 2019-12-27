@@ -173,8 +173,12 @@ public class Board {
     }
 
     public Move getMove() {
-        int x = you().getHead().getX();
-        int y = you().getHead().getY();
+        Snake enemy = null;
+        for(Snake sn : snakes){
+            if(!sn.equals(you())){
+                enemy = sn;
+            }
+        }
         int[] score = {0, 0, 0, 0};
         int best = Board.MIN;
         Move move = Move.UP;
@@ -184,28 +188,28 @@ public class Board {
             Snake s = you();
             if (possibleMoves.get(i).equals(Move.UP)) {
                s.getHead().setY(s.getHead().getY() - 1);
-               score[0] = minimax(board, 0, false, s, snakes.get(0), Board.MAX, Board.MIN);
+               score[0] = minimax(board, 0, false, s, enemy, Board.MAX, Board.MIN);
                if(score[0] > best){
                    move = Move.UP;
                    best = score[0];
                }
             } else if (possibleMoves.get(i).equals(Move.DOWN)) {
                 s.getHead().setY(s.getHead().getY() + 1);
-                score[1] = minimax(board, 0, false, s, snakes.get(0), Board.MAX, Board.MIN);
+                score[1] = minimax(board, 0, false, s, enemy, Board.MAX, Board.MIN);
                 if(score[1] > best){
                     move = Move.DOWN;
                     best = score[1];
                 }
             } else if (possibleMoves.get(i).equals(Move.LEFT)) {
                 s.getHead().setX(s.getHead().getX() - 1);
-                score[2] = minimax(board, 0, false, s, snakes.get(0), Board.MAX, Board.MIN);
+                score[2] = minimax(board, 0, false, s, enemy, Board.MAX, Board.MIN);
                 if(score[2] > best){
                     move = Move.LEFT;
                     best = score[2];
                 }
             } else if (possibleMoves.get(i).equals(Move.RIGHT)) {
                 s.getHead().setX(s.getHead().getX() + 1);
-                score[3] = minimax(board, 0, false, s, snakes.get(0), Board.MAX, Board.MIN);
+                score[3] = minimax(board, 0, false, s, enemy, Board.MAX, Board.MIN);
                 if(score[3] > best){
                     move = Move.RIGHT;
                     best = score[3];
