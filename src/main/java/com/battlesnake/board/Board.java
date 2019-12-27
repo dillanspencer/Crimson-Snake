@@ -101,7 +101,6 @@ public class Board {
         Tile[][] currentBoard = board;
         Point position = current.getHead();
         List<Move> possibleMoves = getPossibleMoves(currentBoard, position);
-        System.out.println("X: " + position.getX() + ", Y: " + position.getY());
 
         //check if dead
         if (checkCollision(position, enemy)) {
@@ -113,6 +112,8 @@ public class Board {
         }
 
         if (isMaximizing) {
+            System.out.println("Maximizing - X: " + position.getX() + ", Y: " + position.getY());
+
             int best = Board.MIN;
 
             for (int i = 0; i < possibleMoves.size() - 1; i++) {
@@ -142,6 +143,7 @@ public class Board {
             }
             return best;
         } else {
+            System.out.println("Minimizing - X: " + position.getX() + ", Y: " + position.getY());
             int best = Board.MAX;
 
             for (int i = 0; i < possibleMoves.size() - 1; i++) {
