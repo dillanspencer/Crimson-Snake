@@ -57,6 +57,7 @@ public class Board {
         }
 
         //fill dead snakes
+        if(!deadSnakes.isEmpty())
         for (Snake s : deadSnakes) {
             List<Point> body = s.getBody();
             for (int i = 0; i < body.size(); i++) {
