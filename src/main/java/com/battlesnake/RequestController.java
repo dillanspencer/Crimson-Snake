@@ -46,7 +46,7 @@ public class RequestController {
 
         List<Move> towardsFoodMoves = moveTowardsFood(request, mySnake.getBody().get(0));
 
-        if(mySnake.getHealth() < 30) {
+        if(mySnake.getHealth() < 10) {
             if (towardsFoodMoves != null && !towardsFoodMoves.isEmpty()) {
                 return moveResponse.setMove(towardsFoodMoves.get(0)).setTaunt("I'm hungry");
             }
