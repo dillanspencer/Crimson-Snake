@@ -55,15 +55,6 @@ public class Board {
                 }
             }
         }
-
-        //fill dead snakes
-        if(!deadSnakes.isEmpty())
-        for (Snake s : deadSnakes) {
-            List<Point> body = s.getBody();
-            for (int i = 0; i < body.size(); i++) {
-                board[body.get(i).getX()][body.get(i).getY()] = Tile.EMPTY;
-            }
-        }
     }
 
 
