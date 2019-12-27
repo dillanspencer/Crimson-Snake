@@ -161,7 +161,7 @@ public class Board {
                     current.getHead().setX(position.getX() + 1);
                 }
 
-                int val = minimax(currentBoard, depth + 1, true, current, enemy, alpha, beta);
+                int val = minimax(currentBoard, depth + 1, true, enemy, current, alpha, beta);
                 best = Math.min(best, val);
                 beta = Math.min(beta, best);
 
