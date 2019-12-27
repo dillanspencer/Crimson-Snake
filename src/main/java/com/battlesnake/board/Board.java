@@ -178,10 +178,8 @@ public class Board {
 
 
         int score = minimax(board, 0, false, you(), snakes.get(0), Board.MIN, Board.MAX);
-        if (score > Board.MAX) {
-            return Move.UP;
-        }
-            
+        System.out.println(score);
+
         return Move.DOWN;
     }
 
