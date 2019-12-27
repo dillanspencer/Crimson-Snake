@@ -51,7 +51,9 @@ public class RequestController {
 //                return moveResponse.setMove(towardsFoodMoves.get(0)).setTaunt("I'm hungry");
 //            }
 //        }
-        return moveResponse.setMove(board.getMove());
+        Move move = board.getMove();
+        System.out.println("Our Snake moved: " + move.getName());
+        return moveResponse.setMove(move);
     }
 
     @RequestMapping(value="/end", method=RequestMethod.POST)
