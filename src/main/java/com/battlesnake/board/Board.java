@@ -182,7 +182,7 @@ public class Board {
         int[] score = {0, 0, 0, 0};
         int best = Board.MIN;
         Move move = Move.UP;
-        List<Move> possibleMoves = getPossibleMoves(you().getHead());
+        List<Move> possibleMoves = getPossibleMoves(board, you().getHead());
 
         for(int i = 0; i < possibleMoves.size() - 1; i++){
             Snake s = you();
