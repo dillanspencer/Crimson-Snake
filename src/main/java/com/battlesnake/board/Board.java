@@ -57,31 +57,31 @@ public class Board {
         }
     }
 
-    private List<Move> getPossibleMoves(Point point) {
+    private List<Move> getPossibleMoves(Tile[][] currentBoard, Point point) {
         int x = point.getX();
         int y = point.getY();
         List<Move> moves = new ArrayList<>();
 
         // Check all directions
         for (int i = 0; i < 4; i++) {
-            if (x != 0 && (board[x - 1][y] == Tile.EMPTY || board[x - 1][y] == Tile.FOOD)) {
+            if (x != 0 && (currentBoard[x - 1][y] == Tile.EMPTY || currentBoard[x - 1][y] == Tile.FOOD)) {
                 moves.add(Move.LEFT);
             }
-            if (x != width - 1 && (board[x + 1][y] == Tile.EMPTY || board[x + 1][y] == Tile.FOOD)) {
+            if (x != width - 1 && (currentBoard[x + 1][y] == Tile.EMPTY || currentBoard[x + 1][y] == Tile.FOOD)) {
                 moves.add(Move.RIGHT);
             }
-            if (y != 0 && (board[x][y - 1] == Tile.EMPTY || board[x][y - 1] == Tile.FOOD)) {
+            if (y != 0 && (currentBoard[x][y - 1] == Tile.EMPTY || currentBoard[x][y - 1] == Tile.FOOD)) {
                 moves.add(Move.UP);
             }
-            if (y != height - 1 && (board[x][y + 1] == Tile.EMPTY || board[x][y + 1] == Tile.FOOD)) {
+            if (y != height - 1 && (currentBoard[x][y + 1] == Tile.EMPTY || currentBoard[x][y + 1] == Tile.FOOD)) {
                 moves.add(Move.DOWN);
             }
         }
         return moves;
     }
 
-    private boolean isAnyMoves(Point point) {
-        return !getPossibleMoves(point).isEmpty();
+    private boolean isAnyMoves(Tile[][] currentBoard, Point point) {
+        return !getPossibleMoves(currentBoard, point).isEmpty();
     }
 
     private boolean checkCollision(Point head, Snake other) {
@@ -99,7 +99,7 @@ public class Board {
 
         Tile[][] currentBoard = board;
         Point position = current.getHead();
-        List<Move> possibleMoves = getPossibleMoves(position);
+        List<Move> possibleMoves = getPossibleMoves(currentBoard, position);
 
         //check if dead
         if (checkCollision(position, enemy)) {
