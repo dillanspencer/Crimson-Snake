@@ -64,16 +64,16 @@ public class Board {
 
         // Check all directions
         for (int i = 0; i < 4; i++) {
-            if (x != 0 && (board[x - 1][y] == Tile.EMPTY || board[x - 1][y] == Tile.FOOD || board[x - 1][y] == Tile.TAIL)) {
+            if (x != 0 && (board[x - 1][y] == Tile.EMPTY || board[x - 1][y] == Tile.FOOD)) {
                 moves.add(Move.LEFT);
             }
-            if (x != width - 1 && (board[x + 1][y] == Tile.EMPTY || board[x + 1][y] == Tile.FOOD || board[x + 1][y] == Tile.TAIL)) {
+            if (x != width - 1 && (board[x + 1][y] == Tile.EMPTY || board[x + 1][y] == Tile.FOOD)) {
                 moves.add(Move.RIGHT);
             }
-            if (y != 0 && (board[x][y - 1] == Tile.EMPTY || board[x][y - 1] == Tile.FOOD || board[x][y - 1] == Tile.TAIL)) {
+            if (y != 0 && (board[x][y - 1] == Tile.EMPTY || board[x][y - 1] == Tile.FOOD)) {
                 moves.add(Move.UP);
             }
-            if (y != height - 1 && (board[x][y + 1] == Tile.EMPTY || board[x][y + 1] == Tile.FOOD || board[x][y + 1] == Tile.TAIL)) {
+            if (y != height - 1 && (board[x][y + 1] == Tile.EMPTY || board[x][y + 1] == Tile.FOOD)) {
                 moves.add(Move.DOWN);
             }
         }
