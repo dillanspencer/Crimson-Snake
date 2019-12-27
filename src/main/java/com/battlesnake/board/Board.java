@@ -65,7 +65,6 @@ public class Board {
         }
     }
 
-}
 
     private List<Move> getPossibleMoves(Tile[][] currentBoard, Point point) {
         int x = point.getX();
