@@ -118,15 +118,15 @@ public class Board {
                     //change to head later
                     currentBoard[position.getX()][position.getY() - 1] = Tile.WALL;
                     current.getHead().setY(position.getY() - 1);
-                }else if (possibleMoves.get(i).equals(Move.DOWN)) {
+                } else if (possibleMoves.get(i).equals(Move.DOWN)) {
                     //change to head later
                     currentBoard[position.getX()][position.getY() + 1] = Tile.WALL;
                     current.getHead().setY(position.getY() + 1);
-                }else if (possibleMoves.get(i).equals(Move.LEFT)) {
+                } else if (possibleMoves.get(i).equals(Move.LEFT)) {
                     //change to head later
                     currentBoard[position.getX() - 1][position.getY()] = Tile.WALL;
                     current.getHead().setX(position.getX() - 1);
-                }else if (possibleMoves.get(i).equals(Move.RIGHT)) {
+                } else if (possibleMoves.get(i).equals(Move.RIGHT)) {
                     //change to head later
                     currentBoard[position.getX() + 1][position.getY()] = Tile.WALL;
                     current.getHead().setX(position.getX() + 1);
@@ -139,7 +139,7 @@ public class Board {
                 if (beta <= alpha) break;
             }
             return best;
-        }else{
+        } else {
             int best = Board.MAX;
 
             for (int i = 0; i < possibleMoves.size() - 1; i++) {
@@ -147,15 +147,15 @@ public class Board {
                     //change to head later
                     currentBoard[position.getX()][position.getY() - 1] = Tile.WALL;
                     current.getHead().setY(position.getY() - 1);
-                }else if (possibleMoves.get(i).equals(Move.DOWN)) {
+                } else if (possibleMoves.get(i).equals(Move.DOWN)) {
                     //change to head later
                     currentBoard[position.getX()][position.getY() + 1] = Tile.WALL;
                     current.getHead().setY(position.getY() + 1);
-                }else if (possibleMoves.get(i).equals(Move.LEFT)) {
+                } else if (possibleMoves.get(i).equals(Move.LEFT)) {
                     //change to head later
                     currentBoard[position.getX() - 1][position.getY()] = Tile.WALL;
                     current.getHead().setX(position.getX() - 1);
-                }else if (possibleMoves.get(i).equals(Move.RIGHT)) {
+                } else if (possibleMoves.get(i).equals(Move.RIGHT)) {
                     //change to head later
                     currentBoard[position.getX() + 1][position.getY()] = Tile.WALL;
                     current.getHead().setX(position.getX() + 1);
@@ -172,67 +172,67 @@ public class Board {
         }
     }
 
-        public Move getMove () {
-            int x = you().getHead().getX();
-            int y = you().getHead().getY();
+    public Move getMove() {
+        int x = you().getHead().getX();
+        int y = you().getHead().getY();
 
-            if(snakes.size() > 1) {
-                int score = minimax(board, 0, false, you(), snakes.get(0), Board.MIN, Board.MAX);
-                if (score > Board.MAX) {
-                    return Move.UP;
-                }
-            }
-            return Move.DOWN;
-        }
 
-        public void init (Snake you){
-            this.you = you;
-            setupBoard();
+        int score = minimax(board, 0, false, you(), snakes.get(0), Board.MIN, Board.MAX);
+        if (score > Board.MAX) {
+            return Move.UP;
         }
-
-        private Snake you () {
-            return you;
-        }
-
-        public int getWidth () {
-            return width;
-        }
-
-        public void setWidth ( int width){
-            this.width = width;
-        }
-
-        public int getHeight () {
-            return height;
-        }
-
-        public void setHeight ( int height){
-            this.height = height;
-        }
-
-        @JsonProperty("food")
-        public List<Point> getFood () {
-            return food;
-        }
-
-        public void setFood (List < Point > food) {
-            this.food = food;
-        }
-
-        public ArrayList<Snake> getSnakes () {
-            return snakes;
-        }
-
-        public void setSnakes (ArrayList < Snake > snakes) {
-            this.snakes = snakes;
-        }
-
-        @JsonProperty("dead_snakes")
-        public ArrayList<Snake> getDeadSnakes () {
-            return this.deadSnakes;
-        }
-
-        public void setDeadSnakes (ArrayList < Snake > deadSnakes) {
-            this.deadSnakes = deadSnakes;
-        }
+            
+        return Move.DOWN;
     }
+
+    public void init(Snake you) {
+        this.you = you;
+        setupBoard();
+    }
+
+    private Snake you() {
+        return you;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    @JsonProperty("food")
+    public List<Point> getFood() {
+        return food;
+    }
+
+    public void setFood(List<Point> food) {
+        this.food = food;
+    }
+
+    public ArrayList<Snake> getSnakes() {
+        return snakes;
+    }
+
+    public void setSnakes(ArrayList<Snake> snakes) {
+        this.snakes = snakes;
+    }
+
+    @JsonProperty("dead_snakes")
+    public ArrayList<Snake> getDeadSnakes() {
+        return this.deadSnakes;
+    }
+
+    public void setDeadSnakes(ArrayList<Snake> deadSnakes) {
+        this.deadSnakes = deadSnakes;
+    }
+}
