@@ -67,19 +67,15 @@ public class Board {
         for (int i = 0; i < 4; i++) {
             if (x != 0 && (currentBoard[x - 1][y] == Tile.EMPTY || currentBoard[x - 1][y] == Tile.FOOD)) {
                 moves.add(Move.LEFT);
-                System.out.println("X: " + x + ", Y: " + y);
             }
             if (x != width - 1 && (currentBoard[x + 1][y] == Tile.EMPTY || currentBoard[x + 1][y] == Tile.FOOD)) {
                 moves.add(Move.RIGHT);
-                System.out.println("X: " + x + ", Y: " + y);
             }
             if (y != 0 && (currentBoard[x][y - 1] == Tile.EMPTY || currentBoard[x][y - 1] == Tile.FOOD)) {
                 moves.add(Move.UP);
-                System.out.println("X: " + x + ", Y: " + y);
             }
             if (y != height - 1 && (currentBoard[x][y + 1] == Tile.EMPTY || currentBoard[x][y + 1] == Tile.FOOD)) {
                 moves.add(Move.DOWN);
-                System.out.println("X: " + x + ", Y: " + y);
             }
         }
         return moves;
@@ -105,6 +101,7 @@ public class Board {
         Tile[][] currentBoard = board;
         Point position = current.getHead();
         List<Move> possibleMoves = getPossibleMoves(currentBoard, position);
+        System.out.println("X: " + position.getX() + ", Y: " + position.getY());
 
         //check if dead
         if (checkCollision(position, enemy)) {
