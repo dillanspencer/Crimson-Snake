@@ -134,7 +134,7 @@ public class Board {
                     currentBoard[position.getX() + 1][position.getY()] = Tile.WALL;
                     current.getHead().setX(position.getX() + 1);
                 }
-                int val = minimax(currentBoard, depth + 1, false, current, enemy, alpha, beta);
+                int val = minimax(currentBoard, depth + 1, false, enemy, current, alpha, beta);
                 best = Math.max(best, val);
                 alpha = Math.max(alpha, best);
 
@@ -165,7 +165,7 @@ public class Board {
                     current.getHead().setX(position.getX() + 1);
                 }
 
-                int val = minimax(currentBoard, depth + 1, true, current, enemy, alpha, beta);
+                int val = minimax(currentBoard, depth + 1, true, enemy, current, alpha, beta);
                 best = Math.min(best, val);
                 beta = Math.min(beta, best);
 
