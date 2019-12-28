@@ -193,6 +193,7 @@ public class Board {
 
     public Move getMove() {
         Snake enemy = null;
+        int count = 0;
         for (Snake sn : snakes) {
             if (!sn.equals(you())) {
                 enemy = sn;
@@ -208,6 +209,7 @@ public class Board {
             if (possibleMoves.get(i).equals(Move.UP)) {
                 s.getHead().setY(s.getHead().getY() - 1);
                 score[0] = minimax(board, 0, true, s, enemy, Board.MAX, Board.MIN);
+                count++;
                 if (score[0] > best) {
                     move = Move.UP;
                     best = score[0];
@@ -215,6 +217,7 @@ public class Board {
             } else if (possibleMoves.get(i).equals(Move.DOWN)) {
                 s.getHead().setY(s.getHead().getY() + 1);
                 score[1] = minimax(board, 0, true, s, enemy, Board.MAX, Board.MIN);
+                count++;
                 if (score[1] > best) {
                     move = Move.DOWN;
                     best = score[1];
@@ -222,6 +225,7 @@ public class Board {
             } else if (possibleMoves.get(i).equals(Move.LEFT)) {
                 s.getHead().setX(s.getHead().getX() - 1);
                 score[2] = minimax(board, 0, true, s, enemy, Board.MAX, Board.MIN);
+                count++;
                 if (score[2] > best) {
                     move = Move.LEFT;
                     best = score[2];
@@ -229,6 +233,7 @@ public class Board {
             } else if (possibleMoves.get(i).equals(Move.RIGHT)) {
                 s.getHead().setX(s.getHead().getX() + 1);
                 score[3] = minimax(board, 0, true, s, enemy, Board.MAX, Board.MIN);
+                count++;
                 if (score[3] > best) {
                     move = Move.RIGHT;
                     best = score[3];
@@ -237,7 +242,7 @@ public class Board {
                 System.out.println("WTF BRO");
             }
         }
-
+        System.out.println(count);
         return move;
     }
 
