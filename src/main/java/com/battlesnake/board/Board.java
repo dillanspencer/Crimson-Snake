@@ -106,6 +106,7 @@ public class Board {
 
         Tile[][] currentBoard = board;
         Point position = current.getHead();
+        Point tail = current.getTail();
         List<Move> possibleMoves = getPossibleMoves(currentBoard, position);
 
         //check if dead
@@ -126,18 +127,22 @@ public class Board {
                 if (possibleMoves.get(i).equals(Move.UP)) {
                     //change to head later
                     currentBoard[position.getX()][position.getY() - 1] = Tile.WALL;
+                    currentBoard[tail.getX()][tail.getY()] = Tile.EMPTY;
                     current.getHead().setY(position.getY() - 1);
                 } else if (possibleMoves.get(i).equals(Move.DOWN)) {
                     //change to head later
                     currentBoard[position.getX()][position.getY() + 1] = Tile.WALL;
+                    currentBoard[tail.getX()][tail.getY()] = Tile.EMPTY;
                     current.getHead().setY(position.getY() + 1);
                 } else if (possibleMoves.get(i).equals(Move.LEFT)) {
                     //change to head later
                     currentBoard[position.getX() - 1][position.getY()] = Tile.WALL;
+                    currentBoard[tail.getX()][tail.getY()] = Tile.EMPTY;
                     current.getHead().setX(position.getX() - 1);
                 } else if (possibleMoves.get(i).equals(Move.RIGHT)) {
                     //change to head later
                     currentBoard[position.getX() + 1][position.getY()] = Tile.WALL;
+                    currentBoard[tail.getX()][tail.getY()] = Tile.EMPTY;
                     current.getHead().setX(position.getX() + 1);
                 }
                 int val = minimax(currentBoard, depth + 1, false, enemy, current, alpha, beta);
@@ -156,18 +161,22 @@ public class Board {
                 if (possibleMoves.get(i).equals(Move.UP)) {
                     //change to head later
                     currentBoard[position.getX()][position.getY() - 1] = Tile.WALL;
+                    currentBoard[tail.getX()][tail.getY()] = Tile.EMPTY;
                     current.getHead().setY(position.getY() - 1);
                 } else if (possibleMoves.get(i).equals(Move.DOWN)) {
                     //change to head later
                     currentBoard[position.getX()][position.getY() + 1] = Tile.WALL;
+                    currentBoard[tail.getX()][tail.getY()] = Tile.EMPTY;
                     current.getHead().setY(position.getY() + 1);
                 } else if (possibleMoves.get(i).equals(Move.LEFT)) {
                     //change to head later
                     currentBoard[position.getX() - 1][position.getY()] = Tile.WALL;
+                    currentBoard[tail.getX()][tail.getY()] = Tile.EMPTY;
                     current.getHead().setX(position.getX() - 1);
                 } else if (possibleMoves.get(i).equals(Move.RIGHT)) {
                     //change to head later
                     currentBoard[position.getX() + 1][position.getY()] = Tile.WALL;
+                    currentBoard[tail.getX()][tail.getY()] = Tile.EMPTY;
                     current.getHead().setX(position.getX() + 1);
                 }
 
