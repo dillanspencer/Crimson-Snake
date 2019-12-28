@@ -191,7 +191,7 @@ public class Board {
         }
         int[] score = {0, 0, 0, 0};
         int best = Board.MIN;
-        Move move = Move.UP;
+        Move move = Move.RIGHT;
         List<Move> possibleMoves = getPossibleMoves(board, you().getHead());
 
         for (int i = 0; i < possibleMoves.size() - 1; i++) {
@@ -224,6 +224,8 @@ public class Board {
                     move = Move.RIGHT;
                     best = score[3];
                 }
+            }else{
+                System.out.println("WTF BRO");
             }
         }
 
