@@ -63,21 +63,19 @@ public class Board {
         int y = point.getY();
         List<Move> moves = new ArrayList<>();
 
-        // Check all directions
-        for (int i = 0; i < 4; i++) {
-            if (x != 0 && (currentBoard[x - 1][y] == Tile.EMPTY || currentBoard[x - 1][y] == Tile.FOOD)) {
-                moves.add(Move.LEFT);
-            }
-            if (x != width - 1 && (currentBoard[x + 1][y] == Tile.EMPTY || currentBoard[x + 1][y] == Tile.FOOD)) {
-                moves.add(Move.RIGHT);
-            }
-            if (y != 0 && (currentBoard[x][y - 1] == Tile.EMPTY || currentBoard[x][y - 1] == Tile.FOOD)) {
-                moves.add(Move.UP);
-            }
-            if (y != height - 1 && (currentBoard[x][y + 1] == Tile.EMPTY || currentBoard[x][y + 1] == Tile.FOOD)) {
-                moves.add(Move.DOWN);
-            }
+        if (x != 0 && (currentBoard[x - 1][y] == Tile.EMPTY || currentBoard[x - 1][y] == Tile.FOOD)) {
+            moves.add(Move.LEFT);
         }
+        if (x != width - 1 && (currentBoard[x + 1][y] == Tile.EMPTY || currentBoard[x + 1][y] == Tile.FOOD)) {
+            moves.add(Move.RIGHT);
+        }
+        if (y != 0 && (currentBoard[x][y - 1] == Tile.EMPTY || currentBoard[x][y - 1] == Tile.FOOD)) {
+            moves.add(Move.UP);
+        }
+        if (y != height - 1 && (currentBoard[x][y + 1] == Tile.EMPTY || currentBoard[x][y + 1] == Tile.FOOD)) {
+            moves.add(Move.DOWN);
+        }
+
         return moves;
     }
 
