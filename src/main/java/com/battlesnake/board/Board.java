@@ -119,7 +119,7 @@ public class Board {
         }
 
         if (isMaximizing) {
-            System.out.println("Maximizing - X: " + position.getX() + ", Y: " + position.getY());
+            System.out.println(current.getName() + " - X: " + position.getX() + ", Y: " + position.getY());
 
             int best = Board.MIN;
 
@@ -154,7 +154,7 @@ public class Board {
             }
             return best;
         } else {
-            System.out.println("Minimizing - X: " + position.getX() + ", Y: " + position.getY());
+            System.out.println(current.getName() + " - X: " + position.getX() + ", Y: " + position.getY());
             int best = Board.MAX;
 
             for (int i = 0; i < possibleMoves.size() - 1; i++) {
