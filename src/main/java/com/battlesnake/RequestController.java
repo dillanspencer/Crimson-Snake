@@ -44,7 +44,7 @@ public class RequestController {
         Board board = request.getBoard();
         board.init(mySnake);
 
-        List<Move> towardsFoodMoves = moveTowardsFood(request, mySnake.getBody().get(0));
+        //List<Move> towardsFoodMoves = moveTowardsFood(request, mySnake.getBody().get(0));
 
 //        if(mySnake.getHealth() < 10) {
 //            if (towardsFoodMoves != null && !towardsFoodMoves.isEmpty()) {

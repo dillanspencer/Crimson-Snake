@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="46bd0b6d-50db-478d-9e88-8277900b7779" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/battlesnake/RequestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/battlesnake/RequestController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/battlesnake/board/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/battlesnake/board/Board.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/battlesnake/board/Tile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/battlesnake/board/Tile.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -16,11 +18,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/battlesnake/RequestController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="48" column="40" lean-forward="true" selection-start-line="48" selection-start-column="40" selection-end-line="48" selection-end-column="40" />
+            <state relative-caret-position="374">
+              <caret line="46" column="10" selection-start-line="46" selection-start-column="10" selection-end-line="46" selection-end-column="10" />
               <folding>
                 <element signature="e#2265#2281#0" expanded="true" />
-                <marker date="1577490937816" expanded="true" signature="1824:2002" ph="..." />
+                <marker date="1577492341875" expanded="true" signature="1826:2004" ph="..." />
               </folding>
             </state>
           </provider>
@@ -47,32 +49,21 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/battlesnake/board/Board.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="73" column="9" lean-forward="true" selection-start-line="73" selection-start-column="9" selection-end-line="73" selection-end-column="9" />
+            <state relative-caret-position="357">
+              <caret line="116" column="30" selection-start-line="116" selection-start-column="30" selection-end-line="116" selection-end-column="30" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#9265#9266#0" expanded="true" />
-                <element signature="e#9291#9292#0" expanded="true" />
-                <element signature="e#9320#9321#0" expanded="true" />
-                <element signature="e#9348#9349#0" expanded="true" />
-                <element signature="e#9387#9388#0" expanded="true" />
-                <element signature="e#9421#9422#0" expanded="true" />
-                <element signature="e#9451#9452#0" expanded="true" />
-                <element signature="e#9480#9481#0" expanded="true" />
-                <element signature="e#9521#9522#0" expanded="true" />
-                <element signature="e#9557#9558#0" expanded="true" />
-                <element signature="e#9619#9620#0" expanded="true" />
-                <element signature="e#9646#9647#0" expanded="true" />
-                <element signature="e#9691#9692#0" expanded="true" />
-                <element signature="e#9723#9724#0" expanded="true" />
-                <element signature="e#9766#9767#0" expanded="true" />
-                <element signature="e#9795#9796#0" expanded="true" />
-                <element signature="e#9849#9850#0" expanded="true" />
-                <element signature="e#9885#9886#0" expanded="true" />
-                <element signature="e#9965#9966#0" expanded="true" />
-                <element signature="e#10003#10004#0" expanded="true" />
-                <element signature="e#10065#10066#0" expanded="true" />
-                <element signature="e#10109#10110#0" expanded="true" />
+                <element signature="e#9136#9137#0" expanded="true" />
+                <element signature="e#9193#9194#0" expanded="true" />
+                <element signature="e#9266#9267#0" expanded="true" />
+                <element signature="e#9325#9326#0" expanded="true" />
+                <element signature="e#9402#9403#0" expanded="true" />
+                <element signature="e#9491#9492#0" expanded="true" />
+                <element signature="e#9568#9569#0" expanded="true" />
+                <element signature="e#9640#9641#0" expanded="true" />
+                <element signature="e#9730#9731#0" expanded="true" />
+                <element signature="e#9848#9849#0" expanded="true" />
+                <element signature="e#9954#9955#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -148,10 +139,10 @@
         <option value="$PROJECT_DIR$/src/main/java/com/battlesnake/data/MoveRequest.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/battlesnake/math/Point.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/battlesnake/data/Board.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/battlesnake/board/Tile.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/battlesnake/board/State.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/battlesnake/data/Snake.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/battlesnake/RequestController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/battlesnake/board/Tile.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/battlesnake/board/Board.java" />
       </list>
     </option>
@@ -228,7 +219,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1577491772271" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1577492720609" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RunDashboard">
@@ -396,13 +387,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/battlesnake/board/Tile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="7" selection-start-line="8" selection-start-column="7" selection-end-line="8" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/battlesnake/board/State.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
@@ -449,43 +433,39 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/battlesnake/RequestController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="48" column="40" lean-forward="true" selection-start-line="48" selection-start-column="40" selection-end-line="48" selection-end-column="40" />
+        <state relative-caret-position="374">
+          <caret line="46" column="10" selection-start-line="46" selection-start-column="10" selection-end-line="46" selection-end-column="10" />
           <folding>
             <element signature="e#2265#2281#0" expanded="true" />
-            <marker date="1577490937816" expanded="true" signature="1824:2002" ph="..." />
+            <marker date="1577492341875" expanded="true" signature="1826:2004" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/battlesnake/board/Tile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="7" selection-start-line="8" selection-start-column="7" selection-end-line="8" selection-end-column="7" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/battlesnake/board/Board.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="73" column="9" lean-forward="true" selection-start-line="73" selection-start-column="9" selection-end-line="73" selection-end-column="9" />
+        <state relative-caret-position="357">
+          <caret line="116" column="30" selection-start-line="116" selection-start-column="30" selection-end-line="116" selection-end-column="30" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#9265#9266#0" expanded="true" />
-            <element signature="e#9291#9292#0" expanded="true" />
-            <element signature="e#9320#9321#0" expanded="true" />
-            <element signature="e#9348#9349#0" expanded="true" />
-            <element signature="e#9387#9388#0" expanded="true" />
-            <element signature="e#9421#9422#0" expanded="true" />
-            <element signature="e#9451#9452#0" expanded="true" />
-            <element signature="e#9480#9481#0" expanded="true" />
-            <element signature="e#9521#9522#0" expanded="true" />
-            <element signature="e#9557#9558#0" expanded="true" />
-            <element signature="e#9619#9620#0" expanded="true" />
-            <element signature="e#9646#9647#0" expanded="true" />
-            <element signature="e#9691#9692#0" expanded="true" />
-            <element signature="e#9723#9724#0" expanded="true" />
-            <element signature="e#9766#9767#0" expanded="true" />
-            <element signature="e#9795#9796#0" expanded="true" />
-            <element signature="e#9849#9850#0" expanded="true" />
-            <element signature="e#9885#9886#0" expanded="true" />
-            <element signature="e#9965#9966#0" expanded="true" />
-            <element signature="e#10003#10004#0" expanded="true" />
-            <element signature="e#10065#10066#0" expanded="true" />
-            <element signature="e#10109#10110#0" expanded="true" />
+            <element signature="e#9136#9137#0" expanded="true" />
+            <element signature="e#9193#9194#0" expanded="true" />
+            <element signature="e#9266#9267#0" expanded="true" />
+            <element signature="e#9325#9326#0" expanded="true" />
+            <element signature="e#9402#9403#0" expanded="true" />
+            <element signature="e#9491#9492#0" expanded="true" />
+            <element signature="e#9568#9569#0" expanded="true" />
+            <element signature="e#9640#9641#0" expanded="true" />
+            <element signature="e#9730#9731#0" expanded="true" />
+            <element signature="e#9848#9849#0" expanded="true" />
+            <element signature="e#9954#9955#0" expanded="true" />
           </folding>
         </state>
       </provider>

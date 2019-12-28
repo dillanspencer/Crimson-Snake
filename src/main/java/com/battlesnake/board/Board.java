@@ -54,6 +54,12 @@ public class Board {
                     board[body.get(i).getX()][body.get(i).getY()] = Tile.WALL;
                 }
             }
+            if (snake.equals(you())) {
+                board[head.getX()][head.getY()] = Tile.ME;
+            }
+            else {
+                board[head.getX()][head.getY()] = Tile.HEADS;
+            }
         }
     }
 
@@ -83,10 +89,12 @@ public class Board {
         return !getPossibleMoves(currentBoard, point).isEmpty();
     }
 
-    private boolean checkCollision(Point head, Snake other) {
+    private boolean checkCollision(Snake snake, Snake other) {
+        Point head = snake.getHead();
         for (int i = 0; i < other.getBody().size() - 1; i++) {
             if (head.getX() == other.getBody().get(i).getX()) {
                 if (head.getX() == other.getBody().get(i).getY()) {
+                    if(i == 0 && other.longerThan(snake)) continue;
                     return true;
                 }
             }
@@ -101,9 +109,9 @@ public class Board {
         List<Move> possibleMoves = getPossibleMoves(currentBoard, position);
 
         //check if dead
-        if (checkCollision(position, enemy)) {
+        if (checkCollision(current, enemy)) {
             return Board.MIN;
-        } else if (checkCollision(enemy.getHead(), you())) {
+        } else if (checkCollision(enemy, you())) {
             return Board.MAX;
         } else if (depth == 3) {
             return Board.NONE;
