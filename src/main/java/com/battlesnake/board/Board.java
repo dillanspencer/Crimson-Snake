@@ -230,7 +230,6 @@ public class Board {
 
     public Move getMove() {
         Snake enemy = null;
-        int count = 0;
         for (Snake sn : snakes) {
             if (!sn.equals(you())) {
                 enemy = sn;
@@ -239,42 +238,39 @@ public class Board {
         int[] score = {0, 0, 0, 0};
         int best = Board.MIN;
         Move move = Move.RIGHT;
+        Tile[][] currBoard = board;
         List<Move> possibleMoves = getPossibleMoves(board, you().getHead());
 
         for (int i = 0; i < possibleMoves.size() - 1; i++) {
             Snake s = you();
             if (possibleMoves.get(i).equals(Move.UP)) {
                 System.out.println("UP");
-                s.getHead().setY(s.getHead().getY() - 1);
+                applyMove(currBoard, s, Move.UP);
                 score[0] = minimax(board, 0, true, s, enemy, Board.MAX, Board.MIN);
-                count++;
                 if (score[0] > best) {
                     move = Move.UP;
                     best = score[0];
                 }
             } else if (possibleMoves.get(i).equals(Move.DOWN)) {
                 System.out.println("DOWN");
-                s.getHead().setY(s.getHead().getY() + 1);
+                applyMove(currBoard, s, Move.DOWN);
                 score[1] = minimax(board, 0, true, s, enemy, Board.MAX, Board.MIN);
-                count++;
                 if (score[1] > best) {
                     move = Move.DOWN;
                     best = score[1];
                 }
             } else if (possibleMoves.get(i).equals(Move.LEFT)) {
                 System.out.println("LEFT");
-                s.getHead().setX(s.getHead().getX() - 1);
+                applyMove(currBoard, s, Move.LEFT);
                 score[2] = minimax(board, 0, true, s, enemy, Board.MAX, Board.MIN);
-                count++;
                 if (score[2] > best) {
                     move = Move.LEFT;
                     best = score[2];
                 }
             } else if (possibleMoves.get(i).equals(Move.RIGHT)) {
                 System.out.println("RIGHT");
-                s.getHead().setX(s.getHead().getX() + 1);
+                applyMove(currBoard, s, Move.RIGHT);
                 score[3] = minimax(board, 0, true, s, enemy, Board.MAX, Board.MIN);
-                count++;
                 if (score[3] > best) {
                     move = Move.RIGHT;
                     best = score[3];
