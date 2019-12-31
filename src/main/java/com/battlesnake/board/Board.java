@@ -279,6 +279,8 @@ public class Board {
                     move = Move.RIGHT;
                     best = score[3];
                 }
+            }else{
+                return getMove();
             }
         }
         System.out.println("BEST MOVE IS: " + move.getName());
