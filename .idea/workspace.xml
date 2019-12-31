@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="46bd0b6d-50db-478d-9e88-8277900b7779" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/battlesnake/board/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/battlesnake/board/Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/battlesnake/data/Snake.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/battlesnake/data/Snake.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -48,8 +46,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/battlesnake/board/Board.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="590">
-              <caret line="260" column="54" selection-start-line="260" selection-start-column="54" selection-end-line="260" selection-end-column="54" />
+            <state relative-caret-position="454">
+              <caret line="252" column="65" selection-start-line="252" selection-start-column="65" selection-end-line="252" selection-end-column="65" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#2422#2423#0" expanded="true" />
@@ -504,8 +502,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/battlesnake/board/Board.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="590">
-          <caret line="260" column="54" selection-start-line="260" selection-start-column="54" selection-end-line="260" selection-end-column="54" />
+        <state relative-caret-position="454">
+          <caret line="252" column="65" selection-start-line="252" selection-start-column="65" selection-end-line="252" selection-end-column="65" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#2422#2423#0" expanded="true" />
