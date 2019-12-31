@@ -207,24 +207,24 @@ public class Board {
 
         //change head position
         if(move == Move.UP){
-            board[snake.getHead().getX()][snake.getHead().getY() - 1] = Tile.HEADS;
-            board[snake.getHead().getX()][snake.getHead().getY()] = Tile.WALL;
-            snake.setHead(new Point(snake.getHead().getX(), snake.getHead().getY() - 1));
+            board[(snake.getHead().getX() - 1)][(snake.getHead().getY() - 1) - 1] = Tile.HEADS;
+            board[(snake.getHead().getX() - 1)][(snake.getHead().getY() - 1)] = Tile.WALL;
+            snake.setHead(new Point((snake.getHead().getX() - 1), (snake.getHead().getY() - 1) - 1));
         }
         else if(move == Move.DOWN){
-            board[snake.getHead().getX()][snake.getHead().getY() + 1] = Tile.HEADS;
-            board[snake.getHead().getX()][snake.getHead().getY()] = Tile.WALL;
-            snake.setHead(new Point(snake.getHead().getX(), snake.getHead().getY() + 1));
+            board[(snake.getHead().getX() - 1)][(snake.getHead().getY() - 1) + 1] = Tile.HEADS;
+            board[(snake.getHead().getX() - 1)][(snake.getHead().getY() - 1)] = Tile.WALL;
+            snake.setHead(new Point((snake.getHead().getX() - 1), (snake.getHead().getY() - 1) + 1));
         }
         else if(move == Move.LEFT){
-            board[snake.getHead().getX() - 1][snake.getHead().getY()] = Tile.HEADS;
-            board[snake.getHead().getX()][snake.getHead().getY()] = Tile.WALL;
-            snake.setHead(new Point(snake.getHead().getX() - 1, snake.getHead().getY()));
+            board[(snake.getHead().getX() - 1) - 1][(snake.getHead().getY() - 1)] = Tile.HEADS;
+            board[(snake.getHead().getX() - 1)][(snake.getHead().getY() - 1)] = Tile.WALL;
+            snake.setHead(new Point((snake.getHead().getX() - 1) - 1, (snake.getHead().getY() - 1)));
         }
         else if(move == Move.RIGHT){
-            board[snake.getHead().getX() + 1][snake.getHead().getY()] = Tile.HEADS;
-            board[snake.getHead().getX()][snake.getHead().getY()] = Tile.WALL;
-            snake.setHead(new Point(snake.getHead().getX() + 1, snake.getHead().getY()));
+            board[(snake.getHead().getX() - 1) + 1][(snake.getHead().getY() - 1)] = Tile.HEADS;
+            board[(snake.getHead().getX() - 1)][(snake.getHead().getY() - 1)] = Tile.WALL;
+            snake.setHead(new Point((snake.getHead().getX() - 1) + 1, (snake.getHead().getY() - 1)));
         }
     }
 
