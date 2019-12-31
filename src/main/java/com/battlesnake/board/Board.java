@@ -190,28 +190,29 @@ public class Board {
         }
     }
 
-    private void applyMove(Tile[][] board, Snake snake, Move move) {
+    private void applyMove(Tile[][] currBoard, Snake snake, Move move) {
         //change tail position
-        board[snake.getTail().getX()][snake.getTail().getY()] = Tile.EMPTY;
-        board[snake.getBody().get(snake.length() - 2).getX()][snake.getBody().get(snake.length() - 2).getY()] = Tile.TAIL;
+        currBoard[snake.getTail().getX()][snake.getTail().getY()] = Tile.EMPTY;
+        currBoard[snake.getBody().get(snake.length() - 2).getX()][snake.getBody().get(snake.length() - 2).getY()] = Tile.TAIL;
         snake.setTail(new Point(snake.getBody().get(snake.length() - 2).getX(), snake.getBody().get(snake.length() - 2).getY()));
 
         //change head position
         if (move == Move.UP) {
-            board[snake.getHead().getX()][snake.getHead().getY() - 1] = Tile.HEADS;
-            board[snake.getHead().getX()][snake.getHead().getY()] = Tile.WALL;
+            currBoard[snake.getHead().getX()][snake.getHead().getY() - 1] = Tile.HEADS;
+            currBoard[snake.getHead().getX()][snake.getHead().getY()] = Tile.WALL;
             snake.setHead(new Point(snake.getHead().getX(), snake.getHead().getY() - 1));
         } else if (move == Move.DOWN) {
-            board[snake.getHead().getX()][snake.getHead().getY() + 1] = Tile.HEADS;
-            board[snake.getHead().getX()][snake.getHead().getY()] = Tile.WALL;
+            currBoard[snake.getHead().getX()][snake.getHead().getY() + 1] = Tile.HEADS;
+            currBoard[snake.getHead().getX()][snake.getHead().getY()] = Tile.WALL;
+            
             snake.setHead(new Point(snake.getHead().getX(), snake.getHead().getY() + 1));
         } else if (move == Move.LEFT) {
-            board[snake.getHead().getX() - 1][snake.getHead().getY()] = Tile.HEADS;
-            board[snake.getHead().getX()][snake.getHead().getY()] = Tile.WALL;
+            currBoard[snake.getHead().getX() - 1][snake.getHead().getY()] = Tile.HEADS;
+            currBoard[snake.getHead().getX()][snake.getHead().getY()] = Tile.WALL;
             snake.setHead(new Point(snake.getHead().getX() - 1, snake.getHead().getY()));
         } else if (move == Move.RIGHT) {
-            board[snake.getHead().getX() + 1][snake.getHead().getY()] = Tile.HEADS;
-            board[snake.getHead().getX()][snake.getHead().getY()] = Tile.WALL;
+            currBoard[snake.getHead().getX() + 1][snake.getHead().getY()] = Tile.HEADS;
+            currBoard[snake.getHead().getX()][snake.getHead().getY()] = Tile.WALL;
             snake.setHead(new Point(snake.getHead().getX() + 1, snake.getHead().getY()));
         }
     }
