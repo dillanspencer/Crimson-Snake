@@ -231,6 +231,7 @@ public class Board {
         for (int i = 0; i < possibleMoves.size() - 1; i++) {
             Snake s = you();
             if (possibleMoves.get(i).equals(Move.UP)) {
+                System.out.println("UP");
                 s.getHead().setY(s.getHead().getY() - 1);
                 score[0] = minimax(board, 0, true, s, enemy, Board.MAX, Board.MIN);
                 count++;
@@ -239,6 +240,7 @@ public class Board {
                     best = score[0];
                 }
             } else if (possibleMoves.get(i).equals(Move.DOWN)) {
+                System.out.println("DOWN");
                 s.getHead().setY(s.getHead().getY() + 1);
                 score[1] = minimax(board, 0, true, s, enemy, Board.MAX, Board.MIN);
                 count++;
@@ -247,6 +249,7 @@ public class Board {
                     best = score[1];
                 }
             } else if (possibleMoves.get(i).equals(Move.LEFT)) {
+                System.out.println("LEFT");
                 s.getHead().setX(s.getHead().getX() - 1);
                 score[2] = minimax(board, 0, true, s, enemy, Board.MAX, Board.MIN);
                 count++;
@@ -255,6 +258,7 @@ public class Board {
                     best = score[2];
                 }
             } else if (possibleMoves.get(i).equals(Move.RIGHT)) {
+                System.out.println("RIGHT");
                 s.getHead().setX(s.getHead().getX() + 1);
                 score[3] = minimax(board, 0, true, s, enemy, Board.MAX, Board.MIN);
                 count++;
@@ -264,6 +268,7 @@ public class Board {
                 }
             }
         }
+        System.out.println("BEST MOVE IS: " + move.getName());
         return move;
     }
 
