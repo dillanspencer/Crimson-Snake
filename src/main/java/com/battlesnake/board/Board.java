@@ -180,7 +180,6 @@ public class Board {
                 }
 
                 int val = minimax(currentBoard, depth + 1, true, enemy, current, alpha, beta);
-                currentBoard = this.board;
                 best = Math.min(best, val);
                 beta = Math.min(beta, best);
 
@@ -227,14 +226,14 @@ public class Board {
         int[] score = {0, 0, 0, 0};
         int best = Board.MIN;
         Move move = Move.RIGHT;
-        Tile[][] currBoard = board;
         List<Move> possibleMoves = getPossibleMoves(board, you().getHead());
         for (int i = 0; i < possibleMoves.size() - 1; i++) {
+            Tile[][] currBoard = board;
             Snake s = you();
             if (possibleMoves.get(i).equals(Move.UP)) {
                 System.out.println("UP");
                 applyMove(currBoard, s, Move.UP);
-                score[0] = minimax(currBoard, 0, false, enemy, s, Board.MAX, Board.MIN);
+                score[0] = minimax(currBoard, 0, true, s, enemy, Board.MAX, Board.MIN);
                 if (score[0] > best) {
                     move = Move.UP;
                     best = score[0];
@@ -242,7 +241,7 @@ public class Board {
             } else if (possibleMoves.get(i).equals(Move.DOWN)) {
                 System.out.println("DOWN");
                 applyMove(currBoard, s, Move.DOWN);
-                score[1] = minimax(currBoard, 0, false, enemy, s, Board.MAX, Board.MIN);
+                score[1] = minimax(currBoard, 0, true, s, enemy, Board.MAX, Board.MIN);
                 if (score[1] > best) {
                     move = Move.DOWN;
                     best = score[1];
@@ -250,7 +249,7 @@ public class Board {
             } else if (possibleMoves.get(i).equals(Move.LEFT)) {
                 System.out.println("LEFT");
                 applyMove(currBoard, s, Move.LEFT);
-                score[2] = minimax(currBoard, 0, false, enemy, s, Board.MAX, Board.MIN);
+                score[2] = minimax(currBoard, 0, true, s, enemy, Board.MAX, Board.MIN);
                 if (score[2] > best) {
                     move = Move.LEFT;
                     best = score[2];
@@ -258,7 +257,7 @@ public class Board {
             } else if (possibleMoves.get(i).equals(Move.RIGHT)) {
                 System.out.println("RIGHT");
                 applyMove(currBoard, s, Move.RIGHT);
-                score[3] = minimax(currBoard, 0, false, enemy, s, Board.MAX, Board.MIN);
+                score[3] = minimax(currBoard, 0, true, s, enemy, Board.MAX, Board.MIN);
                 if (score[3] > best) {
                     move = Move.RIGHT;
                     best = score[3];
