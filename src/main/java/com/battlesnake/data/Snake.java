@@ -119,5 +119,8 @@ public class Snake {
         this.body.set(0, point);
     }
 
+    public void setTail(Point point){
+         this.body.set(this.body.size() - 1, point);
+    }
 
 }
