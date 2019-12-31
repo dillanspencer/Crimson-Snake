@@ -16,6 +16,7 @@
 
 package com.battlesnake.data;
 
+import com.battlesnake.board.Tile;
 import com.battlesnake.math.Point;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -54,6 +55,14 @@ public class Snake {
             }
         }
         return false;
+    }
+
+    public void applyMove(Tile[][] board, Move move){
+        move.translate(getHead());
+        for(int i = body.size() - 1; i > 0; i--){
+            body.get(i).setX(body.get(i-1).getX());
+            body.get(i).setY(body.get(i-1).getY());
+        }
     }
 
     public boolean equals(Object other) {

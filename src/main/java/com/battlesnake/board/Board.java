@@ -27,18 +27,18 @@ public class Board {
     //Game Map
     private Tile[][] board;
 
-    private void setupBoard() {
-        this.board = new Tile[getWidth()][getHeight()];
+    private void setupBoard(Tile[][] currBoard) {
+        currBoard = new Tile[getWidth()][getHeight()];
         //set all values on the board to empty
         for (int y = 0; y < getHeight(); y++) {
             for (int x = 0; x < getWidth(); x++) {
-                board[x][y] = Tile.EMPTY;
+                currBoard[x][y] = Tile.EMPTY;
             }
         }
 
         //fill in food positions
         for (Point f : food) {
-            board[f.getX()][f.getY()] = Tile.FOOD;
+            currBoard[f.getX()][f.getY()] = Tile.FOOD;
         }
 
         //fill in board with snake positions
@@ -50,15 +50,15 @@ public class Board {
                 if ((i == body.size() - 1)
                         && body.size() > 1
                         && !snake.justAte()) {
-                    board[body.get(i).getX()][body.get(i).getY()] = Tile.TAIL;
+                    currBoard[body.get(i).getX()][body.get(i).getY()] = Tile.TAIL;
                 } else {
-                    board[body.get(i).getX()][body.get(i).getY()] = Tile.WALL;
+                    currBoard[body.get(i).getX()][body.get(i).getY()] = Tile.WALL;
                 }
             }
             if (snake.equals(you())) {
-                board[head.getX()][head.getY()] = Tile.ME;
+                currBoard[head.getX()][head.getY()] = Tile.ME;
             } else {
-                board[head.getX()][head.getY()] = Tile.HEADS;
+                currBoard[head.getX()][head.getY()] = Tile.HEADS;
             }
         }
     }
@@ -142,17 +142,18 @@ public class Board {
             for (int i = 0; i < possibleMoves.size() - 1; i++) {
                 if (possibleMoves.get(i).equals(Move.UP)) {
                     //change to head later
-                    applyMove(currentBoard, current, Move.UP);
+                    current.applyMove(currentBoard,Move.UP);
                 } else if (possibleMoves.get(i).equals(Move.DOWN)) {
                     //change to head later
-                    applyMove(currentBoard, current, Move.DOWN);
+                    current.applyMove(currentBoard, Move.DOWN);
                 } else if (possibleMoves.get(i).equals(Move.LEFT)) {
                     //change to head later
-                    applyMove(currentBoard, current, Move.LEFT);
+                    current.applyMove(currentBoard, Move.LEFT);
                 } else if (possibleMoves.get(i).equals(Move.RIGHT)) {
                     //change to head later
-                    applyMove(currentBoard, current, Move.RIGHT);
+                    current.applyMove(currentBoard, Move.RIGHT);
                 }
+                setupBoard(currentBoard);
                 int val = minimax(currentBoard, depth + 1, false, enemy, current, alpha, beta);
                 best = Math.max(best, val);
                 alpha = Math.max(alpha, best);
@@ -167,18 +168,18 @@ public class Board {
             for (int i = 0; i < possibleMoves.size() - 1; i++) {
                 if (possibleMoves.get(i).equals(Move.UP)) {
                     //change to head later
-                    applyMove(currentBoard, current, Move.UP);
+                    current.applyMove(currentBoard,Move.UP);
                 } else if (possibleMoves.get(i).equals(Move.DOWN)) {
                     //change to head later
-                    applyMove(currentBoard, current, Move.DOWN);
+                    current.applyMove(currentBoard, Move.DOWN);
                 } else if (possibleMoves.get(i).equals(Move.LEFT)) {
                     //change to head later
-                    applyMove(currentBoard, current, Move.LEFT);
+                    current.applyMove(currentBoard, Move.LEFT);
                 } else if (possibleMoves.get(i).equals(Move.RIGHT)) {
                     //change to head later
-                    applyMove(currentBoard, current, Move.RIGHT);
+                    current.applyMove(currentBoard, Move.RIGHT);
                 }
-
+                setupBoard(currentBoard);
                 int val = minimax(currentBoard, depth + 1, true, enemy, current, alpha, beta);
                 best = Math.min(best, val);
                 beta = Math.min(beta, best);
@@ -190,32 +191,6 @@ public class Board {
         }
     }
 
-    private void applyMove(Tile[][] currBoard, Snake snake, Move move) {
-        //change tail position
-        currBoard[snake.getTail().getX()][snake.getTail().getY()] = Tile.EMPTY;
-        currBoard[snake.getBody().get(snake.length() - 2).getX()][snake.getBody().get(snake.length() - 2).getY()] = Tile.TAIL;
-        snake.setTail(new Point(snake.getBody().get(snake.length() - 2).getX(), snake.getBody().get(snake.length() - 2).getY()));
-
-        //change head position
-        if (move == Move.UP) {
-            currBoard[snake.getHead().getX()][snake.getHead().getY() - 1] = Tile.HEADS;
-            currBoard[snake.getHead().getX()][snake.getHead().getY()] = Tile.WALL;
-            snake.setHead(new Point(snake.getHead().getX(), snake.getHead().getY() - 1));
-        } else if (move == Move.DOWN) {
-            currBoard[snake.getHead().getX()][snake.getHead().getY() + 1] = Tile.HEADS;
-            currBoard[snake.getHead().getX()][snake.getHead().getY()] = Tile.WALL;
-            
-            snake.setHead(new Point(snake.getHead().getX(), snake.getHead().getY() + 1));
-        } else if (move == Move.LEFT) {
-            currBoard[snake.getHead().getX() - 1][snake.getHead().getY()] = Tile.HEADS;
-            currBoard[snake.getHead().getX()][snake.getHead().getY()] = Tile.WALL;
-            snake.setHead(new Point(snake.getHead().getX() - 1, snake.getHead().getY()));
-        } else if (move == Move.RIGHT) {
-            currBoard[snake.getHead().getX() + 1][snake.getHead().getY()] = Tile.HEADS;
-            currBoard[snake.getHead().getX()][snake.getHead().getY()] = Tile.WALL;
-            snake.setHead(new Point(snake.getHead().getX() + 1, snake.getHead().getY()));
-        }
-    }
 
     public Move getMove() {
         Snake enemy = null;
@@ -233,7 +208,7 @@ public class Board {
             Snake s = you();
             if (possibleMoves.get(i).equals(Move.UP)) {
                 System.out.println("UP");
-                applyMove(currBoard, s, Move.UP);
+                s.applyMove(currBoard, Move.UP);
                 score[0] = minimax(currBoard, 0, true, s, enemy, Board.MAX, Board.MIN);
                 if (score[0] > best) {
                     move = Move.UP;
@@ -241,7 +216,7 @@ public class Board {
                 }
             } else if (possibleMoves.get(i).equals(Move.DOWN)) {
                 System.out.println("DOWN");
-                applyMove(currBoard, s, Move.DOWN);
+                s.applyMove(currBoard, Move.DOWN);
                 score[1] = minimax(currBoard, 0, true, s, enemy, Board.MAX, Board.MIN);
                 if (score[1] > best) {
                     move = Move.DOWN;
@@ -249,7 +224,7 @@ public class Board {
                 }
             } else if (possibleMoves.get(i).equals(Move.LEFT)) {
                 System.out.println("LEFT");
-                applyMove(currBoard, s, Move.LEFT);
+                s.applyMove(currBoard, Move.LEFT);
                 score[2] = minimax(currBoard, 0, true, s, enemy, Board.MAX, Board.MIN);
                 if (score[2] > best) {
                     move = Move.LEFT;
@@ -257,7 +232,7 @@ public class Board {
                 }
             } else if (possibleMoves.get(i).equals(Move.RIGHT)) {
                 System.out.println("RIGHT");
-                applyMove(currBoard, s, Move.RIGHT);
+                s.applyMove(currBoard, Move.RIGHT);
                 score[3] = minimax(currBoard, 0, true, s, enemy, Board.MAX, Board.MIN);
                 if (score[3] > best) {
                     move = Move.RIGHT;
@@ -285,7 +260,7 @@ public class Board {
 
     public void init(Snake you) {
         this.you = you;
-        setupBoard();
+        setupBoard(board);
     }
 
     private Snake you() {
