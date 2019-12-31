@@ -102,11 +102,15 @@ public class Board {
         return !isFilled(point);
     }
 
+    private boolean movable(Point point, Tile[][] board) {
+        return !isFilled(point, board);
+    }
+
 
     private List<Move> getPossibleMoves(Tile[][] currentBoard, Point point) {
         List<Move> moves = new ArrayList<>();
         for (Map.Entry<Move, Point> move : Move.adjacent(point).entrySet()) {
-            if (movable(move.getValue()))
+            if (movable(move.getValue(), currentBoard))
                 moves.add(move.getKey());
         }
         return moves;
@@ -260,7 +264,6 @@ public class Board {
                 }
             }
         }
-        System.out.println(count);
         return move;
     }
 

@@ -52,7 +52,6 @@ public class RequestController {
 //            }
 //        }
         Move move = board.getMove();
-        System.out.println("Our Snake moved: " + move.getName());
         return moveResponse.setMove(move);
     }
 
