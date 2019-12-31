@@ -27,18 +27,18 @@ public class Board {
     //Game Map
     private Tile[][] board;
 
-    private void setupBoard(Tile[][] currBoard) {
-        currBoard = new Tile[getWidth()][getHeight()];
+    private void setupBoard() {
+        board = new Tile[getWidth()][getHeight()];
         //set all values on the board to empty
         for (int y = 0; y < getHeight(); y++) {
             for (int x = 0; x < getWidth(); x++) {
-                currBoard[x][y] = Tile.EMPTY;
+                board[x][y] = Tile.EMPTY;
             }
         }
 
         //fill in food positions
         for (Point f : food) {
-            currBoard[f.getX()][f.getY()] = Tile.FOOD;
+            board[f.getX()][f.getY()] = Tile.FOOD;
         }
 
         //fill in board with snake positions
@@ -50,15 +50,49 @@ public class Board {
                 if ((i == body.size() - 1)
                         && body.size() > 1
                         && !snake.justAte()) {
-                    currBoard[body.get(i).getX()][body.get(i).getY()] = Tile.TAIL;
+                    board[body.get(i).getX()][body.get(i).getY()] = Tile.TAIL;
                 } else {
-                    currBoard[body.get(i).getX()][body.get(i).getY()] = Tile.WALL;
+                    board[body.get(i).getX()][body.get(i).getY()] = Tile.WALL;
                 }
             }
             if (snake.equals(you())) {
-                currBoard[head.getX()][head.getY()] = Tile.ME;
+                board[head.getX()][head.getY()] = Tile.ME;
             } else {
-                currBoard[head.getX()][head.getY()] = Tile.HEADS;
+                board[head.getX()][head.getY()] = Tile.HEADS;
+            }
+        }
+    }
+
+    private void fillBoard(Tile[][] currBoard){
+        for (int y = 0; y < getHeight(); y++) {
+            for (int x = 0; x < getWidth(); x++) {
+                board[x][y] = Tile.EMPTY;
+            }
+        }
+
+        //fill in food positions
+        for (Point f : food) {
+            board[f.getX()][f.getY()] = Tile.FOOD;
+        }
+
+        //fill in board with snake positions
+        for (Snake snake : snakes) {
+            List<Point> body = snake.getBody();
+            Point head = body.get(0);
+
+            for (int i = 0; i < body.size(); i++) {
+                if ((i == body.size() - 1)
+                        && body.size() > 1
+                        && !snake.justAte()) {
+                    board[body.get(i).getX()][body.get(i).getY()] = Tile.TAIL;
+                } else {
+                    board[body.get(i).getX()][body.get(i).getY()] = Tile.WALL;
+                }
+            }
+            if (snake.equals(you())) {
+                board[head.getX()][head.getY()] = Tile.ME;
+            } else {
+                board[head.getX()][head.getY()] = Tile.HEADS;
             }
         }
     }
@@ -91,11 +125,11 @@ public class Board {
         return isFilled(point, board);
     }
 
-    private boolean isFilled(Point point, Tile[][] currBoard) {
+    private boolean isFilled(Point point, Tile[][] board) {
         if (!exists(point)) return true;
-        return currBoard[point.getX()][point.getY()] != Tile.EMPTY
-                && currBoard[point.getX()][point.getY()] != Tile.FOOD
-                && currBoard[point.getX()][point.getY()] != Tile.TAIL;
+        return board[point.getX()][point.getY()] != Tile.EMPTY
+                && board[point.getX()][point.getY()] != Tile.FOOD
+                && board[point.getX()][point.getY()] != Tile.TAIL;
     }
 
     private boolean movable(Point point) {
@@ -153,7 +187,7 @@ public class Board {
                     //change to head later
                     current.applyMove(currentBoard, Move.RIGHT);
                 }
-                setupBoard(currentBoard);
+                fillBoard(currentBoard);
                 int val = minimax(currentBoard, depth + 1, false, enemy, current, alpha, beta);
                 best = Math.max(best, val);
                 alpha = Math.max(alpha, best);
@@ -179,7 +213,7 @@ public class Board {
                     //change to head later
                     current.applyMove(currentBoard, Move.RIGHT);
                 }
-                setupBoard(currentBoard);
+                fillBoard(currentBoard);
                 int val = minimax(currentBoard, depth + 1, true, enemy, current, alpha, beta);
                 best = Math.min(best, val);
                 beta = Math.min(beta, best);
@@ -260,7 +294,7 @@ public class Board {
 
     public void init(Snake you) {
         this.you = you;
-        setupBoard(board);
+        setupBoard();
     }
 
     private Snake you() {
