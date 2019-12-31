@@ -91,11 +91,11 @@ public class Board {
         return isFilled(point, board);
     }
 
-    private boolean isFilled(Point point, Tile[][] board) {
+    private boolean isFilled(Point point, Tile[][] currBoard) {
         if (!exists(point)) return true;
-        return board[point.getX()][point.getY()] != Tile.EMPTY
-                && board[point.getX()][point.getY()] != Tile.FOOD
-                && board[point.getX()][point.getY()] != Tile.TAIL;
+        return currBoard[point.getX()][point.getY()] != Tile.EMPTY
+                && currBoard[point.getX()][point.getY()] != Tile.FOOD
+                && currBoard[point.getX()][point.getY()] != Tile.TAIL;
     }
 
     private boolean movable(Point point) {
