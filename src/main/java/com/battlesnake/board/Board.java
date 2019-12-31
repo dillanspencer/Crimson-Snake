@@ -271,10 +271,11 @@ public class Board {
     public void printBoard(Tile[][] board){
         for(int i = 0; i < height; i++){
             for(int j = 0; j < width; j++){
-                if(board[i][j] == Tile.WALL) System.out.print("W, ");
-                if(board[i][j] == Tile.EMPTY) System.out.print("E, ");
-                if(board[i][j] == Tile.HEADS) System.out.print("H, ");
-                if(board[i][j] == Tile.TAIL) System.out.print("T, ");
+                if(board[j][i] == Tile.WALL) System.out.print("W, ");
+                if(board[j][i] == Tile.EMPTY) System.out.print("E, ");
+                if(board[j][i] == Tile.HEADS) System.out.print("H, ");
+                if(board[j][i] == Tile.TAIL) System.out.print("T, ");
+                if(board[j][i] == Tile.FOOD) System.out.print("F, ");
             }
             System.out.println();
         }
