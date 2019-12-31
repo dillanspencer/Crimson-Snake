@@ -16,13 +16,39 @@
 
 package com.battlesnake.data;
 
+import com.battlesnake.math.Point;
 import com.fasterxml.jackson.annotation.JsonValue;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public enum Move {
   UP,
   DOWN,
   LEFT,
   RIGHT;
+
+  public Point translate(Point point) {
+    switch (this) {
+      case UP:
+        return new Point(point.getX(), point.getY() - 1);
+      case DOWN:
+        return new Point(point.getX(), point.getY() + 1);
+      case LEFT:
+        return new Point(point.getX() - 1, point.getY());
+      default:
+        return new Point(point.getX() + 1, point.getY());
+    }
+  }
+
+  public static Map<Move, Point> adjacent(Point point) {
+    Map<Move, Point> moves = new HashMap<>();
+    moves.put(Move.UP, Move.UP.translate(point));
+    moves.put(Move.DOWN, Move.DOWN.translate(point));
+    moves.put(Move.LEFT, Move.LEFT.translate(point));
+    moves.put(Move.RIGHT, Move.RIGHT.translate(point));
+    return moves;
+  }
 
   @JsonValue
   public String getName() {

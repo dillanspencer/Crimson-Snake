@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Board {
 
@@ -56,37 +57,59 @@ public class Board {
             }
             if (snake.equals(you())) {
                 board[head.getX()][head.getY()] = Tile.ME;
-            }
-            else {
+            } else {
                 board[head.getX()][head.getY()] = Tile.HEADS;
             }
         }
     }
 
-
-    private List<Move> getPossibleMoves(Tile[][] currentBoard, Point point) {
-        int x = point.getX();
-        int y = point.getY();
-        List<Move> moves = new ArrayList<>();
-
-        if (x != 0 && (currentBoard[x - 1][y] == Tile.EMPTY || currentBoard[x - 1][y] == Tile.FOOD)) {
-            moves.add(Move.LEFT);
-        }
-        if (x != width - 1 && (currentBoard[x + 1][y] == Tile.EMPTY || currentBoard[x + 1][y] == Tile.FOOD)) {
-            moves.add(Move.RIGHT);
-        }
-        if (y != 0 && (currentBoard[x][y - 1] == Tile.EMPTY || currentBoard[x][y - 1] == Tile.FOOD)) {
-            moves.add(Move.UP);
-        }
-        if (y != height - 1 && (currentBoard[x][y + 1] == Tile.EMPTY || currentBoard[x][y + 1] == Tile.FOOD)) {
-            moves.add(Move.DOWN);
-        }
-
-        return moves;
+    public boolean exists(Point point) {
+        if (point.getX() < 0) return false;
+        if (point.getY() < 0) return false;
+        if (point.getX() > getWidth() - 1) return false;
+        if (point.getY() > getHeight() - 1) return false;
+        return true;
     }
 
-    private boolean isAnyMoves(Tile[][] currentBoard, Point point) {
-        return !getPossibleMoves(currentBoard, point).isEmpty();
+    private List<Point> findAdjacent(Point point) {
+        return new ArrayList<>(Move.adjacent(point).values());
+    }
+
+    private List<Point> findHeads() {
+        ArrayList<Point> list = new ArrayList<>();
+        for (Snake snake : snakes) {
+            if (!snake.equals(you())) {
+                list.addAll(findAdjacent(snake.getBody().get(0)));
+                list.add(snake.getHead());
+            }
+        }
+        return list;
+
+    }
+
+    public boolean isFilled(Point point) {
+        return isFilled(point, board);
+    }
+
+    private boolean isFilled(Point point, Tile[][] board) {
+        if (!exists(point)) return true;
+        return board[point.getX()][point.getY()] != Tile.EMPTY
+                && board[point.getX()][point.getY()] != Tile.FOOD
+                && board[point.getX()][point.getY()] != Tile.TAIL;
+    }
+
+    private boolean movable(Point point) {
+        return !isFilled(point);
+    }
+
+
+    private List<Move> getPossibleMoves(Tile[][] currentBoard, Point point) {
+        List<Move> moves = new ArrayList<>();
+        for (Map.Entry<Move, Point> move : Move.adjacent(point).entrySet()) {
+            if (movable(move.getValue()))
+                moves.add(move.getKey());
+        }
+        return moves;
     }
 
     private boolean checkCollision(Snake snake, Snake other) {
@@ -94,7 +117,7 @@ public class Board {
         for (int i = 0; i < other.getBody().size() - 1; i++) {
             if (head.getX() == other.getBody().get(i).getX()) {
                 if (head.getX() == other.getBody().get(i).getY()) {
-                    if(i == 0 && other.longerThan(snake)) continue;
+                    if (i == 0 && other.longerThan(snake)) continue;
                     return true;
                 }
             }
@@ -119,8 +142,6 @@ public class Board {
         }
 
         if (isMaximizing) {
-            System.out.println(current.getName() + " - X: " + position.getX() + ", Y: " + position.getY());
-
             int best = Board.MIN;
 
             for (int i = 0; i < possibleMoves.size() - 1; i++) {
@@ -154,7 +175,6 @@ public class Board {
             }
             return best;
         } else {
-            System.out.println(current.getName() + " - X: " + position.getX() + ", Y: " + position.getY());
             int best = Board.MAX;
 
             for (int i = 0; i < possibleMoves.size() - 1; i++) {
@@ -238,8 +258,6 @@ public class Board {
                     move = Move.RIGHT;
                     best = score[3];
                 }
-            }else{
-                System.out.println("WTF BRO");
             }
         }
         System.out.println(count);
