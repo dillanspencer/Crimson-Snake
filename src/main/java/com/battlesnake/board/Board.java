@@ -263,6 +263,7 @@ public class Board {
                     best = score[3];
                 }
             }
+            printBoard(currBoard);
         }
         System.out.println("BEST MOVE IS: " + move.getName());
         return move;
