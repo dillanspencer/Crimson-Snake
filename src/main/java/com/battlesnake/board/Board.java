@@ -151,24 +151,16 @@ public class Board {
             for (int i = 0; i < possibleMoves.size() - 1; i++) {
                 if (possibleMoves.get(i).equals(Move.UP)) {
                     //change to head later
-                    currentBoard[position.getX()][position.getY() - 1] = Tile.WALL;
-                    currentBoard[tail.getX()][tail.getY()] = Tile.EMPTY;
-                    current.getHead().setY(position.getY() - 1);
+                    applyMove(currentBoard, current, Move.UP);
                 } else if (possibleMoves.get(i).equals(Move.DOWN)) {
                     //change to head later
-                    currentBoard[position.getX()][position.getY() + 1] = Tile.WALL;
-                    currentBoard[tail.getX()][tail.getY()] = Tile.EMPTY;
-                    current.getHead().setY(position.getY() + 1);
+                    applyMove(currentBoard, current, Move.DOWN);
                 } else if (possibleMoves.get(i).equals(Move.LEFT)) {
                     //change to head later
-                    currentBoard[position.getX() - 1][position.getY()] = Tile.WALL;
-                    currentBoard[tail.getX()][tail.getY()] = Tile.EMPTY;
-                    current.getHead().setX(position.getX() - 1);
+                    applyMove(currentBoard, current, Move.LEFT);
                 } else if (possibleMoves.get(i).equals(Move.RIGHT)) {
                     //change to head later
-                    currentBoard[position.getX() + 1][position.getY()] = Tile.WALL;
-                    currentBoard[tail.getX()][tail.getY()] = Tile.EMPTY;
-                    current.getHead().setX(position.getX() + 1);
+                    applyMove(currentBoard, current, Move.RIGHT);
                 }
                 int val = minimax(currentBoard, depth + 1, false, enemy, current, alpha, beta);
                 best = Math.max(best, val);
@@ -184,27 +176,20 @@ public class Board {
             for (int i = 0; i < possibleMoves.size() - 1; i++) {
                 if (possibleMoves.get(i).equals(Move.UP)) {
                     //change to head later
-                    currentBoard[position.getX()][position.getY() - 1] = Tile.WALL;
-                    currentBoard[tail.getX()][tail.getY()] = Tile.EMPTY;
-                    current.getHead().setY(position.getY() - 1);
+                    applyMove(currentBoard, current, Move.UP);
                 } else if (possibleMoves.get(i).equals(Move.DOWN)) {
                     //change to head later
-                    currentBoard[position.getX()][position.getY() + 1] = Tile.WALL;
-                    currentBoard[tail.getX()][tail.getY()] = Tile.EMPTY;
-                    current.getHead().setY(position.getY() + 1);
+                    applyMove(currentBoard, current, Move.DOWN);
                 } else if (possibleMoves.get(i).equals(Move.LEFT)) {
                     //change to head later
-                    currentBoard[position.getX() - 1][position.getY()] = Tile.WALL;
-                    currentBoard[tail.getX()][tail.getY()] = Tile.EMPTY;
-                    current.getHead().setX(position.getX() - 1);
+                    applyMove(currentBoard, current, Move.LEFT);
                 } else if (possibleMoves.get(i).equals(Move.RIGHT)) {
                     //change to head later
-                    currentBoard[position.getX() + 1][position.getY()] = Tile.WALL;
-                    currentBoard[tail.getX()][tail.getY()] = Tile.EMPTY;
-                    current.getHead().setX(position.getX() + 1);
+                    applyMove(currentBoard, current, Move.RIGHT);
                 }
 
                 int val = minimax(currentBoard, depth + 1, true, enemy, current, alpha, beta);
+                currentBoard = this.board;
                 best = Math.min(best, val);
                 beta = Math.min(beta, best);
 
@@ -212,6 +197,34 @@ public class Board {
                 if (beta <= alpha) break;
             }
             return best;
+        }
+    }
+
+    private void applyMove(Tile[][] board, Snake snake, Move move){
+        //change tail position
+        board[snake.getTail().getX()][snake.getTail().getY()] = Tile.EMPTY;
+        board[snake.getBody().get(snake.length() - 2).getX()][snake.getBody().get(snake.length() - 2).getY()] = Tile.TAIL;
+
+        //change head position
+        if(move == Move.UP){
+            board[snake.getHead().getX()][snake.getHead().getY() - 1] = Tile.HEADS;
+            board[snake.getHead().getX()][snake.getHead().getY()] = Tile.WALL;
+            snake.setHead(new Point(snake.getHead().getX(), snake.getHead().getY() - 1));
+        }
+        else if(move == Move.DOWN){
+            board[snake.getHead().getX()][snake.getHead().getY() + 1] = Tile.HEADS;
+            board[snake.getHead().getX()][snake.getHead().getY()] = Tile.WALL;
+            snake.setHead(new Point(snake.getHead().getX(), snake.getHead().getY() + 1));
+        }
+        else if(move == Move.LEFT){
+            board[snake.getHead().getX() - 1][snake.getHead().getY()] = Tile.HEADS;
+            board[snake.getHead().getX()][snake.getHead().getY()] = Tile.WALL;
+            snake.setHead(new Point(snake.getHead().getX() - 1, snake.getHead().getY()));
+        }
+        else if(move == Move.RIGHT){
+            board[snake.getHead().getX() + 1][snake.getHead().getY()] = Tile.HEADS;
+            board[snake.getHead().getX()][snake.getHead().getY()] = Tile.WALL;
+            snake.setHead(new Point(snake.getHead().getX() + 1, snake.getHead().getY()));
         }
     }
 

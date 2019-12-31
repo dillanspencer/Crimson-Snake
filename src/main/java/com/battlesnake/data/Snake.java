@@ -115,5 +115,9 @@ public class Snake {
         return this.health;
     }
 
+    public void setHead(Point point){
+        this.body.set(0, point);
+    }
+
 
 }
