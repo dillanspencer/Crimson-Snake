@@ -63,36 +63,37 @@ public class Board {
         }
     }
 
-    private void fillBoard(Tile[][] currBoard){
+    private void fillBoard(Tile[][] currBoard, Snake you, Snake enemy){
         for (int y = 0; y < getHeight(); y++) {
             for (int x = 0; x < getWidth(); x++) {
-                board[x][y] = Tile.EMPTY;
+                currBoard[x][y] = Tile.EMPTY;
             }
         }
 
         //fill in food positions
         for (Point f : food) {
-            board[f.getX()][f.getY()] = Tile.FOOD;
+            currBoard[f.getX()][f.getY()] = Tile.FOOD;
         }
 
-        //fill in board with snake positions
-        for (Snake snake : snakes) {
-            List<Point> body = snake.getBody();
-            Point head = body.get(0);
-
-            for (int i = 0; i < body.size(); i++) {
-                if ((i == body.size() - 1)
-                        && body.size() > 1
-                        && !snake.justAte()) {
-                    board[body.get(i).getX()][body.get(i).getY()] = Tile.TAIL;
-                } else {
-                    board[body.get(i).getX()][body.get(i).getY()] = Tile.WALL;
-                }
+        for(int i = 0; i < you.getBody().size()-1; i++){
+            if(i == 0){
+                currBoard[you.getBody().get(i).getX()][you.getBody().get(i).getY()] = Tile.ME;
             }
-            if (snake.equals(you())) {
-                board[head.getX()][head.getY()] = Tile.ME;
-            } else {
-                board[head.getX()][head.getY()] = Tile.HEADS;
+            else if(i == you.getBody().size()){
+                currBoard[you.getBody().get(i).getX()][you.getBody().get(i).getY()] = Tile.TAIL;
+            }else{
+                currBoard[you.getBody().get(i).getX()][you.getBody().get(i).getY()] = Tile.WALL;
+            }
+        }
+
+        for(int i = 0; i < enemy.getBody().size()-1; i++){
+            if(i == 0){
+                currBoard[enemy.getBody().get(i).getX()][enemy.getBody().get(i).getY()] = Tile.ME;
+            }
+            else if(i == enemy.getBody().size()){
+                currBoard[enemy.getBody().get(i).getX()][enemy.getBody().get(i).getY()] = Tile.TAIL;
+            }else{
+                currBoard[enemy.getBody().get(i).getX()][enemy.getBody().get(i).getY()] = Tile.WALL;
             }
         }
     }
@@ -187,7 +188,7 @@ public class Board {
                     //change to head later
                     current.applyMove(currentBoard, Move.RIGHT);
                 }
-                fillBoard(currentBoard);
+                fillBoard(currentBoard, current, enemy);
                 int val = minimax(currentBoard, depth + 1, false, enemy, current, alpha, beta);
                 best = Math.max(best, val);
                 alpha = Math.max(alpha, best);
@@ -213,7 +214,7 @@ public class Board {
                     //change to head later
                     current.applyMove(currentBoard, Move.RIGHT);
                 }
-                fillBoard(currentBoard);
+                fillBoard(currentBoard, enemy, current);
                 int val = minimax(currentBoard, depth + 1, true, enemy, current, alpha, beta);
                 best = Math.min(best, val);
                 beta = Math.min(beta, best);
