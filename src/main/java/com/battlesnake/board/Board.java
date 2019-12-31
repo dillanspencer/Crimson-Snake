@@ -268,6 +268,18 @@ public class Board {
         return move;
     }
 
+    public void printBoard(Tile[][] board){
+        for(int i = 0; i < height; i++){
+            for(int j = 0; j < width; j++){
+                if(board[i][j] == Tile.WALL) System.out.print("W, ");
+                if(board[i][j] == Tile.EMPTY) System.out.print("E, ");
+                if(board[i][j] == Tile.HEADS) System.out.print("H, ");
+                if(board[i][j] == Tile.TAIL) System.out.print("T, ");
+            }
+            System.out.println();
+        }
+    }
+
     public void init(Snake you) {
         this.you = you;
         setupBoard();
@@ -291,6 +303,10 @@ public class Board {
 
     public void setHeight(int height) {
         this.height = height;
+    }
+
+    public Tile[][] getBoard(){
+        return this.board;
     }
 
     @JsonProperty("food")

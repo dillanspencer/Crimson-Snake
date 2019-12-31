@@ -43,6 +43,7 @@ public class RequestController {
         Snake mySnake = findOurSnake(request); // kind of handy to have our snake at this level
         Board board = request.getBoard();
         board.init(mySnake);
+        board.printBoard(board.getBoard());
 
         //List<Move> towardsFoodMoves = moveTowardsFood(request, mySnake.getBody().get(0));
 
