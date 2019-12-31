@@ -239,7 +239,7 @@ public class Board {
         int best = Board.MIN;
         Move move = Move.RIGHT;
         Tile[][] currBoard = board;
-        List<Move> possibleMoves = getPossibleMoves(board, you().getHead());
+        List<Move> possibleMoves = getPossibleMoves(currBoard, you().getHead());
 
         for (int i = 0; i < possibleMoves.size() - 1; i++) {
             Snake s = you();
