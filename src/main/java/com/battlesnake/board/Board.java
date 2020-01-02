@@ -222,7 +222,7 @@ public class Board {
     public Move getMove() {
         Snake enemy = null;
         for (Snake s : snakes) {
-            if (s.equals(you)) {
+            if (!s.equals(you)) {
                 enemy = s;
                 break;
             }
