@@ -16,6 +16,11 @@ public class Point {
         this.y = y;
     }
 
+    public static boolean equals(Point point, Point other){
+        if(point.getX() == other.getX() && point.getY() == other.getY()) return true;
+        return false;
+    }
+
     @JsonProperty("x")
     public int getX() {
         return x;

@@ -139,7 +139,7 @@ public class Board {
        if(snake.checkCollision(enemy) != -1){
            return true;
        }
-        
+
         if (!exists(snake.getHead())) return true;
         return false;
     }
@@ -157,6 +157,11 @@ public class Board {
 
         //base case
         if (checkCollision(snake, enemy)) {
+            //check head collision
+            if(Point.equals(snake.getHead(), enemy.getHead()) && snake.longerThan(enemy)){
+                value = Board.MAX;
+                return new MoveValue(value);
+            }
             System.out.println("MIN");
             value = Board.MIN;
             return new MoveValue(value);
