@@ -72,7 +72,7 @@ public class Board {
                 currBoard[x][y] = Tile.EMPTY;
             }
         }
-        
+
         snake.applyMove(currBoard, move);
 
         List<Point> body = snake.getBody();
@@ -159,7 +159,6 @@ public class Board {
     private MoveValue minimax(Tile[][] board, int depth, Snake snake, Snake enemy, double alpha, double beta) {
         if (depth == 3) {
             System.out.println("SAFE");
-            printBoard(board);
             System.out.println();
             return new MoveValue(Board.NONE);
         }
