@@ -67,9 +67,12 @@ public class Board {
 
     private void applyMove(Tile[][] currBoard, Snake snake, Move move) {
 
-        for (int i = 0; i < snake.getBody().size() - 1; i++) {
-            currBoard[snake.getBody().get(i).getX()][snake.getBody().get(i).getY()] = Tile.EMPTY;
+        for (int y = 0; y < getHeight(); y++) {
+            for (int x = 0; x < getWidth(); x++) {
+                currBoard[x][y] = Tile.EMPTY;
+            }
         }
+        
         snake.applyMove(currBoard, move);
 
         List<Point> body = snake.getBody();
