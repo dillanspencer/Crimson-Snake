@@ -144,7 +144,7 @@ public class Board {
         }
         for(int j = 1; j < snake.getBody().size(); j++){
             if (snake.getHead().getX() == snake.getBody().get(j).getX() &&
-                    snake.getHead().getY() == enemy.getBody().get(j).getY()) {
+                    snake.getHead().getY() == snake.getBody().get(j).getY()) {
                 return true;
             }
         }
