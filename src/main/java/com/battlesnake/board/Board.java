@@ -181,7 +181,6 @@ public class Board {
             while (movesIterator.hasNext()) {
                 Move currentMove = movesIterator.next();
                 applyMove(board, snake, currentMove);
-                printBoard(board);
                 returnMove = minimax(board, depth + 1, enemy, snake, alpha, beta);
                 board = getBoard();
                 if ((bestMove == null) || (bestMove.returnValue < returnMove.returnValue)) {
