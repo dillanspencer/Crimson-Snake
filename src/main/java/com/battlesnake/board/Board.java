@@ -170,8 +170,8 @@ public class Board {
             value = Board.MAX;
             return new MoveValue(value);
         }else if(this.board[snake.getHead().getX()][snake.getHead().getY()] == Tile.FOOD){
-            System.out.println("MAX");
-            value = Board.MAX;
+            System.out.println("FOOD");
+            value = Board.FOOD;
             return new MoveValue(value);
         }
         MoveValue returnMove;
