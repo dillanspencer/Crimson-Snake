@@ -74,7 +74,9 @@ public class Board {
         for (int i = 0; i < snake.getBody().size() - 1; i++) {
             if (i == 0) {
                 currBoard[snake.getBody().get(i).getX()][snake.getBody().get(i).getY()] = Tile.HEADS;
-            } else if (i == snake.getBody().size() - 1) {
+            } else if ((i == snake.getBody().size() - 1)
+                        && snake.getBody().size() > 1
+                        && !snake.justAte()) {
                 currBoard[snake.getBody().get(i).getX()][snake.getBody().get(i).getY()] = Tile.TAIL;
             } else {
                 currBoard[snake.getBody().get(i).getX()][snake.getBody().get(i).getY() ] = Tile.WALL;

@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="46bd0b6d-50db-478d-9e88-8277900b7779" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/src/main/java/com/battlesnake/board/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/battlesnake/board/Board.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/battlesnake/data/Snake.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/battlesnake/data/Snake.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -46,26 +47,26 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/battlesnake/board/Board.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="150" column="33" lean-forward="true" selection-start-line="150" selection-start-column="33" selection-end-line="150" selection-end-column="33" />
+            <state relative-caret-position="374">
+              <caret line="78" column="23" lean-forward="true" selection-start-line="78" selection-start-column="23" selection-end-line="78" selection-end-column="23" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#3273#3274#0" expanded="true" />
-                <element signature="e#3691#3692#0" expanded="true" />
-                <element signature="e#4078#4079#0" expanded="true" />
-                <element signature="e#4184#4185#0" expanded="true" />
-                <element signature="e#9887#9888#0" expanded="true" />
-                <element signature="e#9944#9945#0" expanded="true" />
-                <element signature="e#10017#10018#0" expanded="true" />
-                <element signature="e#10076#10077#0" expanded="true" />
-                <element signature="e#10153#10154#0" expanded="true" />
-                <element signature="e#10220#10221#0" expanded="true" />
-                <element signature="e#10309#10310#0" expanded="true" />
-                <element signature="e#10386#10387#0" expanded="true" />
-                <element signature="e#10458#10459#0" expanded="true" />
-                <element signature="e#10548#10549#0" expanded="true" />
-                <element signature="e#10666#10667#0" expanded="true" />
-                <element signature="e#10772#10773#0" expanded="true" />
+                <element signature="e#3373#3374#0" expanded="true" />
+                <element signature="e#3791#3792#0" expanded="true" />
+                <element signature="e#4178#4179#0" expanded="true" />
+                <element signature="e#4284#4285#0" expanded="true" />
+                <element signature="e#9987#9988#0" expanded="true" />
+                <element signature="e#10044#10045#0" expanded="true" />
+                <element signature="e#10117#10118#0" expanded="true" />
+                <element signature="e#10176#10177#0" expanded="true" />
+                <element signature="e#10253#10254#0" expanded="true" />
+                <element signature="e#10320#10321#0" expanded="true" />
+                <element signature="e#10409#10410#0" expanded="true" />
+                <element signature="e#10486#10487#0" expanded="true" />
+                <element signature="e#10558#10559#0" expanded="true" />
+                <element signature="e#10648#10649#0" expanded="true" />
+                <element signature="e#10766#10767#0" expanded="true" />
+                <element signature="e#10872#10873#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -95,8 +96,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/battlesnake/data/Snake.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1307">
-              <caret line="121" column="25" selection-start-line="121" selection-start-column="25" selection-end-line="121" selection-end-column="25" />
+            <state relative-caret-position="338">
+              <caret line="64" column="34" selection-start-line="64" selection-start-column="34" selection-end-line="64" selection-end-column="34" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#2210#2211#0" expanded="true" />
@@ -159,8 +160,8 @@
         <option value="$PROJECT_DIR$/src/main/java/com/battlesnake/data/Move.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/battlesnake/data/MoveValue.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/battlesnake/math/Point.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/battlesnake/data/Snake.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/battlesnake/RequestController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/battlesnake/data/Snake.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/battlesnake/board/Board.java" />
       </list>
     </option>
@@ -228,7 +229,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1577942888673" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1577943465591" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RunDashboard">
@@ -409,23 +410,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/battlesnake/data/Move.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="471">
-          <caret line="50" column="3" lean-forward="true" selection-start-line="50" selection-start-column="3" selection-end-line="50" selection-end-column="3" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/battlesnake/board/State.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/battlesnake/math/Point.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="408">
@@ -452,8 +436,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/battlesnake/data/Snake.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1307">
-          <caret line="121" column="25" selection-start-line="121" selection-start-column="25" selection-end-line="121" selection-end-column="25" />
+        <state relative-caret-position="338">
+          <caret line="64" column="34" selection-start-line="64" selection-start-column="34" selection-end-line="64" selection-end-column="34" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#2210#2211#0" expanded="true" />
@@ -477,28 +461,45 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/battlesnake/board/Board.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/battlesnake/board/State.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="150" column="33" lean-forward="true" selection-start-line="150" selection-start-column="33" selection-end-line="150" selection-end-column="33" />
+        <state relative-caret-position="119">
+          <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/battlesnake/data/Move.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="471">
+          <caret line="50" column="3" lean-forward="true" selection-start-line="50" selection-start-column="3" selection-end-line="50" selection-end-column="3" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3273#3274#0" expanded="true" />
-            <element signature="e#3691#3692#0" expanded="true" />
-            <element signature="e#4078#4079#0" expanded="true" />
-            <element signature="e#4184#4185#0" expanded="true" />
-            <element signature="e#9887#9888#0" expanded="true" />
-            <element signature="e#9944#9945#0" expanded="true" />
-            <element signature="e#10017#10018#0" expanded="true" />
-            <element signature="e#10076#10077#0" expanded="true" />
-            <element signature="e#10153#10154#0" expanded="true" />
-            <element signature="e#10220#10221#0" expanded="true" />
-            <element signature="e#10309#10310#0" expanded="true" />
-            <element signature="e#10386#10387#0" expanded="true" />
-            <element signature="e#10458#10459#0" expanded="true" />
-            <element signature="e#10548#10549#0" expanded="true" />
-            <element signature="e#10666#10667#0" expanded="true" />
-            <element signature="e#10772#10773#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/battlesnake/board/Board.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="78" column="23" lean-forward="true" selection-start-line="78" selection-start-column="23" selection-end-line="78" selection-end-column="23" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3373#3374#0" expanded="true" />
+            <element signature="e#3791#3792#0" expanded="true" />
+            <element signature="e#4178#4179#0" expanded="true" />
+            <element signature="e#4284#4285#0" expanded="true" />
+            <element signature="e#9987#9988#0" expanded="true" />
+            <element signature="e#10044#10045#0" expanded="true" />
+            <element signature="e#10117#10118#0" expanded="true" />
+            <element signature="e#10176#10177#0" expanded="true" />
+            <element signature="e#10253#10254#0" expanded="true" />
+            <element signature="e#10320#10321#0" expanded="true" />
+            <element signature="e#10409#10410#0" expanded="true" />
+            <element signature="e#10486#10487#0" expanded="true" />
+            <element signature="e#10558#10559#0" expanded="true" />
+            <element signature="e#10648#10649#0" expanded="true" />
+            <element signature="e#10766#10767#0" expanded="true" />
+            <element signature="e#10872#10873#0" expanded="true" />
           </folding>
         </state>
       </provider>

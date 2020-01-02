@@ -58,11 +58,11 @@ public class Snake {
     }
 
     public void applyMove(Tile[][] board, Move move){
-        move.translate(getHead());
         for(int i = body.size() - 1; i > 0; i--){
             body.get(i).setX(body.get(i-1).getX());
             body.get(i).setY(body.get(i-1).getY());
         }
+        move.translate(getHead());
     }
 
     public boolean equals(Object other) {
