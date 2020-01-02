@@ -232,15 +232,19 @@ public class Board {
 
         //check directions
         if(you.getHead().getX() < foodPoint.getX()){
+            System.out.println("RIGHT");
             return Move.RIGHT;
         }
         if(you.getHead().getX() > foodPoint.getX()){
+            System.out.println("LEFT");
             return Move.LEFT;
         }
         if(you.getHead().getY() < foodPoint.getY()){
+            System.out.println("DOWN");
             return Move.DOWN;
         }
         if(you.getHead().getY() > foodPoint.getY()){
+            System.out.println("UP");
             return Move.UP;
         }
         return Move.RIGHT;
