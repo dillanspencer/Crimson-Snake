@@ -284,6 +284,7 @@ public class Board {
 
     public Move findFood() {
         if (food.isEmpty()) return getMove();
+
         Point foodPoint = food.get(0);
         double closest = Point.distance(you.getHead(), foodPoint);
         for (Point f : food) {
@@ -295,19 +296,23 @@ public class Board {
         }
 
         //check directions
-        if (you.getHead().getX() < foodPoint.getX() && !isFilled(Move.RIGHT.translate(you.getHead()))) {
+        if (you.getHead().getX() < foodPoint.getX() && !isFilled(Move.RIGHT.translate(you.getHead()))
+                && !isDeadEnd(Move.RIGHT.translate(you.getHead()), you.length()*2)) {
             System.out.println("RIGHT");
             return Move.RIGHT;
         }
-        if (you.getHead().getX() > foodPoint.getX() && !isFilled(Move.LEFT.translate(you.getHead()))) {
+        if (you.getHead().getX() > foodPoint.getX() && !isFilled(Move.LEFT.translate(you.getHead()))
+                && !isDeadEnd(Move.LEFT.translate(you.getHead()), you.length()*2)) {
             System.out.println("LEFT");
             return Move.LEFT;
         }
-        if (you.getHead().getY() < foodPoint.getY() && !isFilled(Move.DOWN.translate(you.getHead()))) {
+        if (you.getHead().getY() < foodPoint.getY() && !isFilled(Move.DOWN.translate(you.getHead()))
+                && !isDeadEnd(Move.DOWN.translate(you.getHead()), you.length()*2)) {
             System.out.println("DOWN");
             return Move.DOWN;
         }
-        if (you.getHead().getY() > foodPoint.getY() && !isFilled(Move.UP.translate(you.getHead()))) {
+        if (you.getHead().getY() > foodPoint.getY() && !isFilled(Move.UP.translate(you.getHead()))
+                && !isDeadEnd(Move.UP.translate(you.getHead()), you.length()*2)) {
             System.out.println("UP");
             return Move.UP;
         }
