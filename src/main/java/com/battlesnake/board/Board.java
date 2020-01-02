@@ -174,6 +174,7 @@ public class Board {
             }else{
                 stack.pop();
             }
+            depth++;
         }
         System.out.println("DEAD END: " + stack.isEmpty());
         return stack.isEmpty();
@@ -182,7 +183,7 @@ public class Board {
     private List<Move> getPossibleMoves(Tile[][] currentBoard, Point point) {
         List<Move> moves = new ArrayList<>();
         for (Map.Entry<Move, Point> move : Move.adjacent(point).entrySet()) {
-            if (!isDeadEnd(move.getValue(), 8));
+            if (movable(move.getValue()) && !isDeadEnd(move.getValue(), 8));
                 moves.add(move.getKey());
         }
         return moves;
