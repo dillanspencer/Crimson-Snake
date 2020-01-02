@@ -77,7 +77,7 @@ public class Board {
             } else if (i == snake.getBody().size() - 1) {
                 currBoard[snake.getBody().get(i).getX()][snake.getBody().get(i).getY()] = Tile.TAIL;
             } else {
-                currBoard[snake.getBody().get(i).getX()][snake.getBody().get(i).getY()] = Tile.WALL;
+                currBoard[snake.getBody().get(i).getX()][snake.getBody().get(i).getY() ] = Tile.WALL;
             }
         }
     }
@@ -142,6 +142,12 @@ public class Board {
                 return true;
             }
         }
+        for(int j = 1; j < snake.getBody().size(); j++){
+            if (snake.getHead().getX() == snake.getBody().get(j).getX() &&
+                    snake.getHead().getY() == enemy.getBody().get(j).getY()) {
+                return true;
+            }
+        }
         if (!exists(snake.getHead())) return true;
         return false;
     }
@@ -175,6 +181,7 @@ public class Board {
             while (movesIterator.hasNext()) {
                 Move currentMove = movesIterator.next();
                 applyMove(board, snake, currentMove);
+                printBoard(board);
                 returnMove = minimax(board, depth + 1, enemy, snake, alpha, beta);
                 board = getBoard();
                 if ((bestMove == null) || (bestMove.returnValue < returnMove.returnValue)) {
@@ -191,7 +198,6 @@ public class Board {
                     return bestMove; // pruning
                 }
             }
-            printBoard(board);
             return bestMove;
         } else {
             while (movesIterator.hasNext()) {
@@ -213,7 +219,6 @@ public class Board {
                     return bestMove; // pruning
                 }
             }
-            printBoard(board);
             return bestMove;
         }
     }
