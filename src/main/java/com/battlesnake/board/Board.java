@@ -256,14 +256,14 @@ public class Board {
 
 
     public Move getMove() {
-        List<Move> moves = new ArrayList<>();
-        for(Snake s : snakes){
-            if(!s.equals(you)){
-                moves.add(minimax(board, 0, you, s, Board.MIN, Board.MAX).returnMove);
+        Snake enemy = null;
+        for (Snake s : snakes) {
+            if (!s.equals(you)) {
+                enemy = s;
+                break;
             }
         }
-
-        return moves.get(0);
+        return minimax(board, 0, you, enemy, Board.MIN, Board.MAX).returnMove;
     }
 
     public void printBoard(Tile[][] board) {
