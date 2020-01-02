@@ -139,7 +139,7 @@ public class Board {
         return isFilled(snake.getHead(), board);
     }
 
-    private MoveValue minimax(Tile[][] board, int depth, Snake snake, double alpha, double beta) {
+    private MoveValue minimax(Tile[][] board, int depth, Snake snake, Snake enemy, double alpha, double beta) {
         if (depth == 3) return new MoveValue();
 
         List<Move> moves = getPossibleMoves(board, snake.getHead());
@@ -151,7 +151,7 @@ public class Board {
         if (checkCollision(board, snake) && isMaximizing) {
             value = Board.MIN;
             return new MoveValue(value);
-        } else if (checkCollision(board, snake) && !isMaximizing) {
+        } else if (checkCollision(board, enemy) && !isMaximizing) {
             value = Board.MIN;
             return new MoveValue(value);
         }
@@ -160,11 +160,10 @@ public class Board {
 
         //Iterate through possible moves
         if (isMaximizing) {
-            Snake enemy = snakes.get(0);
             while (movesIterator.hasNext()) {
                 Move currentMove = movesIterator.next();
                 applyMove(board, snake, currentMove);
-                returnMove = minimax(board, depth + 1, enemy, alpha, beta);
+                returnMove = minimax(board, depth + 1, enemy, snake, alpha, beta);
                 board = getBoard();
                 if ((bestMove == null) || (bestMove.returnValue < returnMove.returnValue)) {
                     bestMove = returnMove;
@@ -180,13 +179,13 @@ public class Board {
                     return bestMove; // pruning
                 }
             }
+            printBoard(board);
             return bestMove;
         }else{
-            Snake enemy = you();
             while (movesIterator.hasNext()) {
                 Move currentMove = movesIterator.next();
                 applyMove(board, snake, currentMove);
-                returnMove = minimax(board, depth + 1, enemy, alpha, beta);
+                returnMove = minimax(board, depth + 1, enemy, snake, alpha, beta);
                 board = getBoard();
                 if ((bestMove == null) || (bestMove.returnValue > returnMove.returnValue)) {
                     bestMove = returnMove;
@@ -202,6 +201,7 @@ public class Board {
                     return bestMove; // pruning
                 }
             }
+            printBoard(board);
             return bestMove;
         }
     }
@@ -211,7 +211,14 @@ public class Board {
 
 
     public Move getMove() {
-        return minimax(board, 0, you, Board.MIN, Board.MAX).returnMove;
+        Snake enemy = null;
+        for(Snake s : snakes){
+            if(s.equals(you)){
+                enemy = s;
+                break;
+            }
+        }
+        return minimax(board, 0, you, enemy, Board.MIN, Board.MAX).returnMove;
     }
 
     public void printBoard(Tile[][] board) {
