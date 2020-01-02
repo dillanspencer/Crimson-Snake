@@ -192,9 +192,10 @@ public class Board {
         if (isMaximizing) {
             while (movesIterator.hasNext()) {
                 Move currentMove = movesIterator.next();
+                Tile[][] tempBoard = board;
                 applyMove(board, snake, currentMove);
                 returnMove = minimax(board, depth + 1, enemy, snake, alpha, beta);
-                board = getBoard();
+                board = tempBoard;
                 if ((bestMove == null) || (bestMove.returnValue < returnMove.returnValue)) {
                     bestMove = returnMove;
                     bestMove.returnMove = currentMove;
@@ -213,9 +214,10 @@ public class Board {
         } else {
             while (movesIterator.hasNext()) {
                 Move currentMove = movesIterator.next();
+                Tile[][] tempBoard = board;
                 applyMove(board, snake, currentMove);
                 returnMove = minimax(board, depth + 1, enemy, snake, alpha, beta);
-                board = getBoard();
+                board = tempBoard;
                 if ((bestMove == null) || (bestMove.returnValue > returnMove.returnValue)) {
                     bestMove = returnMove;
                     bestMove.returnMove = currentMove;
@@ -281,6 +283,7 @@ public class Board {
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
                 if (board[j][i] == Tile.WALL) System.out.print("W, ");
+                if (board[j][i] == Tile.ME) System.out.print("ME, ");
                 if (board[j][i] == Tile.EMPTY) System.out.print("E, ");
                 if (board[j][i] == Tile.HEADS) System.out.print("H, ");
                 if (board[j][i] == Tile.TAIL) System.out.print("T, ");
