@@ -43,17 +43,17 @@ public class StartResponse {
     return this.color;
   }
 
-  @JsonProperty("head_url")
+  @JsonProperty("headUrl")
   public String getHeadUrl() {
     return this.headUrl;
   }
 
-  @JsonProperty("head_type")
+  @JsonProperty("headType")
   public HeadType getHeadType() {
     return this.headType;
   }
 
-  @JsonProperty("tail_type")
+  @JsonProperty("tailType")
   public TailType getTailType() {
     return this.tailType;
   }
@@ -62,7 +62,7 @@ public class StartResponse {
     return this.taunt;
   }
 
-  @JsonProperty("secondary_color")
+  @JsonProperty("secondaryColor")
   public String getSecondaryColor() {
     return this.secondaryColor;
   }
