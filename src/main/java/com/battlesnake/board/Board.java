@@ -63,10 +63,8 @@ public class Board {
     }
 
     private void applyMove(Tile[][] currBoard, Snake snake, Snake enemy, Move move) {
-        for (int y = 0; y < getHeight(); y++) {
-            for (int x = 0; x < getWidth(); x++) {
-                currBoard[x][y] = Tile.EMPTY;
-            }
+        for(Point p : snake.getBody()){
+            currBoard[p.getX()][p.getY()] = Tile.EMPTY;
         }
 
         snake.applyMove(currBoard, move);
@@ -88,19 +86,7 @@ public class Board {
         } else {
             currBoard[head.getX()][head.getY()] = Tile.HEADS;
         }
-        //ENEMY
-        body = enemy.getBody();
-        head = body.get(0);
-        for (int i = 0; i < body.size(); i++) {
-            if ((i == body.size() - 1)
-                    && body.size() > 1
-                    && !snake.justAte()) {
-                currBoard[body.get(i).getX()][body.get(i).getY()] = Tile.TAIL;
-            } else {
-                currBoard[body.get(i).getX()][body.get(i).getY()] = Tile.WALL;
-            }
-        }
-        currBoard[head.getX()][head.getY()] = Tile.HEADS;
+        printBoard(currBoard);
     }
 
     public boolean exists(Point point) {
