@@ -55,7 +55,7 @@ public class RequestController {
         if(mySnake.getHealth() < 50){
             move = board.findFood();
         }else {
-            move = board.findFood();
+            move = board.getMove();
         }
         return moveResponse.setMove(move);
     }

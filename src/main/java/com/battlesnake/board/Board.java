@@ -247,7 +247,7 @@ public class Board {
             System.out.println("UP");
             return Move.UP;
         }
-        return Move.RIGHT;
+        return null;
     }
 
 
