@@ -6,10 +6,7 @@ import com.battlesnake.data.Snake;
 import com.battlesnake.math.Point;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Board {
 
@@ -137,11 +134,52 @@ public class Board {
         return !isFilled(point, board);
     }
 
+    public boolean isDeadEnd(Point point, int searchDepth) {
+        boolean locations[][] = new boolean[width][height];
+        int depth = 0;
+        Point currentLocation;
+        Stack<Point> stack = new Stack<>();
+
+        stack.push(point);
+
+        while (!stack.isEmpty() && depth < searchDepth) {
+
+            //set current location to top of stack
+            currentLocation = stack.peek();
+
+            //set location as visited
+            locations[currentLocation.getX()][currentLocation.getY()] = true;
+
+            //check up
+            if (currentLocation.getY() != 0 && locations[currentLocation.getX()][currentLocation.getY()-1] == false
+                    && !movable(Move.RIGHT.translate(currentLocation))) {
+                stack.push(Move.UP.translate(currentLocation));
+            }
+            //check down
+            else if (currentLocation.getY() != 0 && locations[currentLocation.getX()][currentLocation.getY()+1] == false
+                    && !movable(Move.DOWN.translate(currentLocation))) {
+                stack.push(Move.DOWN.translate(currentLocation));
+            }
+            //check right
+            else if (currentLocation.getX() != width-1 && locations[currentLocation.getX()+1][currentLocation.getY()] == false
+                    && !movable(Move.RIGHT.translate(currentLocation))) {
+                stack.push(Move.RIGHT.translate(currentLocation));
+            }
+            //check left
+            else if (currentLocation.getX() != 0 && locations[currentLocation.getX()-1][currentLocation.getY()] == false
+                    && !movable(Move.LEFT.translate(currentLocation))) {
+                stack.push(Move.LEFT.translate(currentLocation));
+            }else{
+                stack.pop();
+            }
+        }
+        return stack.isEmpty();
+    }
 
     private List<Move> getPossibleMoves(Tile[][] currentBoard, Point point) {
         List<Move> moves = new ArrayList<>();
         for (Map.Entry<Move, Point> move : Move.adjacent(point).entrySet()) {
-            if (movable(move.getValue(), currentBoard))
+            if (!isDeadEnd(move.getValue(), 8));
                 moves.add(move.getKey());
         }
         return moves;
@@ -241,7 +279,7 @@ public class Board {
     }
 
     public Move findFood() {
-        if(food.isEmpty()) return getMove();
+        if (food.isEmpty()) return getMove();
         Point foodPoint = food.get(0);
         double closest = Point.distance(you.getHead(), foodPoint);
         for (Point f : food) {
