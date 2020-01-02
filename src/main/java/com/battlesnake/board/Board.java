@@ -22,9 +22,9 @@ public class Board {
 
     //minimax algorithm
     private static final int MIN = -1000;
-    private static final int NONE = 0;
+    private static final int NONE = -50;
     private static final int MAX = 1000;
-    private static final int FOOD = 2000;
+    private static final int FOOD = 0;
 
     //Game Map
     private Tile[][] board;
@@ -147,7 +147,7 @@ public class Board {
     private MoveValue minimax(Tile[][] board, int depth, Snake snake, Snake enemy, double alpha, double beta) {
         if (depth == 3) {
             System.out.println("SAFE");
-            return new MoveValue();
+            return new MoveValue(Board.NONE);
         }
 
         List<Move> moves = getPossibleMoves(board, snake.getHead());
@@ -166,6 +166,10 @@ public class Board {
             value = Board.MIN;
             return new MoveValue(value);
         } else if (checkCollision(enemy, snake)) {
+            System.out.println("MAX");
+            value = Board.MAX;
+            return new MoveValue(value);
+        }else if(this.board[snake.getHead().getX()][snake.getHead().getY()] == Tile.FOOD){
             System.out.println("MAX");
             value = Board.MAX;
             return new MoveValue(value);
