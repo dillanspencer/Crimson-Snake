@@ -71,16 +71,23 @@ public class Board {
             currBoard[snake.getBody().get(i).getX()][snake.getBody().get(i).getY()] = Tile.EMPTY;
         }
         snake.applyMove(currBoard, move);
-        for (int i = 0; i < snake.getBody().size() - 1; i++) {
-            if (i == 0) {
-                currBoard[snake.getBody().get(i).getX()][snake.getBody().get(i).getY()] = Tile.HEADS;
-            } else if ((i == snake.getBody().size() - 1)
-                        && snake.getBody().size() > 1
-                        && !snake.justAte()) {
-                currBoard[snake.getBody().get(i).getX()][snake.getBody().get(i).getY()] = Tile.TAIL;
+
+        List<Point> body = snake.getBody();
+        Point head = body.get(0);
+
+        for (int i = 0; i < body.size(); i++) {
+            if ((i == body.size() - 1)
+                    && body.size() > 1
+                    && !snake.justAte()) {
+                currBoard[body.get(i).getX()][body.get(i).getY()] = Tile.TAIL;
             } else {
-                currBoard[snake.getBody().get(i).getX()][snake.getBody().get(i).getY() ] = Tile.WALL;
+                currBoard[body.get(i).getX()][body.get(i).getY()] = Tile.WALL;
             }
+        }
+        if (snake.equals(you())) {
+            currBoard[head.getX()][head.getY()] = Tile.ME;
+        } else {
+            currBoard[head.getX()][head.getY()] = Tile.HEADS;
         }
     }
 
@@ -138,9 +145,9 @@ public class Board {
     }
 
     private boolean checkCollision(Snake snake, Snake enemy) {
-       if(snake.checkCollision(enemy) != -1){
-           return true;
-       }
+        if (snake.checkCollision(enemy) != -1) {
+            return true;
+        }
 
         if (!exists(snake.getHead())) return true;
         return false;
@@ -162,7 +169,7 @@ public class Board {
         //base case
         if (checkCollision(snake, enemy)) {
             //check head collision
-            if(Point.equals(snake.getHead(), enemy.getHead()) && snake.longerThan(enemy)){
+            if (Point.equals(snake.getHead(), enemy.getHead()) && snake.longerThan(enemy)) {
                 value = Board.MAX;
                 return new MoveValue(value);
             }
@@ -173,7 +180,7 @@ public class Board {
             System.out.println("MAX");
             value = Board.MAX;
             return new MoveValue(value);
-        }else if(this.board[snake.getHead().getX()][snake.getHead().getY()] == Tile.FOOD){
+        } else if (this.board[snake.getHead().getX()][snake.getHead().getY()] == Tile.FOOD) {
             System.out.println("FOOD");
             value = Board.FOOD;
             return new MoveValue(value);
@@ -227,31 +234,31 @@ public class Board {
         }
     }
 
-    public Move findFood(){
+    public Move findFood() {
         Point foodPoint = food.get(0);
         double closest = Point.distance(you.getHead(), foodPoint);
-        for(Point f : food){
+        for (Point f : food) {
             double dist = Point.distance(you.getHead(), f);
-            if(dist < closest){
+            if (dist < closest) {
                 closest = dist;
                 foodPoint = f;
             }
         }
 
         //check directions
-        if(you.getHead().getX() < foodPoint.getX()){
+        if (you.getHead().getX() < foodPoint.getX()) {
             System.out.println("RIGHT");
             return Move.RIGHT;
         }
-        if(you.getHead().getX() > foodPoint.getX()){
+        if (you.getHead().getX() > foodPoint.getX()) {
             System.out.println("LEFT");
             return Move.LEFT;
         }
-        if(you.getHead().getY() < foodPoint.getY()){
+        if (you.getHead().getY() < foodPoint.getY()) {
             System.out.println("DOWN");
             return Move.DOWN;
         }
-        if(you.getHead().getY() > foodPoint.getY()){
+        if (you.getHead().getY() > foodPoint.getY()) {
             System.out.println("UP");
             return Move.UP;
         }
