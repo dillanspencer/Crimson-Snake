@@ -75,13 +75,16 @@ public class Snake {
         body.set(0, move.translate(getHead()));
     }
 
-    public SnakeState getState(int turn){
+    public SnakeState getState(int turn, Snake enemy){
         if(turn < 20){
             return SnakeState.HUNGRY;
         }
         else if(health < 50){
             return SnakeState.HUNGRY;
-        }else{
+        }else if(Point.distance(getHead(), enemy.getHead()) > 5){
+            return SnakeState.HUNGRY;
+        }
+        else{
             return SnakeState.SMART;
         }
     }

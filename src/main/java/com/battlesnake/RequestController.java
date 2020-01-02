@@ -44,8 +44,8 @@ public class RequestController {
         Board board = request.getBoard();
         board.init(mySnake);
 
-        Snake.SnakeState snakeState = mySnake.getState(request.getTurn());
-        Move move = Move.RIGHT;
+        Snake.SnakeState snakeState = mySnake.getState(request.getTurn(), findEnemySnake(request, mySnake));
+        Move move;
         if(snakeState == Snake.SnakeState.HUNGRY) move = board.findFood();
         else{
             move = board.getMove();
@@ -71,6 +71,17 @@ public class RequestController {
         String myUuid = request.getYou().getId();
         List<Snake> snakes = request.getBoard().getSnakes();
         return snakes.stream().filter(thisSnake -> thisSnake.getId().equals(myUuid)).findFirst().orElse(null);
+    }
+
+    private Snake findEnemySnake(MoveRequest request, Snake mySnake){
+        List<Snake> snakes = request.getBoard().getSnakes();
+
+        for(Snake s : snakes){
+            if(!s.equals(mySnake)){
+                return s;
+            }
+        }
+        return null;
     }
 
 
