@@ -157,7 +157,7 @@ public class Board {
     }
 
     private MoveValue minimax(Tile[][] board, int depth, Snake snake, Snake enemy, double alpha, double beta) {
-        if (depth == 3) {
+        if (depth == 5) {
             System.out.println("SAFE");
             System.out.println();
             return new MoveValue(Board.NONE);
