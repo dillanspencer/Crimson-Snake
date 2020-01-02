@@ -119,7 +119,7 @@ public class Snake {
         return this.taunt;
     }
 
-    @JsonProperty("health_points")
+    @JsonProperty("health")
     public int getHealth() {
         return this.health;
     }
