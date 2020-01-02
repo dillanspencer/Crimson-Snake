@@ -271,7 +271,7 @@ public class Board {
             System.out.println("UP");
             return Move.UP;
         }
-        return null;
+        return getMove();
     }
 
 
