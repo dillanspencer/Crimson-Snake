@@ -135,6 +135,8 @@ public class Board {
     }
 
     public boolean isDeadEnd(Point point, int searchDepth) {
+        if(!exists(point)) return true;
+
         boolean locations[][] = new boolean[width][height];
         int depth = 0;
         Point currentLocation;
@@ -152,22 +154,22 @@ public class Board {
 
             //check up
             if (currentLocation.getY() != 0 && locations[currentLocation.getX()][currentLocation.getY()-1] == false
-                    && !movable(Move.UP.translate(currentLocation))) {
+                    && movable(Move.UP.translate(currentLocation))) {
                 stack.push(Move.UP.translate(currentLocation));
             }
             //check down
             else if (currentLocation.getY() != height - 1 && locations[currentLocation.getX()][currentLocation.getY()+1] == false
-                    && !movable(Move.DOWN.translate(currentLocation))) {
+                    && movable(Move.DOWN.translate(currentLocation))) {
                 stack.push(Move.DOWN.translate(currentLocation));
             }
             //check right
             else if (currentLocation.getX() != width-1 && locations[currentLocation.getX()+1][currentLocation.getY()] == false
-                    && !movable(Move.RIGHT.translate(currentLocation))) {
+                    && movable(Move.RIGHT.translate(currentLocation))) {
                 stack.push(Move.RIGHT.translate(currentLocation));
             }
             //check left
             else if (currentLocation.getX() != 0 && locations[currentLocation.getX()-1][currentLocation.getY()] == false
-                    && !movable(Move.LEFT.translate(currentLocation))) {
+                    && movable(Move.LEFT.translate(currentLocation))) {
                 stack.push(Move.LEFT.translate(currentLocation));
             }else{
                 stack.pop();
