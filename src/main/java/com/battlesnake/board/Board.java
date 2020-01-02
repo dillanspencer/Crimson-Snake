@@ -179,6 +179,10 @@ public class Board {
             value = Board.MIN;
             return new MoveValue(value);
         } else if (checkCollision(enemy, snake)) {
+            if (Point.equals(snake.getHead(), enemy.getHead()) && enemy.longerThan(snake)) {
+                value = Board.MIN;
+                return new MoveValue(value);
+            }
             System.out.println("MAX");
             value = Board.MAX;
             return new MoveValue(value);
