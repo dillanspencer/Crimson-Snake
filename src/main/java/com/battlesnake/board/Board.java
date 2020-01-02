@@ -152,7 +152,7 @@ public class Board {
 
             //check up
             if (currentLocation.getY() != 0 && locations[currentLocation.getX()][currentLocation.getY()-1] == false
-                    && !movable(Move.RIGHT.translate(currentLocation))) {
+                    && !movable(Move.UP.translate(currentLocation))) {
                 stack.push(Move.UP.translate(currentLocation));
             }
             //check down
@@ -173,6 +173,7 @@ public class Board {
                 stack.pop();
             }
         }
+        System.out.println("DEAD END: " + stack.isEmpty());
         return stack.isEmpty();
     }
 
