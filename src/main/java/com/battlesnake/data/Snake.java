@@ -24,6 +24,12 @@ import java.util.List;
 
 public class Snake {
 
+    public enum SnakeState{
+        HUNGRY,
+        AGRESSIVE,
+        SMART;
+    }
+
     private static int MAX_HEALTH = 100;
     private static int MIN_HEALTH = 0;
 
@@ -34,7 +40,11 @@ public class Snake {
     private Point position;
     private List<Point> body;
 
+    //snake state
+    private SnakeState state;
+
     public Snake() {
+        state = SnakeState.HUNGRY;
     }
 
     public int checkCollision(Snake other) {
@@ -63,6 +73,17 @@ public class Snake {
             body.get(i).setY(body.get(i-1).getY());
         }
         body.set(0, move.translate(getHead()));
+    }
+
+    public SnakeState getState(int turn){
+        if(turn < 20){
+            return SnakeState.HUNGRY;
+        }
+        else if(health < 50){
+            return SnakeState.HUNGRY;
+        }else{
+            return SnakeState.SMART;
+        }
     }
 
     public boolean equals(Object other) {

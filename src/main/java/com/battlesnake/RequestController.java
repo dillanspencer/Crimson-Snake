@@ -44,19 +44,13 @@ public class RequestController {
         Board board = request.getBoard();
         board.init(mySnake);
 
-        //List<Move> towardsFoodMoves = moveTowardsFood(request, mySnake.getBody().get(0));
-
-//        if(mySnake.getHealth() < 10) {
-//            if (towardsFoodMoves != null && !towardsFoodMoves.isEmpty()) {
-//                return moveResponse.setMove(towardsFoodMoves.get(0)).setTaunt("I'm hungry");
-//            }
-//        }
-        Move move;
-        if(mySnake.getHealth() < 50){
-            move = board.findFood();
-        }else {
+        Snake.SnakeState snakeState = mySnake.getState(request.getTurn());
+        Move move = Move.RIGHT;
+        if(snakeState == Snake.SnakeState.HUNGRY) move = board.findFood();
+        else{
             move = board.getMove();
         }
+
         return moveResponse.setMove(move);
     }
 
