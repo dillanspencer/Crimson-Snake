@@ -63,7 +63,8 @@ public class Board {
     }
 
     private void applyMove(Tile[][] currBoard, Snake snake, Move move) {
-
+        System.out.println("BEFORE: -------------");
+        printBoard(currBoard);
         for (int y = 0; y < getHeight(); y++) {
             for (int x = 0; x < getWidth(); x++) {
                 currBoard[x][y] = Tile.EMPTY;
@@ -89,6 +90,8 @@ public class Board {
         } else {
             currBoard[head.getX()][head.getY()] = Tile.HEADS;
         }
+        System.out.println("AFTER: -------------");
+        printBoard(currBoard);
     }
 
     public boolean exists(Point point) {
@@ -230,9 +233,6 @@ public class Board {
         Iterator<Move> movesIterator = moves.iterator();
         double value = boardValue(snake, enemy);
         boolean isMaximizing = (snake.equals(you()));
-
-        printBoard(board);
-        System.out.println();
 
         //base case
         if(value != -1){
