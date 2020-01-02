@@ -177,8 +177,9 @@ public class Board {
         if (isMaximizing) {
             while (movesIterator.hasNext()) {
                 Move currentMove = movesIterator.next();
-                applyMove(board, snake, currentMove);
-                returnMove = minimax(board, depth + 1, enemy, snake, alpha, beta);
+                Snake temp = snake;
+                applyMove(board, temp, currentMove);
+                returnMove = minimax(board, depth + 1, enemy, temp, alpha, beta);
                 board = getBoard();
                 if ((bestMove == null) || (bestMove.returnValue < returnMove.returnValue)) {
                     bestMove = returnMove;
@@ -198,8 +199,9 @@ public class Board {
         } else {
             while (movesIterator.hasNext()) {
                 Move currentMove = movesIterator.next();
-                applyMove(board, snake, currentMove);
-                returnMove = minimax(board, depth + 1, enemy, snake, alpha, beta);
+                Snake temp = snake;
+                applyMove(board, temp, currentMove);
+                returnMove = minimax(board, depth + 1, enemy, temp, alpha, beta);
                 board = getBoard();
                 if ((bestMove == null) || (bestMove.returnValue > returnMove.returnValue)) {
                     bestMove = returnMove;
