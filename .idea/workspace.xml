@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="46bd0b6d-50db-478d-9e88-8277900b7779" name="Default Changelist" comment="" />
+    <list default="true" id="46bd0b6d-50db-478d-9e88-8277900b7779" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/battlesnake/board/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/battlesnake/board/Board.java" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -60,25 +62,25 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/com/battlesnake/board/Board.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="447">
-              <caret line="186" column="35" lean-forward="true" selection-start-line="186" selection-start-column="35" selection-end-line="186" selection-end-column="35" />
+              <caret line="186" column="53" selection-start-line="186" selection-start-column="53" selection-end-line="186" selection-end-column="53" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#3430#3431#0" expanded="true" />
                 <element signature="e#3848#3849#0" expanded="true" />
                 <element signature="e#4235#4236#0" expanded="true" />
                 <element signature="e#4341#4342#0" expanded="true" />
-                <element signature="e#12509#12510#0" expanded="true" />
-                <element signature="e#12566#12567#0" expanded="true" />
-                <element signature="e#12639#12640#0" expanded="true" />
-                <element signature="e#12698#12699#0" expanded="true" />
-                <element signature="e#12775#12776#0" expanded="true" />
-                <element signature="e#12842#12843#0" expanded="true" />
-                <element signature="e#12931#12932#0" expanded="true" />
-                <element signature="e#13008#13009#0" expanded="true" />
-                <element signature="e#13080#13081#0" expanded="true" />
-                <element signature="e#13170#13171#0" expanded="true" />
-                <element signature="e#13288#13289#0" expanded="true" />
-                <element signature="e#13394#13395#0" expanded="true" />
+                <element signature="e#12523#12524#0" expanded="true" />
+                <element signature="e#12580#12581#0" expanded="true" />
+                <element signature="e#12653#12654#0" expanded="true" />
+                <element signature="e#12712#12713#0" expanded="true" />
+                <element signature="e#12789#12790#0" expanded="true" />
+                <element signature="e#12856#12857#0" expanded="true" />
+                <element signature="e#12945#12946#0" expanded="true" />
+                <element signature="e#13022#13023#0" expanded="true" />
+                <element signature="e#13094#13095#0" expanded="true" />
+                <element signature="e#13184#13185#0" expanded="true" />
+                <element signature="e#13302#13303#0" expanded="true" />
+                <element signature="e#13408#13409#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -194,7 +196,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1578001395555" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1578001708151" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RunDashboard">
@@ -452,25 +454,25 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/com/battlesnake/board/Board.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="447">
-          <caret line="186" column="35" lean-forward="true" selection-start-line="186" selection-start-column="35" selection-end-line="186" selection-end-column="35" />
+          <caret line="186" column="53" selection-start-line="186" selection-start-column="53" selection-end-line="186" selection-end-column="53" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#3430#3431#0" expanded="true" />
             <element signature="e#3848#3849#0" expanded="true" />
             <element signature="e#4235#4236#0" expanded="true" />
             <element signature="e#4341#4342#0" expanded="true" />
-            <element signature="e#12509#12510#0" expanded="true" />
-            <element signature="e#12566#12567#0" expanded="true" />
-            <element signature="e#12639#12640#0" expanded="true" />
-            <element signature="e#12698#12699#0" expanded="true" />
-            <element signature="e#12775#12776#0" expanded="true" />
-            <element signature="e#12842#12843#0" expanded="true" />
-            <element signature="e#12931#12932#0" expanded="true" />
-            <element signature="e#13008#13009#0" expanded="true" />
-            <element signature="e#13080#13081#0" expanded="true" />
-            <element signature="e#13170#13171#0" expanded="true" />
-            <element signature="e#13288#13289#0" expanded="true" />
-            <element signature="e#13394#13395#0" expanded="true" />
+            <element signature="e#12523#12524#0" expanded="true" />
+            <element signature="e#12580#12581#0" expanded="true" />
+            <element signature="e#12653#12654#0" expanded="true" />
+            <element signature="e#12712#12713#0" expanded="true" />
+            <element signature="e#12789#12790#0" expanded="true" />
+            <element signature="e#12856#12857#0" expanded="true" />
+            <element signature="e#12945#12946#0" expanded="true" />
+            <element signature="e#13022#13023#0" expanded="true" />
+            <element signature="e#13094#13095#0" expanded="true" />
+            <element signature="e#13184#13185#0" expanded="true" />
+            <element signature="e#13302#13303#0" expanded="true" />
+            <element signature="e#13408#13409#0" expanded="true" />
           </folding>
         </state>
       </provider>
