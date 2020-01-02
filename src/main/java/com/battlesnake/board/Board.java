@@ -211,7 +211,7 @@ public class Board {
             System.out.println("MIN");
             value = Board.MIN;
         } else if (checkCollision(enemy, snake)) {
-            System.out.println("MAX");
+            System.out.println("MAX: ENEMY COLLIDED - " + snake.getName());
             value = Board.MAX;
         } else if (this.board[snake.getHead().getX()][snake.getHead().getY()] == Tile.FOOD) {
             System.out.println("FOOD");
