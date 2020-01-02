@@ -176,7 +176,6 @@ public class Board {
             }
             depth++;
         }
-        System.out.println("DEAD END: " + stack.isEmpty());
         return stack.isEmpty();
     }
 
@@ -198,6 +197,29 @@ public class Board {
         return false;
     }
 
+    private double boardValue(Snake snake, Snake enemy){
+        double value = -1;
+        //base case
+        if (Point.equals(snake.getHead(), enemy.getHead()) && snake.longerThan(enemy)) {
+            value = Board.MAX;
+        }
+        else if (Point.equals(snake.getHead(), enemy.getHead()) && enemy.longerThan(snake)) {
+            value = Board.MIN;
+        }
+        else if (checkCollision(snake, enemy)) {
+            //check head collision
+            System.out.println("MIN");
+            value = Board.MIN;
+        } else if (checkCollision(enemy, snake)) {
+            System.out.println("MAX");
+            value = Board.MAX;
+        } else if (this.board[snake.getHead().getX()][snake.getHead().getY()] == Tile.FOOD) {
+            System.out.println("FOOD");
+            value = Board.FOOD;
+        }
+        return value;
+    }
+
     private MoveValue minimax(Tile[][] board, int depth, Snake snake, Snake enemy, double alpha, double beta) {
         if (depth == 3) {
             return new MoveValue(Board.NONE);
@@ -205,32 +227,14 @@ public class Board {
 
         List<Move> moves = getPossibleMoves(board, snake.getHead());
         Iterator<Move> movesIterator = moves.iterator();
-        double value;
+        double value = boardValue(snake, enemy);
         boolean isMaximizing = (snake.equals(you()));
 
         //base case
-        if (checkCollision(snake, enemy)) {
-            //check head collision
-            if (Point.equals(snake.getHead(), enemy.getHead()) && snake.longerThan(enemy)) {
-                value = Board.MAX;
-                return new MoveValue(value);
-            }
-            System.out.println("MIN");
-            value = Board.MIN;
-            return new MoveValue(value);
-        } else if (checkCollision(enemy, snake)) {
-            if (Point.equals(snake.getHead(), enemy.getHead()) && enemy.longerThan(snake)) {
-                value = Board.MIN;
-                return new MoveValue(value);
-            }
-            System.out.println("MAX");
-            value = Board.MAX;
-            return new MoveValue(value);
-        } else if (this.board[snake.getHead().getX()][snake.getHead().getY()] == Tile.FOOD) {
-            System.out.println("FOOD");
-            value = Board.FOOD;
+        if(value != -1){
             return new MoveValue(value);
         }
+
         MoveValue returnMove;
         MoveValue bestMove = null;
 
