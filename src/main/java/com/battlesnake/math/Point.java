@@ -21,6 +21,12 @@ public class Point {
         return false;
     }
 
+    public static double distance(Point point, Point other){
+        double dist1 = Math.sqrt(Math.pow(point.getX(), 2) + Math.pow(point.getY(), 2));
+        double dist2 = Math.sqrt(Math.pow(other.getX(), 2) + Math.pow(other.getY(), 2));
+        return dist2 - dist1;
+    }
+
     @JsonProperty("x")
     public int getX() {
         return x;

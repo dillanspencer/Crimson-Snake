@@ -160,7 +160,6 @@ public class Board {
             //check head collision
             if(Point.equals(snake.getHead(), enemy.getHead()) && snake.longerThan(enemy)){
                 value = Board.MAX;
-                System.out.println("HEEEEEAD");
                 return new MoveValue(value);
             }
             System.out.println("MIN");
@@ -218,6 +217,33 @@ public class Board {
             }
             return bestMove;
         }
+    }
+
+    public Move findFood(){
+        Point foodPoint = food.get(0);
+        double closest = Point.distance(you.getHead(), foodPoint);
+        for(Point f : food){
+            double dist = Point.distance(you.getHead(), f);
+            if(dist < closest){
+                closest = dist;
+                foodPoint = f;
+            }
+        }
+
+        //check directions
+        if(you.getHead().getX() < foodPoint.getX()){
+            return Move.RIGHT;
+        }
+        if(you.getHead().getX() > foodPoint.getX()){
+            return Move.LEFT;
+        }
+        if(you.getHead().getY() < foodPoint.getY()){
+            return Move.DOWN;
+        }
+        if(you.getHead().getY() > foodPoint.getY()){
+            return Move.UP;
+        }
+        return Move.RIGHT;
     }
 
 

@@ -51,7 +51,12 @@ public class RequestController {
 //                return moveResponse.setMove(towardsFoodMoves.get(0)).setTaunt("I'm hungry");
 //            }
 //        }
-        Move move = board.getMove();
+        Move move;
+        if(mySnake.getHealth() < 50){
+            move = board.findFood();
+        }else {
+            move = board.findFood();
+        }
         return moveResponse.setMove(move);
     }
 
