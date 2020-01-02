@@ -160,6 +160,7 @@ public class Board {
             //check head collision
             if(Point.equals(snake.getHead(), enemy.getHead()) && snake.longerThan(enemy)){
                 value = Board.MAX;
+                System.out.println("HEEEEEAD");
                 return new MoveValue(value);
             }
             System.out.println("MIN");
