@@ -156,7 +156,7 @@ public class Board {
                 stack.push(Move.UP.translate(currentLocation));
             }
             //check down
-            else if (currentLocation.getY() != 0 && locations[currentLocation.getX()][currentLocation.getY()+1] == false
+            else if (currentLocation.getY() != height - 1 && locations[currentLocation.getX()][currentLocation.getY()+1] == false
                     && !movable(Move.DOWN.translate(currentLocation))) {
                 stack.push(Move.DOWN.translate(currentLocation));
             }
