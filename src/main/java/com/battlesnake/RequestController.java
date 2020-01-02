@@ -53,7 +53,6 @@ public class RequestController {
 //        }
         Move move;
         if(mySnake.getHealth() < 50){
-            System.out.println(mySnake.getHealth());
             move = board.findFood();
         }else {
             move = board.getMove();
