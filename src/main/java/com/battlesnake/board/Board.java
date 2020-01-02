@@ -233,6 +233,9 @@ public class Board {
         boolean isMaximizing = (snake.equals(you()));
 
         //base case
+        if(moves.isEmpty()){
+            return new MoveValue(Board.MIN);
+        }
         if(value != -1){
             return new MoveValue(value);
         }
