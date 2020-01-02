@@ -231,6 +231,9 @@ public class Board {
         double value = boardValue(snake, enemy);
         boolean isMaximizing = (snake.equals(you()));
 
+        printBoard(board);
+        System.out.println();
+
         //base case
         if(value != -1){
             return new MoveValue(value);
