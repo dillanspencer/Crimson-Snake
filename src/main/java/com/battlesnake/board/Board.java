@@ -239,6 +239,7 @@ public class Board {
     }
 
     public Move findFood() {
+        if(food.isEmpty()) return getMove();
         Point foodPoint = food.get(0);
         double closest = Point.distance(you.getHead(), foodPoint);
         for (Point f : food) {
