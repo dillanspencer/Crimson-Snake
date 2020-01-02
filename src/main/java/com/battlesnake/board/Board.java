@@ -72,11 +72,11 @@ public class Board {
         }
         snake.applyMove(currBoard, move);
         for (int i = 0; i < snake.getBody().size() - 1; i++) {
-            if(i == 0) {
+            if (i == 0) {
                 currBoard[snake.getBody().get(i).getX()][snake.getBody().get(i).getY()] = Tile.HEADS;
-            } else if(i == snake.getBody().size() - 1){
+            } else if (i == snake.getBody().size() - 1) {
                 currBoard[snake.getBody().get(i).getX()][snake.getBody().get(i).getY()] = Tile.TAIL;
-            }else{
+            } else {
                 currBoard[snake.getBody().get(i).getX()][snake.getBody().get(i).getY()] = Tile.WALL;
             }
         }
@@ -136,18 +136,21 @@ public class Board {
     }
 
     private boolean checkCollision(Snake snake, Snake enemy) {
-        for(int i = 0; i < enemy.getBody().size(); i++){
-            if(snake.getHead().getX() == enemy.getBody().get(i).getX() &&
-                snake.getHead().getY() == enemy.getBody().get(i).getY()){
+        for (int i = 0; i < enemy.getBody().size(); i++) {
+            if (snake.getHead().getX() == enemy.getBody().get(i).getX() &&
+                    snake.getHead().getY() == enemy.getBody().get(i).getY()) {
                 return true;
             }
         }
-        if(!exists(snake.getHead())) return true;
+        if (!exists(snake.getHead())) return true;
         return false;
     }
 
     private MoveValue minimax(Tile[][] board, int depth, Snake snake, Snake enemy, double alpha, double beta) {
-        if (depth == 3) return new MoveValue();
+        if (depth == 3) {
+            System.out.println("SAFE");
+            return new MoveValue();
+        }
 
         List<Move> moves = getPossibleMoves(board, snake.getHead());
         Iterator<Move> movesIterator = moves.iterator();
@@ -156,9 +159,11 @@ public class Board {
 
         //base case
         if (checkCollision(snake, enemy)) {
+            System.out.println("MIN");
             value = Board.MIN;
             return new MoveValue(value);
         } else if (checkCollision(enemy, snake)) {
+            System.out.println("MAX");
             value = Board.MAX;
             return new MoveValue(value);
         }
@@ -188,7 +193,7 @@ public class Board {
             }
             printBoard(board);
             return bestMove;
-        }else{
+        } else {
             while (movesIterator.hasNext()) {
                 Move currentMove = movesIterator.next();
                 applyMove(board, snake, currentMove);
@@ -214,13 +219,10 @@ public class Board {
     }
 
 
-
-
-
     public Move getMove() {
         Snake enemy = null;
-        for(Snake s : snakes){
-            if(s.equals(you)){
+        for (Snake s : snakes) {
+            if (s.equals(you)) {
                 enemy = s;
                 break;
             }
