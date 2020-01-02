@@ -261,7 +261,7 @@ public class Board {
             while (movesIterator.hasNext()) {
                 Move currentMove = movesIterator.next();
                 Tile[][] tempBoard = board;
-                applyMove(board, snake, currentMove);
+                applyMove(board, snake, enemy, currentMove);
                 returnMove = minimax(board, depth + 1, enemy, snake, alpha, beta);
                 board = tempBoard;
                 if ((bestMove == null) || (bestMove.returnValue < returnMove.returnValue)) {
@@ -283,7 +283,7 @@ public class Board {
             while (movesIterator.hasNext()) {
                 Move currentMove = movesIterator.next();
                 Tile[][] tempBoard = board;
-                applyMove(board, snake, currentMove);
+                applyMove(board, snake, enemy, currentMove);
                 returnMove = minimax(board, depth + 1, enemy, snake, alpha, beta);
                 board = tempBoard;
                 if ((bestMove == null) || (bestMove.returnValue > returnMove.returnValue)) {
