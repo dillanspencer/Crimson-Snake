@@ -62,7 +62,7 @@ public class Board {
         }
     }
 
-    private void applyMove(Tile[][] currBoard, Snake snake, Move move) {
+    private void applyMove(Tile[][] currBoard, Snake snake, Snake enemy, Move move) {
         System.out.println("BEFORE: -------------");
         printBoard(currBoard);
         for (int y = 0; y < getHeight(); y++) {
@@ -90,6 +90,20 @@ public class Board {
         } else {
             currBoard[head.getX()][head.getY()] = Tile.HEADS;
         }
+        //ENEMY
+        body = enemy.getBody();
+        head = body.get(0);
+        for (int i = 0; i < body.size(); i++) {
+            if ((i == body.size() - 1)
+                    && body.size() > 1
+                    && !snake.justAte()) {
+                currBoard[body.get(i).getX()][body.get(i).getY()] = Tile.TAIL;
+            } else {
+                currBoard[body.get(i).getX()][body.get(i).getY()] = Tile.WALL;
+            }
+        }
+        currBoard[head.getX()][head.getY()] = Tile.HEADS;
+
         System.out.println("AFTER: -------------");
         printBoard(currBoard);
     }
