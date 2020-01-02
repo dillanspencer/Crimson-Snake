@@ -182,7 +182,7 @@ public class Board {
     private List<Move> getPossibleMoves(Tile[][] currentBoard, Point point) {
         List<Move> moves = new ArrayList<>();
         for (Map.Entry<Move, Point> move : Move.adjacent(point).entrySet()) {
-            if (movable(move.getValue(), currentBoard) && !isDeadEnd(move.getValue(), you.length()*2))
+            if (movable(move.getValue(), currentBoard) && !isDeadEnd(currentBoard, move.getValue(), you.length()*2))
                 moves.add(move.getKey());
         }
         return moves;
@@ -301,22 +301,22 @@ public class Board {
 
         //check directions
         if (you.getHead().getX() < foodPoint.getX() && !isFilled(Move.RIGHT.translate(you.getHead()))
-                && !isDeadEnd(Move.RIGHT.translate(you.getHead()), you.length()*2)) {
+                && !isDeadEnd(board, Move.RIGHT.translate(you.getHead()), you.length()*2)) {
             System.out.println("RIGHT");
             return Move.RIGHT;
         }
         if (you.getHead().getX() > foodPoint.getX() && !isFilled(Move.LEFT.translate(you.getHead()))
-                && !isDeadEnd(Move.LEFT.translate(you.getHead()), you.length()*2)) {
+                && !isDeadEnd(board, Move.LEFT.translate(you.getHead()), you.length()*2)) {
             System.out.println("LEFT");
             return Move.LEFT;
         }
         if (you.getHead().getY() < foodPoint.getY() && !isFilled(Move.DOWN.translate(you.getHead()))
-                && !isDeadEnd(Move.DOWN.translate(you.getHead()), you.length()*2)) {
+                && !isDeadEnd(board, Move.DOWN.translate(you.getHead()), you.length()*2)) {
             System.out.println("DOWN");
             return Move.DOWN;
         }
         if (you.getHead().getY() > foodPoint.getY() && !isFilled(Move.UP.translate(you.getHead()))
-                && !isDeadEnd(Move.UP.translate(you.getHead()), you.length()*2)) {
+                && !isDeadEnd(board, Move.UP.translate(you.getHead()), you.length()*2)) {
             System.out.println("UP");
             return Move.UP;
         }
