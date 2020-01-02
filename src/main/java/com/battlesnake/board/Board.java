@@ -263,11 +263,11 @@ public class Board {
             System.out.println("LEFT");
             return Move.LEFT;
         }
-        if (you.getHead().getY() > foodPoint.getY() && !isFilled(Move.DOWN.translate(you.getHead()))) {
+        if (you.getHead().getY() < foodPoint.getY() && !isFilled(Move.DOWN.translate(you.getHead()))) {
             System.out.println("DOWN");
             return Move.DOWN;
         }
-        if (you.getHead().getY() < foodPoint.getY() && !isFilled(Move.UP.translate(you.getHead()))) {
+        if (you.getHead().getY() > foodPoint.getY() && !isFilled(Move.UP.translate(you.getHead()))) {
             System.out.println("UP");
             return Move.UP;
         }
