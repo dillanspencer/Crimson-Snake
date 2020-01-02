@@ -251,19 +251,19 @@ public class Board {
         }
 
         //check directions
-        if (you.getHead().getX() < foodPoint.getX()) {
+        if (you.getHead().getX() < foodPoint.getX() && !isFilled(Move.RIGHT.translate(you.getHead()))) {
             System.out.println("RIGHT");
             return Move.RIGHT;
         }
-        if (you.getHead().getX() > foodPoint.getX()) {
+        if (you.getHead().getX() > foodPoint.getX() && !isFilled(Move.LEFT.translate(you.getHead()))) {
             System.out.println("LEFT");
             return Move.LEFT;
         }
-        if (you.getHead().getY() < foodPoint.getY()) {
+        if (you.getHead().getY() < foodPoint.getY() && !isFilled(Move.DOWN.translate(you.getHead()))) {
             System.out.println("DOWN");
             return Move.DOWN;
         }
-        if (you.getHead().getY() > foodPoint.getY()) {
+        if (you.getHead().getY() > foodPoint.getY() && !isFilled(Move.UP.translate(you.getHead()))) {
             System.out.println("UP");
             return Move.UP;
         }
