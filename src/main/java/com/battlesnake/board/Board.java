@@ -201,9 +201,11 @@ public class Board {
         double value = -1;
         //base case
         if (Point.equals(snake.getHead(), enemy.getHead()) && snake.longerThan(enemy)) {
+            System.out.println("MAX: ENEMY HEAD - " + snake.getName());
             value = Board.MAX;
         }
         else if (Point.equals(snake.getHead(), enemy.getHead()) && enemy.longerThan(snake)) {
+            System.out.println("MIN: ENEMY HEAD - " + snake.getName());
             value = Board.MIN;
         }
         else if (checkCollision(snake, enemy)) {
@@ -211,7 +213,6 @@ public class Board {
             System.out.println("MIN");
             value = Board.MIN;
         } else if (checkCollision(enemy, snake)) {
-            System.out.println("MAX: ENEMY COLLIDED - " + snake.getName());
             value = Board.MAX;
         } else if (this.board[snake.getHead().getX()][snake.getHead().getY()] == Tile.FOOD) {
             System.out.println("FOOD");
