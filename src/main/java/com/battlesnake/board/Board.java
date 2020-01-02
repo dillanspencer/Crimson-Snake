@@ -184,7 +184,7 @@ public class Board {
     private List<Move> getPossibleMoves(Tile[][] currentBoard, Point point) {
         List<Move> moves = new ArrayList<>();
         for (Map.Entry<Move, Point> move : Move.adjacent(point).entrySet()) {
-            if (movable(move.getValue(), currentBoard) && !isDeadEnd(move.getValue(), 8));
+            if (movable(move.getValue(), currentBoard));
                 moves.add(move.getKey());
         }
         return moves;
