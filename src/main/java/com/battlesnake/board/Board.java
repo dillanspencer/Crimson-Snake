@@ -139,12 +139,14 @@ public class Board {
         for (int i = 0; i < enemy.getBody().size(); i++) {
             if (snake.getHead().getX() == enemy.getBody().get(i).getX() &&
                     snake.getHead().getY() == enemy.getBody().get(i).getY()) {
+                System.out.println("Collide enemy");
                 return true;
             }
         }
         for(int j = 1; j < snake.getBody().size(); j++){
             if (snake.getHead().getX() == snake.getBody().get(j).getX() &&
                     snake.getHead().getY() == snake.getBody().get(j).getY()) {
+                System.out.println("Collide Self");
                 return true;
             }
         }
