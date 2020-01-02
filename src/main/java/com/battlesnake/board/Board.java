@@ -81,6 +81,7 @@ public class Board {
                     && !snake.justAte()) {
                 currBoard[body.get(i).getX()][body.get(i).getY()] = Tile.TAIL;
             } else {
+                System.out.println("Position: " + body.get(i).getX() + ", " + body.get(i).getY()) ;
                 currBoard[body.get(i).getX()][body.get(i).getY()] = Tile.WALL;
             }
         }
