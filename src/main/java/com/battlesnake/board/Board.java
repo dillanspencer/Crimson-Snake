@@ -87,6 +87,7 @@ public class Board {
             currBoard[head.getX()][head.getY()] = Tile.HEADS;
         }
         printBoard(currBoard);
+        System.out.println("PLAYER MOVED: " + move.getName());
     }
 
     public boolean exists(Point point) {
