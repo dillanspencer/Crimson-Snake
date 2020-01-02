@@ -135,8 +135,8 @@ public class Board {
         return moves;
     }
 
-    private boolean checkCollision(Snake snake) {
-        return isFilled(snake.getHead());
+    private boolean checkCollision(Tile[][] board, Snake snake) {
+        return isFilled(snake.getHead(), board);
     }
 
     private MoveValue minimax(Tile[][] board, int depth, Snake snake, double alpha, double beta) {
@@ -144,14 +144,14 @@ public class Board {
 
         List<Move> moves = getPossibleMoves(board, snake.getHead());
         Iterator<Move> movesIterator = moves.iterator();
-        double value = 0;
+        double value;
         boolean isMaximizing = (snake.equals(you()));
 
         //base case
-        if (checkCollision(snake) && isMaximizing) {
+        if (checkCollision(board, snake) && isMaximizing) {
             value = Board.MIN;
             return new MoveValue(value);
-        } else if (checkCollision(snake) && !isMaximizing) {
+        } else if (checkCollision(board, snake) && !isMaximizing) {
             value = Board.MIN;
             return new MoveValue(value);
         }
