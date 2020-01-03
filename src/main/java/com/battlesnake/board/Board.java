@@ -121,8 +121,7 @@ public class Board {
         return board[point.getX()][point.getY()] != Tile.EMPTY
                 && board[point.getX()][point.getY()] != Tile.FOOD
                 && board[point.getX()][point.getY()] != Tile.TAIL
-                && board[point.getX()][point.getY()] != Tile.HEADS
-                && board[point.getX()][point.getY()] != Tile.ME;
+                && board[point.getX()][point.getY()] != Tile.HEADS;
     }
 
     private boolean movable(Point point) {
