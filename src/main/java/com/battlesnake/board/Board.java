@@ -81,11 +81,9 @@ public class Board {
                 currBoard[body.get(i).getX()][body.get(i).getY()] = Tile.WALL;
             }
         }
-        if (snake.equals(you())) {
-            currBoard[head.getX()][head.getY()] = Tile.ME;
-        } else {
-            currBoard[head.getX()][head.getY()] = Tile.HEADS;
-        }
+
+        currBoard[head.getX()][head.getY()] = Tile.HEADS;
+
     }
 
     public boolean exists(Point point) {
@@ -175,6 +173,8 @@ public class Board {
             }
             depth++;
         }
+        System.out.println("DEAD END: " + stack.isEmpty());
+        System.out.println(point.getX() + ", " + point.getY());
         return stack.isEmpty();
     }
 

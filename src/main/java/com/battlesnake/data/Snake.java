@@ -76,6 +76,7 @@ public class Snake {
         body.set(0, move.translate(getHead()));
     }
 
+
     public SnakeState getState(int turn, Snake enemy){
        if(health < 50){
             return SnakeState.HUNGRY;
