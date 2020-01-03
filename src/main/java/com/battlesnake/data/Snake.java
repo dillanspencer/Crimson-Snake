@@ -27,6 +27,7 @@ public class Snake {
     public enum SnakeState{
         HUNGRY,
         AGRESSIVE,
+        FINDTAIL,
         SMART;
     }
 
@@ -79,7 +80,7 @@ public class Snake {
        if(health < 50){
             return SnakeState.HUNGRY;
         }else if(Point.distance(getHead(), enemy.getHead()) > 5){
-            return SnakeState.HUNGRY;
+            return SnakeState.FINDTAIL;
         }
         else{
             return SnakeState.SMART;

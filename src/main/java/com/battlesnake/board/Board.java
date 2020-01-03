@@ -288,6 +288,32 @@ public class Board {
         }
     }
 
+    public Move findTail(){
+
+        //check directions
+        if (you.getHead().getX() < you.getTail().getX() && !isFilled(Move.RIGHT.translate(you.getHead()))
+                && !isDeadEnd(board, Move.RIGHT.translate(you.getHead()), you.length()*2)) {
+            System.out.println("RIGHT");
+            return Move.RIGHT;
+        }
+        if (you.getHead().getX() > you.getTail().getX() && !isFilled(Move.LEFT.translate(you.getHead()))
+                && !isDeadEnd(board, Move.LEFT.translate(you.getHead()), you.length()*2)) {
+            System.out.println("LEFT");
+            return Move.LEFT;
+        }
+        if (you.getHead().getY() < you.getTail().getY() && !isFilled(Move.DOWN.translate(you.getHead()))
+                && !isDeadEnd(board, Move.DOWN.translate(you.getHead()), you.length()*2)) {
+            System.out.println("DOWN");
+            return Move.DOWN;
+        }
+        if (you.getHead().getY() > you.getTail().getY() && !isFilled(Move.UP.translate(you.getHead()))
+                && !isDeadEnd(board, Move.UP.translate(you.getHead()), you.length()*2)) {
+            System.out.println("UP");
+            return Move.UP;
+        }
+        return getMove();
+    }
+
     public Move findFood() {
         if (food.isEmpty()) return getMove();
 

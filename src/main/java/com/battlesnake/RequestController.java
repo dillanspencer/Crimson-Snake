@@ -47,6 +47,7 @@ public class RequestController {
         Snake.SnakeState snakeState = mySnake.getState(request.getTurn(), findEnemySnake(request, mySnake));
         Move move;
         if(snakeState == Snake.SnakeState.HUNGRY) move = board.findFood();
+        else if(snakeState == Snake.SnakeState.FINDTAIL) move = board.findTail();
         else{
             move = board.getMove();
         }
