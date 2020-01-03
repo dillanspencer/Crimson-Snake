@@ -181,7 +181,7 @@ public class Board {
     private List<Move> getPossibleMoves(Tile[][] currentBoard, Point point) {
         List<Move> moves = new ArrayList<>();
         for (Map.Entry<Move, Point> move : Move.adjacent(point).entrySet()) {
-            if (movable(move.getValue(), currentBoard) && !isDeadEnd(currentBoard, point, move.getValue(), you.length() * 2))
+            if (movable(move.getValue(), currentBoard) && !isDeadEnd(currentBoard, point, move.getValue(), you.length()))
                 moves.add(move.getKey());
         }
         return moves;
@@ -291,22 +291,22 @@ public class Board {
 
         //check directions
         if (you.getHead().getX() < you.getTail().getX() && !isFilled(Move.RIGHT.translate(you.getHead()))
-                && !isDeadEnd(board, you.getHead(), Move.RIGHT.translate(you.getHead()), you.length() * 2)) {
+                && !isDeadEnd(board, you.getHead(), Move.RIGHT.translate(you.getHead()), you.length())) {
             System.out.println("RIGHT");
             return Move.RIGHT;
         }
         if (you.getHead().getX() > you.getTail().getX() && !isFilled(Move.LEFT.translate(you.getHead()))
-                && !isDeadEnd(board, you.getHead(), Move.LEFT.translate(you.getHead()), you.length() * 2)) {
+                && !isDeadEnd(board, you.getHead(), Move.LEFT.translate(you.getHead()), you.length())) {
             System.out.println("LEFT");
             return Move.LEFT;
         }
         if (you.getHead().getY() < you.getTail().getY() && !isFilled(Move.DOWN.translate(you.getHead()))
-                && !isDeadEnd(board, you.getHead(), Move.DOWN.translate(you.getHead()), you.length() * 2)) {
+                && !isDeadEnd(board, you.getHead(), Move.DOWN.translate(you.getHead()), you.length())) {
             System.out.println("DOWN");
             return Move.DOWN;
         }
         if (you.getHead().getY() > you.getTail().getY() && !isFilled(Move.UP.translate(you.getHead()))
-                && !isDeadEnd(board, you.getHead(), Move.UP.translate(you.getHead()), you.length() * 2)) {
+                && !isDeadEnd(board, you.getHead(), Move.UP.translate(you.getHead()), you.length())) {
             System.out.println("UP");
             return Move.UP;
         }
@@ -328,22 +328,22 @@ public class Board {
 
         //check directions
         if (you.getHead().getX() < foodPoint.getX() && !isFilled(Move.RIGHT.translate(you.getHead()))
-                && !isDeadEnd(board, you.getHead(), Move.RIGHT.translate(you.getHead()), you.length() * 2)) {
+                && !isDeadEnd(board, you.getHead(), Move.RIGHT.translate(you.getHead()), you.length())) {
             System.out.println("RIGHT");
             return Move.RIGHT;
         }
         if (you.getHead().getX() > foodPoint.getX() && !isFilled(Move.LEFT.translate(you.getHead()))
-                && !isDeadEnd(board, you.getHead(), Move.LEFT.translate(you.getHead()), you.length() * 2)) {
+                && !isDeadEnd(board, you.getHead(), Move.LEFT.translate(you.getHead()), you.length())) {
             System.out.println("LEFT");
             return Move.LEFT;
         }
         if (you.getHead().getY() < foodPoint.getY() && !isFilled(Move.DOWN.translate(you.getHead()))
-                && !isDeadEnd(board, you.getHead(), Move.DOWN.translate(you.getHead()), you.length() * 2)) {
+                && !isDeadEnd(board, you.getHead(), Move.DOWN.translate(you.getHead()), you.length())) {
             System.out.println("DOWN");
             return Move.DOWN;
         }
         if (you.getHead().getY() > foodPoint.getY() && !isFilled(Move.UP.translate(you.getHead()))
-                && !isDeadEnd(board, you.getHead(), Move.UP.translate(you.getHead()), you.length() * 2)) {
+                && !isDeadEnd(board, you.getHead(), Move.UP.translate(you.getHead()), you.length())) {
             System.out.println("UP");
             return Move.UP;
         }
