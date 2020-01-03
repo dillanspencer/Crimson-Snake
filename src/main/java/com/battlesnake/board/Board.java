@@ -63,7 +63,7 @@ public class Board {
     }
 
     private void applyMove(Tile[][] currBoard, Snake snake, Snake enemy, Move move) {
-        for(Point p : snake.getBody()){
+        for (Point p : snake.getBody()) {
             currBoard[p.getX()][p.getY()] = Tile.EMPTY;
         }
 
@@ -132,14 +132,15 @@ public class Board {
         return !isFilled(point, board);
     }
 
-    public boolean isDeadEnd(Tile[][] board, Point point, int searchDepth) {
-        if(!exists(point)) return true;
+    public boolean isDeadEnd(Tile[][] board, Point head, Point point, int searchDepth) {
+        if (!exists(point)) return true;
 
         boolean locations[][] = new boolean[width][height];
         int depth = 0;
         Point currentLocation;
         Stack<Point> stack = new Stack<>();
 
+        locations[head.getX()][head.getY()] = true;
         stack.push(point);
 
         while (!stack.isEmpty() && depth < searchDepth) {
@@ -151,25 +152,25 @@ public class Board {
             locations[currentLocation.getX()][currentLocation.getY()] = true;
 
             //check up
-            if (currentLocation.getY() != 0 && locations[currentLocation.getX()][currentLocation.getY()-1] == false
+            if (currentLocation.getY() != 0 && locations[currentLocation.getX()][currentLocation.getY() - 1] == false
                     && movable(Move.UP.translate(currentLocation), board)) {
                 stack.push(Move.UP.translate(currentLocation));
             }
             //check down
-            else if (currentLocation.getY() != height - 1 && locations[currentLocation.getX()][currentLocation.getY()+1] == false
+            else if (currentLocation.getY() != height - 1 && locations[currentLocation.getX()][currentLocation.getY() + 1] == false
                     && movable(Move.DOWN.translate(currentLocation), board)) {
                 stack.push(Move.DOWN.translate(currentLocation));
             }
             //check right
-            else if (currentLocation.getX() != width-1 && locations[currentLocation.getX()+1][currentLocation.getY()] == false
+            else if (currentLocation.getX() != width - 1 && locations[currentLocation.getX() + 1][currentLocation.getY()] == false
                     && movable(Move.RIGHT.translate(currentLocation), board)) {
                 stack.push(Move.RIGHT.translate(currentLocation));
             }
             //check left
-            else if (currentLocation.getX() != 0 && locations[currentLocation.getX()-1][currentLocation.getY()] == false
+            else if (currentLocation.getX() != 0 && locations[currentLocation.getX() - 1][currentLocation.getY()] == false
                     && movable(Move.LEFT.translate(currentLocation), board)) {
                 stack.push(Move.LEFT.translate(currentLocation));
-            }else{
+            } else {
                 stack.pop();
             }
             depth++;
@@ -180,7 +181,7 @@ public class Board {
     private List<Move> getPossibleMoves(Tile[][] currentBoard, Point point) {
         List<Move> moves = new ArrayList<>();
         for (Map.Entry<Move, Point> move : Move.adjacent(point).entrySet()) {
-            if (movable(move.getValue(), currentBoard) && !isDeadEnd(currentBoard, move.getValue(), you.length()*2))
+            if (movable(move.getValue(), currentBoard) && !isDeadEnd(currentBoard, point, move.getValue(), you.length() * 2))
                 moves.add(move.getKey());
         }
         return moves;
@@ -195,18 +196,16 @@ public class Board {
         return false;
     }
 
-    private double boardValue(Snake snake, Snake enemy){
+    private double boardValue(Snake snake, Snake enemy) {
         double value = -1;
         //base case
         if (Point.equals(snake.getHead(), enemy.getHead()) && snake.longerThan(enemy)) {
             System.out.println("MAX: ENEMY HEAD - " + snake.getName());
             value = Board.MAX;
-        }
-        else if (Point.equals(snake.getHead(), enemy.getHead()) && enemy.longerThan(snake)) {
+        } else if (Point.equals(snake.getHead(), enemy.getHead()) && enemy.longerThan(snake)) {
             System.out.println("MIN: ENEMY HEAD - " + snake.getName());
             value = Board.MIN;
-        }
-        else if (checkCollision(snake, enemy)) {
+        } else if (checkCollision(snake, enemy)) {
             //check head collision
             System.out.println("MIN");
             value = Board.MIN;
@@ -230,10 +229,10 @@ public class Board {
         boolean isMaximizing = (snake.equals(you()));
 
         //base case
-        if(moves.isEmpty()){
+        if (moves.isEmpty()) {
             return new MoveValue(Board.MIN);
         }
-        if(value != -1){
+        if (value != -1) {
             return new MoveValue(value);
         }
 
@@ -288,26 +287,26 @@ public class Board {
         }
     }
 
-    public Move findTail(){
+    public Move findTail() {
 
         //check directions
         if (you.getHead().getX() < you.getTail().getX() && !isFilled(Move.RIGHT.translate(you.getHead()))
-                && !isDeadEnd(board, Move.RIGHT.translate(you.getHead()), you.length()*2)) {
+                && !isDeadEnd(board, you.getHead(), Move.RIGHT.translate(you.getHead()), you.length() * 2)) {
             System.out.println("RIGHT");
             return Move.RIGHT;
         }
         if (you.getHead().getX() > you.getTail().getX() && !isFilled(Move.LEFT.translate(you.getHead()))
-                && !isDeadEnd(board, Move.LEFT.translate(you.getHead()), you.length()*2)) {
+                && !isDeadEnd(board, you.getHead(), Move.LEFT.translate(you.getHead()), you.length() * 2)) {
             System.out.println("LEFT");
             return Move.LEFT;
         }
         if (you.getHead().getY() < you.getTail().getY() && !isFilled(Move.DOWN.translate(you.getHead()))
-                && !isDeadEnd(board, Move.DOWN.translate(you.getHead()), you.length()*2)) {
+                && !isDeadEnd(board, you.getHead(), Move.DOWN.translate(you.getHead()), you.length() * 2)) {
             System.out.println("DOWN");
             return Move.DOWN;
         }
         if (you.getHead().getY() > you.getTail().getY() && !isFilled(Move.UP.translate(you.getHead()))
-                && !isDeadEnd(board, Move.UP.translate(you.getHead()), you.length()*2)) {
+                && !isDeadEnd(board, you.getHead(), Move.UP.translate(you.getHead()), you.length() * 2)) {
             System.out.println("UP");
             return Move.UP;
         }
@@ -329,22 +328,22 @@ public class Board {
 
         //check directions
         if (you.getHead().getX() < foodPoint.getX() && !isFilled(Move.RIGHT.translate(you.getHead()))
-                && !isDeadEnd(board, Move.RIGHT.translate(you.getHead()), you.length()*2)) {
+                && !isDeadEnd(board, you.getHead(), Move.RIGHT.translate(you.getHead()), you.length() * 2)) {
             System.out.println("RIGHT");
             return Move.RIGHT;
         }
         if (you.getHead().getX() > foodPoint.getX() && !isFilled(Move.LEFT.translate(you.getHead()))
-                && !isDeadEnd(board, Move.LEFT.translate(you.getHead()), you.length()*2)) {
+                && !isDeadEnd(board, you.getHead(), Move.LEFT.translate(you.getHead()), you.length() * 2)) {
             System.out.println("LEFT");
             return Move.LEFT;
         }
         if (you.getHead().getY() < foodPoint.getY() && !isFilled(Move.DOWN.translate(you.getHead()))
-                && !isDeadEnd(board, Move.DOWN.translate(you.getHead()), you.length()*2)) {
+                && !isDeadEnd(board, you.getHead(), Move.DOWN.translate(you.getHead()), you.length() * 2)) {
             System.out.println("DOWN");
             return Move.DOWN;
         }
         if (you.getHead().getY() > foodPoint.getY() && !isFilled(Move.UP.translate(you.getHead()))
-                && !isDeadEnd(board, Move.UP.translate(you.getHead()), you.length()*2)) {
+                && !isDeadEnd(board, you.getHead(), Move.UP.translate(you.getHead()), you.length() * 2)) {
             System.out.println("UP");
             return Move.UP;
         }

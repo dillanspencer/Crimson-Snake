@@ -83,7 +83,7 @@ public class Snake {
        if(health < 50){
             return SnakeState.HUNGRY;
         }else if(Point.distance(getHead(), enemy.getHead()) > 5){
-            return SnakeState.FINDTAIL;
+            return SnakeState.HUNGRY;
         }
         else{
             return SnakeState.SMART;
