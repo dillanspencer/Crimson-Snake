@@ -95,11 +95,11 @@ public class Snake {
     public SnakeState getState(int turn, Snake enemy){
        if(health < 50){
             return SnakeState.HUNGRY;
-        }else if(Point.distance(getHead(), enemy.getHead()) > 3){
-            return SnakeState.HUNGRY;
         }else if(length() > 10){
            return SnakeState.SMART;
-       }
+       }else if(Point.distance(getHead(), enemy.getHead()) > 3){
+            return SnakeState.HUNGRY;
+        }
         else{
             return SnakeState.SMART;
         }
