@@ -367,7 +367,9 @@ public class Board {
                }
             }
         }
-        return minimax(board, 0, you, enemy, Board.MIN, Board.MAX).returnMove;
+        MoveValue moveValue = minimax(board, 0, you, enemy, Board.MIN, Board.MAX);
+        System.out.println("BEST MOVE VALUE: " + moveValue.returnValue);
+        return moveValue.returnMove;
     }
 
     public void printBoard(Tile[][] board) {
