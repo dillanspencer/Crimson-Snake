@@ -173,8 +173,6 @@ public class Board {
             }
             depth++;
         }
-        System.out.println("DEAD END: " + stack.isEmpty());
-        System.out.println(point.getX() + ", " + point.getY());
         return stack.isEmpty();
     }
 
