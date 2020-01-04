@@ -78,6 +78,7 @@ public class Board {
                     && !snake.justAte()) {
                 currBoard[body.get(i).getX()][body.get(i).getY()] = Tile.TAIL;
             } else {
+                if(!exists(body.get(i))) return;
                 currBoard[body.get(i).getX()][body.get(i).getY()] = Tile.WALL;
             }
         }
