@@ -355,10 +355,15 @@ public class Board {
 
     public Move getMove() {
         Snake enemy = null;
+        //get max distance
+        double distance = width * height;
         for (Snake s : snakes) {
             if (!s.equals(you)) {
-                enemy = s;
-                break;
+               double dist = Point.distance(you.getHead(), s.getHead());
+               if(dist < distance){
+                   distance = dist;
+                   enemy = s;
+               }
             }
         }
         return minimax(board, 0, you, enemy, Board.MIN, Board.MAX).returnMove;
