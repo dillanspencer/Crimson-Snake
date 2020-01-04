@@ -77,12 +77,19 @@ public class RequestController {
     private Snake findEnemySnake(MoveRequest request, Snake mySnake){
         List<Snake> snakes = request.getBoard().getSnakes();
 
-        for(Snake s : snakes){
-            if(!s.equals(mySnake)){
-                return s;
+        Snake enemy = null;
+        //get max distance
+        double distance = 100;
+        for (Snake s : snakes) {
+            if (!s.equals(mySnake)) {
+                double dist = Point.distance(mySnake.getHead(), s.getHead());
+                if(dist < distance){
+                    distance = dist;
+                    enemy = s;
+                }
             }
         }
-        return null;
+        return enemy;
     }
 
 
