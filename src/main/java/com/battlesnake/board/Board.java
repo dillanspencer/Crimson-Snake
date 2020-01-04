@@ -181,7 +181,7 @@ public class Board {
     private List<Move> getPossibleMoves(Tile[][] currentBoard, Point point) {
         List<Move> moves = new ArrayList<>();
         for (Map.Entry<Move, Point> move : Move.adjacent(point).entrySet()) {
-            if (movable(move.getValue(), currentBoard) && !isDeadEnd(currentBoard, point, move.getValue(), you.length()))
+            if (movable(move.getValue(), currentBoard))
                 moves.add(move.getKey());
         }
         return moves;
@@ -214,6 +214,9 @@ public class Board {
         } else if (this.board[snake.getHead().getX()][snake.getHead().getY()] == Tile.FOOD) {
             System.out.println("FOOD");
             value = Board.FOOD;
+        }else if(isDeadEnd(board, snake.getHead(), snake.getHead(), snake.length())){
+            System.out.println(("MINIMAX FOUND DEAD END"));
+            value = Board.MIN;
         }
         return value;
     }
