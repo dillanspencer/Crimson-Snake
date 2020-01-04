@@ -216,7 +216,7 @@ public class Board {
         }else if(isDeadEnd(board, snake.getHead(), snake.getHead(), snake.length())){
             System.out.println(("MINIMAX FOUND DEAD END"));
             value = Board.MIN;
-        }
+        }else if(!exists(snake.getHead())) value = Board.MIN;
         return value;
     }
 
@@ -231,11 +231,11 @@ public class Board {
         boolean isMaximizing = (snake.equals(you()));
 
         //base case
-        if (moves.isEmpty()) {
-            return new MoveValue(Board.MIN);
-        }
         if (value != -1) {
             return new MoveValue(value);
+        }
+        if (moves.isEmpty()) {
+            return new MoveValue(Board.MIN);
         }
 
         MoveValue returnMove;
