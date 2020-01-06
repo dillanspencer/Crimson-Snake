@@ -99,7 +99,7 @@ public class Snake {
             return SnakeState.HUNGRY;
         }
         else{
-            return SnakeState.SMART;
+            return SnakeState.AGRESSIVE;
         }
     }
 

@@ -49,7 +49,7 @@ public class RequestController {
         if(snakeState == Snake.SnakeState.HUNGRY) move = board.findFood();
         else if(snakeState == Snake.SnakeState.FINDTAIL) move = board.findTail();
         else{
-            move = board.getMove();
+            move = board.moveAggressive();
         }
 
         return moveResponse.setMove(move);

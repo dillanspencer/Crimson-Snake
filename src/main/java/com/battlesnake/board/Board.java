@@ -77,7 +77,7 @@ public class Board {
     private List<Point> findHeads() {
         ArrayList<Point> list = new ArrayList<>();
         for (Snake snake : snakes) {
-            if (!snake.equals(you())) {
+            if (!snake.equals(you()) && you.longerThan(snake)) {
                 list.addAll(findAdjacent(snake.getBody().get(0)));
                 list.add(snake.getHead());
             }
@@ -315,6 +315,40 @@ public class Board {
             return Move.DOWN;
         }
         if (you.getHead().getY() > foodPoint.getY() && !isFilled(Move.UP.translate(you.getHead()))
+                && !isDeadEnd(board, you.getHead(), Move.UP.translate(you.getHead()), you.length())) {
+            System.out.println("UP");
+            return Move.UP;
+        }
+        return getMove();
+    }
+
+    public Move moveAggressive(){
+        Point movePoint = new Point();
+        double closest = width*height;
+        for(Point p : findHeads()){
+            double dist = Point.distance(you.getHead(), p);
+            if (dist < closest) {
+                closest = dist;
+                movePoint = p;
+            }
+        }
+        //check directions
+        if (you.getHead().getX() < movePoint.getX() && !isFilled(Move.RIGHT.translate(you.getHead()))
+                && !isDeadEnd(board, you.getHead(), Move.RIGHT.translate(you.getHead()), you.length())) {
+            System.out.println("RIGHT");
+            return Move.RIGHT;
+        }
+        if (you.getHead().getX() > movePoint.getX() && !isFilled(Move.LEFT.translate(you.getHead()))
+                && !isDeadEnd(board, you.getHead(), Move.LEFT.translate(you.getHead()), you.length())) {
+            System.out.println("LEFT");
+            return Move.LEFT;
+        }
+        if (you.getHead().getY() < movePoint.getY() && !isFilled(Move.DOWN.translate(you.getHead()))
+                && !isDeadEnd(board, you.getHead(), Move.DOWN.translate(you.getHead()), you.length())) {
+            System.out.println("DOWN");
+            return Move.DOWN;
+        }
+        if (you.getHead().getY() > movePoint.getY() && !isFilled(Move.UP.translate(you.getHead()))
                 && !isDeadEnd(board, you.getHead(), Move.UP.translate(you.getHead()), you.length())) {
             System.out.println("UP");
             return Move.UP;
