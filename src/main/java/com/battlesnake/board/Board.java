@@ -63,6 +63,7 @@ public class Board {
     }
 
     private void applyMove(Tile[][] currBoard, Snake snake, Snake enemy, Move move) {
+        Snake temp = snake;
         for (Point p : snake.getBody()) {
             currBoard[p.getX()][p.getY()] = Tile.EMPTY;
         }
@@ -84,6 +85,7 @@ public class Board {
         }
 
         currBoard[head.getX()][head.getY()] = Tile.HEADS;
+        snake = temp;
     }
 
     public boolean exists(Point point) {
