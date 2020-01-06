@@ -216,6 +216,7 @@ public class Board {
 
         //Iterate through possible moves
         if (isMaximizing) {
+            System.out.println("PLAYER: " + snake.getName());
             while (movesIterator.hasNext()) {
                 Move currentMove = movesIterator.next();
                 snake.applyMove(board, currentMove);
@@ -236,6 +237,7 @@ public class Board {
             }
             return bestMove;
         } else {
+            System.out.println("PLAYER: " + snake.getName());
             while (movesIterator.hasNext()) {
                 Move currentMove = movesIterator.next();
                 snake.applyMove(board, currentMove);

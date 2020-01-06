@@ -28,7 +28,7 @@ public class Snake {
         HUNGRY,
         AGRESSIVE,
         FINDTAIL,
-        SMART;
+        SMART
     }
 
     private static int MAX_HEALTH = 100;
