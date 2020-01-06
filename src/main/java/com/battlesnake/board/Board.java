@@ -149,7 +149,8 @@ public class Board {
             }
             depth++;
         }
-        System.out.println("FOUND DEAD END: " + point.toString());
+        if(stack.isEmpty())
+            System.out.println("FOUND DEAD END: " + point.toString());
         return stack.isEmpty();
     }
 
