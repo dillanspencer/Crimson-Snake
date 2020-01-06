@@ -77,7 +77,7 @@ public class Board {
     private List<Point> findHeads() {
         ArrayList<Point> list = new ArrayList<>();
         for (Snake snake : snakes) {
-            if (!snake.equals(you()) && you.longerThan(snake)) {
+            if (!snake.equals(you())) {
                 list.addAll(findAdjacent(snake.getBody().get(0)));
                 list.add(snake.getHead());
             }
