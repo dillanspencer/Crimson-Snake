@@ -62,32 +62,6 @@ public class Board {
         }
     }
 
-    private void applyMove(Tile[][] currBoard, Snake snake, Snake enemy, Move move) {
-        Snake temp = snake;
-        for (Point p : snake.getBody()) {
-            currBoard[p.getX()][p.getY()] = Tile.EMPTY;
-        }
-
-        snake.applyMove(currBoard, move);
-
-        List<Point> body = snake.getBody();
-        Point head = body.get(0);
-
-        for (int i = 0; i < body.size(); i++) {
-            if ((i == body.size() - 1)
-                    && body.size() > 1
-                    && !snake.justAte()) {
-                currBoard[body.get(i).getX()][body.get(i).getY()] = Tile.TAIL;
-            } else {
-                if(!exists(body.get(i))) return;
-                currBoard[body.get(i).getX()][body.get(i).getY()] = Tile.WALL;
-            }
-        }
-
-        currBoard[head.getX()][head.getY()] = Tile.HEADS;
-        snake = temp;
-    }
-
     public boolean exists(Point point) {
         if (point.getX() < 0) return false;
         if (point.getY() < 0) return false;
@@ -215,10 +189,7 @@ public class Board {
         } else if (this.board[snake.getHead().getX()][snake.getHead().getY()] == Tile.FOOD) {
             System.out.println("FOOD");
             value = Board.FOOD;
-        }else if(isDeadEnd(board, snake.getHead(), snake.getHead(), snake.length())){
-            System.out.println(("MINIMAX FOUND DEAD END"));
-            value = Board.MIN;
-        }else if(!exists(snake.getHead())) value = Board.MIN;
+        } else if (!exists(snake.getHead())) value = Board.MIN;
         return value;
     }
 
@@ -249,10 +220,8 @@ public class Board {
         if (isMaximizing) {
             while (movesIterator.hasNext()) {
                 Move currentMove = movesIterator.next();
-                Tile[][] tempBoard = board;
-                applyMove(board, snake, enemy, currentMove);
+                snake.applyMove(board, currentMove);
                 returnMove = minimax(board, depth + 1, enemy, snake, alpha, beta);
-                board = tempBoard;
                 if ((bestMove == null) || (bestMove.returnValue < returnMove.returnValue)) {
                     bestMove = returnMove;
                     bestMove.returnMove = currentMove;
@@ -271,10 +240,8 @@ public class Board {
         } else {
             while (movesIterator.hasNext()) {
                 Move currentMove = movesIterator.next();
-                Tile[][] tempBoard = board;
-                applyMove(board, snake, enemy, currentMove);
+                snake.applyMove(board, currentMove);
                 returnMove = minimax(board, depth + 1, enemy, snake, alpha, beta);
-                board = tempBoard;
                 if ((bestMove == null) || (bestMove.returnValue > returnMove.returnValue)) {
                     bestMove = returnMove;
                     bestMove.returnMove = currentMove;
@@ -363,11 +330,11 @@ public class Board {
         double distance = width * height;
         for (Snake s : snakes) {
             if (!s.equals(you)) {
-               double dist = Point.distance(you.getHead(), s.getHead());
-               if(dist < distance){
-                   distance = dist;
-                   enemy = s;
-               }
+                double dist = Point.distance(you.getHead(), s.getHead());
+                if (dist < distance) {
+                    distance = dist;
+                    enemy = s;
+                }
             }
         }
         MoveValue moveValue = minimax(board, 0, you, enemy, Board.MIN, Board.MAX);
