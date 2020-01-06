@@ -286,7 +286,7 @@ public class Board {
     }
 
     public Move findFood() {
-        if (food.isEmpty()) return getMove();
+        if (food.isEmpty()) return moveAggressive();
 
         Point foodPoint = food.get(0);
         double closest = Point.distance(you.getHead(), foodPoint);
