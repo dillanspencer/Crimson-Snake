@@ -84,7 +84,7 @@ public class Board {
         }
 
         currBoard[head.getX()][head.getY()] = Tile.HEADS;
-
+        printBoard(currBoard);
     }
 
     public boolean exists(Point point) {
