@@ -26,6 +26,11 @@ public class Point {
                 Math.pow(other.getY() - point.getY(), 2));
     }
 
+    public boolean equals(Point other){
+        if(x == other.getX() && y == other.getY()) return true;
+        return false;
+    }
+
     @Override
     public String toString() {
         return "X: " + x + ", " + "Y: " + y;
