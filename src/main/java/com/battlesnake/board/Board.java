@@ -319,7 +319,7 @@ public class Board {
             System.out.println("UP");
             return Move.UP;
         }
-        return getMove();
+        return moveAggressive();
     }
 
     public Move moveAggressive(){
