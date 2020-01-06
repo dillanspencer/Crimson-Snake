@@ -194,6 +194,7 @@ public class Board {
     }
 
     private MoveValue minimax(Tile[][] board, int depth, Snake snake, Snake enemy, double alpha, double beta) {
+        System.out.println("Position: " + snake.getHead().getX() + ", " + snake.getHead().getY());
         if (depth == 5) {
             return new MoveValue(Board.NONE);
         }
@@ -216,7 +217,6 @@ public class Board {
 
         //Iterate through possible moves
         if (isMaximizing) {
-            System.out.println("PLAYER: " + snake.getName());
             while (movesIterator.hasNext()) {
                 Move currentMove = movesIterator.next();
                 snake.applyMove(board, currentMove);
@@ -237,7 +237,6 @@ public class Board {
             }
             return bestMove;
         } else {
-            System.out.println("PLAYER: " + snake.getName());
             while (movesIterator.hasNext()) {
                 Move currentMove = movesIterator.next();
                 snake.applyMove(board, currentMove);
