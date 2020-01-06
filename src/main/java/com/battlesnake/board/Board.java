@@ -114,10 +114,9 @@ public class Board {
         Point currentLocation;
         Stack<Point> stack = new Stack<>();
 
-        locations[head.getX()][head.getY()] = true;
         stack.push(point);
 
-        while (!stack.isEmpty() && depth < searchDepth * 2) {
+        while (!stack.isEmpty() && !(stack.peek().getX() == head.getX() && stack.peek().getY() == head.getY())) {
 
             //set current location to top of stack
             currentLocation = stack.peek();
@@ -336,22 +335,22 @@ public class Board {
         }
         //check directions
         if (you.getHead().getX() < movePoint.getX() && !isFilled(Move.RIGHT.translate(you.getHead()))
-                && !isDeadEnd(board, you.getHead(), Move.RIGHT.translate(you.getHead()), you.length())) {
+                && !isDeadEnd(board, movePoint, Move.RIGHT.translate(you.getHead()), you.length())) {
             System.out.println("RIGHT");
             return Move.RIGHT;
         }
         if (you.getHead().getX() > movePoint.getX() && !isFilled(Move.LEFT.translate(you.getHead()))
-                && !isDeadEnd(board, you.getHead(), Move.LEFT.translate(you.getHead()), you.length())) {
+                && !isDeadEnd(board, movePoint, Move.LEFT.translate(you.getHead()), you.length())) {
             System.out.println("LEFT");
             return Move.LEFT;
         }
         if (you.getHead().getY() < movePoint.getY() && !isFilled(Move.DOWN.translate(you.getHead()))
-                && !isDeadEnd(board, you.getHead(), Move.DOWN.translate(you.getHead()), you.length())) {
+                && !isDeadEnd(board, movePoint, Move.DOWN.translate(you.getHead()), you.length())) {
             System.out.println("DOWN");
             return Move.DOWN;
         }
         if (you.getHead().getY() > movePoint.getY() && !isFilled(Move.UP.translate(you.getHead()))
-                && !isDeadEnd(board, you.getHead(), Move.UP.translate(you.getHead()), you.length())) {
+                && !isDeadEnd(board, movePoint, Move.UP.translate(you.getHead()), you.length())) {
             System.out.println("UP");
             return Move.UP;
         }
