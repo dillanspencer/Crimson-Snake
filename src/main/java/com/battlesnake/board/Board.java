@@ -117,7 +117,7 @@ public class Board {
         locations[head.getX()][head.getY()] = true;
         stack.push(point);
 
-        while (!stack.isEmpty() && depth < searchDepth) {
+        while (!stack.isEmpty()) {
 
             //set current location to top of stack
             currentLocation = stack.peek();
@@ -147,7 +147,6 @@ public class Board {
             } else {
                 stack.pop();
             }
-            depth++;
         }
         return stack.isEmpty();
     }
