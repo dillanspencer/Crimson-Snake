@@ -117,7 +117,7 @@ public class Board {
         locations[head.getX()][head.getY()] = true;
         stack.push(point);
 
-        while (!stack.isEmpty()) {
+        while (!stack.isEmpty() && depth < searchDepth * 2) {
 
             //set current location to top of stack
             currentLocation = stack.peek();
@@ -147,6 +147,7 @@ public class Board {
             } else {
                 stack.pop();
             }
+            depth++;
         }
         System.out.println("FOUND DEAD END: " + point.toString());
         return stack.isEmpty();
