@@ -282,7 +282,7 @@ public class Board {
             System.out.println("UP");
             return Move.UP;
         }
-        return getMove();
+        return moveAggressive();
     }
 
     public Move findFood() {
@@ -353,7 +353,7 @@ public class Board {
             System.out.println("UP");
             return Move.UP;
         }
-        return getMove();
+        return getPossibleMoves(board, you().getHead()).get(0);
     }
 
 
