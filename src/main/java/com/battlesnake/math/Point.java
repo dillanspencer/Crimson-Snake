@@ -26,6 +26,11 @@ public class Point {
                 Math.pow(other.getY() - point.getY(), 2));
     }
 
+    @Override
+    public String toString() {
+        return "X: " + x + ", " + "Y: " + y;
+    }
+
     @JsonProperty("x")
     public int getX() {
         return x;
