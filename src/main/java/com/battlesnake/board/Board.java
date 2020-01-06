@@ -84,7 +84,6 @@ public class Board {
         }
 
         currBoard[head.getX()][head.getY()] = Tile.HEADS;
-        printBoard(currBoard);
     }
 
     public boolean exists(Point point) {
@@ -231,6 +230,8 @@ public class Board {
         double value = boardValue(snake, enemy);
         boolean isMaximizing = (snake.equals(you()));
 
+        printBoard(board);
+        System.out.println("--------------");
         //base case
         if (value != -1) {
             return new MoveValue(value);
