@@ -511,4 +511,14 @@ public class Board {
     public void setDeadSnakes(ArrayList<Snake> deadSnakes) {
         this.deadSnakes = deadSnakes;
     }
+
+    public int longestSnake(){
+        int len = 0;
+        for(Snake s : snakes){
+            if(s.length() > len && !s.equals(you)){
+                len = s.length();
+            }
+        }
+        return len;
+    }
 }

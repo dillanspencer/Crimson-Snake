@@ -16,6 +16,7 @@
 
 package com.battlesnake.data;
 
+import com.battlesnake.board.Board;
 import com.battlesnake.board.Tile;
 import com.battlesnake.math.Point;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -92,15 +93,39 @@ public class Snake {
         }
     }
 
-    public SnakeState getState(int turn, Snake enemy){
-        if(length() > 10 && health > 70){
-           return SnakeState.FINDTAIL;
-       }else if(Point.distance(getHead(), enemy.getHead()) > 3){
-            return SnakeState.HUNGRY;
-        }
-        else{
+    public SnakeState getState(Board board){
+       if(health < 50){
+           return SnakeState.HUNGRY;
+       }else if(length() > board.longestSnake()){
             return SnakeState.AGRESSIVE;
+       }
+       return SnakeState.HUNGRY;
+    }
+
+    public Move move(Board board) {
+        SnakeState state = getState(board);
+        Move move = Move.UP;
+        switch (state) {
+            case HUNGRY:
+                move = board.findFood(getHead());
+                if (move == null) {
+                    move = board.moveAggressive(getHead());
+                }
+                if (move == null) {
+                    move = board.goToTail(getHead());
+                }
+                break;
+            case AGRESSIVE:
+                move = board.moveAggressive(getHead());
+                if (move == null) {
+                    move = board.findFood(getHead());
+                }
+                if (move == null) {
+                    move = board.goToTail(getHead());
+                }
+                break;
         }
+        return move;
     }
 
     public boolean equals(Object other) {
