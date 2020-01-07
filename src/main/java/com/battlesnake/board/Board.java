@@ -50,16 +50,14 @@ public class Board {
                         && body.size() > 1
                         && !snake.justAte()) {
                     board[body.get(i).getX()][body.get(i).getY()] = Tile.TAIL;
-                }
-                else {
+                } else {
                     board[body.get(i).getX()][body.get(i).getY()] = Tile.WALL;
                 }
             }
 
             if (snake.equals(you())) {
                 board[head.getX()][head.getY()] = Tile.ME;
-            }
-            else {
+            } else {
                 board[head.getX()][head.getY()] = Tile.HEADS;
 
                 if (!you().longerThan(snake)) {
@@ -169,10 +167,6 @@ public class Board {
         }
         Exit condition = new Exit() {
             public boolean shouldExit(MovePoint point, Point initial) {
-                //check dead end
-                if(isDeadEnd(board, you.getTail(), initial, 2)){
-                    return true;
-                }
                 for (Point destination : destinations) {
                     if (point.getPoint().equals(destination)) {
                         int smallRegion = Math.max(IGNORE_SIZE, (int) Math.floor(you().length() / 2));
@@ -230,7 +224,7 @@ public class Board {
         ArrayList<MovePoint> moves = new ArrayList<>();
         Move initial = point.getInitialMove();
         for (Map.Entry<Move, Point> move : Move.adjacent(point.getPoint()).entrySet()) {
-            if (movable(move.getValue(), excludeDanger)) {
+            if (movable(move.getValue(), excludeDanger) && !isDeadEnd(you.getTail(), you.getHead(), 10)) {
                 moves.add(new MovePoint(
                                 move.getKey(),
                                 move.getValue(),
@@ -274,7 +268,7 @@ public class Board {
                 || board[point.getX()][point.getY()] == Tile.TAIL;
     }
 
-    public boolean isDeadEnd(Tile[][] board, Point exit, Point point, int searchDepth) {
+    public boolean isDeadEnd(Point exit, Point point, int searchDepth) {
         if (!exists(point)) return true;
 
         boolean locations[][] = new boolean[width][height];
@@ -292,32 +286,12 @@ public class Board {
             //set location as visited
             locations[currentLocation.getX()][currentLocation.getY()] = true;
 
-            //check up
-            if (currentLocation.getY() != 0 && locations[currentLocation.getX()][currentLocation.getY() - 1] == false
-                    && movable(Move.UP.translate(currentLocation), board)) {
-                System.out.println("UP TEST");
-                stack.push(Move.UP.translate(currentLocation));
+            for(Point p : findAdjacent(currentLocation)) {
+                if (locations[p.getX()][p.getY()] == false && movable(p, false)) {
+                    stack.push(p);
+                }
             }
-            //check down
-            else if (currentLocation.getY() != height - 1 && locations[currentLocation.getX()][currentLocation.getY() + 1] == false
-                    && movable(Move.DOWN.translate(currentLocation), board)) {
-                System.out.println("DOWN TEST");
-                stack.push(Move.DOWN.translate(currentLocation));
-            }
-            //check right
-            else if (currentLocation.getX() != width - 1 && locations[currentLocation.getX() + 1][currentLocation.getY()] == false
-                    && movable(Move.RIGHT.translate(currentLocation), board)) {
-                System.out.println("RIGHT TEST");
-                stack.push(Move.RIGHT.translate(currentLocation));
-            }
-            //check left
-            else if (currentLocation.getX() != 0 && locations[currentLocation.getX() - 1][currentLocation.getY()] == false
-                    && movable(Move.LEFT.translate(currentLocation), board)) {
-                System.out.println("LEFT TEST");
-                stack.push(Move.LEFT.translate(currentLocation));
-            } else {
-                stack.pop();
-            }
+            if(stack.peek() == currentLocation) stack.pop();
             depth++;
         }
         if (stack.isEmpty())
@@ -437,7 +411,7 @@ public class Board {
     }
 
     public Move moveAggressive(Point current) {
-       return findPath(findHeads(), current);
+        return findPath(findHeads(), current);
     }
 
     public Move goToTail(Point currentPoint) {
@@ -520,10 +494,10 @@ public class Board {
         this.deadSnakes = deadSnakes;
     }
 
-    public int longestSnake(){
+    public int longestSnake() {
         int len = 0;
-        for(Snake s : snakes){
-            if(s.length() > len && !s.equals(you)){
+        for (Snake s : snakes) {
+            if (s.length() > len && !s.equals(you)) {
                 len = s.length();
             }
         }
