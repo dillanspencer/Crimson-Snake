@@ -281,7 +281,7 @@ public class Board {
         int depth = 0;
         Point currentLocation;
         Stack<Point> stack = new Stack<>();
-        
+
         stack.push(point);
 
         while (!stack.isEmpty() && !(stack.peek().equals(exit) && depth < searchDepth)) {
@@ -295,21 +295,25 @@ public class Board {
             //check up
             if (currentLocation.getY() != 0 && locations[currentLocation.getX()][currentLocation.getY() - 1] == false
                     && movable(Move.UP.translate(currentLocation), board)) {
+                System.out.println("UP TEST");
                 stack.push(Move.UP.translate(currentLocation));
             }
             //check down
             else if (currentLocation.getY() != height - 1 && locations[currentLocation.getX()][currentLocation.getY() + 1] == false
                     && movable(Move.DOWN.translate(currentLocation), board)) {
+                System.out.println("DOWN TEST");
                 stack.push(Move.DOWN.translate(currentLocation));
             }
             //check right
             else if (currentLocation.getX() != width - 1 && locations[currentLocation.getX() + 1][currentLocation.getY()] == false
                     && movable(Move.RIGHT.translate(currentLocation), board)) {
+                System.out.println("RIGHT TEST");
                 stack.push(Move.RIGHT.translate(currentLocation));
             }
             //check left
             else if (currentLocation.getX() != 0 && locations[currentLocation.getX() - 1][currentLocation.getY()] == false
                     && movable(Move.LEFT.translate(currentLocation), board)) {
+                System.out.println("LEFT TEST");
                 stack.push(Move.LEFT.translate(currentLocation));
             } else {
                 stack.pop();
