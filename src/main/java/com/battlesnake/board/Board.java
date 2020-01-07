@@ -31,37 +31,48 @@ public class Board {
     private transient Integer[][] regions;
 
     private void setupBoard() {
-        board = new Tile[getWidth()][getHeight()];
-        //set all values on the board to empty
-        for (int y = 0; y < getHeight(); y++) {
-            for (int x = 0; x < getWidth(); x++) {
+        this.board = new Tile[width][height];
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
                 board[x][y] = Tile.EMPTY;
             }
         }
 
-        //fill in food positions
-        for (Point f : food) {
-            board[f.getX()][f.getY()] = Tile.FOOD;
+        for (Point snack : food) {
+            board[snack.getX()][snack.getY()] = Tile.FOOD;
         }
 
-        //fill in board with snake positions
         for (Snake snake : snakes) {
             List<Point> body = snake.getBody();
             Point head = body.get(0);
-
             for (int i = 0; i < body.size(); i++) {
                 if ((i == body.size() - 1)
                         && body.size() > 1
                         && !snake.justAte()) {
                     board[body.get(i).getX()][body.get(i).getY()] = Tile.TAIL;
-                } else {
+                }
+                else {
                     board[body.get(i).getX()][body.get(i).getY()] = Tile.WALL;
                 }
             }
+
             if (snake.equals(you())) {
                 board[head.getX()][head.getY()] = Tile.ME;
-            } else {
+            }
+            else {
                 board[head.getX()][head.getY()] = Tile.HEADS;
+
+                if (!you().longerThan(snake)) {
+                    List<Point> around = findAdjacent(head);
+                    for (Point point : around) {
+                        if (exists(point)) {
+                            if (board[point.getX()][point.getY()] == Tile.EMPTY
+                                    || board[point.getX()][point.getY()] == Tile.FOOD) {
+                                board[point.getX()][point.getY()] = Tile.FAKE_WALL;
+                            }
+                        }
+                    }
+                }
             }
         }
     }
