@@ -24,7 +24,7 @@ public class Board {
     private static final int MAX = 1000;
     private static final int FOOD = 0;
 
-    private static final int IGNORE_SIZE = 4;
+    private static final int IGNORE_SIZE = 8;
 
     //Game Map
     private transient Tile[][] board;
@@ -268,37 +268,6 @@ public class Board {
                 || board[point.getX()][point.getY()] == Tile.TAIL;
     }
 
-    public boolean isDeadEnd(Point exit, Point point, int searchDepth) {
-        if (!exists(point)) return true;
-
-        boolean locations[][] = new boolean[width][height];
-        int depth = 0;
-        Point currentLocation;
-        Stack<Point> stack = new Stack<>();
-
-        stack.push(point);
-
-        while (!stack.isEmpty() && !(stack.peek().equals(exit) && depth < searchDepth)) {
-
-            //set current location to top of stack
-            currentLocation = stack.peek();
-
-            //set location as visited
-            locations[currentLocation.getX()][currentLocation.getY()] = true;
-
-            for(Point p : findAdjacent(currentLocation)) {
-                if(!exists(p)) continue;
-                if (locations[p.getX()][p.getY()] == false && movable(p, false)) {
-                    stack.push(p);
-                }
-            }
-            if(stack.peek() == currentLocation) stack.pop();
-            depth++;
-        }
-        if (stack.isEmpty())
-            System.out.println("FOUND DEAD END: " + point.toString());
-        return stack.isEmpty();
-    }
 
     private List<Move> getPossibleMoves(Tile[][] currentBoard, Point point) {
         List<Move> moves = new ArrayList<>();
