@@ -281,9 +281,7 @@ public class Board {
         int depth = 0;
         Point currentLocation;
         Stack<Point> stack = new Stack<>();
-
-        locations[you.getHead().getX()][you.getHead().getY()] = true;
-
+        
         stack.push(point);
 
         while (!stack.isEmpty() && !(stack.peek().equals(exit) && depth < searchDepth)) {
