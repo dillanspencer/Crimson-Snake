@@ -264,8 +264,8 @@ public class Board {
 
     public boolean isDangerousSpotFilled(Point point) {
         if (!exists(point)) return false;
-        return board[point.getX()][point.getY()] == Tile.FAKE_WALL;
-                //|| board[point.getX()][point.getY()] == Tile.TAIL;
+        return board[point.getX()][point.getY()] == Tile.FAKE_WALL
+                || board[point.getX()][point.getY()] == Tile.TAIL;
     }
 
 
