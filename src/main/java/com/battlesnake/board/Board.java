@@ -77,7 +77,7 @@ public class Board {
         }
     }
 
-    private static interface Exit {
+    private interface Exit {
         public boolean shouldExit(MovePoint point, Point initial);
 
         public List<MovePoint> onFailure(List<MovePoint> path);
@@ -226,7 +226,8 @@ public class Board {
         ArrayList<MovePoint> moves = new ArrayList<>();
         Move initial = point.getInitialMove();
         for (Map.Entry<Move, Point> move : Move.adjacent(point.getPoint()).entrySet()) {
-            if (movable(move.getValue(), excludeDanger)) {
+            if (movable(move.getValue(), excludeDanger) &&
+                    !isDeadEnd(board, you.getTail(), move.getKey().translate(you.getHead()), 5)) {
                 moves.add(new MovePoint(
                                 move.getKey(),
                                 move.getValue(),
@@ -269,7 +270,7 @@ public class Board {
                 || board[point.getX()][point.getY()] == Tile.TAIL;
     }
 
-    public boolean isDeadEnd(Tile[][] board, Point head, Point point, int searchDepth) {
+    public boolean isDeadEnd(Tile[][] board, Point exit, Point point, int searchDepth) {
         if (!exists(point)) return true;
 
         boolean locations[][] = new boolean[width][height];
@@ -281,7 +282,7 @@ public class Board {
 
         stack.push(point);
 
-        while (!stack.isEmpty() && !(stack.peek().equals(head))) {
+        while (!stack.isEmpty() && !(stack.peek().equals(exit))) {
 
             //set current location to top of stack
             currentLocation = stack.peek();
