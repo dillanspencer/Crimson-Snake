@@ -169,6 +169,10 @@ public class Board {
         }
         Exit condition = new Exit() {
             public boolean shouldExit(MovePoint point, Point initial) {
+                //check dead end
+                if(isDeadEnd(board, you.getTail(), initial, 30)){
+                    return true;
+                }
                 for (Point destination : destinations) {
                     if (point.getPoint().equals(destination)) {
                         int smallRegion = Math.max(IGNORE_SIZE, (int) Math.floor(you().length() / 2));
