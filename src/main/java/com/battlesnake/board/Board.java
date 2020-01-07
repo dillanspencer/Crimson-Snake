@@ -1,6 +1,7 @@
 package com.battlesnake.board;
 
 import com.battlesnake.data.Move;
+import com.battlesnake.data.MovePoint;
 import com.battlesnake.data.MoveValue;
 import com.battlesnake.data.Snake;
 import com.battlesnake.math.Point;
@@ -23,8 +24,11 @@ public class Board {
     private static final int MAX = 1000;
     private static final int FOOD = 0;
 
+    private static final int IGNORE_SIZE = 4;
+
     //Game Map
-    private Tile[][] board;
+    private transient Tile[][] board;
+    private transient Integer[][] regions;
 
     private void setupBoard() {
         board = new Tile[getWidth()][getHeight()];
@@ -62,6 +66,61 @@ public class Board {
         }
     }
 
+    private static interface Exit {
+        public boolean shouldExit(MovePoint point, Point initial);
+
+        public List<MovePoint> onFailure(List<MovePoint> path);
+    }
+
+    private void fill(Point point) {
+        if (!exists(point)) return;
+        regions[point.getX()][point.getY()] = 0;
+    }
+
+    private void fillIn() {
+        this.regions = new Integer[width][height];
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                if (isFilled(new Point(x, y))) {
+                    regions[x][y] = 0;
+                }
+            }
+        }
+        for (Snake snake : snakes) {
+            if (snake.equals(you()) || snake.length() <= 1) continue;
+            Point head = snake.getHead();
+            Point neck = snake.getBody().get(1);
+            Point delta = head.delta(neck);
+            for (int i = 1; i <= 2; i++) {
+                fill(new Point(head.getX() + delta.getX() * i, head.getY() + delta.getY() * i));
+            }
+        }
+        Exit condition = new Exit() {
+            public boolean shouldExit(MovePoint point, Point initial) {
+                return false;
+            }
+
+            public List<MovePoint> onFailure(List<MovePoint> path) {
+                return path;
+            }
+        };
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                if (regions[x][y] != null) continue;
+                List<MovePoint> region = floodFill(new Point(x, y), condition, false);
+                for (MovePoint point : region) {
+                    regions[point.getPoint().getX()][point.getPoint().getY()] = region.size();
+                }
+            }
+        }
+    }
+
+    public int regionSize(Point point) {
+        if (!exists(point)) return 0;
+        return regions[point.getX()][point.getY()];
+    }
+
+
     public boolean exists(Point point) {
         if (point.getX() < 0) return false;
         if (point.getY() < 0) return false;
@@ -86,6 +145,88 @@ public class Board {
 
     }
 
+    protected Move findPath(List<Point> destinations, Point point) {
+        return findPath(destinations, point, true);
+    }
+
+    protected Move findPath(List<Point> destinations, Point point, boolean checkBox) {
+        for (int i = 0; i < destinations.size(); i++) {
+            if (destinations.get(i).equals(point)) {
+                destinations.remove(i);
+                i--;
+            }
+        }
+        Exit condition = new Exit() {
+            public boolean shouldExit(MovePoint point, Point initial) {
+                for (Point destination : destinations) {
+                    if (point.getPoint().equals(destination)) {
+                        int smallRegion = Math.max(IGNORE_SIZE, (int) Math.floor(you().length() / 2));
+                        Point newPoint = point.getInitialMove().translate(initial);
+                        int region = regionSize(newPoint);
+                        if (checkBox && region <= smallRegion) {
+                            return false;
+                        }
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+            public List<MovePoint> onFailure(List<MovePoint> path) {
+                return new ArrayList<MovePoint>();
+            }
+        };
+        List<MovePoint> path = floodFill(point, condition, true);
+        if (path.isEmpty()) return null;
+        return path.get(path.size() - 1).getInitialMove();
+    }
+
+
+    protected List<MovePoint> floodFill(Point point, Exit condition, boolean excludeDanger) {
+        LinkedList<MovePoint> points = new LinkedList<>();
+        ArrayList<MovePoint> list = new ArrayList<>();
+        ArrayList<MovePoint> visited = new ArrayList<>();
+
+        MovePoint loopPoint = new MovePoint(null, point, null);
+        points.add(loopPoint);
+        list.add(loopPoint);
+        while (!points.isEmpty()) {
+            loopPoint = points.pollFirst();
+            visited.add(loopPoint);
+            if (condition.shouldExit(loopPoint, point)) {
+                return visited;
+            }
+            List<MovePoint> moves = getPossibleMoves(loopPoint, excludeDanger);
+            for (MovePoint move : moves) {
+                move.setLength(loopPoint.getLength() + 1);
+                if (list.contains(move)) continue;
+                points.add(move);
+                list.add(move);
+            }
+        }
+        return condition.onFailure(visited);
+    }
+
+    private List<MovePoint> getPossibleMoves(MovePoint point) {
+        return getPossibleMoves(point, true);
+    }
+
+    private List<MovePoint> getPossibleMoves(MovePoint point, boolean excludeDanger) {
+        ArrayList<MovePoint> moves = new ArrayList<>();
+        Move initial = point.getInitialMove();
+        for (Map.Entry<Move, Point> move : Move.adjacent(point.getPoint()).entrySet()) {
+            if (movable(move.getValue(), excludeDanger)) {
+                moves.add(new MovePoint(
+                                move.getKey(),
+                                move.getValue(),
+                                initial != null ? initial : move.getKey()
+                        )
+                );
+            }
+        }
+        return moves;
+    }
+
     public boolean isFilled(Point point) {
         return isFilled(point, board);
     }
@@ -102,8 +243,19 @@ public class Board {
         return !isFilled(point);
     }
 
+    private boolean movable(Point point, boolean excludeDanger) {
+        return !isFilled(point)
+                && (excludeDanger ? !isDangerousSpotFilled(point) : true);
+    }
+
     private boolean movable(Point point, Tile[][] board) {
         return !isFilled(point, board);
+    }
+
+    public boolean isDangerousSpotFilled(Point point) {
+        if (!exists(point)) return false;
+        return board[point.getX()][point.getY()] == Tile.FAKE_WALL
+                || board[point.getX()][point.getY()] == Tile.TAIL;
     }
 
     public boolean isDeadEnd(Tile[][] board, Point head, Point point, int searchDepth) {
@@ -149,7 +301,7 @@ public class Board {
                 stack.pop();
             }
         }
-        if(stack.isEmpty())
+        if (stack.isEmpty())
             System.out.println("FOUND DEAD END: " + point.toString());
         return stack.isEmpty();
     }
@@ -261,123 +413,23 @@ public class Board {
         }
     }
 
-    public Move findTail() {
-
-        Point movePoint = you.getTail();
-
-        //check directions
-        if (you.getHead().getX() < you.getTail().getX() && !isFilled(Move.RIGHT.translate(you.getHead()))
-                && !isDeadEnd(board, movePoint, Move.RIGHT.translate(you.getHead()), you.length())) {
-            System.out.println("RIGHT");
-            return Move.RIGHT;
-        }
-        if (you.getHead().getX() > you.getTail().getX() && !isFilled(Move.LEFT.translate(you.getHead()))
-                && !isDeadEnd(board, movePoint, Move.LEFT.translate(you.getHead()), you.length())) {
-            System.out.println("LEFT");
-            return Move.LEFT;
-        }
-        if (you.getHead().getY() < you.getTail().getY() && !isFilled(Move.DOWN.translate(you.getHead()))
-                && !isDeadEnd(board, movePoint, Move.DOWN.translate(you.getHead()), you.length())) {
-            System.out.println("DOWN");
-            return Move.DOWN;
-        }
-        if (you.getHead().getY() > you.getTail().getY() && !isFilled(Move.UP.translate(you.getHead()))
-                && !isDeadEnd(board, movePoint, Move.UP.translate(you.getHead()), you.length())) {
-            System.out.println("UP");
-            return Move.UP;
-        }
-        return moveAggressive();
+    public Move findFood(Point current) {
+        return findPath(food, current);
     }
 
-    public Move findFood() {
-        if (food.isEmpty()) return moveAggressive();
-
-        Point foodPoint = food.get(0);
-        double closest = Point.distance(you.getHead(), foodPoint);
-        for (Point f : food) {
-            double dist = Point.distance(you.getHead(), f);
-            if (dist < closest) {
-                closest = dist;
-                foodPoint = f;
-            }
-        }
-
-        //check directions
-        if (you.getHead().getX() < foodPoint.getX() && !isFilled(Move.RIGHT.translate(you.getHead()))
-                && !isDeadEnd(board, foodPoint, Move.RIGHT.translate(you.getHead()), you.length())) {
-            System.out.println("RIGHT");
-            return Move.RIGHT;
-        }
-        if (you.getHead().getX() > foodPoint.getX() && !isFilled(Move.LEFT.translate(you.getHead()))
-                && !isDeadEnd(board, foodPoint, Move.LEFT.translate(you.getHead()), you.length())) {
-            System.out.println("LEFT");
-            return Move.LEFT;
-        }
-        if (you.getHead().getY() < foodPoint.getY() && !isFilled(Move.DOWN.translate(you.getHead()))
-                && !isDeadEnd(board, foodPoint, Move.DOWN.translate(you.getHead()), you.length())) {
-            System.out.println("DOWN");
-            return Move.DOWN;
-        }
-        if (you.getHead().getY() > foodPoint.getY() && !isFilled(Move.UP.translate(you.getHead()))
-                && !isDeadEnd(board, foodPoint, Move.UP.translate(you.getHead()), you.length())) {
-            System.out.println("UP");
-            return Move.UP;
-        }
-        return moveAggressive();
+    public Move moveAggressive(Point current) {
+       return findPath(findHeads(), current);
     }
 
-    public Move moveAggressive(){
-        Point movePoint = new Point();
-        double closest = width*height;
-        for(Point p : findHeads()){
-            double dist = Point.distance(you.getHead(), p);
-            if (dist < closest) {
-                closest = dist;
-                movePoint = p;
-            }
+    public Move goToTail(Point currentPoint) {
+        Move move = null;
+        for (int i = you().getBody().size() - 1; i > 0; i--) {
+            move = findPath(findAdjacent(you().getBody().get(i)), currentPoint, false);
+            if (move != null) return move;
         }
-        //check directions
-        if (you.getHead().getX() < movePoint.getX() && !isFilled(Move.RIGHT.translate(you.getHead()))
-                && !isDeadEnd(board, movePoint, Move.RIGHT.translate(you.getHead()), you.length())) {
-            System.out.println("RIGHT");
-            return Move.RIGHT;
-        }
-        if (you.getHead().getX() > movePoint.getX() && !isFilled(Move.LEFT.translate(you.getHead()))
-                && !isDeadEnd(board, movePoint, Move.LEFT.translate(you.getHead()), you.length())) {
-            System.out.println("LEFT");
-            return Move.LEFT;
-        }
-        if (you.getHead().getY() < movePoint.getY() && !isFilled(Move.DOWN.translate(you.getHead()))
-                && !isDeadEnd(board, movePoint, Move.DOWN.translate(you.getHead()), you.length())) {
-            System.out.println("DOWN");
-            return Move.DOWN;
-        }
-        if (you.getHead().getY() > movePoint.getY() && !isFilled(Move.UP.translate(you.getHead()))
-                && !isDeadEnd(board, movePoint, Move.UP.translate(you.getHead()), you.length())) {
-            System.out.println("UP");
-            return Move.UP;
-        }
-        return getPossibleMoves(board, you().getHead()).get(0);
+        return null;
     }
 
-
-    public Move getMove() {
-        Snake enemy = null;
-        //get max distance
-        double distance = width * height;
-        for (Snake s : snakes) {
-            if (!s.equals(you)) {
-                double dist = Point.distance(you.getHead(), s.getHead());
-                if (dist < distance) {
-                    distance = dist;
-                    enemy = s;
-                }
-            }
-        }
-        MoveValue moveValue = minimax(board, 0, you, enemy, Board.MIN, Board.MAX);
-        System.out.println("BEST MOVE VALUE: " + moveValue.returnValue);
-        return moveValue.returnMove;
-    }
 
     public void printBoard(Tile[][] board) {
         for (int i = 0; i < height; i++) {
@@ -396,6 +448,7 @@ public class Board {
     public void init(Snake you) {
         this.you = you;
         setupBoard();
+        fillIn();
     }
 
     private Snake you() {

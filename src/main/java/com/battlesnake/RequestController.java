@@ -46,10 +46,10 @@ public class RequestController {
 
         Snake.SnakeState snakeState = mySnake.getState(request.getTurn(), findEnemySnake(request, mySnake));
         Move move;
-        if(snakeState == Snake.SnakeState.HUNGRY) move = board.findFood();
-        else if(snakeState == Snake.SnakeState.FINDTAIL) move = board.findTail();
+        if(snakeState == Snake.SnakeState.HUNGRY) move = board.findFood(mySnake.getHead());
+        else if(snakeState == Snake.SnakeState.FINDTAIL) move = board.goToTail(mySnake.getHead());
         else{
-            move = board.moveAggressive();
+            move = board.moveAggressive(mySnake.getHead());
         }
 
         return moveResponse.setMove(move);

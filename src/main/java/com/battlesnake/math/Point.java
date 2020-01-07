@@ -31,6 +31,10 @@ public class Point {
         return false;
     }
 
+    public Point delta(Point point) {
+        return new Point(getX() - point.getX(), getY() - point.getY());
+    }
+
     @Override
     public String toString() {
         return "X: " + x + ", " + "Y: " + y;

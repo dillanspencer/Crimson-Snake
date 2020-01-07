@@ -7,6 +7,7 @@ public enum Tile {
     HEADS,
     FOOD,
     ME,
+    FAKE_WALL,
     TAIL;
 
 }
