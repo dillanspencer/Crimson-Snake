@@ -93,7 +93,8 @@ public class Snake {
         }
     }
 
-    public SnakeState getState(Board board){
+    public SnakeState getState(Board board, int turn){
+        if(turn < 20) return SnakeState.HUNGRY;
        if(health < 50){
            return SnakeState.HUNGRY;
        }else if(length() > board.longestSnake()){
@@ -102,8 +103,8 @@ public class Snake {
        return SnakeState.HUNGRY;
     }
 
-    public Move move(Board board) {
-        SnakeState state = getState(board);
+    public Move move(Board board, int turn) {
+        SnakeState state = getState(board, turn);
         Move move = Move.UP;
         switch (state) {
             case HUNGRY:

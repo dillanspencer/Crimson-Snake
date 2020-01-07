@@ -44,7 +44,7 @@ public class RequestController {
         Board board = request.getBoard();
         board.init(mySnake);
 
-        Move move = mySnake.move(board);
+        Move move = mySnake.move(board, request.getTurn());
 
         return moveResponse.setMove(move);
     }
