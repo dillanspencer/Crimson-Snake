@@ -95,7 +95,7 @@ public class Snake {
 
     public SnakeState getState(Board board, Snake enemy){
        if(health < 50){
-           return SnakeState.HUNGRY;
+               return SnakeState.HUNGRY;
        }else if(length() > board.longestSnake()){
             return SnakeState.AGRESSIVE;
        }
