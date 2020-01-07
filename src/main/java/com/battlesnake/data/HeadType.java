@@ -28,6 +28,7 @@ public enum HeadType {
   SANDWORM("sand-worm"),
   SHADES("shades"),
   SMILE("smile"),
+  SKI("bwc-ski"),
   TONGUE("tongue");
 
   private String name;

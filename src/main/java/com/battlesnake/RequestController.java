@@ -31,7 +31,7 @@ public class RequestController {
         return new StartResponse()
                 .setName("Crimson Snake")
                 .setColor("#990000")
-                .setHeadType(HeadType.TONGUE)
+                .setHeadType(HeadType.SKI)
                 .setTailType(TailType.BOLT)
                 .setTaunt("Crimson Snakeee");
     }
