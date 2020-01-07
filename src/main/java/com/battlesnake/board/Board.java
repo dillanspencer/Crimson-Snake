@@ -287,6 +287,7 @@ public class Board {
             locations[currentLocation.getX()][currentLocation.getY()] = true;
 
             for(Point p : findAdjacent(currentLocation)) {
+                if(!exists(p)) continue;
                 if (locations[p.getX()][p.getY()] == false && movable(p, false)) {
                     stack.push(p);
                 }
