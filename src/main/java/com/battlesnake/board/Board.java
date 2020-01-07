@@ -170,7 +170,7 @@ public class Board {
         Exit condition = new Exit() {
             public boolean shouldExit(MovePoint point, Point initial) {
                 //check dead end
-                if(isDeadEnd(board, you.getTail(), initial, 30)){
+                if(isDeadEnd(board, you.getTail(), initial, 2)){
                     return true;
                 }
                 for (Point destination : destinations) {
