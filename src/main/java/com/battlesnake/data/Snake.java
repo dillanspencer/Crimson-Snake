@@ -93,18 +93,20 @@ public class Snake {
         }
     }
 
-    public SnakeState getState(Board board, int turn){
-        if(turn < 20) return SnakeState.HUNGRY;
+    public SnakeState getState(Board board, Snake enemy){
        if(health < 50){
            return SnakeState.HUNGRY;
        }else if(length() > board.longestSnake()){
             return SnakeState.AGRESSIVE;
        }
+       else if(Point.distance(getHead(), enemy.getHead()) > 4){
+           return SnakeState.FINDTAIL;
+       }
        return SnakeState.HUNGRY;
     }
 
-    public Move move(Board board, int turn) {
-        SnakeState state = getState(board, turn);
+    public Move move(Board board, Snake enemy) {
+        SnakeState state = getState(board, enemy);
         Move move = Move.UP;
         switch (state) {
             case HUNGRY:
@@ -123,6 +125,15 @@ public class Snake {
                 }
                 if (move == null) {
                     move = board.goToTail(getHead());
+                }
+                break;
+            case FINDTAIL:
+                move = board.goToTail(getHead());
+                if (move == null) {
+                    move = board.findFood(getHead());
+                }
+                if (move == null) {
+                    move = board.moveAggressive(getHead());
                 }
                 break;
         }
