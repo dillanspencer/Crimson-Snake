@@ -98,6 +98,8 @@ public class Snake {
                return SnakeState.HUNGRY;
        }else if(length() > board.longestSnake()){
             return SnakeState.AGRESSIVE;
+       }else if(enemy.length() > length() && Point.distance(getHead(), enemy.getHead()) < 3){
+           return SnakeState.FINDTAIL;
        }
        return SnakeState.HUNGRY;
     }
