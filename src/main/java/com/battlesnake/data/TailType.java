@@ -27,7 +27,8 @@ public enum TailType {
   FRECKLED("freckled"),
   FATRATTLE("fat-rattle"),
   CURLED("curled"),
-  BLOCKBUM("block-bum");
+  BLOCKBUM("block-bum"),
+  BOLT("bolt");
 
   private String name;
   private TailType(String name) {
