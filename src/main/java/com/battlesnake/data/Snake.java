@@ -101,7 +101,7 @@ public class Snake {
        }else if(enemy.length() > length() && Point.distance(getHead(), enemy.getHead()) < 3){
            return SnakeState.SMART;
        }
-       return SnakeState.FINDTAIL;
+       return SnakeState.HUNGRY;
     }
 
     public Move move(Board board, Snake enemy) {
