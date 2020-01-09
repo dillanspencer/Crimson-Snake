@@ -321,7 +321,6 @@ public class Board {
     }
 
     private MoveValue minimax(Tile[][] board, int depth, Snake snake, Snake enemy, double alpha, double beta) {
-        System.out.println("Position: " + snake.getHead().getX() + ", " + snake.getHead().getY());
         if (depth == 3) {
             return new MoveValue(Board.NONE);
         }
@@ -388,7 +387,7 @@ public class Board {
     }
 
     public Move moveSmart(Snake enemy){
-        return minimax(board, 0, you, enemy, Board.MIN, Board.MAX).returnMove;
+        return minimax(board, 0, enemy, you, Board.MIN, Board.MAX).returnMove;
     }
 
     public Move findFood(Point current) {
