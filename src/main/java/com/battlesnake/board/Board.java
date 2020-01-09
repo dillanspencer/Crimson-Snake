@@ -29,6 +29,7 @@ public class Board {
     //Game Map
     private transient Tile[][] board;
     private transient Integer[][] regions;
+    private Stack<Point> boardState;
 
     private void setupBoard() {
         this.board = new Tile[width][height];
@@ -287,6 +288,15 @@ public class Board {
         return false;
     }
 
+    private void applyMove(Snake snake, Move move){
+        boardState.push(snake.getHead());
+        snake.setHead(move.translate(snake.getHead()));
+    }
+
+    private void reverseMove(Snake snake){
+        snake.setHead(boardState.pop());
+    }
+
     private double boardValue(Snake snake, Snake enemy) {
         double value = -1;
         //base case
@@ -336,8 +346,9 @@ public class Board {
         if (isMaximizing) {
             while (movesIterator.hasNext()) {
                 Move currentMove = movesIterator.next();
-                snake.applyMove(board, currentMove);
+                applyMove(snake, currentMove);
                 returnMove = minimax(board, depth + 1, enemy, snake, alpha, beta);
+                reverseMove(snake);
                 if ((bestMove == null) || (bestMove.returnValue < returnMove.returnValue)) {
                     bestMove = returnMove;
                     bestMove.returnMove = currentMove;
@@ -376,6 +387,10 @@ public class Board {
         }
     }
 
+    public Move moveSmart(Snake enemy){
+        return minimax(board, 0, you, enemy, Board.MIN, Board.MAX).returnMove;
+    }
+
     public Move findFood(Point current) {
         return findPath(food, current);
     }
@@ -412,6 +427,7 @@ public class Board {
         this.you = you;
         setupBoard();
         fillIn();
+        boardState = new Stack<>();
     }
 
     private Snake you() {

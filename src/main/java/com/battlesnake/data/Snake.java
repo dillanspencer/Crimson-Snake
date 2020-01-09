@@ -99,9 +99,9 @@ public class Snake {
        }else if(length() > board.longestSnake()){
             return SnakeState.AGRESSIVE;
        }else if(enemy.length() > length() && Point.distance(getHead(), enemy.getHead()) < 3){
-           return SnakeState.FINDTAIL;
+           return SnakeState.SMART;
        }
-       return SnakeState.HUNGRY;
+       return SnakeState.FINDTAIL;
     }
 
     public Move move(Board board, Snake enemy) {
@@ -135,6 +135,8 @@ public class Snake {
                     move = board.moveAggressive(getHead());
                 }
                 break;
+            case SMART:
+                move = board.moveSmart(enemy);
         }
         return move;
     }
