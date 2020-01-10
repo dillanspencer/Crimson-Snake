@@ -436,8 +436,11 @@ public class Board {
 
     public Move goToTail(Point currentPoint) {
         Move move = null;
+        List<Point> list = new ArrayList<>();
         for (int i = you().getBody().size() - 1; i > 0; i--) {
-            move = findPath(findAdjacent(you().getBody().get(i)), currentPoint, false);
+            list.add(you().getTail());
+            list.addAll(findAdjacent(you().getBody().get(i)));
+            move = findPath(list, currentPoint, false);
             if (move != null) return move;
         }
         return null;
