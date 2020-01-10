@@ -269,6 +269,42 @@ public class Board {
                 || board[point.getX()][point.getY()] == Tile.TAIL;
     }
 
+    private boolean isDeadEnd(Snake snake, Point initial){
+        boolean[][] locations = new boolean[width][height];
+        Point currentLocation;
+        Stack<Point> stack = new Stack<>();
+        stack.push(initial);
+
+        while(!stack.isEmpty() && !stack.peek().equals(snake.getTail())){
+            currentLocation = stack.peek();
+            locations[currentLocation.getX()][currentLocation.getY()] = true;
+            //check up
+            if (currentLocation.getY() != 0 && locations[currentLocation.getX()][currentLocation.getY() - 1] == false
+                    && movable(Move.UP.translate(currentLocation), board)) {
+                stack.push(Move.UP.translate(currentLocation));
+            }
+            //check down
+            else if (currentLocation.getY() != height - 1 && locations[currentLocation.getX()][currentLocation.getY() + 1] == false
+                    && movable(Move.DOWN.translate(currentLocation), board)) {
+                stack.push(Move.DOWN.translate(currentLocation));
+            }
+            //check right
+            else if (currentLocation.getX() != width - 1 && locations[currentLocation.getX() + 1][currentLocation.getY()] == false
+                    && movable(Move.RIGHT.translate(currentLocation), board)) {
+                stack.push(Move.RIGHT.translate(currentLocation));
+            }
+            //check left
+            else if (currentLocation.getX() != 0 && locations[currentLocation.getX() - 1][currentLocation.getY()] == false
+                    && movable(Move.LEFT.translate(currentLocation), board)) {
+                stack.push(Move.LEFT.translate(currentLocation));
+            } else {
+                stack.pop();
+            }
+
+        }
+        return stack.isEmpty();
+    }
+
 
     private List<Move> getPossibleMoves(Tile[][] currentBoard, Point point) {
         List<Move> moves = new ArrayList<>();
