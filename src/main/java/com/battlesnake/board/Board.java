@@ -265,8 +265,7 @@ public class Board {
 
     public boolean isDangerousSpotFilled(Point point) {
         if (!exists(point)) return false;
-        return board[point.getX()][point.getY()] == Tile.FAKE_WALL
-                || board[point.getX()][point.getY()] == Tile.TAIL;
+        return board[point.getX()][point.getY()] == Tile.FAKE_WALL;
     }
 
     private boolean isDeadEnd(Snake snake, Point initial){
@@ -436,11 +435,8 @@ public class Board {
 
     public Move goToTail(Point currentPoint) {
         Move move = null;
-        List<Point> list = new ArrayList<>();
         for (int i = you().getBody().size() - 1; i > 0; i--) {
-            list.add(you().getTail());
-            list.addAll(findAdjacent(you().getBody().get(i)));
-            move = findPath(list, currentPoint, false);
+            move = findPath(findAdjacent(you().getBody().get(i)), currentPoint, false);
             if (move != null) return move;
         }
         return null;
