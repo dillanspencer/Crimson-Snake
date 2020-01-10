@@ -284,12 +284,12 @@ public class Board {
                 stack.push(Move.UP.translate(currentLocation));
             }
             //check down
-            else if (currentLocation.getY() != height - 1 && locations[currentLocation.getX()][currentLocation.getY() + 1] == false
+            else if (currentLocation.getY() != height && locations[currentLocation.getX()][currentLocation.getY() + 1] == false
                     && movable(Move.DOWN.translate(currentLocation), board)) {
                 stack.push(Move.DOWN.translate(currentLocation));
             }
             //check right
-            else if (currentLocation.getX() != width - 1 && locations[currentLocation.getX() + 1][currentLocation.getY()] == false
+            else if (currentLocation.getX() != width && locations[currentLocation.getX() + 1][currentLocation.getY()] == false
                     && movable(Move.RIGHT.translate(currentLocation), board)) {
                 stack.push(Move.RIGHT.translate(currentLocation));
             }
