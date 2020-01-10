@@ -225,7 +225,7 @@ public class Board {
         ArrayList<MovePoint> moves = new ArrayList<>();
         Move initial = point.getInitialMove();
         for (Map.Entry<Move, Point> move : Move.adjacent(point.getPoint()).entrySet()) {
-            if (movable(move.getValue(), excludeDanger)) {
+            if (movable(move.getValue(), excludeDanger) && !isDeadEnd(you, move.getKey().translate(you.getHead()))) {
                 moves.add(new MovePoint(
                                 move.getKey(),
                                 move.getValue(),
