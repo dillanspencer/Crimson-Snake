@@ -24,7 +24,7 @@ public class Board {
     private static final int MAX = 1000;
     private static final int FOOD = 0;
 
-    private static final int IGNORE_SIZE = 4;
+    private static final int IGNORE_SIZE = 10;
 
     //Game Map
     private transient Tile[][] board;
