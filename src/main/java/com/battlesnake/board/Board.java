@@ -365,7 +365,6 @@ public class Board {
             System.out.println("MAXIMIZING: " + bestMove.returnValue);
             return bestMove;
         } else {
-            System.out.println("ATleast im minimizing");
             while (movesIterator.hasNext()) {
                 Move currentMove = movesIterator.next();
                 applyMove(snake, currentMove);
@@ -382,10 +381,10 @@ public class Board {
                 if (beta <= alpha) {
                     bestMove.returnValue = alpha;
                     bestMove.returnMove = null;
+                    System.out.println("MINIMIZING: " + bestMove.returnValue);
                     return bestMove; // pruning
                 }
             }
-            System.out.println("MINIMIZING: " + bestMove.returnValue);
             return bestMove;
         }
     }
