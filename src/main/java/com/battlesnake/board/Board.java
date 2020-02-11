@@ -246,6 +246,7 @@ public class Board {
 
     private void undoMove(){
         board = previousBoard;
+        setupBoard();
     }
 
 
@@ -299,7 +300,7 @@ public class Board {
     }
 
     private double boardValue(Snake snake, Snake enemy) {
-        double value = 0;
+        double value = Board.MIN;
         //base case
         if (Point.equals(snake.getHead(), enemy.getHead()) && snake.longerThan(enemy)) {
             System.out.println("MAX: ENEMY HEAD - " + snake.getName());
