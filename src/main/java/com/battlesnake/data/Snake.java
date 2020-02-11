@@ -85,7 +85,7 @@ public class Snake {
        }else if(length() > board.longestSnake() && Point.distance(getHead(), enemy.getHead()) < 2){
            System.out.println("AGRESSIVE");
            return SnakeState.AGRESSIVE;
-       }else if(Point.distance(getHead(), enemy.getHead()) < 2) {
+       }else if(Point.distance(getHead(), enemy.getHead()) < 4) {
            System.out.println("SMART");
            return SnakeState.SMART;
        }
