@@ -74,7 +74,7 @@ public class Snake {
             body.get(i).setX(body.get(i-1).getX());
             body.get(i).setY(body.get(i-1).getY());
         }
-        body.set(0, move.translate(getHead()));
+        move.translate(body.get(0));
     }
 
 
