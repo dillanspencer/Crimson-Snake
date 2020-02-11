@@ -28,8 +28,8 @@ public class Board {
 
     //Game Map
     private transient Tile[][] board;
+    private transient Tile[][] previousBoard;
     private transient Integer[][] regions;
-    private Stack<Point> boardState;
 
     private void setupBoard() {
         this.board = new Tile[width][height];
@@ -237,6 +237,17 @@ public class Board {
         return moves;
     }
 
+    private void applyMove(Snake snake, Move move){
+        previousBoard = board;
+        snake.applyMove(move);
+        setupBoard();
+    }
+
+    private void undoMove(){
+        board = previousBoard;
+    }
+
+
     public boolean isFilled(Point point) {
         return isFilled(point, board);
     }
@@ -268,43 +279,6 @@ public class Board {
         return board[point.getX()][point.getY()] == Tile.FAKE_WALL;
     }
 
-    private boolean isDeadEnd(Snake snake, Point initial){
-        boolean[][] locations = new boolean[width][height];
-        Point currentLocation;
-        Stack<Point> stack = new Stack<>();
-        stack.push(initial);
-
-        while(!stack.isEmpty() && !stack.peek().equals(snake.getTail())){
-            currentLocation = stack.peek();
-            locations[currentLocation.getX()][currentLocation.getY()] = true;
-            //check up
-            if (currentLocation.getY() != 0 && locations[currentLocation.getX()][currentLocation.getY() - 1] == false
-                    && movable(Move.UP.translate(currentLocation), board)) {
-                stack.push(Move.UP.translate(currentLocation));
-            }
-            //check down
-            else if (currentLocation.getY() != height && locations[currentLocation.getX()][currentLocation.getY() + 1] == false
-                    && movable(Move.DOWN.translate(currentLocation), board)) {
-                stack.push(Move.DOWN.translate(currentLocation));
-            }
-            //check right
-            else if (currentLocation.getX() != width && locations[currentLocation.getX() + 1][currentLocation.getY()] == false
-                    && movable(Move.RIGHT.translate(currentLocation), board)) {
-                stack.push(Move.RIGHT.translate(currentLocation));
-            }
-            //check left
-            else if (currentLocation.getX() != 0 && locations[currentLocation.getX() - 1][currentLocation.getY()] == false
-                    && movable(Move.LEFT.translate(currentLocation), board)) {
-                stack.push(Move.LEFT.translate(currentLocation));
-            } else {
-                stack.pop();
-            }
-
-        }
-        return stack.isEmpty();
-    }
-
-
     private List<Move> getPossibleMoves(Tile[][] currentBoard, Point point) {
         List<Move> moves = new ArrayList<>();
         for (Map.Entry<Move, Point> move : Move.adjacent(point).entrySet()) {
@@ -321,15 +295,6 @@ public class Board {
 
         if (!exists(snake.getHead())) return true;
         return false;
-    }
-
-    private void applyMove(Snake snake, Move move){
-        boardState.push(snake.getHead());
-        snake.setHead(move.translate(snake.getHead()));
-    }
-
-    private void reverseMove(Snake snake){
-        snake.setHead(boardState.pop());
     }
 
     private double boardValue(Snake snake, Snake enemy) {
@@ -369,9 +334,6 @@ public class Board {
         if (value != -1) {
             return new MoveValue(value);
         }
-        if (moves.isEmpty()) {
-            return new MoveValue(Board.MIN);
-        }
 
         MoveValue returnMove;
         MoveValue bestMove = null;
@@ -382,7 +344,7 @@ public class Board {
                 Move currentMove = movesIterator.next();
                 applyMove(snake, currentMove);
                 returnMove = minimax(board, depth + 1, enemy, snake, alpha, beta);
-                reverseMove(snake);
+                undoMove();
                 if ((bestMove == null) || (bestMove.returnValue < returnMove.returnValue)) {
                     bestMove = returnMove;
                     bestMove.returnMove = currentMove;
@@ -401,8 +363,9 @@ public class Board {
         } else {
             while (movesIterator.hasNext()) {
                 Move currentMove = movesIterator.next();
-                snake.applyMove(board, currentMove);
+                applyMove(snake, currentMove);
                 returnMove = minimax(board, depth + 1, enemy, snake, alpha, beta);
+                undoMove();
                 if ((bestMove == null) || (bestMove.returnValue > returnMove.returnValue)) {
                     bestMove = returnMove;
                     bestMove.returnMove = currentMove;
@@ -461,7 +424,6 @@ public class Board {
         this.you = you;
         setupBoard();
         fillIn();
-        boardState = new Stack<>();
     }
 
     private Snake you() {

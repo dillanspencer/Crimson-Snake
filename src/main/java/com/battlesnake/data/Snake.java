@@ -69,29 +69,14 @@ public class Snake {
         return false;
     }
 
-    public void applyMove(Tile[][] board, Move move){
-        for(int i = body.size() - 1; i > 0; i--){
+    public void applyMove(Move move){
+        for(int i = body.size() - 1; i >= 0; i--){
             body.get(i).setX(body.get(i-1).getX());
             body.get(i).setY(body.get(i-1).getY());
         }
         body.set(0, move.translate(getHead()));
     }
 
-    public void reverseMove(Move move){
-        for(int i = 0; i < body.size() - 1; i++){
-            body.get(i).setX(body.get(i+1).getX());
-            body.get(i).setY(body.get(i+1).getY());
-        }
-        switch(move){
-            case UP:
-                body.set(body.size()-1, Move.DOWN.translate(getTail()));
-                break;
-            case DOWN:
-                body.set(body.size()-1, Move.UP.translate(getTail()));
-            case LEFT:
-                body.set(body.size()-1, Move.RIGHT.translate(getTail()));
-        }
-    }
 
     public SnakeState getState(Board board, Snake enemy){
        if(health < 50){
@@ -101,8 +86,8 @@ public class Snake {
            System.out.println("AGRESSIVE");
            return SnakeState.AGRESSIVE;
        }
-        System.out.println("HUNGRY");
-        return SnakeState.HUNGRY;
+        System.out.println("SMART");
+        return SnakeState.SMART;
     }
 
     public Move move(Board board, Snake enemy) {
