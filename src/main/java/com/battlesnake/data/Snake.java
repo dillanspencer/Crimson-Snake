@@ -70,7 +70,7 @@ public class Snake {
     }
 
     public void applyMove(Move move){
-        for(int i = body.size() - 1; i >= 0; i--){
+        for(int i = body.size() - 1; i > 0; i--){
             body.get(i).setX(body.get(i-1).getX());
             body.get(i).setY(body.get(i-1).getY());
         }
