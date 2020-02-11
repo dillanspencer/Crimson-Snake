@@ -332,6 +332,7 @@ public class Board {
 
         //base case
         if (value != -1) {
+            System.out.println("IDK WHY ITS STOPPING");
             return new MoveValue(value);
         }
 
