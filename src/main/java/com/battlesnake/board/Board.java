@@ -6,6 +6,7 @@ import com.battlesnake.data.MoveValue;
 import com.battlesnake.data.Snake;
 import com.battlesnake.math.Point;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import sun.awt.SunHints;
 
 import java.util.*;
 
@@ -321,14 +322,13 @@ public class Board {
     }
 
     private MoveValue minimax(Tile[][] board, int depth, Snake snake, Snake enemy, double alpha, double beta) {
-        if (depth == 3) {
-            System.out.println("NONE");
-            return new MoveValue(Board.NONE);
+        double value = boardValue(snake, enemy);
+        if (depth == 3 || snake.isDead()) {
+            return new MoveValue(value);
         }
 
         List<Move> moves = getPossibleMoves(board, snake.getHead());
         Iterator<Move> movesIterator = moves.iterator();
-        double value = boardValue(snake, enemy);
         boolean isMaximizing = (snake.equals(you()));
 
         MoveValue returnMove;
