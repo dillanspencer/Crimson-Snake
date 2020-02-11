@@ -299,7 +299,7 @@ public class Board {
     }
 
     private double boardValue(Snake snake, Snake enemy) {
-        double value = -1;
+        double value = Board.MIN;
         //base case
         if (Point.equals(snake.getHead(), enemy.getHead()) && snake.longerThan(enemy)) {
             System.out.println("MAX: ENEMY HEAD - " + snake.getName());
@@ -321,6 +321,8 @@ public class Board {
             System.out.println("ELSE FUCK");
             value = Board.MIN;
         }
+        System.out.println("Snake Position: " + snake.getHead().getX() + ", " + snake.getHead().getY());
+        System.out.println("Enemy Position: " + enemy.getHead().getX() + ", " + enemy.getHead().getY());
         return value;
     }
 
