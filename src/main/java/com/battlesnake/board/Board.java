@@ -330,12 +330,6 @@ public class Board {
         double value = boardValue(snake, enemy);
         boolean isMaximizing = (snake.equals(you()));
 
-        //base case
-        if (value != -1) {
-            System.out.println("IDK WHY ITS STOPPING");
-            return new MoveValue(value);
-        }
-
         MoveValue returnMove;
         MoveValue bestMove = null;
 
