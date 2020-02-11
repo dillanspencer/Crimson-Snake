@@ -359,7 +359,7 @@ public class Board {
                     return bestMove; // pruning
                 }
             }
-            System.out.println("MAXIMIZING: " + bestMove);
+            System.out.println("MAXIMIZING: " + bestMove.returnValue);
             return bestMove;
         } else {
             while (movesIterator.hasNext()) {
@@ -381,7 +381,7 @@ public class Board {
                     return bestMove; // pruning
                 }
             }
-            System.out.println("MINIMIZING: " + bestMove);
+            System.out.println("MINIMIZING: " + bestMove.returnValue);
             return bestMove;
         }
     }
