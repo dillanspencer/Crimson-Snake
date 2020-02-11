@@ -317,13 +317,17 @@ public class Board {
         } else if (this.board[snake.getHead().getX()][snake.getHead().getY()] == Tile.FOOD) {
             System.out.println("FOOD");
             value = Board.FOOD;
-        } else if (!exists(snake.getHead())) value = Board.MIN;
+        } else if (!exists(snake.getHead())){
+            System.out.println("ELSE FUCK");
+            value = Board.MIN;
+        }
         return value;
     }
 
     private MoveValue minimax(Tile[][] board, int depth, Snake snake, Snake enemy, double alpha, double beta) {
-        double value = boardValue(snake, enemy);
-        if (depth == 3 || snake.isDead()) {
+        double value = 0;
+        if (depth == 3) {
+            value = boardValue(snake, enemy);
             return new MoveValue(value);
         }
 
