@@ -365,6 +365,7 @@ public class Board {
             System.out.println("MAXIMIZING: " + bestMove.returnValue);
             return bestMove;
         } else {
+            System.out.println("ATleast im minimizing");
             while (movesIterator.hasNext()) {
                 Move currentMove = movesIterator.next();
                 applyMove(snake, currentMove);
