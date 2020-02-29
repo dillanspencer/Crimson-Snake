@@ -281,28 +281,30 @@ public class Board {
 
 
     private double boardValue(Snake snake, Snake enemy) {
-        double value = 0;
+        double value;
         //base case
-        if(!exists(snake.getHead())){
-            value = Board.MIN;
-            return  value;
-        }
+
         if (Point.equals(snake.getHead(), enemy.getHead()) && snake.longerThan(enemy)) {
             System.out.println("MAX: ENEMY HEAD - " + snake.getName());
             value = Board.MAX;
+            return value;
         } else if (Point.equals(snake.getHead(), enemy.getHead()) && enemy.longerThan(snake)) {
             System.out.println("MIN: ENEMY HEAD - " + snake.getName());
             value = Board.MIN;
+            return value;
         } else if (snake.checkCollision(enemy) != -1) {
             //check head collision
             System.out.println("MIN COLLISION");
             value = Board.MIN;
+            return value;
         } else if (enemy.checkCollision(snake) != -1) {
             System.out.println("MAX COLLISION");
             value = Board.MAX;
+            return value;
         } else if (!exists(snake.getHead())){
             System.out.println("ELSE FUCK");
             value = Board.MIN;
+            return value;
         }
         return value;
     }
