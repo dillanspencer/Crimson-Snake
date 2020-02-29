@@ -292,7 +292,7 @@ public class Board {
     }
 
     private double boardValue(Snake snake, Snake enemy) {
-        double value = NONE;
+        double value = Integer.MIN_VALUE;
         //base case
 
         if (Point.equals(snake.getHead(), enemy.getHead()) && snake.longerThan(enemy)) {
