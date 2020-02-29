@@ -25,7 +25,7 @@ public class Board {
     private static final int MAX = 1000;
     private static final int FOOD = 0;
 
-    private static final int IGNORE_SIZE = 10;
+    private static final int IGNORE_SIZE = 4;
 
     //Game Map
     private transient Tile[][] board;
@@ -350,11 +350,11 @@ public class Board {
         } else {
             while (movesIterator.hasNext()) {
                 Move currentMove = movesIterator.next();
-                System.out.println(depth + " Start Position : " + snake.getHead().getX() + ", " + snake.getHead().getY());
-                snake.applyMove(currentMove);
-                System.out.println("End Position: " + snake.getHead().getX() + ", " + snake.getHead().getY());
+                System.out.println(depth + " Start Position : " + enemy.getHead().getX() + ", " + enemy.getHead().getY());
+                enemy.applyMove(currentMove);
+                System.out.println("End Position: " + enemy.getHead().getX() + ", " + enemy.getHead().getY());
                 returnMove = minimax(board, depth + 1, snake, enemy, alpha, beta);
-                snake.undoMove();
+                enemy.undoMove();
                 if ((bestMove == null) || (bestMove.returnValue > returnMove.returnValue)) {
                     bestMove = returnMove;
                     bestMove.returnMove = currentMove;
