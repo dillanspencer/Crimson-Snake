@@ -310,8 +310,8 @@ public class Board {
     }
 
     private MoveValue minimax(Tile[][] board, int depth, Snake snake, Snake enemy, double alpha, double beta) {
-        double value;
-        if (depth == 3) {
+        double value = boardValue(snake, enemy);
+        if (value != NONE || depth == 3) {
             value = boardValue(snake, enemy);
             return new MoveValue(value);
         }
