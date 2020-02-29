@@ -49,6 +49,7 @@ public class Snake {
 
     public Snake() {
         state = SnakeState.HUNGRY;
+        previousBody = new Stack<>();
     }
 
     public int checkCollision(Snake other) {
