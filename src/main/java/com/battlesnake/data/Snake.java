@@ -22,6 +22,7 @@ import com.battlesnake.math.Point;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
+import java.util.Stack;
 
 public class Snake {
 
@@ -41,7 +42,7 @@ public class Snake {
     private int health; //0..100
     private Point position;
     private List<Point> body;
-    private List<Point> previousBody;
+    private Stack<List<Point>> previousBody;
 
     //snake state
     private SnakeState state;
@@ -71,7 +72,7 @@ public class Snake {
     }
 
     public void applyMove(Move move){
-        previousBody = body;
+        previousBody.push(body);
         for(int i = body.size() - 1; i > 0; i--){
             body.get(i).setX(body.get(i-1).getX());
             body.get(i).setY(body.get(i-1).getY());
@@ -80,7 +81,7 @@ public class Snake {
     }
 
     public void undoMove(){
-        body = previousBody;
+        body = previousBody.pop();
     }
 
 
