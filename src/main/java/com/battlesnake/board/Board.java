@@ -330,7 +330,7 @@ public class Board {
                 System.out.println(depth + " Start Position : " + snake.getHead().getX() + ", " + snake.getHead().getY());
                 snake.applyMove(currentMove);
                 System.out.println("End Position: " + snake.getHead().getX() + ", " + snake.getHead().getY());
-                returnMove = minimax(board, depth + 1, enemy, snake, alpha, beta);
+                returnMove = minimax(board, depth + 1, snake, enemy, alpha, beta);
                 snake.undoMove();
                 if ((bestMove == null) || (bestMove.returnValue < returnMove.returnValue)) {
                     bestMove = returnMove;
@@ -353,7 +353,7 @@ public class Board {
                 System.out.println(depth + " Start Position : " + snake.getHead().getX() + ", " + snake.getHead().getY());
                 snake.applyMove(currentMove);
                 System.out.println("End Position: " + snake.getHead().getX() + ", " + snake.getHead().getY());
-                returnMove = minimax(board, depth + 1, enemy, snake, alpha, beta);
+                returnMove = minimax(board, depth + 1, snake, enemy, alpha, beta);
                 snake.undoMove();
                 if ((bestMove == null) || (bestMove.returnValue > returnMove.returnValue)) {
                     bestMove = returnMove;
