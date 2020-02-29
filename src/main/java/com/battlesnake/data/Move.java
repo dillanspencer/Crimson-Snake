@@ -19,7 +19,9 @@ package com.battlesnake.data;
 import com.battlesnake.math.Point;
 import com.fasterxml.jackson.annotation.JsonValue;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public enum Move {
@@ -47,6 +49,15 @@ public enum Move {
     moves.put(Move.DOWN, Move.DOWN.translate(point));
     moves.put(Move.LEFT, Move.LEFT.translate(point));
     moves.put(Move.RIGHT, Move.RIGHT.translate(point));
+    return moves;
+  }
+
+  public static List<Move> allMoves(){
+    List<Move> moves = new ArrayList<Move>();
+    moves.add(Move.UP);
+    moves.add(Move.DOWN);
+    moves.add(Move.LEFT);
+    moves.add(Move.RIGHT);
     return moves;
   }
 
