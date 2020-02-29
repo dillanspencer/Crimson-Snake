@@ -96,6 +96,8 @@ public class Snake {
        }else if(Point.distance(getHead(), enemy.getHead()) < 4 && length() < board.longestSnake()){
            System.out.println("SMART");
            return SnakeState.SMART;
+       }else if(length() > board.longestSnake() + 4){
+           return SnakeState.SMART;
        }
        return SnakeState.HUNGRY;
     }
