@@ -281,8 +281,12 @@ public class Board {
 
 
     private double boardValue(Snake snake, Snake enemy) {
-        double value = Board.MIN;
+        double value = 0;
         //base case
+        if(!exists(snake.getHead())){
+            value = Board.MIN;
+            return  value;
+        }
         if (Point.equals(snake.getHead(), enemy.getHead()) && snake.longerThan(enemy)) {
             System.out.println("MAX: ENEMY HEAD - " + snake.getName());
             value = Board.MAX;
