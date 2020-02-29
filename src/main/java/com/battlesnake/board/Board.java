@@ -281,7 +281,7 @@ public class Board {
 
 
     private double boardValue(Snake snake, Snake enemy) {
-        double value = MIN;
+        double value = NONE;
         //base case
 
         if (Point.equals(snake.getHead(), enemy.getHead()) && snake.longerThan(enemy)) {
@@ -346,12 +346,13 @@ public class Board {
                     return bestMove; // pruning
                 }
             }
-            System.out.println("MAXIMIZING: " + bestMove.returnValue);
             return bestMove;
         } else {
             while (movesIterator.hasNext()) {
                 Move currentMove = movesIterator.next();
+                System.out.println(depth + " Start Position : " + snake.getHead().getX() + ", " + snake.getHead().getY());
                 snake.applyMove(currentMove);
+                System.out.println("End Position: " + snake.getHead().getX() + ", " + snake.getHead().getY());
                 returnMove = minimax(board, depth + 1, enemy, snake, alpha, beta);
                 snake.undoMove();
                 if ((bestMove == null) || (bestMove.returnValue > returnMove.returnValue)) {
@@ -365,7 +366,6 @@ public class Board {
                 if (beta <= alpha) {
                     bestMove.returnValue = alpha;
                     bestMove.returnMove = null;
-                    System.out.println("MINIMIZING: " + bestMove.returnValue);
                     return bestMove; // pruning
                 }
             }
