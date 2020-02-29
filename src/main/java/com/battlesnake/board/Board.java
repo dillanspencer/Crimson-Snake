@@ -296,9 +296,6 @@ public class Board {
         } else if (enemy.checkCollision(snake) != -1) {
             System.out.println("MAX COLLISION");
             value = Board.MAX;
-        } else if (this.board[snake.getHead().getX()][snake.getHead().getY()] == Tile.FOOD) {
-            System.out.println("FOOD");
-            value = Board.FOOD;
         } else if (!exists(snake.getHead())){
             System.out.println("ELSE FUCK");
             value = Board.MIN;
