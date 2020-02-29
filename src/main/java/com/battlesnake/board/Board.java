@@ -29,7 +29,7 @@ public class Board {
 
     //Game Map
     private transient Tile[][] board;
-    private transient Tile[][] previousBoard;
+    private transient Stack<Tile[][]> previousBoard;
     private transient Integer[][] regions;
 
     private void setupBoard() {
@@ -279,6 +279,17 @@ public class Board {
         return moves;
     }
 
+    private void applyMove(Move move, Snake snake){
+        previousBoard.push(board);
+        snake.applyMove(move);
+        setupBoard();
+    }
+
+    private void undoMove(Snake snake){
+        board = previousBoard.pop();
+        snake.undoMove();
+        setupBoard();
+    }
 
     private double boardValue(Snake snake, Snake enemy) {
         double value = NONE;
@@ -329,10 +340,10 @@ public class Board {
             while (movesIterator.hasNext()) {
                 Move currentMove = movesIterator.next();
                 System.out.println(depth + " Start Position : " + snake.getHead().getX() + ", " + snake.getHead().getY());
-                snake.applyMove(currentMove);
+                applyMove(currentMove, snake);
                 System.out.println("End Position: " + snake.getHead().getX() + ", " + snake.getHead().getY());
                 returnMove = minimax(board, depth + 1, snake, enemy, alpha, beta);
-                snake.undoMove();
+                undoMove(snake);
                 if ((bestMove == null) || (bestMove.returnValue < returnMove.returnValue)) {
                     bestMove = returnMove;
                     bestMove.returnMove = currentMove;
@@ -349,15 +360,16 @@ public class Board {
             }
             return bestMove;
         } else {
+            System.out.println("MINIMIZING");
             List<Move> moves = getPossibleMoves(board, enemy.getHead());
             Iterator<Move> movesIterator = moves.iterator();
             while (movesIterator.hasNext()) {
                 Move currentMove = movesIterator.next();
                 System.out.println(depth + " Start Position : " + enemy.getHead().getX() + ", " + enemy.getHead().getY());
-                enemy.applyMove(currentMove);
+                applyMove(currentMove, enemy);
                 System.out.println("End Position: " + enemy.getHead().getX() + ", " + enemy.getHead().getY());
                 returnMove = minimax(board, depth + 1, snake, enemy, alpha, beta);
-                enemy.undoMove();
+                undoMove(enemy);
                 if ((bestMove == null) || (bestMove.returnValue > returnMove.returnValue)) {
                     bestMove = returnMove;
                     bestMove.returnMove = currentMove;
@@ -414,6 +426,7 @@ public class Board {
 
     public void init(Snake you) {
         this.you = you;
+        previousBoard = new Stack<>();
         setupBoard();
         fillIn();
     }
