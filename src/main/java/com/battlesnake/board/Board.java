@@ -316,8 +316,6 @@ public class Board {
             return new MoveValue(value);
         }
 
-        List<Move> moves = getPossibleMoves(board, snake.getHead());
-        Iterator<Move> movesIterator = moves.iterator();
         boolean isMaximizing = (depth % 2 != 0);
 
         MoveValue returnMove;
@@ -325,6 +323,8 @@ public class Board {
 
         //Iterate through possible moves
         if (isMaximizing) {
+            List<Move> moves = getPossibleMoves(board, snake.getHead());
+            Iterator<Move> movesIterator = moves.iterator();
             while (movesIterator.hasNext()) {
                 Move currentMove = movesIterator.next();
                 System.out.println(depth + " Start Position : " + snake.getHead().getX() + ", " + snake.getHead().getY());
@@ -348,6 +348,8 @@ public class Board {
             }
             return bestMove;
         } else {
+            List<Move> moves = getPossibleMoves(board, enemy.getHead());
+            Iterator<Move> movesIterator = moves.iterator();
             while (movesIterator.hasNext()) {
                 Move currentMove = movesIterator.next();
                 System.out.println(depth + " Start Position : " + enemy.getHead().getX() + ", " + enemy.getHead().getY());
