@@ -322,8 +322,6 @@ public class Board {
             System.out.println("ELSE FUCK");
             value = Board.MIN;
         }
-        System.out.println("Snake Position: " + snake.getHead().getX() + ", " + snake.getHead().getY());
-        System.out.println("Enemy Position: " + enemy.getHead().getX() + ", " + enemy.getHead().getY());
         return value;
     }
 
@@ -345,7 +343,9 @@ public class Board {
         if (isMaximizing) {
             while (movesIterator.hasNext()) {
                 Move currentMove = movesIterator.next();
+                System.out.println("Start Position: " + snake.getHead().getX() + ", " + snake.getHead().getY());
                 applyMove(snake, currentMove);
+                System.out.println("End Position: " + snake.getHead().getX() + ", " + snake.getHead().getY());
                 returnMove = minimax(board, depth + 1, enemy, snake, alpha, beta);
                 undoMove();
                 if ((bestMove == null) || (bestMove.returnValue < returnMove.returnValue)) {
