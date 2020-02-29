@@ -323,7 +323,6 @@ public class Board {
     private MoveValue minimax(Tile[][] board, int depth, Snake snake, Snake enemy, double alpha, double beta) {
         double value = boardValue(snake, enemy);
         if (value != NONE || depth == 3) {
-            value = boardValue(snake, enemy);
             return new MoveValue(value);
         }
 
@@ -343,7 +342,7 @@ public class Board {
                 applyMove(currentMove, snake);
                 System.out.println("End Position: " + snake.getHead().getX() + ", " + snake.getHead().getY());
                 returnMove = minimax(board, depth + 1, snake, enemy, alpha, beta);
-                undoMove(enemy);
+                undoMove(snake);
                 if ((bestMove == null) || (bestMove.returnValue < returnMove.returnValue)) {
                     bestMove = returnMove;
                     bestMove.returnMove = currentMove;
