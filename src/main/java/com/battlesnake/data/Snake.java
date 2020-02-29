@@ -86,7 +86,7 @@ public class Snake {
            System.out.println("AGRESSIVE");
            return SnakeState.AGRESSIVE;
        }
-       return SnakeState.HUNGRY;
+       return SnakeState.SMART;
     }
 
     public Move move(Board board, Snake enemy) {
