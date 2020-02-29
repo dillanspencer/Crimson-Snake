@@ -314,7 +314,7 @@ public class Board {
             return new MoveValue(value);
         }
 
-        List<Move> moves = Move.allMoves();
+        List<Move> moves = getPossibleMoves(board, snake.getHead());
         Iterator<Move> movesIterator = moves.iterator();
         boolean isMaximizing = (snake.equals(you()));
 
