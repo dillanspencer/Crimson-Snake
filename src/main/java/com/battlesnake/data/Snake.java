@@ -97,7 +97,7 @@ public class Snake {
            System.out.println("SMART");
            return SnakeState.SMART;
        }else if(length() > board.longestSnake() + 4){
-           return SnakeState.SMART;
+           return SnakeState.FINDTAIL;
        }
        return SnakeState.HUNGRY;
     }
