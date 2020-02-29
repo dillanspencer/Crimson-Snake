@@ -323,6 +323,7 @@ public class Board {
 
         //Iterate through possible moves
         if (isMaximizing) {
+            System.out.println("MAXIMIZING");
             List<Move> moves = getPossibleMoves(board, snake.getHead());
             Iterator<Move> movesIterator = moves.iterator();
             while (movesIterator.hasNext()) {
