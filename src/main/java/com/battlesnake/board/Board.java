@@ -238,17 +238,6 @@ public class Board {
         return moves;
     }
 
-    private void applyMove(Snake snake, Move move){
-        previousBoard = board;
-        snake.applyMove(move);
-        setupBoard();
-    }
-
-    private void undoMove(){
-        board = previousBoard;
-        setupBoard();
-    }
-
 
     public boolean isFilled(Point point) {
         return isFilled(point, board);
@@ -344,10 +333,10 @@ public class Board {
             while (movesIterator.hasNext()) {
                 Move currentMove = movesIterator.next();
                 System.out.println("Start Position: " + snake.getHead().getX() + ", " + snake.getHead().getY());
-                applyMove(snake, currentMove);
+                snake.applyMove(currentMove);
                 System.out.println("End Position: " + snake.getHead().getX() + ", " + snake.getHead().getY());
                 returnMove = minimax(board, depth + 1, enemy, snake, alpha, beta);
-                undoMove();
+                snake.undoMove();
                 if ((bestMove == null) || (bestMove.returnValue < returnMove.returnValue)) {
                     bestMove = returnMove;
                     bestMove.returnMove = currentMove;
@@ -367,9 +356,9 @@ public class Board {
         } else {
             while (movesIterator.hasNext()) {
                 Move currentMove = movesIterator.next();
-                applyMove(snake, currentMove);
+                snake.applyMove(currentMove);
                 returnMove = minimax(board, depth + 1, enemy, snake, alpha, beta);
-                undoMove();
+                snake.undoMove();
                 if ((bestMove == null) || (bestMove.returnValue > returnMove.returnValue)) {
                     bestMove = returnMove;
                     bestMove.returnMove = currentMove;

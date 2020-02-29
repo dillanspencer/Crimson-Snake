@@ -41,6 +41,7 @@ public class Snake {
     private int health; //0..100
     private Point position;
     private List<Point> body;
+    private List<Point> previousBody;
 
     //snake state
     private SnakeState state;
@@ -70,11 +71,16 @@ public class Snake {
     }
 
     public void applyMove(Move move){
+        previousBody = body;
         for(int i = body.size() - 1; i > 0; i--){
             body.get(i).setX(body.get(i-1).getX());
             body.get(i).setY(body.get(i-1).getY());
         }
         body.set(0, move.translate(body.get(0)));
+    }
+
+    public void undoMove(){
+        body = previousBody;
     }
 
 
