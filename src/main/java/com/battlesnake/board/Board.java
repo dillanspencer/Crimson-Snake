@@ -279,6 +279,14 @@ public class Board {
         return moves;
     }
 
+    private List<Move> getAllMoves(Tile[][] currentBoard, Point point){
+        List<Move> moves = new ArrayList<>();
+        for (Map.Entry<Move, Point> move : Move.adjacent(point).entrySet()) {
+            moves.add(move.getKey());
+        }
+        return moves;
+    }
+
     private void applyMove(Move move, Snake snake){
         previousBoard.push(board);
         snake.applyMove(move);
@@ -334,13 +342,13 @@ public class Board {
         //Iterate through possible moves
         if (isMaximizing) {
             System.out.println("MAXIMIZING");
-            List<Move> moves = getPossibleMoves(board, snake.getHead());
+            List<Move> moves = getAllMoves(board, snake.getHead());
             Iterator<Move> movesIterator = moves.iterator();
             while (movesIterator.hasNext()) {
                 Move currentMove = movesIterator.next();
-                System.out.println(depth + " Start Position : " + snake.getHead().getX() + ", " + snake.getHead().getY());
+                //System.out.println(depth + " Start Position : " + snake.getHead().getX() + ", " + snake.getHead().getY());
                 applyMove(currentMove, snake);
-                System.out.println("End Position: " + snake.getHead().getX() + ", " + snake.getHead().getY());
+               // System.out.println("End Position: " + snake.getHead().getX() + ", " + snake.getHead().getY());
                 returnMove = minimax(board, depth + 1, snake, enemy, alpha, beta);
                 undoMove(snake);
                 if ((bestMove == null) || (bestMove.returnValue < returnMove.returnValue)) {
@@ -360,13 +368,13 @@ public class Board {
             return bestMove;
         } else {
             System.out.println("MINIMIZING");
-            List<Move> moves = getPossibleMoves(board, enemy.getHead());
+            List<Move> moves = getAllMoves(board, enemy.getHead());
             Iterator<Move> movesIterator = moves.iterator();
             while (movesIterator.hasNext()) {
                 Move currentMove = movesIterator.next();
-                System.out.println(depth + " Start Position : " + enemy.getHead().getX() + ", " + enemy.getHead().getY());
+                //System.out.println(depth + " Start Position : " + enemy.getHead().getX() + ", " + enemy.getHead().getY());
                 applyMove(currentMove, enemy);
-                System.out.println("End Position: " + enemy.getHead().getX() + ", " + enemy.getHead().getY());
+               // System.out.println("End Position: " + enemy.getHead().getX() + ", " + enemy.getHead().getY());
                 returnMove = minimax(board, depth + 1, snake, enemy, alpha, beta);
                 undoMove(enemy);
                 if ((bestMove == null) || (bestMove.returnValue > returnMove.returnValue)) {
