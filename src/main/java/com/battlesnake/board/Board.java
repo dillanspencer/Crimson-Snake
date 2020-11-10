@@ -319,11 +319,6 @@ public class Board {
             value = Board.MAX;
             return value;
         }
-        else{
-            double dist = Point.distance(snake.getHead(), enemy.getHead()) * 0.15;
-            value = value * dist;
-            System.out.println("Distance: Value is: " + value);
-        }
         return value;
     }
 
