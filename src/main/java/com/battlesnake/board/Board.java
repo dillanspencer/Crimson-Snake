@@ -358,11 +358,7 @@ public class Board {
                 returnMove = minimax(board, depth + 1, snake, enemy, alpha, beta);
                 board = undoMove(snake, board);
                 if ((bestMove == null) || (bestMove.returnValue < returnMove.returnValue)) {
-                    if (heuristic.returnValue > returnMove.returnValue){
-                        bestMove = heuristic;
-                    }else {
-                        bestMove = returnMove;
-                    }
+                    bestMove = returnMove;
                     bestMove.returnMove = currentMove;
                 }
                 if (returnMove.returnValue > alpha) {
@@ -392,11 +388,7 @@ public class Board {
                 returnMove = minimax(board, depth + 1, snake, enemy, alpha, beta);
                 board = undoMove(enemy, board);
                 if ((bestMove == null) || (bestMove.returnValue > returnMove.returnValue)) {
-                    if (heuristic.returnValue < returnMove.returnValue){
-                        bestMove = heuristic;
-                    }else {
-                        bestMove = returnMove;
-                    }
+                    bestMove = returnMove;
                     bestMove.returnMove = currentMove;
                 }
                 if (returnMove.returnValue < beta) {
