@@ -317,10 +317,10 @@ public class Board {
             System.out.println("MAX COLLISION");
             value = Board.MAX;
             return value;
-        } else if (!exists(snake.getHead())) {
-            System.out.println("ELSE FUCK");
-            value = Board.MIN;
-            return value;
+        }
+        else if(Point.distance(snake.getHead(), enemy.getHead()) > 2){
+            System.out.println("Good distance");
+            value = Board.IGNORE_SIZE;
         }
         return value;
     }
