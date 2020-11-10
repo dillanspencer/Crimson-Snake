@@ -301,7 +301,7 @@ public class Board {
         int smallRegion = Math.max(IGNORE_SIZE, (int) Math.floor(you().length() / 2));
         int region = regionSize(snake.getHead());
 
-        return region * (Point.distance(snake, enemy)*0.15);
+        return region * (Point.distance(snake.getHead(), enemy.getHead())*0.15);
     }
 
     private double boardValue(Snake snake, Snake enemy, int depth) {
