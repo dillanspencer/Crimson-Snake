@@ -343,7 +343,7 @@ public class Board {
         //Iterate through possible moves
         if (isMaximizing) {
             System.out.println("MAXIMIZING");
-            List<Move> moves = getAllMoves(board, snake.getHead());
+            List<Move> moves = getPossibleMoves(board, snake.getHead());
             Iterator<Move> movesIterator = moves.iterator();
             while (movesIterator.hasNext()) {
                 Move currentMove = movesIterator.next();
@@ -369,7 +369,7 @@ public class Board {
             return bestMove;
         } else {
             System.out.println("MINIMIZING");
-            List<Move> moves = getAllMoves(board, enemy.getHead());
+            List<Move> moves = getPossibleMoves(board, enemy.getHead());
             Iterator<Move> movesIterator = moves.iterator();
             while (movesIterator.hasNext()) {
                 Move currentMove = movesIterator.next();
