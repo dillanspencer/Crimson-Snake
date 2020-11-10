@@ -373,6 +373,7 @@ public class Board {
                     return bestMove; // pruning
                 }
             }
+            System.out.println("Depth: " + depth + "-------------------");
             //System.out.println("Return Value: " + bestMove.returnValue);
             return bestMove;
         } else {
