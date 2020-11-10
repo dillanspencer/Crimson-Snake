@@ -138,6 +138,7 @@ public class Snake {
                 break;
             case SMART:
                 move = board.moveSmart(enemy);
+                System.out.println(move == null);
                 if (move == null) {
                     move = board.findFood(getHead());
                 }
