@@ -295,7 +295,7 @@ public class Board {
         return setupBoard(currentBoard);
     }
 
-    private double boardValue(Snake snake, Snake enemy) {
+    private double boardValue(Snake snake, Snake enemy, int depth) {
         double value = NONE;
         //base case
         System.out.println("Checking for Collisions");
@@ -318,7 +318,7 @@ public class Board {
             value = Board.MAX;
             return value;
         }
-        else if(Point.distance(snake.getHead(), enemy.getHead()) > 1){
+        else if(Point.distance(snake.getHead(), enemy.getHead()) > 1 && depth == 5){
             System.out.println("Good distance");
             value = Board.IGNORE_SIZE;
         }
@@ -326,7 +326,7 @@ public class Board {
     }
 
     private MoveValue minimax(Tile[][] board, int depth, Snake snake, Snake enemy, double alpha, double beta) {
-        double value = boardValue(snake, enemy);
+        double value = boardValue(snake, enemy, depth);
         if (value != NONE || depth == 5) {
             return new MoveValue(value);
         }
