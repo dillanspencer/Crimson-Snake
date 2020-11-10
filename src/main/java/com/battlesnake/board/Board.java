@@ -307,7 +307,7 @@ public class Board {
         }else{
             value = -100 - region * 0.15;
         }
-
+        printHeuristics();
         return value;
     }
 
@@ -440,6 +440,15 @@ public class Board {
                 if (board[j][i] == Tile.HEADS) System.out.print("H, ");
                 if (board[j][i] == Tile.TAIL) System.out.print("T, ");
                 if (board[j][i] == Tile.FOOD) System.out.print("F, ");
+            }
+            System.out.println();
+        }
+    }
+
+    public void printHeuristics(){
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                System.out.print(regions[i][j] + ", ");
             }
             System.out.println();
         }
