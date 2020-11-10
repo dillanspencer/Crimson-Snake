@@ -87,19 +87,20 @@ public class Snake {
 
 
     public SnakeState getState(Board board, Snake enemy){
-       if(health < 50){
-           System.out.println("HUNGRY");
-           return SnakeState.HUNGRY;
-       }else if(length() > board.longestSnake() && Point.distance(getHead(), enemy.getHead()) < 4){
-           System.out.println("AGRESSIVE");
-           return SnakeState.AGRESSIVE;
-       }else if(Point.distance(getHead(), enemy.getHead()) < 4 && length() < board.longestSnake()){
-           System.out.println("SMART");
-           return SnakeState.SMART;
-       }else if(length() > board.longestSnake() + 4){
-           return SnakeState.FINDTAIL;
-       }
-       return SnakeState.HUNGRY;
+//       if(health < 50){
+//           System.out.println("HUNGRY");
+//           return SnakeState.HUNGRY;
+//       }else if(length() > board.longestSnake() && Point.distance(getHead(), enemy.getHead()) < 4){
+//           System.out.println("AGRESSIVE");
+//           return SnakeState.AGRESSIVE;
+//       }else if(Point.distance(getHead(), enemy.getHead()) < 4 && length() < board.longestSnake()){
+//           System.out.println("SMART");
+//           return SnakeState.SMART;
+//       }else if(length() > board.longestSnake() + 4){
+//           return SnakeState.FINDTAIL;
+//       }
+        return SnakeState.SMART;
+       //return SnakeState.HUNGRY;
     }
 
     public Move move(Board board, Snake enemy) {
