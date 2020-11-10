@@ -328,10 +328,6 @@ public class Board {
             value = Board.MAX;
             return value;
         }
-        else if(Point.distance(snake.getHead(), enemy.getHead()) > 1 && depth >= 1){
-            value = Board.IGNORE_SIZE;
-            return value;
-        }
         return value;
     }
 
@@ -341,7 +337,7 @@ public class Board {
             return new MoveValue(value);
         }
 
-        boolean isMaximizing = (depth % 2 != 0);
+        boolean isMaximizing = (depth % 2 == 0);
 
         MoveValue returnMove;
         MoveValue bestMove = null;
@@ -401,7 +397,7 @@ public class Board {
                     return bestMove; // pruning
                 }
             }
-           System.out.println("Enemy Return Value: " + bestMove.returnValue);
+            System.out.println("Enemy Return Value: " + bestMove.returnValue);
             return bestMove;
         }
     }
