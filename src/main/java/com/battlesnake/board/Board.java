@@ -320,11 +320,11 @@ public class Board {
             return value;
         } else if (snake.checkCollision(enemy) != -1) {
             //check head collision
-            System.out.println("MIN COLLISION");
+            System.out.println("MIN COLLISION - " + snake.getName());
             value = Board.MIN;
             return value;
         } else if (enemy.checkCollision(snake) != -1) {
-            System.out.println("MAX COLLISION");
+            System.out.println("MAX COLLISION - " + snake.getName());
             value = Board.MAX;
             return value;
         }
