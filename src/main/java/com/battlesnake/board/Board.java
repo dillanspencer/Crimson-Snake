@@ -334,6 +334,7 @@ public class Board {
         double value = boardValue(snake, enemy, depth);
         if (value != NONE || depth == 3) {
             if(value == NONE){
+                System.out.println("Heruistic is: " + positionHeuristic(snake, enemy));
                 return new MoveValue(positionHeuristic(snake, enemy));
             }
             return new MoveValue(value);
