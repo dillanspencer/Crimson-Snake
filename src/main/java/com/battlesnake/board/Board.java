@@ -298,6 +298,7 @@ public class Board {
     private double boardValue(Snake snake, Snake enemy) {
         double value = NONE;
         //base case
+        System.out.println("Checking for Collisions");
 
         if (Point.equals(snake.getHead(), enemy.getHead()) && snake.longerThan(enemy)) {
             System.out.println("MAX: ENEMY HEAD - " + snake.getName());
