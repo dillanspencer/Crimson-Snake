@@ -296,6 +296,13 @@ public class Board {
         return setupBoard(currentBoard);
     }
 
+    private double positionHeuristic(Snake snake){
+        int smallRegion = Math.max(IGNORE_SIZE, (int) Math.floor(you().length() / 2));
+        int region = regionSize(snake.getHead());
+
+        return region * 0.15;
+    }
+
     private double boardValue(Snake snake, Snake enemy, int depth) {
         double value = NONE;
         //base case
@@ -325,6 +332,9 @@ public class Board {
     private MoveValue minimax(Tile[][] board, int depth, Snake snake, Snake enemy, double alpha, double beta) {
         double value = boardValue(snake, enemy, depth);
         if (value != NONE || depth == 3) {
+            if(value == NONE){
+                System.out.println(positionHeuristic(snake));
+            }
             return new MoveValue(value);
         }
 
