@@ -57,6 +57,8 @@ public class Board {
                     board[body.get(i).getX()][body.get(i).getY()] = Tile.TAIL;
                 } else {
                     board[body.get(i).getX()][body.get(i).getY()] = Tile.WALL;
+                    if(body.get(i).getX() < 0 || body.get(i).getY() < 0)
+                        System.out.println(body.get(i).getX() + ", " + body.get(i).getY());
                 }
             }
 
