@@ -77,6 +77,8 @@ public class Snake {
         for(int i = body.size() - 1; i > 0; i--){
             body.get(i).setX(body.get(i-1).getX());
             body.get(i).setY(body.get(i-1).getY());
+            if(body.get(i).getX() == -1) System.out.print("why are you -1?");
+            if(body.get(i).getY() == -1) System.out.print("why are you -1?");
         }
         body.set(0, move.translate(body.get(0)));
     }
