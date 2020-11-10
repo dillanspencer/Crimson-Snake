@@ -308,16 +308,17 @@ public class Board {
             System.out.println("MIN: ENEMY HEAD - " + snake.getName());
             value = Board.MIN;
             return value;
-        } else if (snake.checkCollision(enemy) != -1) {
-            //check head collision
-            System.out.println("MIN COLLISION");
-            value = Board.MIN;
-            return value;
-        } else if (enemy.checkCollision(snake) != -1) {
-            System.out.println("MAX COLLISION");
-            value = Board.MAX;
-            return value;
         }
+//        } else if (snake.checkCollision(enemy) != -1) {
+//            //check head collision
+//            System.out.println("MIN COLLISION");
+//            value = Board.MIN;
+//            return value;
+//        } else if (enemy.checkCollision(snake) != -1) {
+//            System.out.println("MAX COLLISION");
+//            value = Board.MAX;
+//            return value;
+//        }
         else if(Point.distance(snake.getHead(), enemy.getHead()) > 2){
             System.out.println("Good distance");
             value = Board.IGNORE_SIZE;
