@@ -300,7 +300,7 @@ public class Board {
         int smallRegion = Math.max(IGNORE_SIZE, (int) Math.floor(you().length() / 2));
         int region = regionSize(snake.getHead());
 
-        return region * 0.15;
+        return region;
     }
 
     private double boardValue(Snake snake, Snake enemy, int depth) {
@@ -333,7 +333,7 @@ public class Board {
         double value = boardValue(snake, enemy, depth);
         if (value != NONE || depth == 3) {
             if(value == NONE){
-                System.out.println(positionHeuristic(snake));
+                return new MoveValue(-positionHeuristic(snake));
             }
             return new MoveValue(value);
         }
