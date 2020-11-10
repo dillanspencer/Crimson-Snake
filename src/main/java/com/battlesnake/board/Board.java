@@ -352,13 +352,11 @@ public class Board {
                 Move currentMove = movesIterator.next();
                 heuristic.returnValue = regionSize(currentMove.translate(snake.getHead())) + Point.distance(snake.getHead(), enemy.getHead());
                 heuristic.returnMove = currentMove;
-                System.out.println(currentMove.getName());
                 //System.out.println(depth + " Start Position : " + snake.getHead().getX() + ", " + snake.getHead().getY());
                 board = applyMove(currentMove, snake, board);
                 // System.out.println("End Position: " + snake.getHead().getX() + ", " + snake.getHead().getY());
                 returnMove = minimax(board, depth + 1, snake, enemy, alpha, beta);
                 board = undoMove(snake, board);
-                if(returnMove.returnValue < heuristic.returnValue) returnMove = heuristic;
                 if ((bestMove == null) || (bestMove.returnValue < returnMove.returnValue)) {
                     bestMove = returnMove;
                     bestMove.returnMove = currentMove;
@@ -373,7 +371,6 @@ public class Board {
                     return bestMove; // pruning
                 }
             }
-            System.out.println("Depth: " + depth + "-------------------");
             //System.out.println("Return Value: " + bestMove.returnValue);
             return bestMove;
         } else {
@@ -390,7 +387,6 @@ public class Board {
                 // System.out.println("End Position: " + enemy.getHead().getX() + ", " + enemy.getHead().getY());
                 returnMove = minimax(board, depth + 1, snake, enemy, alpha, beta);
                 board = undoMove(enemy, board);
-                if(returnMove.returnValue < heuristic.returnValue) returnMove = heuristic;
                 if ((bestMove == null) || (bestMove.returnValue > returnMove.returnValue)) {
                     bestMove = returnMove;
                     bestMove.returnMove = currentMove;
