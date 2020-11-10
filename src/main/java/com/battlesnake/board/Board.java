@@ -308,7 +308,7 @@ public class Board {
     private double boardValue(Snake snake, Snake enemy, int depth) {
         double value = NONE;
         //base case
-        System.out.println("Checking for Collisions");
+       // System.out.println("Checking for Collisions");
 
         if (Point.equals(snake.getHead(), enemy.getHead()) && snake.longerThan(enemy)) {
             System.out.println("MAX: ENEMY HEAD - " + snake.getName());
@@ -385,6 +385,7 @@ public class Board {
                 Move currentMove = movesIterator.next();
                 heuristic.returnValue = regionSize(currentMove.translate(enemy.getHead()));
                 heuristic.returnMove = currentMove;
+                System.out.println(heuristic.returnValue);
                 //System.out.println(depth + " Start Position : " + enemy.getHead().getX() + ", " + enemy.getHead().getY());
                 board = applyMove(currentMove, enemy, board);
                 // System.out.println("End Position: " + enemy.getHead().getX() + ", " + enemy.getHead().getY());
