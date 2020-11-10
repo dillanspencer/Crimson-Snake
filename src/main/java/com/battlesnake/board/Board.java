@@ -302,13 +302,7 @@ public class Board {
         int region = regionSize(snake.getHead());
         double value;
 
-        if(region <= smallRegion){
-            value = 100 - region * 0.15;
-        }else{
-            value = -100 - region * 0.15;
-        }
-        printHeuristics();
-        return value;
+        return region - 100;
     }
 
     private double boardValue(Snake snake, Snake enemy, int depth) {
