@@ -305,7 +305,7 @@ public class Board {
         if(region <= smallRegion){
             value = region;
         }else{
-            value = -region * 0.15;
+            value = -region;
         }
 
         return value;
