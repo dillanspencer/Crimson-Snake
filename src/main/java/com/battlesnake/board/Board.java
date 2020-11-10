@@ -328,6 +328,10 @@ public class Board {
             value = Board.MAX;
             return value;
         }
+        else if(Point.distance(snake.getHead(), enemy.getHead()) > 1){
+            value = Board.IGNORE_SIZE;
+            return value;
+        }
         return value;
     }
 
