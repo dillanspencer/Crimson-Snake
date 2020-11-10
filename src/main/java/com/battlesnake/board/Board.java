@@ -287,14 +287,14 @@ public class Board {
     private Tile[][] applyMove(Move move, Snake snake, Tile[][] currentBoard) {
         previousBoard.push(board);
         snake.applyMove(move);
-        fillIn();
+        //fillIn();
         return setupBoard(currentBoard);
     }
 
     private Tile[][] undoMove(Snake snake, Tile[][] currentBoard) {
         board = previousBoard.pop();
         snake.undoMove();
-        fillIn();
+        //fillIn();
         return setupBoard(currentBoard);
     }
 
@@ -350,8 +350,6 @@ public class Board {
             Iterator<Move> movesIterator = moves.iterator();
             while (movesIterator.hasNext()) {
                 Move currentMove = movesIterator.next();
-                heuristic.returnValue = regionSize(currentMove.translate(snake.getHead())) + Point.distance(snake.getHead(), enemy.getHead());
-                heuristic.returnMove = currentMove;
                 //System.out.println(depth + " Start Position : " + snake.getHead().getX() + ", " + snake.getHead().getY());
                 board = applyMove(currentMove, snake, board);
                 // System.out.println("End Position: " + snake.getHead().getX() + ", " + snake.getHead().getY());
@@ -379,9 +377,6 @@ public class Board {
             Iterator<Move> movesIterator = moves.iterator();
             while (movesIterator.hasNext()) {
                 Move currentMove = movesIterator.next();
-                heuristic.returnValue = regionSize(currentMove.translate(enemy.getHead())) + Point.distance(snake.getHead(), enemy.getHead());
-                heuristic.returnMove = currentMove;
-                //System.out.println(heuristic.returnValue);
                 //System.out.println(depth + " Start Position : " + enemy.getHead().getX() + ", " + enemy.getHead().getY());
                 board = applyMove(currentMove, enemy, board);
                 // System.out.println("End Position: " + enemy.getHead().getX() + ", " + enemy.getHead().getY());
