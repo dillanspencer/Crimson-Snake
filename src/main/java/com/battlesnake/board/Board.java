@@ -292,7 +292,7 @@ public class Board {
     }
 
     private double boardValue(Snake snake, Snake enemy) {
-        double value = Board.MIN;
+        double value = NONE;
         //base case
 
         if (Point.equals(snake.getHead(), enemy.getHead()) && snake.longerThan(enemy)) {
@@ -322,7 +322,7 @@ public class Board {
 
     private MoveValue minimax(Tile[][] board, int depth, Snake snake, Snake enemy, double alpha, double beta) {
         double value = boardValue(snake, enemy);
-        if (value != NONE || depth == 10) {
+        if (value != NONE || depth == 11) {
             return new MoveValue(value);
         }
 
