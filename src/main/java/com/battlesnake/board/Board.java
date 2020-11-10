@@ -251,7 +251,7 @@ public class Board {
         if (!exists(point)) return true;
         return board[point.getX()][point.getY()] != Tile.EMPTY
                 && board[point.getX()][point.getY()] != Tile.FOOD
-                && board[point.getX()][point.getY()] != Tile.TAIL
+                //&& board[point.getX()][point.getY()] != Tile.TAIL
                 && board[point.getX()][point.getY()] != Tile.FAKE_WALL
                 && board[point.getX()][point.getY()] != Tile.HEADS;
     }
