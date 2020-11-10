@@ -21,7 +21,7 @@ public class Board {
 
     //minimax algorithm
     private static final int MIN = -1000;
-    private static final int NONE = 0;
+    private static final int NONE = -50;
     private static final int MAX = 1000;
 
     private static final int IGNORE_SIZE = 4;
