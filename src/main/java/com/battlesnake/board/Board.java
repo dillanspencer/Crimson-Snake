@@ -287,17 +287,18 @@ public class Board {
     private Tile[][] applyMove(Move move, Snake snake, Tile[][] currentBoard) {
         previousBoard.push(board);
         snake.applyMove(move);
+        fillIn();
         return setupBoard(currentBoard);
     }
 
     private Tile[][] undoMove(Snake snake, Tile[][] currentBoard) {
         board = previousBoard.pop();
         snake.undoMove();
+        fillIn();
         return setupBoard(currentBoard);
     }
 
     private double positionHeuristic(Snake snake, Snake enemy){
-        fillIn();
         int smallRegion = Math.max(IGNORE_SIZE, (int) Math.floor(you().length() / 2));
         int region = regionSize(snake.getHead());
 
