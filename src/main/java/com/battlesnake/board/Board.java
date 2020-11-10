@@ -282,7 +282,8 @@ public class Board {
     private List<Move> getAllMoves(Tile[][] currentBoard, Point point){
         List<Move> moves = new ArrayList<>();
         for (Map.Entry<Move, Point> move : Move.adjacent(point).entrySet()) {
-            moves.add(move.getKey());
+            if(exists(move.getValue()))
+                moves.add(move.getKey());
         }
         return moves;
     }
