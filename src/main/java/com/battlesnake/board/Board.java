@@ -296,13 +296,12 @@ public class Board {
         return setupBoard(currentBoard);
     }
 
-    private double positionHeuristic(Snake snake){
+    private double positionHeuristic(Snake snake, Snake enemy){
         fillIn();
         int smallRegion = Math.max(IGNORE_SIZE, (int) Math.floor(you().length() / 2));
         int region = regionSize(snake.getHead());
-        double value;
 
-        return region - 100;
+        return region * (Point.distance(snake, enemy)*0.15);
     }
 
     private double boardValue(Snake snake, Snake enemy, int depth) {
@@ -335,7 +334,7 @@ public class Board {
         double value = boardValue(snake, enemy, depth);
         if (value != NONE || depth == 3) {
             if(value == NONE){
-                return new MoveValue(positionHeuristic(snake));
+                return new MoveValue(positionHeuristic(snake, enemy));
             }
             return new MoveValue(value);
         }
