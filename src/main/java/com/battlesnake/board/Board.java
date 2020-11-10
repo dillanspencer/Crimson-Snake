@@ -297,6 +297,7 @@ public class Board {
     }
 
     private double positionHeuristic(Snake snake){
+        fillIn();
         int smallRegion = Math.max(IGNORE_SIZE, (int) Math.floor(you().length() / 2));
         int region = regionSize(snake.getHead());
         double value;
