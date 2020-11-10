@@ -352,6 +352,7 @@ public class Board {
                 Move currentMove = movesIterator.next();
                 heuristic.returnValue = regionSize(currentMove.translate(snake.getHead())) + Point.distance(snake.getHead(), enemy.getHead());
                 heuristic.returnMove = currentMove;
+                System.out.println(currentMove.getName());
                 //System.out.println(depth + " Start Position : " + snake.getHead().getX() + ", " + snake.getHead().getY());
                 board = applyMove(currentMove, snake, board);
                 // System.out.println("End Position: " + snake.getHead().getX() + ", " + snake.getHead().getY());
@@ -372,7 +373,7 @@ public class Board {
                     return bestMove; // pruning
                 }
             }
-            System.out.println("Return Value: " + bestMove.returnValue);
+            //System.out.println("Return Value: " + bestMove.returnValue);
             return bestMove;
         } else {
             // System.out.println("MINIMIZING");
@@ -382,7 +383,7 @@ public class Board {
                 Move currentMove = movesIterator.next();
                 heuristic.returnValue = regionSize(currentMove.translate(enemy.getHead())) + Point.distance(snake.getHead(), enemy.getHead());
                 heuristic.returnMove = currentMove;
-                System.out.println(heuristic.returnValue);
+                //System.out.println(heuristic.returnValue);
                 //System.out.println(depth + " Start Position : " + enemy.getHead().getX() + ", " + enemy.getHead().getY());
                 board = applyMove(currentMove, enemy, board);
                 // System.out.println("End Position: " + enemy.getHead().getX() + ", " + enemy.getHead().getY());
@@ -403,7 +404,7 @@ public class Board {
                     return bestMove; // pruning
                 }
             }
-            System.out.println("Enemy Return Value: " + bestMove.returnValue);
+           // System.out.println("Enemy Return Value: " + bestMove.returnValue);
             return bestMove;
         }
     }
