@@ -299,8 +299,15 @@ public class Board {
     private double positionHeuristic(Snake snake){
         int smallRegion = Math.max(IGNORE_SIZE, (int) Math.floor(you().length() / 2));
         int region = regionSize(snake.getHead());
+        double value;
 
-        return region;
+        if(region <= smallRegion){
+            value = region;
+        }else{
+            value = -region * 0.15;
+        }
+
+        return value;
     }
 
     private double boardValue(Snake snake, Snake enemy, int depth) {
