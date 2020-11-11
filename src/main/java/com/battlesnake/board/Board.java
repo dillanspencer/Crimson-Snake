@@ -319,7 +319,7 @@ public class Board {
             value = Board.MIN;
             return value;
         }
-        
+
         return value;
     }
 
@@ -361,7 +361,6 @@ public class Board {
                     return bestMove; // pruning
                 }
             }
-            System.out.println("Return Value: " + bestMove.returnValue);
             return bestMove;
         } else {
             // System.out.println("MINIMIZING");
@@ -389,7 +388,6 @@ public class Board {
                     return bestMove; // pruning
                 }
             }
-            System.out.println("Enemy Return Value: " + bestMove.returnValue);
             return bestMove;
         }
     }
