@@ -349,11 +349,11 @@ public class Board {
             //System.out.println("MAXIMIZING");
             List<Move> moves = getPossibleMoves(board, snake.getHead());
             Iterator<Move> movesIterator = moves.iterator();
+            printBoard(board);
             while (movesIterator.hasNext()) {
                 Move currentMove = movesIterator.next();
                 //System.out.println(depth + " Start Position : " + snake.getHead().getX() + ", " + snake.getHead().getY());
                 board = applyMove(currentMove, snake, board);
-                printBoard(board);
                 // System.out.println("End Position: " + snake.getHead().getX() + ", " + snake.getHead().getY());
                 returnMove = minimax(board, depth + 1, snake, enemy, alpha, beta);
                 board = undoMove(snake, board);
@@ -385,7 +385,6 @@ public class Board {
                 Move currentMove = movesIterator.next();
                 //System.out.println(depth + " Start Position : " + enemy.getHead().getX() + ", " + enemy.getHead().getY());
                 board = applyMove(currentMove, enemy, board);
-                printBoard(board);
                 // System.out.println("End Position: " + enemy.getHead().getX() + ", " + enemy.getHead().getY());
                 returnMove = minimax(board, depth + 1, snake, enemy, alpha, beta);
                 board = undoMove(enemy, board);
@@ -431,6 +430,7 @@ public class Board {
 
 
     public void printBoard(Tile[][] board) {
+        System.out.println("----------------------------");
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
                 if (board[j][i] == Tile.WALL) System.out.print("W, ");
@@ -442,6 +442,8 @@ public class Board {
             }
             System.out.println();
         }
+        System.out.println("----------------------------");
+
     }
 
     public void printHeuristics(){
