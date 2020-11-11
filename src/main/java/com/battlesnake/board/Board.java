@@ -288,14 +288,16 @@ public class Board {
     private Tile[][] applyMove(Move move, Snake snake, Tile[][] currentBoard) {
         previousBoard.push(board);
         snake.applyMove(move);
-        fillIn();
+        snakes.set(snakes.indexOf(snake), snake);
+        //fillIn();
         return setupBoard(currentBoard);
     }
 
     private Tile[][] undoMove(Snake snake, Tile[][] currentBoard) {
         board = previousBoard.pop();
         snake.undoMove();
-        fillIn();
+        snakes.set(snakes.indexOf(snake), snake);
+        //fillIn();
         return setupBoard(currentBoard);
     }
 
