@@ -82,7 +82,7 @@ public class Board {
         return board;
     }
 
-    private Tile[][] appendBoard(Snake snake, Snake enemy, Tile[][] currentBoard){
+    private Tile[][] appendBoard(Snake snake, Tile[][] currentBoard){
         Tile[][] board = currentBoard;
         List<Point> body = snake.getBody();
         Point head = body.get(0);
@@ -98,21 +98,7 @@ public class Board {
             }
         }
 
-        List<Point> ebody = enemy.getBody();
-        Point ehead = ebody.get(0);
-        for (int i = 0; i < ebody.size(); i++) {
-            if ((i == ebody.size() - 1)
-                    && ebody.size() > 1
-                    && !snake.justAte()) {
-                board[ebody.get(i).getX()][ebody.get(i).getY()] = Tile.TAIL;
-            } else {
-                if(body.get(i).getX() < 0 || ebody.get(i).getY() < 0)
-                    System.out.println(ebody.get(i).getX() + ", " + ebody.get(i).getY());
-                board[ebody.get(i).getX()][ebody.get(i).getY()] = Tile.WALL;
-            }
-        }
         board[head.getX()][head.getY()] = Tile.ME;
-        board[ehead.getX()][ehead.getY()] = Tile.HEADS;
         return board;
     }
 
@@ -319,20 +305,20 @@ public class Board {
         return moves;
     }
 
-    private Tile[][] applyMove(Move move, Snake snake, Snake enemy, Tile[][] currentBoard) {
+    private Tile[][] applyMove(Move move, Snake snake, Tile[][] currentBoard) {
         previousBoard.push(currentBoard);
         snake.applyMove(move);
         snakes.add(snake);
         //fillIn();
-        return appendBoard(snake, enemy, currentBoard);
+        return appendBoard(snake, currentBoard);
     }
 
-    private Tile[][] undoMove(Snake snake, Snake enemy, Tile[][] currentBoard) {
+    private Tile[][] undoMove(Snake snake, Tile[][] currentBoard) {
         board = previousBoard.pop();
         snake.undoMove();
         snakes.add(snake);
         //fillIn();
-        return appendBoard(snake, enemy, currentBoard);
+        return appendBoard(snake, currentBoard);
     }
 
     private double positionHeuristic(Snake snake, Snake enemy){
@@ -388,10 +374,10 @@ public class Board {
             while (movesIterator.hasNext()) {
                 Move currentMove = movesIterator.next();
                 //System.out.println(depth + " Start Position : " + snake.getHead().getX() + ", " + snake.getHead().getY());
-                board = applyMove(currentMove, snake, enemy, board);
+                board = applyMove(currentMove, snake, board);
                 // System.out.println("End Position: " + snake.getHead().getX() + ", " + snake.getHead().getY());
                 returnMove = minimax(board, depth + 1, snake, enemy, alpha, beta);
-                board = undoMove(snake, enemy, board);
+                board = undoMove(snake, board);
                 if ((bestMove == null) || (bestMove.returnValue < returnMove.returnValue)) {
                     bestMove = returnMove;
                     bestMove.returnMove = currentMove;
@@ -419,10 +405,10 @@ public class Board {
             while (movesIterator.hasNext()) {
                 Move currentMove = movesIterator.next();
                 //System.out.println(depth + " Start Position : " + enemy.getHead().getX() + ", " + enemy.getHead().getY());
-                board = applyMove(currentMove, snake, enemy, board);
+                board = applyMove(currentMove, enemy, board);
                 // System.out.println("End Position: " + enemy.getHead().getX() + ", " + enemy.getHead().getY());
                 returnMove = minimax(board, depth + 1, snake, enemy, alpha, beta);
-                board = undoMove(snake, enemy, board);
+                board = undoMove(enemy, board);
                 if ((bestMove == null) || (bestMove.returnValue > returnMove.returnValue)) {
                     bestMove = returnMove;
                     bestMove.returnMove = currentMove;
