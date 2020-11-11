@@ -351,7 +351,6 @@ public class Board {
             //System.out.println("MAXIMIZING");
             List<Move> moves = getPossibleMoves(board, snake.getHead());
             Iterator<Move> movesIterator = moves.iterator();
-            printBoard(board);
             while (movesIterator.hasNext()) {
                 Move currentMove = movesIterator.next();
                 //System.out.println(depth + " Start Position : " + snake.getHead().getX() + ", " + snake.getHead().getY());
