@@ -318,6 +318,10 @@ public class Board {
             System.out.println("MIN: ENEMY HEAD - " + snake.getName());
             value = Board.MIN;
             return value;
+        }else if(depth == 3){
+            value = positionHeuristic(snake, enemy);
+            System.out.println("Heuristic: " + value);
+            return value;
         }
 
         return value;
