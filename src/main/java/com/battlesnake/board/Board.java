@@ -353,6 +353,7 @@ public class Board {
                 Move currentMove = movesIterator.next();
                 //System.out.println(depth + " Start Position : " + snake.getHead().getX() + ", " + snake.getHead().getY());
                 board = applyMove(currentMove, snake, board);
+                printBoard(board);
                 // System.out.println("End Position: " + snake.getHead().getX() + ", " + snake.getHead().getY());
                 returnMove = minimax(board, depth + 1, snake, enemy, alpha, beta);
                 board = undoMove(snake, board);
@@ -384,6 +385,7 @@ public class Board {
                 Move currentMove = movesIterator.next();
                 //System.out.println(depth + " Start Position : " + enemy.getHead().getX() + ", " + enemy.getHead().getY());
                 board = applyMove(currentMove, enemy, board);
+                printBoard(board);
                 // System.out.println("End Position: " + enemy.getHead().getX() + ", " + enemy.getHead().getY());
                 returnMove = minimax(board, depth + 1, snake, enemy, alpha, beta);
                 board = undoMove(enemy, board);
