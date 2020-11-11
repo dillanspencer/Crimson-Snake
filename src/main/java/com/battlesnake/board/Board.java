@@ -275,7 +275,7 @@ public class Board {
         if (!exists(point)) return true;
         return board[point.getX()][point.getY()] != Tile.EMPTY
                 && board[point.getX()][point.getY()] != Tile.FOOD
-                    && board[point.getX()][point.getY()] != Tile.TAIL
+                && board[point.getX()][point.getY()] != Tile.TAIL
                 && board[point.getX()][point.getY()] != Tile.FAKE_WALL
                 && board[point.getX()][point.getY()] != Tile.HEADS;
     }
@@ -304,7 +304,6 @@ public class Board {
             if (movable(move.getValue(), currentBoard))
                 moves.add(move.getKey());
         }
-        if(moves.size() == 0) moves.add(goToTail(point));
         return moves;
     }
 
