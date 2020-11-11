@@ -97,8 +97,11 @@ public class Board {
                 board[body.get(i).getX()][body.get(i).getY()] = Tile.WALL;
             }
         }
-
-        board[head.getX()][head.getY()] = Tile.ME;
+        if(snake.getName() == you.getName())
+            board[head.getX()][head.getY()] = Tile.ME;
+        else{
+            board[head.getX()][head.getY()] = Tile.HEADS;
+        }
         return board;
     }
 
@@ -306,6 +309,7 @@ public class Board {
     }
 
     private Tile[][] applyMove(Move move, Snake snake, Tile[][] currentBoard) {
+        if(!exists(move.translate(snake.getHead()))) return currentBoard;
         previousBoard.push(currentBoard);
         snake.applyMove(move);
         //fillIn();
