@@ -320,7 +320,7 @@ public class Board {
     }
 
     private Tile[][] applyMove(Move move, Snake snake, Snake enemy, Tile[][] currentBoard) {
-        previousBoard.push(board);
+        previousBoard.push(currentBoard);
         snake.applyMove(move);
         snakes.add(snake);
         //fillIn();
