@@ -304,8 +304,10 @@ public class Board {
     private double positionHeuristic(Snake snake, Snake enemy){
         int smallRegion = Math.max(IGNORE_SIZE, (int) Math.floor(you().length() / 2));
         int region = regionSize(snake.getHead());
+        double dist = (Point.distance(snake.getHead(), enemy.getHead())*0.15);
+        double center = Point.distance(snake.getHead(), new Point(width/2, height/2));
 
-        return region * (Point.distance(snake.getHead(), enemy.getHead())*0.15);
+        return (region * dist) / center;
     }
 
     private double boardValue(Snake snake, Snake enemy, int depth) {
