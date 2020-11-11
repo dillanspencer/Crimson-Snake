@@ -308,7 +308,6 @@ public class Board {
     private Tile[][] applyMove(Move move, Snake snake, Tile[][] currentBoard) {
         previousBoard.push(currentBoard);
         snake.applyMove(move);
-        snakes.add(snake);
         //fillIn();
         return appendBoard(snake, currentBoard);
     }
@@ -316,7 +315,6 @@ public class Board {
     private Tile[][] undoMove(Snake snake, Tile[][] currentBoard) {
         board = previousBoard.pop();
         snake.undoMove();
-        snakes.add(snake);
         //fillIn();
         return appendBoard(snake, currentBoard);
     }
@@ -358,9 +356,6 @@ public class Board {
 
         MoveValue returnMove;
         MoveValue bestMove = null;
-
-        snakes.remove(snake);
-        snakes.remove(enemy);
 
         //Iterate through possible moves
         if (isMaximizing) {
