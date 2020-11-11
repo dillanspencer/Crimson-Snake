@@ -313,10 +313,10 @@ public class Board {
     }
 
     private Tile[][] undoMove(Snake snake, Tile[][] currentBoard) {
-        board = previousBoard.pop();
+        Tile[][] board = previousBoard.pop();
         snake.undoMove();
         //fillIn();
-        return appendBoard(snake, currentBoard);
+        return appendBoard(snake, board);
     }
 
     private double positionHeuristic(Snake snake, Snake enemy){
