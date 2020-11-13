@@ -361,7 +361,7 @@ public class Board {
 
     private MoveValue minimax(Tile[][] board, int depth, Snake snake, Snake enemy, double alpha, double beta) {
 
-        boolean isMaximizing = (depth % 2 == 0);
+        boolean isMaximizing = (depth % 2 == 1);
 
         MoveValue returnMove;
         MoveValue bestMove = null;
