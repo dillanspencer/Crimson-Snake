@@ -23,6 +23,7 @@ public class Board {
     private static final int MIN = -1000;
     private static final int NONE = -50;
     private static final int MAX = 1000;
+    private Snake currentSnake;
 
     private static final int IGNORE_SIZE = 4;
 
@@ -314,6 +315,7 @@ public class Board {
         }
         previousBoard.push(currentBoard);
         snake.applyMove(move);
+        currentSnake = snake;
         //fillIn();
         return appendBoard(snake, currentBoard);
     }
@@ -321,6 +323,7 @@ public class Board {
     private Tile[][] undoMove(Snake snake, Tile[][] currentBoard) {
         Tile[][] board = previousBoard.pop();
         snake.undoMove();
+        currentSnake = snake;
         //fillIn();
         return appendBoard(snake, board);
     }
@@ -334,21 +337,21 @@ public class Board {
         return (region) / (center+dist);
     }
 
-    private double boardValue(Snake snake, Snake enemy, int depth) {
+    private double boardValue(Snake enemy, int depth) {
         double value = NONE;
         //base case
        // System.out.println("Checking for Collisions");
 
-        if (Point.equals(snake.getHead(), enemy.getHead()) && snake.longerThan(enemy)) {
-            System.out.println("MAX: ENEMY HEAD - " + snake.getName());
+        if (Point.equals(currentSnake.getHead(), enemy.getHead()) && currentSnake.longerThan(enemy)) {
+            System.out.println("MAX: ENEMY HEAD - " + currentSnake.getName());
             value = Board.MAX;
             return value;
-        } else if (Point.equals(snake.getHead(), enemy.getHead()) && enemy.longerThan(snake)) {
-            System.out.println("MIN: ENEMY HEAD - " + snake.getName());
+        } else if (Point.equals(currentSnake.getHead(), enemy.getHead()) && enemy.longerThan(currentSnake)) {
+            System.out.println("MIN: ENEMY HEAD - " + currentSnake.getName());
             value = Board.MIN;
             return value;
         }else if(depth == 3){
-            value = positionHeuristic(snake, enemy);
+            value = positionHeuristic(currentSnake, enemy);
             System.out.println("Heuristic: " + value);
             return value;
         }
@@ -365,10 +368,11 @@ public class Board {
 
         //Iterate through possible moves
         if (isMaximizing) {
-            double value = boardValue(snake, enemy, depth);
+            double value = boardValue(enemy, depth);
             if (value != NONE || depth == 3) {
                 return new MoveValue(value);
             }
+            currentSnake = snake;
             //System.out.println("MAXIMIZING");
             List<Move> moves = getPossibleMoves(board, snake.getHead());
             Iterator<Move> movesIterator = moves.iterator();
@@ -397,10 +401,11 @@ public class Board {
             return bestMove;
         } else {
             // System.out.println("MINIMIZING");
-            double value = boardValue(enemy, snake, depth);
+            double value = boardValue(snake, depth);
             if (value != NONE || depth == 3) {
                 return new MoveValue(value);
             }
+            currentSnake = enemy;
             List<Move> moves = getPossibleMoves(board, enemy.getHead());
             Iterator<Move> movesIterator = moves.iterator();
             while (movesIterator.hasNext()) {
