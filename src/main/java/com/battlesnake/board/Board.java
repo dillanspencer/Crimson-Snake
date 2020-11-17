@@ -309,7 +309,10 @@ public class Board {
     }
 
     private Tile[][] applyMove(Move move, Snake snake, Tile[][] currentBoard) {
-        if(!exists(move.translate(snake.getHead()))) return currentBoard;
+        if(!exists(move.translate(snake.getHead()))) {
+            previousBoard.push(currentBoard);
+            return currentBoard;
+        }
         previousBoard.push(currentBoard);
         snake.applyMove(move);
         currentSnake = snake;
@@ -331,7 +334,7 @@ public class Board {
         double dist = (Point.distance(snake.getHead(), enemy.getHead())*0.15);
         double center = Point.distance(snake.getHead(), new Point(width/2, height/2));
 
-        return (region * dist) / center;
+        return (region) / (center+dist);
     }
 
     private double boardValue(Snake enemy, int depth) {
