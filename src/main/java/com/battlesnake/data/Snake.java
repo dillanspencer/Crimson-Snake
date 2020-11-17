@@ -72,7 +72,11 @@ public class Snake {
         return false;
     }
 
-    public void applyMove(Move move) throws NullPointerException{
+    public void applyMove(Move move){
+        if(move == null){
+            System.out.println("MOVE IS NULL");
+            move = Move.UP;
+        }
         previousBody.push(body);
         for(int i = body.size() - 1; i > 0; i--){
             body.get(i).setX(body.get(i-1).getX());
