@@ -327,7 +327,7 @@ public class Board {
         double dist = (Point.distance(snake.getHead(), enemy.getHead())*0.15);
         double center = Point.distance(snake.getHead(), new Point(width/2, height/2));
 
-        return (region * dist) / center;
+        return (region) / center;
     }
 
     private double boardValue(Snake snake, Snake enemy, int depth) {
