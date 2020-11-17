@@ -84,6 +84,7 @@ public class Board {
 
     private Tile[][] appendBoard(Snake snake, Tile[][] currentBoard){
         Tile[][] board = currentBoard;
+
         List<Point> body = snake.getBody();
         Point head = body.get(0);
         for (int i = 0; i < body.size(); i++) {
@@ -99,6 +100,16 @@ public class Board {
         }
 
         board[head.getX()][head.getY()] = Tile.ME;
+        return board;
+    }
+
+    private Tile[][] clearSnakeOffBoard(Snake snake, Tile[][] currentBoard){
+        Tile[][] board = currentBoard;
+        List<Point> body = snake.getBody();
+        Point head = body.get(0);
+        for (int i = 0; i < body.size(); i++) {
+            board[body.get(i).getX()][body.get(i).getY()] = Tile.EMPTY;
+        }
         return board;
     }
 
@@ -310,7 +321,7 @@ public class Board {
         snake.applyMove(move);
         snakes.add(snake);
         //fillIn();
-        return appendBoard(snake, currentBoard);
+        return appendBoard(snake, clearSnakeOffBoard(snake, currentBoard));
     }
 
     private Tile[][] undoMove(Snake snake, Tile[][] currentBoard) {
@@ -318,7 +329,7 @@ public class Board {
         snake.undoMove();
         snakes.add(snake);
         //fillIn();
-        return appendBoard(snake, currentBoard);
+        return appendBoard(snake, clearSnakeOffBoard(snake, currentBoard));
     }
 
     private double positionHeuristic(Snake snake, Snake enemy){
