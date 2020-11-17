@@ -367,7 +367,7 @@ public class Board {
         boolean isMaximizing = (depth % 2 == 0);
 
         MoveValue returnMove;
-        MoveValue bestMove = null;
+        MoveValue bestMove = new MoveValue();
 
         snakes.remove(snake);
         snakes.remove(enemy);
