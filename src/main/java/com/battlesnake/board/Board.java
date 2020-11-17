@@ -361,7 +361,7 @@ public class Board {
 
     private MoveValue minimax(Tile[][] board, int depth, Snake snake, Snake enemy, double alpha, double beta) {
 
-        boolean isMaximizing = (depth % 2 == 1);
+        boolean isMaximizing = (depth % 2 == 0);
 
         MoveValue returnMove;
         MoveValue bestMove = null;
@@ -374,15 +374,15 @@ public class Board {
                 return new MoveValue(value);
             }
             //System.out.println("MAXIMIZING");
-            List<Move> moves = getPossibleMoves(board, snake.getHead());
+            List<Move> moves = getPossibleMoves(board, currentSnake.getHead());
             Iterator<Move> movesIterator = moves.iterator();
             while (movesIterator.hasNext()) {
                 Move currentMove = movesIterator.next();
                 //System.out.println(depth + " Start Position : " + snake.getHead().getX() + ", " + snake.getHead().getY());
-                board = applyMove(currentMove, snake, board);
+                board = applyMove(currentMove, currentSnake, board);
                 // System.out.println("End Position: " + snake.getHead().getX() + ", " + snake.getHead().getY());
-                returnMove = minimax(board, depth + 1, snake, enemy, alpha, beta);
-                board = undoMove(snake, board);
+                returnMove = minimax(board, depth + 1, currentSnake, enemy, alpha, beta);
+                board = undoMove(currentSnake, board);
                 if ((bestMove == null) || (bestMove.returnValue < returnMove.returnValue)) {
                     bestMove = returnMove;
                     bestMove.returnMove = currentMove;
@@ -394,7 +394,7 @@ public class Board {
                 if (beta <= alpha) {
                     System.out.println("Beta <= Alpha: " + beta + ", " + alpha);
                     bestMove.returnValue = beta;
-                    bestMove.returnMove = null;
+                    bestMove.returnMove = Move.UP;
                     return bestMove; // pruning
                 }
             }
@@ -405,15 +405,15 @@ public class Board {
             if (value != NONE || depth == 3) {
                 return new MoveValue(value);
             }
-            List<Move> moves = getPossibleMoves(board, enemy.getHead());
+            List<Move> moves = getPossibleMoves(board, currentSnake.getHead());
             Iterator<Move> movesIterator = moves.iterator();
             while (movesIterator.hasNext()) {
                 Move currentMove = movesIterator.next();
                 //System.out.println(depth + " Start Position : " + enemy.getHead().getX() + ", " + enemy.getHead().getY());
-                board = applyMove(currentMove, enemy, board);
+                board = applyMove(currentMove, currentSnake, board);
                 // System.out.println("End Position: " + enemy.getHead().getX() + ", " + enemy.getHead().getY());
-                returnMove = minimax(board, depth + 1, snake, enemy, alpha, beta);
-                board = undoMove(enemy, board);
+                returnMove = minimax(board, depth + 1, snake, currentSnake, alpha, beta);
+                board = undoMove(currentSnake, board);
                 if ((bestMove == null) || (bestMove.returnValue > returnMove.returnValue)) {
                     bestMove = returnMove;
                     bestMove.returnMove = currentMove;
@@ -425,7 +425,7 @@ public class Board {
                 if (beta <= alpha) {
                     System.out.println("Beta <= Alpha: " + beta + ", " + alpha);
                     bestMove.returnValue = alpha;
-                    bestMove.returnMove = null;
+                    bestMove.returnMove = Move.UP;
                     return bestMove; // pruning
                 }
             }
