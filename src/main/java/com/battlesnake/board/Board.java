@@ -312,7 +312,6 @@ public class Board {
             if (movable(move.getValue(), currentBoard))
                 moves.add(move.getKey());
         }
-        if(moves.size() == 0) moves.add(goToTail(point));
         return moves;
     }
 
