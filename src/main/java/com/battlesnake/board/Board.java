@@ -347,11 +347,11 @@ public class Board {
 
         if (Point.equals(snake.getHead(), enemy.getHead()) && snake.longerThan(enemy)) {
             System.out.println("MAX: ENEMY HEAD - " + snake.getName());
-            value = Board.MAX;
+            value = Board.MIN;
             return value;
         } else if (Point.equals(snake.getHead(), enemy.getHead()) && enemy.longerThan(snake)) {
             System.out.println("MIN: ENEMY HEAD - " + snake.getName());
-            value = Board.MIN;
+            value = Board.MAX;
             return value;
         }else if(depth == 3){
             value = positionHeuristic(snake, enemy);
@@ -364,7 +364,7 @@ public class Board {
 
     private MoveValue minimax(Tile[][] board, int depth, Snake snake, Snake enemy, double alpha, double beta) {
 
-        boolean isMaximizing = (depth % 2 == 1);
+        boolean isMaximizing = (depth % 2 == 0);
 
         MoveValue returnMove;
         MoveValue bestMove = new MoveValue();
