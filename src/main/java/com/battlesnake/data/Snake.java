@@ -145,7 +145,7 @@ public class Snake {
                 move = board.moveSmart(enemy);
                 System.out.println(move == null);
                 if (move == null) {
-                    move = board.findFood(getHead());
+                    move = board.goToTail(getHead());
                 }
                 if (move == null) {
                     move = board.moveAggressive(getHead());

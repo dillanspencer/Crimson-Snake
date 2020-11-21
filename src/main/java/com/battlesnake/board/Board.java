@@ -402,7 +402,7 @@ public class Board {
                     bestMove = returnMove;
                 }
                 if (beta <= alpha) {
-                    System.out.println("Beta <= Alpha: " + beta + ", " + alpha);
+                    //System.out.println("Beta <= Alpha: " + beta + ", " + alpha);
                     bestMove.returnValue = beta;
                     bestMove.returnMove = null;
                     return bestMove; // pruning
@@ -433,7 +433,7 @@ public class Board {
                     bestMove = returnMove;
                 }
                 if (beta <= alpha) {
-                    System.out.println("Beta <= Alpha: " + beta + ", " + alpha);
+                    //System.out.println("Beta <= Alpha: " + beta + ", " + alpha);
                     bestMove.returnValue = alpha;
                     bestMove.returnMove = null;
                     return bestMove; // pruning
