@@ -316,19 +316,23 @@ public class Board {
     }
 
     private Tile[][] applyMove(Move move, Snake snake, Tile[][] currentBoard) {
+        Tile[][] board;
         previousBoard.push(currentBoard);
+        board = clearSnakeOffBoard(snake, currentBoard);
         snake.applyMove(move);
         snakes.add(snake);
         //fillIn();
-        return appendBoard(snake, clearSnakeOffBoard(snake, currentBoard));
+        return appendBoard(snake, board);
     }
 
     private Tile[][] undoMove(Snake snake, Tile[][] currentBoard) {
+        Tile[][] board;
         board = previousBoard.pop();
+        board = clearSnakeOffBoard(snake, board);
         snake.undoMove();
         snakes.add(snake);
         //fillIn();
-        return appendBoard(snake, clearSnakeOffBoard(snake, currentBoard));
+        return appendBoard(snake, board);
     }
 
     private double positionHeuristic(Snake snake, Snake enemy){
