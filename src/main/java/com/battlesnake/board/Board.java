@@ -347,11 +347,11 @@ public class Board {
 
         if (Point.equals(snake.getHead(), enemy.getHead()) && snake.longerThan(enemy)) {
             System.out.println("MAX: ENEMY HEAD - " + snake.getName());
-            value = Board.MIN;
+            value = Board.MAX;
             return value;
         } else if (Point.equals(snake.getHead(), enemy.getHead()) && enemy.longerThan(snake)) {
             System.out.println("MIN: ENEMY HEAD - " + snake.getName());
-            value = Board.MAX;
+            value = Board.MIN;
             return value;
         }else if(depth == 3){
             value = positionHeuristic(snake, enemy);
