@@ -143,7 +143,7 @@ public class Snake {
                 break;
             case SMART:
                 move = board.moveSmart(enemy);
-                System.out.println(move.getName() + ", X: " + getHead().getX() + ", Y: " + getHead().getY());
+                System.out.println(move.getName() + ", X: " + getHead().getX() + ", Y: " + getHead().getY() + ", Enemy: " + enemy.getName());
                 System.out.println(move == null);
                 if (move == null) {
                     move = board.goToTail(getHead());
