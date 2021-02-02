@@ -106,7 +106,7 @@ public class Snake {
 //       }else if(length() > board.longestSnake() + 4){
 //           return SnakeState.FINDTAIL;
 //       }
-        return SnakeState.AGRESSIVE;
+        return SnakeState.HUNGRY;
        //return SnakeState.HUNGRY;
     }
 
