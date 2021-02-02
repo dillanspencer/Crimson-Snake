@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.*;
 public class RequestController {
 
     @RequestMapping(value="/", method=RequestMethod.GET, produces="application/json")
-    public StartResponse start(@RequestBody StartRequest request) {
+    public StartResponse get() {
         return new StartResponse()
                 .setApiVersion("1")
                 .setName("Crimson Snake")
