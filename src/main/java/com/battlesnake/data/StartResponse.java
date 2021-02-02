@@ -20,86 +20,97 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 public class StartResponse {
-  // required fields with default values
-  private String name = "no-name";
-  private String color = "#FF0000";
+    // required fields with default values
+    private String name = "no-name";
+    private String color = "#FF0000";
+    private String apiversion = "1";
 
-	// optional parameters
-  private String headUrl;
-  private HeadType headType;
-  private TailType tailType;
-  private String taunt;
-  private String secondaryColor;
+    // optional parameters
+    private String headUrl;
+    private HeadType headType;
+    private TailType tailType;
+    private String taunt;
+    private String secondaryColor;
 
-  public StartResponse() {
-  }
+    public StartResponse() {
+    }
 
 
-  public String getName() {
-    return this.name;
-  }
+    public String getName() {
+        return this.name;
+    }
 
-  public String getColor() {
-    return this.color;
-  }
+    public String getColor() {
+        return this.color;
+    }
 
-  @JsonProperty("headUrl")
-  public String getHeadUrl() {
-    return this.headUrl;
-  }
+    @JsonProperty("apiversion")
+    public String getapiversion() {
+        return this.apiversion;
+    }
 
-  @JsonProperty("headType")
-  public HeadType getHeadType() {
-    return this.headType;
-  }
+    @JsonProperty("headUrl")
+    public String getHeadUrl() {
+        return this.headUrl;
+    }
 
-  @JsonProperty("tailType")
-  public TailType getTailType() {
-    return this.tailType;
-  }
+    @JsonProperty("headType")
+    public HeadType getHeadType() {
+        return this.headType;
+    }
 
-  public String getTaunt() {
-    return this.taunt;
-  }
+    @JsonProperty("tailType")
+    public TailType getTailType() {
+        return this.tailType;
+    }
 
-  @JsonProperty("secondaryColor")
-  public String getSecondaryColor() {
-    return this.secondaryColor;
-  }
+    public String getTaunt() {
+        return this.taunt;
+    }
 
-  // setters for method chaining
-  public StartResponse setName(String name) {
-    this.name = name;
-    return this;
-  }
+    @JsonProperty("secondaryColor")
+    public String getSecondaryColor() {
+        return this.secondaryColor;
+    }
 
-  public StartResponse setColor(String color) {
-    this.color = color;
-    return this;
-  }
+    // setters for method chaining
+    public StartResponse setApiVersion(String apiversion) {
+        this.apiversion = apiversion;
+        return this;
+    }
 
-  public StartResponse setHeadUrl(String headUrl) {
-    this.headUrl = headUrl;
-    return this;
-  }
+    public StartResponse setName(String name) {
+        this.name = name;
+        return this;
+    }
 
-  public StartResponse setHeadType(HeadType headType) {
-    this.headType = headType;
-    return this;
-  }
+    public StartResponse setColor(String color) {
+        this.color = color;
+        return this;
+    }
 
-  public StartResponse setTailType(TailType tailType) {
-    this.tailType = tailType;
-    return this;
-  }
+    public StartResponse setHeadUrl(String headUrl) {
+        this.headUrl = headUrl;
+        return this;
+    }
 
-  public StartResponse setTaunt(String taunt) {
-    this.taunt = taunt;
-    return this;
-  }
+    public StartResponse setHeadType(HeadType headType) {
+        this.headType = headType;
+        return this;
+    }
 
-  public StartResponse setSecondaryColor(String secondaryColor) {
-    this.secondaryColor = secondaryColor;
-    return this;
-  }
+    public StartResponse setTailType(TailType tailType) {
+        this.tailType = tailType;
+        return this;
+    }
+
+    public StartResponse setTaunt(String taunt) {
+        this.taunt = taunt;
+        return this;
+    }
+
+    public StartResponse setSecondaryColor(String secondaryColor) {
+        this.secondaryColor = secondaryColor;
+        return this;
+    }
 }

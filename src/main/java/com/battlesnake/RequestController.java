@@ -26,9 +26,10 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class RequestController {
 
-    @RequestMapping(value="/start", method=RequestMethod.POST, produces="application/json")
+    @RequestMapping(value="/GET", method=RequestMethod.POST, produces="application/json")
     public StartResponse start(@RequestBody StartRequest request) {
         return new StartResponse()
+                .setApiVersion("1")
                 .setName("Crimson Snake")
                 .setColor("#990000")
                 .setHeadType(HeadType.PIXEL)
