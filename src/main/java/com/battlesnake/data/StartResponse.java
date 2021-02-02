@@ -54,12 +54,12 @@ public class StartResponse {
         return this.headUrl;
     }
 
-    @JsonProperty("headType")
+    @JsonProperty("head")
     public HeadType getHeadType() {
         return this.headType;
     }
 
-    @JsonProperty("tailType")
+    @JsonProperty("tail")
     public TailType getTailType() {
         return this.tailType;
     }
