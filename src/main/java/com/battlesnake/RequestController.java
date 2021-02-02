@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class RequestController {
 
-    @RequestMapping(value="/GET", method=RequestMethod.POST, produces="application/json")
+    @RequestMapping(value="/start", method=RequestMethod.GET, produces="application/json")
     public StartResponse start(@RequestBody StartRequest request) {
         return new StartResponse()
                 .setApiVersion("1")
