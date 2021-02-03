@@ -168,6 +168,7 @@ public class BoardGame {
     }
 
     public Move findExit(Point current){
+        System.out.println("FINDING EXIT");
         Move move = getPossibleMoves(current).get(0);
         if(move == null) return Move.UP;
         return move;
