@@ -136,7 +136,7 @@ public class BoardGame {
         int dist = 0;
         Point found = food.get(0);
         for(Point snack : food){
-            dist = Math.abs(current.getX() - snack.getX()) + (Math.abs(current.getY() - snack.getY()));
+            dist = Math.abs((width/2) - snack.getX()) + (Math.abs((height/2) - snack.getY()));
             if(dist < min){
                 min = dist;
                 found = snack;
