@@ -164,7 +164,7 @@ public class Snake {
             case CENTER:
                 move = board.findCenter(getHead());
                 if (move == null) {
-                    move = board.findHead(getHead(), enemy);
+                    move = board.findFood(getHead()) ;
                 }
                 if (move == null) {
                     move = board.findTail(getHead());
