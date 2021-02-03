@@ -19,6 +19,7 @@ package com.battlesnake.data;
 import com.battlesnake.board.Board;
 import com.battlesnake.board.BoardGame;
 import com.battlesnake.math.Point;
+import com.battlesnake.minimax.Minimax;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
@@ -93,22 +94,23 @@ public class Snake {
     }
 
 
-    public SnakeState getState(Board board, Snake enemy){
-       if(health < 50){
-           System.out.println("HUNGRY");
-           return SnakeState.HUNGRY;
-       }
-       //else if(length() > board.longestSnake() && Point.distance(getHead(), enemy.getHead()) < 4){
-//           System.out.println("AGRESSIVE");
-//           return SnakeState.AGRESSIVE;
-//       }else if(Point.distance(getHead(), enemy.getHead()) < 4 && length() < board.longestSnake()){
-//           System.out.println("SMART");
-//           return SnakeState.SMART;
-//       }else if(length() > board.longestSnake() + 4){
-//           return SnakeState.FINDTAIL;
-//       }
-        return SnakeState.HUNGRY;
-       //return SnakeState.HUNGRY;
+    public SnakeState getState(Minimax board, Snake enemy){
+        if(health < 85){
+            System.out.println("HUNGRY");
+            return SnakeState.HUNGRY;
+        }
+        else if(enemy == null ){
+            if(body.size() > 3)
+                return SnakeState.FINDTAIL;
+            return SnakeState.HUNGRY;
+        }
+        else if(length() > board.longestSnake()){
+            System.out.println("AGRESSIVE");
+            return SnakeState.AGRESSIVE;
+        }else if(length() > board.longestSnake() + 4){
+            return SnakeState.FINDTAIL;
+        }
+        return SnakeState.CENTER;
     }
 
     public SnakeState getState(BoardGame board, Snake enemy){
@@ -131,97 +133,104 @@ public class Snake {
     }
 
     public Move move(BoardGame board, Snake enemy){
+
+        //MINIMAX
+        return new Minimax(board.getBoard(), this, board.getSnakes(), board.getFood()).maximize().returnMove;
+
+//        SnakeState state = getState(board, enemy);
+//        Move move = null;
+//        switch (state) {
+//            case HUNGRY:
+//                System.out.println("HUNGRY");
+//                move = board.findFood(getHead());
+//                if (move == null) {
+//                    move = board.findCenter(getHead());
+//                }
+//                if (move == null) {
+//                    move = board.findTail(getHead());
+//                }
+//                break;
+//            case AGRESSIVE:
+//                System.out.println("AGGRESSIVE");
+//                move = board.findHead(getHead(), enemy);
+//                if (move == null) {
+//                    move = board.findCenter(getHead());
+//                }
+//                if (move == null) {
+//                    move = board.findTail(getHead());
+//                }
+//                break;
+//            case FINDTAIL:
+//                System.out.println("FINDTAIL");
+//                move = board.findTail(getHead());
+//                if (move == null) {
+//                    move = board.findCenter(getHead());
+//                }
+//                if (move == null) {
+//                    move = board.findHead(getHead(), enemy);
+//                }
+//                break;
+//            case CENTER:
+//                System.out.println("CENTER");
+//                move = board.findCenter(getHead());
+//                if (move == null) {
+//                    move = board.findFood(getHead()) ;
+//                }
+//                if (move == null) {
+//                    move = board.findTail(getHead());
+//                }
+//        }
+//        if(move == null) return board.findExit(getHead());
+//
+//        return move;
+    }
+
+    public Move moveMinMax(Minimax board, Snake enemy, Point current){
         SnakeState state = getState(board, enemy);
         Move move = null;
         switch (state) {
             case HUNGRY:
                 System.out.println("HUNGRY");
-                move = board.findFood(getHead());
+                move = board.findFood(current);
                 if (move == null) {
-                    move = board.findCenter(getHead());
+                    move = board.findCenter(current);
                 }
                 if (move == null) {
-                    move = board.findTail(getHead());
+                    move = board.findTail(current);
                 }
                 break;
             case AGRESSIVE:
                 System.out.println("AGGRESSIVE");
-                move = board.findHead(getHead(), enemy);
+                move = board.findHead(current, enemy);
                 if (move == null) {
-                    move = board.findCenter(getHead());
+                    move = board.findCenter(current);
                 }
                 if (move == null) {
-                    move = board.findTail(getHead());
+                    move = board.findTail(current);
                 }
                 break;
             case FINDTAIL:
                 System.out.println("FINDTAIL");
-                move = board.findTail(getHead());
+                move = board.findTail(current);
                 if (move == null) {
-                    move = board.findCenter(getHead());
+                    move = board.findCenter(current);
                 }
                 if (move == null) {
-                    move = board.findHead(getHead(), enemy);
+                    move = board.findHead(current, enemy);
                 }
                 break;
             case CENTER:
                 System.out.println("CENTER");
-                move = board.findCenter(getHead());
+                move = board.findCenter(current);
                 if (move == null) {
-                    move = board.findFood(getHead()) ;
+                    move = board.findFood(current) ;
                 }
                 if (move == null) {
-                    move = board.findTail(getHead());
+                    move = board.findTail(current);
                 }
         }
-        if(move == null) return board.findExit(getHead());
+        if(move == null) return board.findExit(current);
 
-        return move;
-    }
-
-    public Move move(Board board, Snake enemy) {
-        SnakeState state = getState(board, enemy);
-        Move move = Move.UP;
-        switch (state) {
-            case HUNGRY:
-                move = board.findFood(getHead());
-                if (move == null) {
-                    move = board.moveAggressive(getHead());
-                }
-                if (move == null) {
-                    move = board.goToTail(getHead());
-                }
-                break;
-            case AGRESSIVE:
-                move = board.moveAggressive(getHead());
-                if (move == null) {
-                    move = board.findFood(getHead());
-                }
-                if (move == null) {
-                    move = board.goToTail(getHead());
-                }
-                break;
-            case FINDTAIL:
-                move = board.goToTail(getHead());
-                if (move == null) {
-                    move = board.findFood(getHead());
-                }
-                if (move == null) {
-                    move = board.moveAggressive(getHead());
-                }
-                break;
-            case SMART:
-                move = board.moveSmart(enemy);
-                System.out.println(move.getName() + ", X: " + getHead().getX() + ", Y: " + getHead().getY() + ", Enemy: " + enemy.getName());
-                System.out.println(move == null);
-                if (move == null) {
-                    move = board.goToTail(getHead());
-                }
-                if (move == null) {
-                    move = board.moveAggressive(getHead());
-                }
-                break;
-        }
         return move;
     }
 

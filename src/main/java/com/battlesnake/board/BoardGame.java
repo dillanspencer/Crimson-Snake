@@ -237,6 +237,8 @@ public class BoardGame {
         this.food = food;
     }
 
+    public Tile[][] getBoard(){ return board;}
+
     public int longestSnake() {
         int len = 0;
         for (Snake s : snakes) {
