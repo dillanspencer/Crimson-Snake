@@ -77,7 +77,8 @@ public class BoardGame {
                     for (Point point : around) {
                         if (exists(point)) {
                             if (board[point.getX()][point.getY()].getTileType() == TileType.EMPTY
-                                    || board[point.getX()][point.getY()].getTileType() == TileType.FOOD) {
+                                    || board[point.getX()][point.getY()].getTileType() == TileType.FOOD
+                                    || board[point.getX()][point.getY()].getTileType() == TileType.TAIL) {
                                 board[point.getX()][point.getY()].setTileType(TileType.FAKE_WALL);
                             }
                         }
