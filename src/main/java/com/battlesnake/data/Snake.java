@@ -132,7 +132,7 @@ public class Snake {
 
     public Move move(BoardGame board, Snake enemy){
         SnakeState state = getState(board, enemy);
-        Move move = Move.UP;
+        Move move = board.findExit(getHead());
         switch (state) {
             case HUNGRY:
                 System.out.println("HUNGRY");
@@ -174,7 +174,7 @@ public class Snake {
                     move = board.findTail(getHead());
                 }
         }
-        return board.findExit(getHead());
+        return move;
     }
 
     public Move move(Board board, Snake enemy) {
