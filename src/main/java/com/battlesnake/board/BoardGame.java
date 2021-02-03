@@ -193,13 +193,13 @@ public class BoardGame {
 
     public Move findExit(Point current) {
         System.out.println("FINDING EXIT");
-        Move move = getPossibleMoves(current, false).get(0);
-        if (move == null) {
-            move = getPossibleMoves(current, true).get(0);
-            return move;
+        List<Move> moves = getPossibleMoves(current, false);
+        if(moves.size() < 1) {
+           moves = getPossibleMoves(current, true);
         }
-        if(move == null) return Move.UP;
-        return move;
+
+        if(moves.size() < 1) return Move.UP;
+        return moves.get(0);
     }
 
     public int getWidth() {
