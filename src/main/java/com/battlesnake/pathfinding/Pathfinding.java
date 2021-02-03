@@ -127,7 +127,7 @@ public class Pathfinding {
             extraMovementCost+=1000;
         }
         int movementScore = currentScore + 1;
-        return guessScoreLeft + movementScore + extraMovementCost - centerCost;
+        return guessScoreLeft + movementScore + extraMovementCost + centerCost;
     }
 
     private boolean validTile(int nextX, int nextY) {
