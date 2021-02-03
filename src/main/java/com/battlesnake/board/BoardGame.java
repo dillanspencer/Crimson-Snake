@@ -105,7 +105,7 @@ public class BoardGame {
         for (Map.Entry<Move, Point> move : Move.adjacent(point).entrySet()) {
             if(p.equals(move.getValue())) return move.getKey();
         }
-        return Move.DOWN;
+        return null;
     }
 
     public Move findFood(Point current){
