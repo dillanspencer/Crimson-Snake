@@ -112,7 +112,7 @@ public class Snake {
     }
 
     public SnakeState getState(BoardGame board, Snake enemy){
-        if(health < 75){
+        if(health < 85){
             System.out.println("HUNGRY");
             return SnakeState.HUNGRY;
         }
@@ -121,7 +121,7 @@ public class Snake {
                 return SnakeState.FINDTAIL;
             return SnakeState.HUNGRY;
         }
-        else if(length() > board.longestSnake() && Point.distance(getHead(), enemy.getHead()) < 4){
+        else if(length() > board.longestSnake()){
            System.out.println("AGRESSIVE");
            return SnakeState.AGRESSIVE;
        }else if(length() > board.longestSnake() + 4){
