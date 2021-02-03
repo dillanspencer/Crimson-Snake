@@ -30,7 +30,8 @@ public class Snake {
         HUNGRY,
         AGRESSIVE,
         FINDTAIL,
-        SMART
+        SMART,
+        CENTER
     }
 
     private static int MAX_HEALTH = 100;
@@ -111,7 +112,7 @@ public class Snake {
     }
 
     public SnakeState getState(BoardGame board, Snake enemy){
-        if(health < 50){
+        if(health < 15){
             System.out.println("HUNGRY");
             return SnakeState.HUNGRY;
         }
@@ -136,7 +137,7 @@ public class Snake {
             case HUNGRY:
                 move = board.findFood(getHead());
                 if (move == null) {
-                    move = board.findHead(getHead(), enemy);
+                    move = board.findCenter(getHead());
                 }
                 if (move == null) {
                     move = board.findTail(getHead());
@@ -145,7 +146,7 @@ public class Snake {
             case AGRESSIVE:
                 move = board.findHead(getHead(), enemy);
                 if (move == null) {
-                    move = board.findFood(getHead());
+                    move = board.findCenter(getHead());
                 }
                 if (move == null) {
                     move = board.findTail(getHead());
@@ -154,7 +155,7 @@ public class Snake {
             case FINDTAIL:
                 move = board.findTail(getHead());
                 if (move == null) {
-                    move = board.findFood(getHead());
+                    move = board.findCenter(getHead());
                 }
                 if (move == null) {
                     move = board.findHead(getHead(), enemy);

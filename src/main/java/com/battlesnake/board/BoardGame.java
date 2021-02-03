@@ -132,6 +132,14 @@ public class BoardGame {
         return move;
     }
 
+    public Move findCenter(Point current){
+        Point center = new Point(width/2, height/2);
+        List<Tile> path = pathfinding.getRoute(board, current, center);
+        Move move = moveToTile(path.get(path.size() - 2), current);
+
+        return move;
+    }
+
     public int getWidth() {
         return width;
     }
