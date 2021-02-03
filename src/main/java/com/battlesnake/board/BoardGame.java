@@ -111,7 +111,7 @@ public class BoardGame {
 
     public Move findFood(Point current) {
         List<Tile> path = pathfinding.getRoute(board, current, food.get(0));
-        if (path.size() <= 1) return findTail(current);
+        if (path.size() <= 1) return null;
         Move move = moveToTile(path.get(path.size() - 2), current);
         System.out.println("Current Position: " + current + ", Tile Position: " + path.get(path.size() - 2).getX() + ", " + path.get(path.size() - 2).getY());
 
@@ -120,6 +120,7 @@ public class BoardGame {
 
     public Move findTail(Point current) {
         List<Tile> path = pathfinding.getRoute(board, current, mySnake.getTail());
+        if (path.size() <= 1) return null;
         Move move = moveToTile(path.get(path.size() - 2), current);
 
         return move;
@@ -128,6 +129,7 @@ public class BoardGame {
     public Move findHead(Point current, Snake enemy) {
         if (enemy == null) return findTail(current);
         List<Tile> path = pathfinding.getRoute(board, current, enemy.getHead());
+        if (path.size() <= 1) return null;
         Move move = moveToTile(path.get(path.size() - 2), current);
 
         return move;
@@ -136,12 +138,7 @@ public class BoardGame {
     public Move findCenter(Point current) {
         Point center = new Point(width / 2, height / 2);
         List<Tile> path = pathfinding.getRoute(board, current, center);
-        Random rng = new Random();
-        while (path.size() <= 1) {
-            center = new Point((width / 2)+rng.nextInt(2)-1, (height / 2)+rng.nextInt(2)-1);
-            path = pathfinding.getRoute(board, current, center);
-        }
-
+        if (path.size() <= 1) return null;
         Move move = moveToTile(path.get(path.size() - 2), current);
 
         return move;
