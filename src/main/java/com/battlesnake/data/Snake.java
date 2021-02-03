@@ -127,7 +127,7 @@ public class Snake {
        }else if(length() > board.longestSnake() + 4){
            return SnakeState.FINDTAIL;
        }
-        return SnakeState.HUNGRY;
+        return SnakeState.CENTER;
     }
 
     public Move move(BoardGame board, Snake enemy){
@@ -161,6 +161,14 @@ public class Snake {
                     move = board.findHead(getHead(), enemy);
                 }
                 break;
+            case CENTER:
+                move = board.findCenter(getHead());
+                if (move == null) {
+                    move = board.findTail(getHead());
+                }
+                if (move == null) {
+                    move = board.findHead(getHead(), enemy);
+                }
         }
         return move;
     }
