@@ -112,7 +112,7 @@ public class Snake {
     }
 
     public SnakeState getState(BoardGame board, Snake enemy){
-        if(health < 50){
+        if(health < 75){
             System.out.println("HUNGRY");
             return SnakeState.HUNGRY;
         }
