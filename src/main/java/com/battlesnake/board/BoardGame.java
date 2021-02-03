@@ -131,8 +131,22 @@ public class BoardGame {
         return null;
     }
 
+    private Point nearestFood(Point current){
+        int min = 1000;
+        int dist = 0;
+        Point found = food.get(0);
+        for(Point snack : food){
+            dist = Math.abs(current.getX() - snack.getX()) + (Math.abs(current.getY() - snack.getY()));
+            if(dist < min){
+                min = dist;
+                found = snack;
+            }
+        }
+        return found;
+    }
+
     public Move findFood(Point current) {
-        List<Tile> path = pathfinding.getRoute(board, current, food.get(0));
+        List<Tile> path = pathfinding.getRoute(board, current, nearestFood(current));
         if (path.size() <= 1) return null;
         Move move = moveToTile(path.get(path.size() - 2), current);
         System.out.println("Current Position: " + current + ", Tile Position: " + path.get(path.size() - 2).getX() + ", " + path.get(path.size() - 2).getY());
