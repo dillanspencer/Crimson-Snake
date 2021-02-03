@@ -100,7 +100,7 @@ public class BoardGame {
         return new ArrayList<>(Move.adjacent(point).values());
     }
 
-    private Move getMoveFromTile(Tile tile, Point point){
+    private Move moveToTile(Tile tile, Point point){
         Point p = new Point(tile.getX(), tile.getY());
         for (Map.Entry<Move, Point> move : Move.adjacent(point).entrySet()) {
             if(p.equals(move.getValue())) return move.getKey();
@@ -110,7 +110,8 @@ public class BoardGame {
 
     public Move findFood(Point current){
         List<Tile> path = pathfinding.getRoute(board, current, food.get(0));
-        Move move = getMoveFromTile(path.get(0), current);
+        Move move = moveToTile(path.get(0), current);
+        System.out.println("Current Position: " + current + ", Tile Position: " + path.get(0).getX() + ", " + path.get(0).getY());
 
         return move;
     }
