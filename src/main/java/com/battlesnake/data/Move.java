@@ -33,9 +33,9 @@ public enum Move {
   public Point translate(Point point) {
     switch (this) {
       case UP:
-        return new Point(point.getX(), point.getY() - 1);
-      case DOWN:
         return new Point(point.getX(), point.getY() + 1);
+      case DOWN:
+        return new Point(point.getX(), point.getY() - 1);
       case LEFT:
         return new Point(point.getX() - 1, point.getY());
       default:
