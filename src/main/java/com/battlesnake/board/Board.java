@@ -6,7 +6,6 @@ import com.battlesnake.data.MoveValue;
 import com.battlesnake.data.Snake;
 import com.battlesnake.math.Point;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import sun.awt.SunHints;
 
 import java.util.*;
 
@@ -27,23 +26,23 @@ public class Board {
     private static final int IGNORE_SIZE = 4;
 
     //Game Map
-    private transient Tile[][] board;
-    private transient Stack<Tile[][]> previousBoard;
+    private transient TileType[][] board;
+    private transient Stack<TileType[][]> previousBoard;
     private transient Integer[][] regions;
 
-    private Tile[][] setupBoard(Tile[][] currentBoard) {
-        Tile[][] board = currentBoard;
+    private TileType[][] setupBoard(TileType[][] currentBoard) {
+        TileType[][] board = currentBoard;
         if(board == null)
-            board = new Tile[width][height];
+            board = new TileType[width][height];
 
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                board[x][y] = Tile.EMPTY;
+                board[x][y] = TileType.EMPTY;
             }
         }
 
         for (Point snack : food) {
-            board[snack.getX()][snack.getY()] = Tile.FOOD;
+            board[snack.getX()][snack.getY()] = TileType.FOOD;
         }
 
         for (Snake snake : snakes) {
@@ -53,26 +52,26 @@ public class Board {
                 if ((i == body.size() - 1)
                         && body.size() > 1
                         && !snake.justAte()) {
-                    board[body.get(i).getX()][body.get(i).getY()] = Tile.TAIL;
+                    board[body.get(i).getX()][body.get(i).getY()] = TileType.TAIL;
                 } else {
                     if(body.get(i).getX() < 0 || body.get(i).getY() < 0)
                         System.out.println(body.get(i).getX() + ", " + body.get(i).getY());
-                    board[body.get(i).getX()][body.get(i).getY()] = Tile.WALL;
+                    board[body.get(i).getX()][body.get(i).getY()] = TileType.WALL;
                 }
             }
 
             if (snake.equals(you())) {
-                board[head.getX()][head.getY()] = Tile.ME;
+                board[head.getX()][head.getY()] = TileType.ME;
             } else {
-                board[head.getX()][head.getY()] = Tile.HEADS;
+                board[head.getX()][head.getY()] = TileType.HEADS;
 
                 if (!you().longerThan(snake)) {
                     List<Point> around = findAdjacent(head);
                     for (Point point : around) {
                         if (exists(point)) {
-                            if (board[point.getX()][point.getY()] == Tile.EMPTY
-                                    || board[point.getX()][point.getY()] == Tile.FOOD) {
-                                board[point.getX()][point.getY()] = Tile.FAKE_WALL;
+                            if (board[point.getX()][point.getY()] == TileType.EMPTY
+                                    || board[point.getX()][point.getY()] == TileType.FOOD) {
+                                board[point.getX()][point.getY()] = TileType.FAKE_WALL;
                             }
                         }
                     }
@@ -82,8 +81,8 @@ public class Board {
         return board;
     }
 
-    private Tile[][] appendBoard(Snake snake, Tile[][] currentBoard){
-        Tile[][] board = currentBoard;
+    private TileType[][] appendBoard(Snake snake, TileType[][] currentBoard){
+        TileType[][] board = currentBoard;
 
         List<Point> body = snake.getBody();
         Point head = body.get(0);
@@ -91,24 +90,24 @@ public class Board {
             if ((i == body.size() - 1)
                     && body.size() > 1
                     && !snake.justAte()) {
-                board[body.get(i).getX()][body.get(i).getY()] = Tile.TAIL;
+                board[body.get(i).getX()][body.get(i).getY()] = TileType.TAIL;
             } else {
                 if(body.get(i).getX() < 0 || body.get(i).getY() < 0)
                     System.out.println(body.get(i).getX() + ", " + body.get(i).getY());
-                board[body.get(i).getX()][body.get(i).getY()] = Tile.WALL;
+                board[body.get(i).getX()][body.get(i).getY()] = TileType.WALL;
             }
         }
 
-        board[head.getX()][head.getY()] = Tile.ME;
+        board[head.getX()][head.getY()] = TileType.ME;
         return board;
     }
 
-    private Tile[][] clearSnakeOffBoard(Snake snake, Tile[][] currentBoard){
-        Tile[][] board = currentBoard;
+    private TileType[][] clearSnakeOffBoard(Snake snake, TileType[][] currentBoard){
+        TileType[][] board = currentBoard;
         List<Point> body = snake.getBody();
         Point head = body.get(0);
         for (int i = 0; i < body.size(); i++) {
-            board[body.get(i).getX()][body.get(i).getY()] = Tile.EMPTY;
+            board[body.get(i).getX()][body.get(i).getY()] = TileType.EMPTY;
         }
         return board;
     }
@@ -279,13 +278,13 @@ public class Board {
         return isFilled(point, board);
     }
 
-    private boolean isFilled(Point point, Tile[][] board) {
+    private boolean isFilled(Point point, TileType[][] board) {
         if (!exists(point)) return true;
-        return board[point.getX()][point.getY()] != Tile.EMPTY
-                && board[point.getX()][point.getY()] != Tile.FOOD
-                && board[point.getX()][point.getY()] != Tile.TAIL
-                && board[point.getX()][point.getY()] != Tile.FAKE_WALL
-                && board[point.getX()][point.getY()] != Tile.HEADS;
+        return board[point.getX()][point.getY()] != TileType.EMPTY
+                && board[point.getX()][point.getY()] != TileType.FOOD
+                && board[point.getX()][point.getY()] != TileType.TAIL
+                && board[point.getX()][point.getY()] != TileType.FAKE_WALL
+                && board[point.getX()][point.getY()] != TileType.HEADS;
     }
 
     private boolean movable(Point point) {
@@ -297,16 +296,16 @@ public class Board {
                 && (excludeDanger ? !isDangerousSpotFilled(point) : true);
     }
 
-    private boolean movable(Point point, Tile[][] board) {
+    private boolean movable(Point point, TileType[][] board) {
         return !isFilled(point, board);
     }
 
     public boolean isDangerousSpotFilled(Point point) {
         if (!exists(point)) return false;
-        return board[point.getX()][point.getY()] == Tile.FAKE_WALL;
+        return board[point.getX()][point.getY()] == TileType.FAKE_WALL;
     }
 
-    private List<Move> getPossibleMoves(Tile[][] currentBoard, Point point) {
+    private List<Move> getPossibleMoves(TileType[][] currentBoard, Point point) {
         List<Move> moves = new ArrayList<>();
         for (Map.Entry<Move, Point> move : Move.adjacent(point).entrySet()) {
             if (movable(move.getValue(), currentBoard))
@@ -315,8 +314,8 @@ public class Board {
         return moves;
     }
 
-    private Tile[][] applyMove(Move move, Snake snake, Tile[][] currentBoard) {
-        Tile[][] board;
+    private TileType[][] applyMove(Move move, Snake snake, TileType[][] currentBoard) {
+        TileType[][] board;
         previousBoard.push(currentBoard);
         board = clearSnakeOffBoard(snake, currentBoard);
         snake.applyMove(move);
@@ -325,8 +324,8 @@ public class Board {
         return appendBoard(snake, board);
     }
 
-    private Tile[][] undoMove(Snake snake, Tile[][] currentBoard) {
-        Tile[][] board;
+    private TileType[][] undoMove(Snake snake, TileType[][] currentBoard) {
+        TileType[][] board;
         board = previousBoard.pop();
         board = clearSnakeOffBoard(snake, board);
         snake.undoMove();
@@ -367,7 +366,7 @@ public class Board {
         return value;
     }
 
-    private MoveValue minimax(Tile[][] board, int depth, Snake snake, Snake enemy, double alpha, double beta) {
+    private MoveValue minimax(TileType[][] board, int depth, Snake snake, Snake enemy, double alpha, double beta) {
 
         boolean isMaximizing = (depth % 2 == 0);
 
@@ -465,16 +464,16 @@ public class Board {
     }
 
 
-    public void printBoard(Tile[][] board) {
+    public void printBoard(TileType[][] board) {
         System.out.println("----------------------------");
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
-                if (board[j][i] == Tile.WALL) System.out.print("W, ");
-                if (board[j][i] == Tile.ME) System.out.print("ME, ");
-                if (board[j][i] == Tile.EMPTY) System.out.print("E, ");
-                if (board[j][i] == Tile.HEADS) System.out.print("H, ");
-                if (board[j][i] == Tile.TAIL) System.out.print("T, ");
-                if (board[j][i] == Tile.FOOD) System.out.print("F, ");
+                if (board[j][i] == TileType.WALL) System.out.print("W, ");
+                if (board[j][i] == TileType.ME) System.out.print("ME, ");
+                if (board[j][i] == TileType.EMPTY) System.out.print("E, ");
+                if (board[j][i] == TileType.HEADS) System.out.print("H, ");
+                if (board[j][i] == TileType.TAIL) System.out.print("T, ");
+                if (board[j][i] == TileType.FOOD) System.out.print("F, ");
             }
             System.out.println();
         }
@@ -518,7 +517,7 @@ public class Board {
         this.height = height;
     }
 
-    public Tile[][] getBoard() {
+    public TileType[][] getBoard() {
         return this.board;
     }
 

@@ -17,7 +17,7 @@
 package com.battlesnake.data;
 
 import com.battlesnake.board.Board;
-import com.battlesnake.board.Tile;
+import com.battlesnake.board.BoardGame;
 import com.battlesnake.math.Point;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -108,6 +108,10 @@ public class Snake {
 //       }
         return SnakeState.HUNGRY;
        //return SnakeState.HUNGRY;
+    }
+
+    public Move move(BoardGame board){
+       return board.findFood(getHead());
     }
 
     public Move move(Board board, Snake enemy) {
