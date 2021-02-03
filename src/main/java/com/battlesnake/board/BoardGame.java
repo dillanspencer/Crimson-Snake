@@ -110,8 +110,8 @@ public class BoardGame {
 
     public Move findFood(Point current){
         List<Tile> path = pathfinding.getRoute(board, current, food.get(0));
-        Move move = moveToTile(path.get(path.size() - 1), current);
-        System.out.println("Current Position: " + current + ", Tile Position: " + path.get(path.size() - 1).getX() + ", " + path.get(path.size() - 1).getY());
+        Move move = moveToTile(path.get(path.size() - 2), current);
+        System.out.println("Current Position: " + current + ", Tile Position: " + path.get(path.size() - 2).getX() + ", " + path.get(path.size() - 2).getY());
 
         return move;
     }
