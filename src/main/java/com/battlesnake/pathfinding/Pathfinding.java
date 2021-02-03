@@ -123,6 +123,7 @@ public class Pathfinding {
     private int getScoreOfTile(Tile tile, int currentScore) {
         int guessScoreLeft = distanceScoreAway(tile);
         int centerCost = distanceFromEdges(tile) * 10;
+        int neighborCost = checkNeighbours(tile);
         int extraMovementCost = 0;
         if (tile.getTileType() == TileType.FAKE_WALL) {
             extraMovementCost+=1000;
@@ -131,7 +132,18 @@ public class Pathfinding {
             extraMovementCost -= 50;
         }
         int movementScore = currentScore + 1;
-        return guessScoreLeft + movementScore + extraMovementCost + centerCost;
+        return guessScoreLeft + movementScore + extraMovementCost + centerCost + neighborCost;
+    }
+
+    private int checkNeighbours(Tile tile){
+        int filled = 0;
+        for (int x = -1; x <= 1; x+=2) {
+            if(!validTile(tile.getX()+x, tile.getY())) filled++;
+        }
+        for (int y = -1; y <= 1; y+=2) {
+            if(!validTile(tile.getX(), tile.getY()+y)) filled++;
+        }
+        return filled * 10;
     }
 
     private boolean validTile(int nextX, int nextY) {
