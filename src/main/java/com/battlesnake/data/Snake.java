@@ -115,6 +115,9 @@ public class Snake {
             System.out.println("HUNGRY");
             return SnakeState.HUNGRY;
         }
+        else if(enemy == null){
+            return SnakeState.FINDTAIL;
+        }
         else if(length() > board.longestSnake() && Point.distance(getHead(), enemy.getHead()) < 4){
            System.out.println("AGRESSIVE");
            return SnakeState.AGRESSIVE;
