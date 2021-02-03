@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 public class BoardGame {
 
@@ -31,14 +32,14 @@ public class BoardGame {
 
     private Tile[][] board;
 
-    public void init(Snake mySnake){
+    public void init(Snake mySnake) {
         this.mySnake = mySnake;
         this.pathfinding = new Pathfinding();
         setupBoard();
     }
 
-    private void setupBoard(){
-        if(board == null)
+    private void setupBoard() {
+        if (board == null)
             board = new Tile[width][height];
 
         for (int y = 0; y < height; y++) {
@@ -100,41 +101,47 @@ public class BoardGame {
         return new ArrayList<>(Move.adjacent(point).values());
     }
 
-    private Move moveToTile(Tile tile, Point point){
+    private Move moveToTile(Tile tile, Point point) {
         Point p = new Point(tile.getX(), tile.getY());
         for (Map.Entry<Move, Point> move : Move.adjacent(point).entrySet()) {
-            if(p.equals(move.getValue())) return move.getKey();
+            if (p.equals(move.getValue())) return move.getKey();
         }
         return null;
     }
 
-    public Move findFood(Point current){
+    public Move findFood(Point current) {
         List<Tile> path = pathfinding.getRoute(board, current, food.get(0));
-        if(path.size() <= 1) return findTail(current);
+        if (path.size() <= 1) return findTail(current);
         Move move = moveToTile(path.get(path.size() - 2), current);
         System.out.println("Current Position: " + current + ", Tile Position: " + path.get(path.size() - 2).getX() + ", " + path.get(path.size() - 2).getY());
 
         return move;
     }
 
-    public Move findTail(Point current){
+    public Move findTail(Point current) {
         List<Tile> path = pathfinding.getRoute(board, current, mySnake.getTail());
         Move move = moveToTile(path.get(path.size() - 2), current);
 
         return move;
     }
 
-    public Move findHead(Point current, Snake enemy){
-        if(enemy == null) return findTail(current);
+    public Move findHead(Point current, Snake enemy) {
+        if (enemy == null) return findTail(current);
         List<Tile> path = pathfinding.getRoute(board, current, enemy.getHead());
         Move move = moveToTile(path.get(path.size() - 2), current);
 
         return move;
     }
 
-    public Move findCenter(Point current){
-        Point center = new Point(width/2, height/2);
+    public Move findCenter(Point current) {
+        Point center = new Point(width / 2, height / 2);
         List<Tile> path = pathfinding.getRoute(board, current, center);
+        Random rng = new Random();
+        while (path.size() <= 1) {
+            center = new Point((width / 2)+rng.nextInt(2)-1, (height / 2)+rng.nextInt(2)-1);
+            path = pathfinding.getRoute(board, current, center);
+        }
+
         Move move = moveToTile(path.get(path.size() - 2), current);
 
         return move;
