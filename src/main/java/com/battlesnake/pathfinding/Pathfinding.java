@@ -126,6 +126,9 @@ public class Pathfinding {
         if (tile.getTileType() == TileType.FAKE_WALL) {
             extraMovementCost+=1000;
         }
+        if(tile.getTileType() == TileType.FOOD){
+            extraMovementCost -= 50;
+        }
         int movementScore = currentScore + 1;
         return guessScoreLeft + movementScore + extraMovementCost + centerCost;
     }
@@ -134,8 +137,8 @@ public class Pathfinding {
         if (nextX >= 0 && nextX < maxWidth) {
             if (nextY >= 0 && nextY < maxHeight) {
                 return tiles[nextX][nextY].isOpen() &&
-                        tiles[nextX][nextY].getTileType() != TileType.WALL &&
-                        tiles[nextX][nextY].getTileType() != TileType.FAKE_WALL;
+                        tiles[nextX][nextY].getTileType() != TileType.WALL;
+
             }
         }
         return false;
