@@ -111,7 +111,11 @@ public class Snake {
     }
 
     public Move move(BoardGame board){
-       return board.findFood(getHead());
+       Move move = board.findFood(getHead());
+       if(move == null){
+           move = board.findTail(getHead());
+       }
+       return move;
     }
 
     public Move move(Board board, Snake enemy) {

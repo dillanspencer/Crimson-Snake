@@ -116,6 +116,13 @@ public class BoardGame {
         return move;
     }
 
+    public Move findTail(Point current){
+        List<Tile> path = pathfinding.getRoute(board, current, mySnake.getTail());
+        Move move = moveToTile(path.get(path.size() - 2), current);
+
+        return move;
+    }
+
     public int getWidth() {
         return width;
     }
