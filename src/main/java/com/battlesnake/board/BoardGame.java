@@ -59,12 +59,7 @@ public class BoardGame {
                 if ((i == body.size() - 1)
                         && body.size() > 1
                         && !snake.justAte()) {
-                    // Make fake wall if longer than my snake
-                    if(snake.longerThan(mySnake))
-                        board[body.get(i).getX()][body.get(i).getY()] = new Tile(TileType.FAKE_WALL, body.get(i).getX(), body.get(i).getY());
-                    else{
-                        board[body.get(i).getX()][body.get(i).getY()] = new Tile(TileType.TAIL, body.get(i).getX(), body.get(i).getY());
-                    }
+                    board[body.get(i).getX()][body.get(i).getY()] = new Tile(TileType.TAIL, body.get(i).getX(), body.get(i).getY());
                 } else {
                     if (body.get(i).getX() < 0 || body.get(i).getY() < 0)
                         System.out.println(body.get(i).getX() + ", " + body.get(i).getY());
@@ -105,6 +100,7 @@ public class BoardGame {
     private List<Point> findAdjacent(Point point) {
         return new ArrayList<>(Move.adjacent(point).values());
     }
+
     private boolean isFilled(Point point, Tile[][] board) {
         if (!exists(point)) return true;
         return board[point.getX()][point.getY()].getTileType() != TileType.EMPTY
@@ -136,13 +132,13 @@ public class BoardGame {
         return null;
     }
 
-    private Point nearestFood(Point current){
+    private Point nearestFood(Point current) {
         int min = 1000;
         int dist = 0;
         Point found = food.get(0);
-        for(Point snack : food){
-            dist = Math.abs((width/2) - snack.getX()) + (Math.abs((height/2) - snack.getY()));
-            if(dist < min){
+        for (Point snack : food) {
+            dist = Math.abs((width / 2) - snack.getX()) + (Math.abs((height / 2) - snack.getY()));
+            if (dist < min) {
                 min = dist;
                 found = snack;
             }
@@ -185,10 +181,10 @@ public class BoardGame {
         return move;
     }
 
-    public Move findExit(Point current){
+    public Move findExit(Point current) {
         System.out.println("FINDING EXIT");
         Move move = getPossibleMoves(current).get(0);
-        if(move == null) return Move.UP;
+        if (move == null) return Move.UP;
         return move;
     }
 
