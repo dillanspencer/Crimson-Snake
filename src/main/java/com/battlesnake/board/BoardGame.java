@@ -59,7 +59,12 @@ public class BoardGame {
                 if ((i == body.size() - 1)
                         && body.size() > 1
                         && !snake.justAte()) {
-                    board[body.get(i).getX()][body.get(i).getY()] = new Tile(TileType.TAIL, body.get(i).getX(), body.get(i).getY());
+                    // Make fake wall if longer than my snake
+                    if(snake.longerThan(mySnake))
+                        board[body.get(i).getX()][body.get(i).getY()] = new Tile(TileType.FAKE_WALL, body.get(i).getX(), body.get(i).getY());
+                    else{
+                        board[body.get(i).getX()][body.get(i).getY()] = new Tile(TileType.TAIL, body.get(i).getX(), body.get(i).getY());
+                    }
                 } else {
                     if (body.get(i).getX() < 0 || body.get(i).getY() < 0)
                         System.out.println(body.get(i).getX() + ", " + body.get(i).getY());
