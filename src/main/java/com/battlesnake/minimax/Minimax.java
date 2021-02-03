@@ -50,7 +50,7 @@ public class Minimax {
         MoveValue returnMove;
         MoveValue bestMove = new MoveValue();
 
-        if(isMaximizing){
+        if(!isMaximizing){
 
             // get value for pathfinding
             enemy.moveMinMax(this, mySnake, enemy.getHead());
