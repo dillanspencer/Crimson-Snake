@@ -174,7 +174,7 @@ public class Snake {
                     move = board.findTail(getHead());
                 }
         }
-        return move;
+        return board.findExit(getHead());
     }
 
     public Move move(Board board, Snake enemy) {

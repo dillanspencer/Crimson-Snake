@@ -100,6 +100,29 @@ public class BoardGame {
     private List<Point> findAdjacent(Point point) {
         return new ArrayList<>(Move.adjacent(point).values());
     }
+    private boolean isFilled(Point point, Tile[][] board) {
+        if (!exists(point)) return true;
+        return board[point.getX()][point.getY()].getTileType() != TileType.EMPTY
+                && board[point.getX()][point.getY()].getTileType() != TileType.FOOD
+                && board[point.getX()][point.getY()].getTileType() != TileType.TAIL
+                && board[point.getX()][point.getY()].getTileType() != TileType.FAKE_WALL
+                && board[point.getX()][point.getY()].getTileType() != TileType.HEADS;
+    }
+
+
+    private boolean movable(Point point) {
+        return !isFilled(point, board);
+    }
+
+    private List<Move> getPossibleMoves(Point point) {
+        List<Move> moves = new ArrayList<>();
+        for (Map.Entry<Move, Point> move : Move.adjacent(point).entrySet()) {
+            if (movable(move.getValue()))
+                moves.add(move.getKey());
+        }
+        return moves;
+    }
+
 
     private Move moveToTile(Tile tile, Point point) {
         Point p = new Point(tile.getX(), tile.getY());
@@ -141,6 +164,12 @@ public class BoardGame {
         if (path.size() <= 1) return null;
         Move move = moveToTile(path.get(path.size() - 2), current);
 
+        return move;
+    }
+
+    public Move findExit(Point current){
+        Move move = getPossibleMoves(current).get(0);
+        if(move == null) return Move.UP;
         return move;
     }
 
