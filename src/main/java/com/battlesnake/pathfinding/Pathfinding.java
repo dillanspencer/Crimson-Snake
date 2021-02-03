@@ -137,7 +137,8 @@ public class Pathfinding {
         if (nextX >= 0 && nextX < maxWidth) {
             if (nextY >= 0 && nextY < maxHeight) {
                 return tiles[nextX][nextY].isOpen() &&
-                        tiles[nextX][nextY].getTileType() != TileType.WALL;
+                        tiles[nextX][nextY].getTileType() != TileType.WALL
+                        && tiles[nextX][nextY].getTileType() != TileType.FAKE_WALL;
 
             }
         }
