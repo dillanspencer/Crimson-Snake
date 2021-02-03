@@ -102,24 +102,32 @@ public class BoardGame {
         return new ArrayList<>(Move.adjacent(point).values());
     }
 
-    private boolean isFilled(Point point, Tile[][] board) {
+    private boolean isFilled(Point point, Tile[][] board, boolean flag) {
         if (!exists(point)) return true;
-        return board[point.getX()][point.getY()].getTileType() != TileType.EMPTY
-                && board[point.getX()][point.getY()].getTileType() != TileType.FOOD
-                && board[point.getX()][point.getY()].getTileType() != TileType.TAIL
-                && board[point.getX()][point.getY()].getTileType() != TileType.HEADS
-                && board[point.getX()][point.getY()].getTileType() != TileType.FAKE_WALL;
+
+        if(flag) {
+            return board[point.getX()][point.getY()].getTileType() != TileType.EMPTY
+                    && board[point.getX()][point.getY()].getTileType() != TileType.FOOD
+                    && board[point.getX()][point.getY()].getTileType() != TileType.TAIL
+                    && board[point.getX()][point.getY()].getTileType() != TileType.HEADS;
+        }else{
+            return board[point.getX()][point.getY()].getTileType() != TileType.EMPTY
+                    && board[point.getX()][point.getY()].getTileType() != TileType.FOOD
+                    && board[point.getX()][point.getY()].getTileType() != TileType.TAIL
+                    && board[point.getX()][point.getY()].getTileType() != TileType.HEADS
+                    && board[point.getX()][point.getY()].getTileType() != TileType.FAKE_WALL;
+        }
     }
 
 
-    private boolean movable(Point point) {
-        return !isFilled(point, board);
+    private boolean movable(Point point, boolean flag) {
+        return !isFilled(point, board, flag);
     }
 
-    private List<Move> getPossibleMoves(Point point) {
+    private List<Move> getPossibleMoves(Point point, boolean flag) {
         List<Move> moves = new ArrayList<>();
         for (Map.Entry<Move, Point> move : Move.adjacent(point).entrySet()) {
-            if (movable(move.getValue()))
+            if (movable(move.getValue(), flag))
                 moves.add(move.getKey());
         }
         return moves;
@@ -185,8 +193,12 @@ public class BoardGame {
 
     public Move findExit(Point current) {
         System.out.println("FINDING EXIT");
-        Move move = getPossibleMoves(current).get(0);
-        if (move == null) return Move.UP;
+        Move move = getPossibleMoves(current, false).get(0);
+        if (move == null) {
+            move = getPossibleMoves(current, true).get(0);
+            return move;
+        }
+        if(move == null) return Move.UP;
         return move;
     }
 
