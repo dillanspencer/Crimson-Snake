@@ -135,6 +135,7 @@ public class Snake {
         Move move = Move.UP;
         switch (state) {
             case HUNGRY:
+                System.out.println("HUNGRY");
                 move = board.findFood(getHead());
                 if (move == null) {
                     move = board.findCenter(getHead());
@@ -144,6 +145,7 @@ public class Snake {
                 }
                 break;
             case AGRESSIVE:
+                System.out.println("AGGRESSIVE");
                 move = board.findHead(getHead(), enemy);
                 if (move == null) {
                     move = board.findCenter(getHead());
@@ -153,6 +155,7 @@ public class Snake {
                 }
                 break;
             case FINDTAIL:
+                System.out.println("FINDTAIL");
                 move = board.findTail(getHead());
                 if (move == null) {
                     move = board.findCenter(getHead());
@@ -162,6 +165,7 @@ public class Snake {
                 }
                 break;
             case CENTER:
+                System.out.println("CENTER");
                 move = board.findCenter(getHead());
                 if (move == null) {
                     move = board.findFood(getHead()) ;
