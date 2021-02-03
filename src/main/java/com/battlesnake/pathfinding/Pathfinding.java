@@ -128,7 +128,8 @@ public class Pathfinding {
     private boolean validTile(int nextX, int nextY) {
         if (nextX >= 0 && nextX < maxWidth) {
             if (nextY >= 0 && nextY < maxHeight) {
-                return tiles[nextX][nextY].isOpen() && tiles[nextX][nextY].getTileType() != TileType.WALL;
+                return tiles[nextX][nextY].isOpen() &&
+                        tiles[nextX][nextY].getTileType() != TileType.WALL;
             }
         }
         return false;
