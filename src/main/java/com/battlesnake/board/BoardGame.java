@@ -123,6 +123,13 @@ public class BoardGame {
         return move;
     }
 
+    public Move findHead(Point current, Snake enemy){
+        List<Tile> path = pathfinding.getRoute(board, current, enemy.getHead());
+        Move move = moveToTile(path.get(path.size() - 2), current);
+
+        return move;
+    }
+
     public int getWidth() {
         return width;
     }
@@ -170,6 +177,16 @@ public class BoardGame {
 
     public void setFood(List<Point> food) {
         this.food = food;
+    }
+
+    public int longestSnake() {
+        int len = 0;
+        for (Snake s : snakes) {
+            if (s.length() > len && !s.equals(mySnake)) {
+                len = s.length();
+            }
+        }
+        return len;
     }
 
 }

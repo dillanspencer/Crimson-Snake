@@ -110,12 +110,56 @@ public class Snake {
        //return SnakeState.HUNGRY;
     }
 
-    public Move move(BoardGame board){
-       Move move = board.findFood(getHead());
-       if(move == null){
-           move = board.findTail(getHead());
+    public SnakeState getState(BoardGame board, Snake enemy){
+        if(health < 50){
+            System.out.println("HUNGRY");
+            return SnakeState.HUNGRY;
+        }
+        else if(length() > board.longestSnake() && Point.distance(getHead(), enemy.getHead()) < 4){
+           System.out.println("AGRESSIVE");
+           return SnakeState.AGRESSIVE;
+       }else if(Point.distance(getHead(), enemy.getHead()) < 4 && length() < board.longestSnake()){
+           System.out.println("SMART");
+           return SnakeState.SMART;
+       }else if(length() > board.longestSnake() + 4){
+           return SnakeState.FINDTAIL;
        }
-       return move;
+        return SnakeState.HUNGRY;
+    }
+
+    public Move move(BoardGame board, Snake enemy){
+        SnakeState state = getState(board, enemy);
+        Move move = Move.UP;
+        switch (state) {
+            case HUNGRY:
+                move = board.findFood(getHead());
+                if (move == null) {
+                    move = board.findHead(getHead(), enemy);
+                }
+                if (move == null) {
+                    move = board.findTail(getHead());
+                }
+                break;
+            case AGRESSIVE:
+                move = board.findHead(getHead(), enemy);
+                if (move == null) {
+                    move = board.findFood(getHead());
+                }
+                if (move == null) {
+                    move = board.findTail(getHead());
+                }
+                break;
+            case FINDTAIL:
+                move = board.findTail(getHead());
+                if (move == null) {
+                    move = board.findFood(getHead());
+                }
+                if (move == null) {
+                    move = board.findHead(getHead(), enemy);
+                }
+                break;
+        }
+        return move;
     }
 
     public Move move(Board board, Snake enemy) {

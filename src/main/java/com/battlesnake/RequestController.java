@@ -46,7 +46,7 @@ public class RequestController {
         BoardGame board = request.getBoard();
         board.init(mySnake);
 
-        Move move = mySnake.move(board);
+        Move move = mySnake.move(board, findEnemySnake(request, mySnake));
 
         return moveResponse.setMove(move);
     }
@@ -75,7 +75,7 @@ public class RequestController {
 
         Snake enemy = null;
         //get max distance
-        double distance = 100;
+        double distance = 1000;
         for (Snake s : snakes) {
             if (!s.equals(mySnake)) {
                 double dist = Point.distance(mySnake.getHead(), s.getHead());
