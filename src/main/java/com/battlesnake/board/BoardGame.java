@@ -125,6 +125,7 @@ public class BoardGame {
     }
 
     public Move findHead(Point current, Snake enemy){
+        if(enemy == null) return findTail(current);
         List<Tile> path = pathfinding.getRoute(board, current, enemy.getHead());
         Move move = moveToTile(path.get(path.size() - 2), current);
 
