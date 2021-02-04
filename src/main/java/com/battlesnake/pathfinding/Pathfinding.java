@@ -15,6 +15,7 @@ public class Pathfinding {
     private Point endPosition;
     private int maxWidth;
     private int maxHeight;
+    private int newestScore;
 
     private final TileScoreComparator tileScoreComparator = new TileScoreComparator();
 
@@ -81,6 +82,7 @@ public class Pathfinding {
                     thisTile.setParent(currentTile);
                 }
             }
+            newestScore = smallestScore;
         }
 
         // get List of tiles using current tile
@@ -154,5 +156,7 @@ public class Pathfinding {
         }
         return false;
     }
+
+    public int getNewestScore(){ return newestScore; }
 
 }
