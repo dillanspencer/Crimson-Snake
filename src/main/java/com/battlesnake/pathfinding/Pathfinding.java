@@ -143,6 +143,7 @@ public class Pathfinding {
         for (int y = -1; y <= 1; y+=2) {
             if(!validTile(tile.getX(), tile.getY()+y)) filled++;
         }
+        if(filled > 2) return filled * 1000;
         return filled * 10;
     }
 
