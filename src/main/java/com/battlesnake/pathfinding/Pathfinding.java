@@ -122,14 +122,14 @@ public class Pathfinding {
 
     public int getScoreOfTile(Tile tile, int currentScore) {
         int guessScoreLeft = distanceScoreAway(tile);
-        int centerCost = distanceFromEdges(tile) * 10;
+        int centerCost = distanceFromEdges(tile);
         int neighborCost = checkNeighbours(tile);
         int extraMovementCost = 0;
         if (tile.getTileType() == TileType.FAKE_WALL) {
             extraMovementCost+=1000;
         }
         if(tile.getTileType() == TileType.FOOD){
-            extraMovementCost -= 50;
+            extraMovementCost -= 1;
         }
         int movementScore = currentScore + 1;
         return guessScoreLeft + movementScore + extraMovementCost + centerCost + neighborCost;
