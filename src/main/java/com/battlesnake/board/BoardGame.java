@@ -132,6 +132,7 @@ public class BoardGame {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     private Move findBestPossibleMove(Point point){
 
         List<Move> moves = getPossibleMoves(point, false);
@@ -157,6 +158,8 @@ public class BoardGame {
         return returnMove;
     }
 
+=======
+>>>>>>> parent of dae15d4... Update
 =======
 >>>>>>> parent of dae15d4... Update
 
@@ -217,8 +220,11 @@ public class BoardGame {
 
     public Move findExit(Point current) {
 <<<<<<< HEAD
+<<<<<<< HEAD
         return findBestPossibleMove(current);
 =======
+=======
+>>>>>>> parent of dae15d4... Update
         System.out.println("FINDING EXIT");
         List<Move> moves = getPossibleMoves(current, false);
         if(moves.size() < 1) {
@@ -227,6 +233,9 @@ public class BoardGame {
 
         if(moves.size() < 1) return Move.UP;
         return moves.get(0);
+<<<<<<< HEAD
+>>>>>>> parent of dae15d4... Update
+=======
 >>>>>>> parent of dae15d4... Update
     }
 
