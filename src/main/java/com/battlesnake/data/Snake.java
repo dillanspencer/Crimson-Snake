@@ -180,6 +180,7 @@ public class Snake {
                 if (move == null) {
                     move = board.findTail(getHead());
                 }
+                break;
         }
         if(move == null) return board.findExit(getHead());
 
