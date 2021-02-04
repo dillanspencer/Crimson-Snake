@@ -133,6 +133,30 @@ public class BoardGame {
         return moves;
     }
 
+    private Move findBestPossibleMove(Point point){
+
+        List<Move> moves = getPossibleMoves(point, false);
+        if(moves.size() < 1) {
+            moves = getPossibleMoves(point, true);
+        }
+
+        if(moves.size() < 1) return Move.UP;
+
+        Move returnMove = null;
+        int smallest = 999999;
+        int score = 0;
+        for(Move move:moves){
+            Point p = move.translate(point);
+            Tile t = board[p.getX()][p.getY()];
+            score = pathfinding.getScoreOfTile(t, 0);
+            if(score < smallest){
+                smallest = score;
+                returnMove = move;
+            }
+        }
+        return returnMove;
+    }
+
 
     private Move moveToTile(Tile tile, Point point) {
         Point p = new Point(tile.getX(), tile.getY());
@@ -193,13 +217,7 @@ public class BoardGame {
 
     public Move findExit(Point current) {
         System.out.println("FINDING EXIT");
-        List<Move> moves = getPossibleMoves(current, false);
-        if(moves.size() < 1) {
-           moves = getPossibleMoves(current, true);
-        }
-
-        if(moves.size() < 1) return Move.UP;
-        return moves.get(0);
+        return findBestPossibleMove(current);
     }
 
     public int getWidth() {

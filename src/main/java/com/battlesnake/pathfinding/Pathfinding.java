@@ -120,7 +120,7 @@ public class Pathfinding {
         return Math.abs(currentTile.getX() - (maxWidth/2)) + Math.abs(currentTile.getY() - (maxHeight/2));
     }
 
-    private int getScoreOfTile(Tile tile, int currentScore) {
+    public int getScoreOfTile(Tile tile, int currentScore) {
         int guessScoreLeft = distanceScoreAway(tile);
         int centerCost = distanceFromEdges(tile) * 10;
         int neighborCost = checkNeighbours(tile);
