@@ -206,7 +206,7 @@ public class BoardGame {
 
     public Move findCenter(Point current) {
         Point center = new Point(width / 2, height / 2);
-        List<Tile> path = pathfinding.getRoute(board, current, center);
+        List<Tile> path = pathfinding.getRoute(board, center, current);
         if (path.size() <= 1) return null;
         Move move = moveToTile(path.get(path.size() - 2), current);
 
