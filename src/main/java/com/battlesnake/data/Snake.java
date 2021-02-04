@@ -183,7 +183,7 @@ public class Snake {
                 }
         }
         if(move == null){
-            System.out.println("Find Tail was null... finding exit");
+            System.out.println("Find Tail was null...finding exit");
             return board.findExit(getHead());
         }
 
