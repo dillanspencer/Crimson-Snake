@@ -135,7 +135,7 @@ public class Pathfinding {
         return guessScoreLeft + movementScore + extraMovementCost + centerCost + neighborCost;
     }
 
-    private int checkNeighbours(Tile tile){
+    public int checkNeighbours(Tile tile){
         int filled = 0;
         for (int x = -1; x <= 1; x+=2) {
             if(!validTile(tile.getX()+x, tile.getY())) filled++;

@@ -147,7 +147,7 @@ public class BoardGame {
         for(Move move:moves){
             Point p = move.translate(point);
             Tile t = board[p.getX()][p.getY()];
-            score = pathfinding.getScoreOfTile(t, 0);
+            score = pathfinding.checkNeighbours(t);
             System.out.println("SCORE: " + score);
             if(score < smallest){
                 smallest = score;
