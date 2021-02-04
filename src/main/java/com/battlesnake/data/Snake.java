@@ -95,7 +95,11 @@ public class Snake {
 
 
     public SnakeState getState(Minimax board, Snake enemy){
-        if(health < 85){
+        if(health < 50 && body.size() > 7){
+            System.out.println("HUNGRY");
+            return SnakeState.HUNGRY;
+        }
+        else if(health < 85 && body.size() < 7){
             System.out.println("HUNGRY");
             return SnakeState.HUNGRY;
         }
