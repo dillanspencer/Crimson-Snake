@@ -174,13 +174,18 @@ public class Snake {
                 System.out.println("CENTER");
                 move = board.findCenter(getHead());
                 if (move == null) {
+                    System.out.println("Center was null");
                     move = board.findFood(getHead()) ;
                 }
                 if (move == null) {
+                    System.out.println("Find food was null");
                     move = board.findTail(getHead());
                 }
         }
-        if(move == null) return board.findExit(getHead());
+        if(move == null){
+            System.out.println("Find Tail was null... finding exit");
+            return board.findExit(getHead());
+        }
 
         return move;
     }
