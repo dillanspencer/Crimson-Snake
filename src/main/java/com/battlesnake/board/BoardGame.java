@@ -131,8 +131,6 @@ public class BoardGame {
         return moves;
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
     private Move findBestPossibleMove(Point point){
 
         List<Move> moves = getPossibleMoves(point, false);
@@ -148,7 +146,7 @@ public class BoardGame {
         for(Move move:moves){
             Point p = move.translate(point);
             Tile t = board[p.getX()][p.getY()];
-            score = pathfinding.getScoreOfTile(t, 0);
+            score = 0;
             System.out.println("SCORE: " + score);
             if(score < smallest){
                 smallest = score;
@@ -158,10 +156,6 @@ public class BoardGame {
         return returnMove;
     }
 
-=======
->>>>>>> parent of dae15d4... Update
-=======
->>>>>>> parent of dae15d4... Update
 
     private Move moveToTile(Tile tile, Point point) {
         Point p = new Point(tile.getX(), tile.getY());
@@ -219,12 +213,8 @@ public class BoardGame {
     }
 
     public Move findExit(Point current) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-        return findBestPossibleMove(current);
-=======
-=======
->>>>>>> parent of dae15d4... Update
+       // return findBestPossibleMove(current);
+
         System.out.println("FINDING EXIT");
         List<Move> moves = getPossibleMoves(current, false);
         if(moves.size() < 1) {
@@ -233,10 +223,6 @@ public class BoardGame {
 
         if(moves.size() < 1) return Move.UP;
         return moves.get(0);
-<<<<<<< HEAD
->>>>>>> parent of dae15d4... Update
-=======
->>>>>>> parent of dae15d4... Update
     }
 
     public int getWidth() {
