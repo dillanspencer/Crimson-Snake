@@ -62,7 +62,6 @@ public class BoardGame {
                     board[body.get(i).getX()][body.get(i).getY()] = new Tile(TileType.TAIL, body.get(i).getX(), body.get(i).getY());
                 } else {
                     if (body.get(i).getX() < 0 || body.get(i).getY() < 0)
-                        System.out.println(body.get(i).getX() + ", " + body.get(i).getY());
                     board[body.get(i).getX()][body.get(i).getY()] = new Tile(TileType.WALL, body.get(i).getX(), body.get(i).getY());
                 }
             }
@@ -149,6 +148,7 @@ public class BoardGame {
             Point p = move.translate(point);
             Tile t = board[p.getX()][p.getY()];
             score = pathfinding.getScoreOfTile(t, 0);
+            System.out.println("SCORE: " + score);
             if(score < smallest){
                 smallest = score;
                 returnMove = move;
@@ -184,8 +184,6 @@ public class BoardGame {
         List<Tile> path = pathfinding.getRoute(board, current, nearestFood(current));
         if (path.size() <= 1) return null;
         Move move = moveToTile(path.get(path.size() - 2), current);
-        System.out.println("Current Position: " + current + ", Tile Position: " + path.get(path.size() - 2).getX() + ", " + path.get(path.size() - 2).getY());
-
         return move;
     }
 
@@ -216,7 +214,6 @@ public class BoardGame {
     }
 
     public Move findExit(Point current) {
-        System.out.println("FINDING EXIT");
         return findBestPossibleMove(current);
     }
 
