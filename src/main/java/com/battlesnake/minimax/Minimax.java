@@ -45,7 +45,7 @@ public class Minimax {
     }
 
     public MoveValue maximize(Snake enemy, int depth, double alpha, double beta){
-        boolean isMaximizing = (depth % 2 == 1);
+        boolean isMaximizing = (depth % 2 == 0);
 
         MoveValue returnMove;
         MoveValue bestMove = new MoveValue();
@@ -54,7 +54,7 @@ public class Minimax {
 
             // get value for pathfinding
             enemy.moveMinMax(this, mySnake, enemy.getHead());
-            int value = pathfinding.evaluateTile(new Tile(TileType.ME, mySnake.getHead().getX(), mySnake.getHead().getY()));
+            int value = pathfinding.evaluateTile(new Tile(TileType.HEADS, enemy.getHead().getX(), mySnake.getHead().getY()));
             if(depth == 3) return new MoveValue(value);
 
             // check snake state
@@ -87,11 +87,11 @@ public class Minimax {
 
             // get value for pathfinding
             mySnake.moveMinMax(this, enemy, mySnake.getHead());
-            int value = pathfinding.getNewestScore();
+            int value = pathfinding.evaluateTile(new Tile(TileType.ME, mySnake.getHead().getX(), mySnake.getHead().getY()));
             if(depth == 3) return new MoveValue(value);
 
             // check snake state
-            List<Move> moves = getPossibleMoves(enemy.getHead());
+            List<Move> moves = getPossibleMoves(mySnake.getHead());
             Iterator<Move> movesIterator = moves.iterator();
             while (movesIterator.hasNext()) {
                 Move currentMove = movesIterator.next();
