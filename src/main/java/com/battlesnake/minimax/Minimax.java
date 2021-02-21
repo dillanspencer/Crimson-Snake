@@ -54,7 +54,7 @@ public class Minimax {
 
             // get value for pathfinding
             enemy.moveMinMax(this, mySnake, enemy.getHead());
-            int value = pathfinding.getNewestScore();
+            int value = pathfinding.evaluateTile(new Tile(TileType.ME, mySnake.getHead().getX(), mySnake.getHead().getY()));
             if(depth == 3) return new MoveValue(value);
 
             // check snake state
@@ -83,7 +83,6 @@ public class Minimax {
                     return bestMove; // pruning
                 }
             }
-            return bestMove;
         }else {
 
             // get value for pathfinding
@@ -117,8 +116,8 @@ public class Minimax {
                     return bestMove; // pruning
                 }
             }
-            return bestMove;
         }
+        return bestMove;
     }
 
     // Checks if point exist within the bounds of the board

@@ -46,6 +46,7 @@ public class RequestController {
         BoardGame board = request.getBoard();
         board.init(mySnake);
 
+        //Move move = mySnake.move(board, findEnemySnake(request, mySnake));
         Move move = mySnake.move(board, findEnemySnake(request, mySnake));
 
         return moveResponse.setMove(move);

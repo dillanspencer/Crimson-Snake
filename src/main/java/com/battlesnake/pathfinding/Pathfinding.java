@@ -134,6 +134,17 @@ public class Pathfinding {
         return guessScoreLeft + movementScore + extraMovementCost + centerCost + neighborCost;
     }
 
+    public int evaluateTile(Tile tile){
+        int centerCost = distanceFromEdges(tile) * 10;
+        int neighborCost = checkNeighbours(tile);
+        int extraMovementCost = 0;
+        if (tile.getTileType() == TileType.FAKE_WALL) {
+            extraMovementCost+=1000;
+        }
+
+        return extraMovementCost + centerCost + neighborCost;
+    }
+
     public int checkNeighbours(Tile tile){
         int filled = 0;
         for (int x = -1; x <= 1; x+=2) {
