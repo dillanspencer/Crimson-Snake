@@ -53,7 +53,7 @@ public class Minimax {
         if(!isMaximizing){
 
             // get value for pathfinding
-            int value = pathfinding.evaluateTile(new Tile(TileType.HEADS, enemy.getHead().getX(), mySnake.getHead().getY()));
+            int value = pathfinding.evaluateTile(new Tile(TileType.HEADS, enemy.getHead().getX(), enemy.getHead().getY()));
             if(depth == 3) return new MoveValue(value);
 
             // check snake state
