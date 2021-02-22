@@ -54,6 +54,7 @@ public class Minimax {
 
             // get value for pathfinding
             int value = pathfinding.evaluateTile(new Tile(TileType.HEADS, enemy.getHead().getX(), enemy.getHead().getY()));
+            value += evaluate(enemy, mySnake);
             System.out.println("Value: " + value + ", Maximizing: " + isMaximizing + ", Depth: " + depth);
             if(depth == 3) return new MoveValue(value);
 
@@ -88,6 +89,7 @@ public class Minimax {
 
             // get value for pathfinding
             int value = pathfinding.evaluateTile(new Tile(TileType.ME, mySnake.getHead().getX(), mySnake.getHead().getY()));
+            value += evaluate(mySnake, enemy);
             System.out.println("Value: " + value + ", Maximizing: " + isMaximizing + ", Depth: " + depth);
             if(depth == 3) return new MoveValue(value);
 
@@ -120,6 +122,17 @@ public class Minimax {
             }
         }
         return bestMove;
+    }
+
+    private int evaluate(Snake snake, Snake enemy){
+        int score = 0;
+        if(snake.longerThan(enemy) && snake.checkCollision(enemy) != -1){
+            score = 1000;
+        }
+        else if(!snake.longerThan(enemy) && snake.checkCollision(enemy) != -1){
+            score = -1000;
+        }
+        return score;
     }
 
     // Checks if point exist within the bounds of the board
