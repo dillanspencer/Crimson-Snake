@@ -24,6 +24,7 @@ public class Pathfinding {
         this.maxWidth = tiles.length;
         this.maxHeight = tiles[0].length;
         this.endPosition = endPosition;
+        this.newestScore = 0;
 
         resetAllTiles();
 
@@ -58,6 +59,7 @@ public class Pathfinding {
                 // currentY is now nextY
                 if (validTile(nextX, currentY)) {
                     int score = getScoreOfTile(tiles[nextX][currentY], currentScore);
+                    newestScore += score;
                     if (score < smallestScore) {
                         smallestScore = score;
                     }
@@ -73,6 +75,7 @@ public class Pathfinding {
                 int nextY = currentY + y;
                 if (validTile(currentX, nextY)) {
                     int score = getScoreOfTile(tiles[currentX][nextY], currentScore);
+                    newestScore += score;
                     if (score < smallestScore) {
                         smallestScore = score;
                     }
@@ -82,7 +85,7 @@ public class Pathfinding {
                     thisTile.setParent(currentTile);
                 }
             }
-            newestScore = smallestScore;
+
         }
 
         // get List of tiles using current tile
