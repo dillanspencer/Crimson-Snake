@@ -58,6 +58,7 @@ public class Minimax {
 
             // check snake state
             List<Move> moves = getPossibleMoves(enemy.getHead());
+            if(moves.size() <= 0) System.out.println("Well fuck");
             Iterator<Move> movesIterator = moves.iterator();
             while (movesIterator.hasNext()) {
                 Move currentMove = movesIterator.next();
@@ -90,6 +91,7 @@ public class Minimax {
 
             // check snake state
             List<Move> moves = getPossibleMoves(mySnake.getHead());
+            if(moves.size() <= 0) System.out.println("Well fuck");
             Iterator<Move> movesIterator = moves.iterator();
             while (movesIterator.hasNext()) {
                 Move currentMove = movesIterator.next();
