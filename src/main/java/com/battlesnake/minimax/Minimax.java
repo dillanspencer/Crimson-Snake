@@ -57,7 +57,7 @@ public class Minimax {
             if(depth == 3) return new MoveValue(value);
 
             // check snake state
-            List<Move> moves = getPossibleMoves(enemy.getHead());
+            List<Move> moves = getPossibleMoves(enemy.getHead(), true);
             if(moves.size() <= 0) System.out.println("Well fuck");
             Iterator<Move> movesIterator = moves.iterator();
             while (movesIterator.hasNext()) {
@@ -90,7 +90,7 @@ public class Minimax {
             if(depth == 3) return new MoveValue(value);
 
             // check snake state
-            List<Move> moves = getPossibleMoves(mySnake.getHead());
+            List<Move> moves = getPossibleMoves(mySnake.getHead(), false);
             if(moves.size() <= 0) System.out.println("Well fuck");
             Iterator<Move> movesIterator = moves.iterator();
             while (movesIterator.hasNext()) {
@@ -134,23 +134,33 @@ public class Minimax {
         return new ArrayList<>(Move.adjacent(point).values());
     }
 
-    private boolean isFilled(Point point, Tile[][] board) {
+    private boolean isFilled(Point point, Tile[][] board, boolean flag) {
         if (!exists(point)) return true;
-        return board[point.getX()][point.getY()].getTileType() != TileType.EMPTY
-                && board[point.getX()][point.getY()].getTileType() != TileType.FOOD
-                && board[point.getX()][point.getY()].getTileType() != TileType.TAIL
-                && board[point.getX()][point.getY()].getTileType() != TileType.HEADS;
+
+        if(flag) {
+            return board[point.getX()][point.getY()].getTileType() != TileType.EMPTY
+                    && board[point.getX()][point.getY()].getTileType() != TileType.FOOD
+                    && board[point.getX()][point.getY()].getTileType() != TileType.TAIL
+                    && board[point.getX()][point.getY()].getTileType() != TileType.HEADS
+                    && board[point.getX()][point.getY()].getTileType() != TileType.FAKE_WALL;
+        }
+        else{
+            return board[point.getX()][point.getY()].getTileType() != TileType.EMPTY
+                    && board[point.getX()][point.getY()].getTileType() != TileType.FOOD
+                    && board[point.getX()][point.getY()].getTileType() != TileType.TAIL
+                    && board[point.getX()][point.getY()].getTileType() != TileType.HEADS;
+        }
     }
 
 
-    private boolean movable(Point point) {
-        return !isFilled(point, tiles);
+    private boolean movable(Point point, boolean flag) {
+        return !isFilled(point, tiles, flag);
     }
 
-    private List<Move> getPossibleMoves(Point point) {
+    private List<Move> getPossibleMoves(Point point, boolean flag) {
         List<Move> moves = new ArrayList<>();
         for (Map.Entry<Move, Point> move : Move.adjacent(point).entrySet()) {
-            if (movable(move.getValue()))
+            if (movable(move.getValue(), flag))
                 moves.add(move.getKey());
         }
         return moves;
@@ -231,7 +241,7 @@ public class Minimax {
 
     public Move findExit(Point current) {
         System.out.println("FINDING EXIT");
-        Move move = getPossibleMoves(current).get(0);
+        Move move = getPossibleMoves(current, false).get(0);
         if (move == null) return Move.UP;
         return move;
     }
