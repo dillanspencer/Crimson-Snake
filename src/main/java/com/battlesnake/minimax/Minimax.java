@@ -53,7 +53,7 @@ public class Minimax {
         if(!isMaximizing){
 
             // get value for pathfinding
-            int value = pathfinding.evaluateTile(new Tile(TileType.HEADS, enemy.getHead().getX(), enemy.getHead().getY()));
+            int value = -pathfinding.evaluateTile(new Tile(TileType.HEADS, enemy.getHead().getX(), enemy.getHead().getY()));
             System.out.println("Value: " + value + ", Maximizing: " + isMaximizing + ", Depth: " + depth);
             if(depth == 3) return new MoveValue(value);
 
@@ -87,7 +87,7 @@ public class Minimax {
         }else {
 
             // get value for pathfinding
-            int value = pathfinding.evaluateTile(new Tile(TileType.ME, mySnake.getHead().getX(), mySnake.getHead().getY()));
+            int value = -pathfinding.evaluateTile(new Tile(TileType.ME, mySnake.getHead().getX(), mySnake.getHead().getY()));
             System.out.println("Value: " + value + ", Maximizing: " + isMaximizing + ", Depth: " + depth);
             if(depth == 3) return new MoveValue(value);
 
