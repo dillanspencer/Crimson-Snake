@@ -142,7 +142,7 @@ public class Pathfinding {
             extraMovementCost+=1000;
         }
 
-        return extraMovementCost + centerCost + neighborCost;
+        return 100 + extraMovementCost - centerCost - neighborCost;
     }
 
     public int checkNeighbours(Tile tile){
