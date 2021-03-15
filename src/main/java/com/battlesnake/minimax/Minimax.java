@@ -45,7 +45,7 @@ public class Minimax {
     }
 
     public MoveValue maximize(Snake enemy, int depth, double alpha, double beta){
-        boolean isMaximizing = (depth % 2 == 1);
+        boolean isMaximizing = (depth % 2 == 0);
 
         MoveValue returnMove;
         MoveValue bestMove = null;
