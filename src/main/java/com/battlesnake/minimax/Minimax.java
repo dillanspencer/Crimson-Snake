@@ -92,7 +92,7 @@ public class Minimax {
             if(depth == 3) return new MoveValue(value);
 
             // check snake state
-            List<Move> moves = getPossibleMoves(mySnake.getHead(), false);
+            List<Move> moves = getPossibleMoves(mySnake.getHead(), true);
             if(moves.size() <= 0) System.out.println("Well fuck");
             Iterator<Move> movesIterator = moves.iterator();
             while (movesIterator.hasNext()) {
@@ -125,8 +125,8 @@ public class Minimax {
     private int evaluate(Snake snake, Snake enemy){
         int score = 0;
 
-        Point center = new Point(width/2, height/2);
-        score -= Math.abs(snake.getHead().getX() - center.getX()) + Math.abs(snake.getHead().getY()-center.getY());
+        //Point center = new Point(width/2, height/2);
+        //score -= Math.abs(snake.getHead().getX() - center.getX()) + Math.abs(snake.getHead().getY()-center.getY());
 
         if(snake.longerThan(enemy) && snake.checkCollision(enemy) != -1){
             score = 1000;
