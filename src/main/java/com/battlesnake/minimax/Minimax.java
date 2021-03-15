@@ -100,7 +100,6 @@ public class Minimax {
                 mySnake.applyMove(currentMove);
                 updateBoard(tiles, mySnake);
                 returnMove = maximize(enemy, depth + 1, alpha, beta);
-                System.out.println("Return Move: " + returnMove.returnMove);
                 mySnake.undoMove();
                 updateBoard(tiles, mySnake);
 
@@ -118,6 +117,7 @@ public class Minimax {
                     bestMove.returnMove = null;
                     return bestMove; // pruning
                 }
+                System.out.println("Best Move: " + bestMove.returnMove);
             }
         }
         return bestMove;
