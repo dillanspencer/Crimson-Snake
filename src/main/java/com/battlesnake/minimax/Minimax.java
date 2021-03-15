@@ -48,7 +48,7 @@ public class Minimax {
         boolean isMaximizing = (depth % 2 == 0);
 
         MoveValue returnMove;
-        MoveValue bestMove = new MoveValue();
+        MoveValue bestMove = null;
 
         if(!isMaximizing){
 
