@@ -51,6 +51,9 @@ public class Minimax {
 
         MoveValue returnMove;
         MoveValue bestMove = null;
+        System.out.println("Snake pos: " + mySnake.getHead().getX() + ", " + mySnake.getHead().getY() + ", Depth: " + depth);
+        System.out.println("enemy pos: " + enemy.getHead().getX() + ", " + enemy.getHead().getY() + ", Depth: " + depth);
+
 
         if(isMaximizing){
 
@@ -117,7 +120,7 @@ public class Minimax {
                 }
             }
         }
-        System.out.println("Best Move: " + bestMove.returnMove + ", Value: " + bestMove.returnValue + ", Depth: " + depth + ", " + isMaximizing);
+        //System.out.println("Best Move: " + bestMove.returnMove + ", Value: " + bestMove.returnValue + ", Depth: " + depth + ", " + isMaximizing);
         return bestMove;
     }
 
