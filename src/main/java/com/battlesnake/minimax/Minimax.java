@@ -84,7 +84,6 @@ public class Minimax {
                     return bestMove; // pruning
                 }
             }
-            System.out.println("Best Move: " + bestMove.returnMove + " Maximizing: " + isMaximizing);
         }else {
 
             // get value for pathfinding
