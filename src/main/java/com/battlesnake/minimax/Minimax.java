@@ -117,6 +117,7 @@ public class Minimax {
                 }
             }
         }
+        System.out.println("Best Move: " + bestMove + ", Value: " + bestMove.returnValue + ", Depth: " + depth + ", " + isMaximizing);
         return bestMove;
     }
 
