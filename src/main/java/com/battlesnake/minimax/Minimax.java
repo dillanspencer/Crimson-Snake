@@ -106,7 +106,7 @@ public class Minimax {
                 if ((bestMove == null) || (bestMove.returnValue > returnMove.returnValue)) {
                     bestMove = returnMove;
                     bestMove.returnMove = currentMove;
-                    System.out.println("Best Move: " + bestMove.returnMove);
+
                 }
                 if (returnMove.returnValue < beta) {
                     beta = returnMove.returnValue;
@@ -120,6 +120,7 @@ public class Minimax {
                 }
             }
         }
+        System.out.println("Best Move: " + bestMove.returnMove);
         return bestMove;
     }
 
