@@ -33,13 +33,13 @@ public class Minimax {
     public Minimax(Tile[][] tiles, Snake mySnake, List<Snake> snakes, List<Point> food){
         this.tiles = tiles;
         this.mySnake = mySnake;
-        this.enemy = findEnemySnake();
         this.snakes = snakes;
         this.food = food;
         pathfinding = new Pathfinding();
 
         this.width = tiles[0].length;
         this.height = tiles.length;
+        this.enemy = findEnemySnake();
     }
 
     public MoveValue maximize(){
