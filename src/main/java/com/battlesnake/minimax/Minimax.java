@@ -50,24 +50,24 @@ public class Minimax {
         MoveValue returnMove;
         MoveValue bestMove = null;
 
-        if(!isMaximizing){
+        if(isMaximizing){
 
             // get value for pathfinding
-            int value = evaluate(enemy, mySnake);
+            int value = evaluate(mySnake, enemy);
             //System.out.println("Value: " + value + ", Maximizing: " + isMaximizing + ", Depth: " + depth);
             if(depth == 3) return new MoveValue(value);
 
             // check snake state
-            List<Move> moves = getPossibleMoves(enemy.getHead(), true);
+            List<Move> moves = getPossibleMoves(mySnake.getHead(), true);
             if(moves.size() <= 0) System.out.println("Well fuck");
             Iterator<Move> movesIterator = moves.iterator();
             while (movesIterator.hasNext()) {
                 Move currentMove = movesIterator.next();
-                enemy.applyMove(currentMove);
-                updateBoard(tiles, enemy);
+                mySnake.applyMove(currentMove);
+                updateBoard(tiles, mySnake);
                 returnMove = maximize(enemy, depth + 1, alpha, beta);
-                enemy.undoMove();
-                updateBoard(tiles, enemy);
+                mySnake.undoMove();
+                updateBoard(tiles, mySnake);
 
                 if ((bestMove == null) || (bestMove.returnValue < returnMove.returnValue)) {
                     bestMove = returnMove;
@@ -87,26 +87,25 @@ public class Minimax {
         }else {
 
             // get value for pathfinding
-            int value = evaluate(mySnake, enemy);
+            int value = evaluate(enemy, mySnake);
             //System.out.println("Value: " + value + ", Maximizing: " + isMaximizing + ", Depth: " + depth);
             if(depth == 3) return new MoveValue(value);
 
             // check snake state
-            List<Move> moves = getPossibleMoves(mySnake.getHead(), true);
+            List<Move> moves = getPossibleMoves(enemy.getHead(), true);
             if(moves.size() <= 0) System.out.println("Well fuck");
             Iterator<Move> movesIterator = moves.iterator();
             while (movesIterator.hasNext()) {
                 Move currentMove = movesIterator.next();
-                mySnake.applyMove(currentMove);
-                updateBoard(tiles, mySnake);
+                enemy.applyMove(currentMove);
+                updateBoard(tiles, enemy);
                 returnMove = maximize(enemy, depth + 1, alpha, beta);
-                mySnake.undoMove();
-                updateBoard(tiles, mySnake);
+                enemy.undoMove();
+                updateBoard(tiles, enemy);
 
                 if ((bestMove == null) || (bestMove.returnValue > returnMove.returnValue)) {
                     bestMove = returnMove;
                     bestMove.returnMove = currentMove;
-
                 }
                 if (returnMove.returnValue < beta) {
                     beta = returnMove.returnValue;
@@ -125,16 +124,16 @@ public class Minimax {
     }
 
     private int evaluate(Snake snake, Snake enemy){
-        int score = 0;
+        int score = -5;
 
-        Point center = new Point(width/2, height/2);
-        score -= Math.abs(snake.getHead().getX() - center.getX()) + Math.abs(snake.getHead().getY()-center.getY());
+        //Point center = new Point(width/2, height/2);
+        //score -= Math.abs(snake.getHead().getX() - center.getX()) + Math.abs(snake.getHead().getY()-center.getY());
 
         if(snake.longerThan(enemy) && snake.checkCollision(enemy) != -1){
-            score = 1000;
+            score = Minimax.MAX;
         }
         else if(!snake.longerThan(enemy) && snake.checkCollision(enemy) != -1){
-            score = -1000;
+            score = Minimax.MIN;
         }
         return score;
     }
