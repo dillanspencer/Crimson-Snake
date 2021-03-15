@@ -119,7 +119,7 @@ public class Minimax {
                 }
             }
         }
-        System.out.println("Best Move: " + bestMove.returnMove);
+        System.out.println("Best Move: " + bestMove.returnMove + " Maximizing: " + isMaximizing);
         return bestMove;
     }
 
