@@ -97,7 +97,7 @@ public class Minimax {
             for (Move currentMove : moves) {
                 enemy.applyMove(currentMove);
                 updateBoard(enemy);
-                returnMove = maximize(enemy, depth + 1, alpha, beta);
+                returnMove = maximize(mySnake, depth + 1, alpha, beta);
                 enemy.undoMove();
                 updateBoard(enemy);
 
@@ -117,7 +117,7 @@ public class Minimax {
                 }
             }
         }
-        System.out.println("Best Move: " + bestMove.returnMove + ", Value: " + bestMove.returnValue + ", Depth: " + depth + ", " + isMaximizing);
+        //System.out.println("Best Move: " + bestMove.returnMove + ", Value: " + bestMove.returnValue + ", Depth: " + depth + ", " + isMaximizing);
         return bestMove;
     }
 
