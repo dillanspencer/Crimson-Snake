@@ -258,7 +258,7 @@ public class Minimax {
 
     public Move findExit(Point current) {
         System.out.println("FINDING EXIT");
-        Move move = getPossibleMoves(current, false).get(0);
+        Move move = getPossibleMoves(current, true).get(0);
         if (move == null) return Move.UP;
         return move;
     }
