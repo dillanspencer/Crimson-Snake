@@ -53,9 +53,7 @@ public class Minimax {
         if(!isMaximizing){
 
             // get value for pathfinding
-            enemy.moveMinMax(this, mySnake, enemy.getHead());
-            int value = pathfinding.getNewestScore();
-            value += evaluate(enemy, mySnake);
+            int value = evaluate(enemy, mySnake);
             System.out.println("Value: " + value + ", Maximizing: " + isMaximizing + ", Depth: " + depth);
             if(depth == 3) return new MoveValue(value);
 
@@ -89,9 +87,7 @@ public class Minimax {
         }else {
 
             // get value for pathfinding
-            mySnake.moveMinMax(this, enemy, mySnake.getHead());
-            int value = pathfinding.getNewestScore();
-            value += evaluate(mySnake, enemy);
+            int value = evaluate(mySnake, enemy);
             System.out.println("Value: " + value + ", Maximizing: " + isMaximizing + ", Depth: " + depth);
             if(depth == 3) return new MoveValue(value);
 
@@ -128,6 +124,10 @@ public class Minimax {
 
     private int evaluate(Snake snake, Snake enemy){
         int score = 0;
+
+        Point center = new Point(width/2, height/2);
+        score -= Math.abs(snake.getHead().getX() - center.getX()) + Math.abs(snake.getHead().getY()-center.getY());
+
         if(snake.longerThan(enemy) && snake.checkCollision(enemy) != -1){
             score = 1000;
         }
