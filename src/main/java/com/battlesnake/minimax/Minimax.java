@@ -22,6 +22,7 @@ public class Minimax {
 
     private Tile[][] tiles;
     private Snake mySnake;
+    private Snake enemy;
     private List<Snake> snakes;
     private List<Point> food;
     private Pathfinding pathfinding;
@@ -32,6 +33,7 @@ public class Minimax {
     public Minimax(Tile[][] tiles, Snake mySnake, List<Snake> snakes, List<Point> food){
         this.tiles = tiles;
         this.mySnake = mySnake;
+        this.enemy = findEnemySnake();
         this.snakes = snakes;
         this.food = food;
         pathfinding = new Pathfinding();
@@ -41,11 +43,11 @@ public class Minimax {
     }
 
     public MoveValue maximize(){
-       return maximize(findEnemySnake(), 0, Minimax.MIN, Minimax.MAX);
+       return maximize(mySnake, 0, Minimax.MIN, Minimax.MAX);
     }
 
-    public MoveValue maximize(Snake enemy, int depth, double alpha, double beta){
-        boolean isMaximizing = (depth % 2 == 0);
+    public MoveValue maximize(Snake player, int depth, double alpha, double beta){
+        boolean isMaximizing = (player.equals(mySnake));
 
         MoveValue returnMove;
         MoveValue bestMove = null;
@@ -60,9 +62,7 @@ public class Minimax {
             // check snake state
             List<Move> moves = getPossibleMoves(mySnake.getHead(), true);
             if(moves.size() <= 0) System.out.println("Well fuck");
-            Iterator<Move> movesIterator = moves.iterator();
-            while (movesIterator.hasNext()) {
-                Move currentMove = movesIterator.next();
+            for (Move currentMove : moves) {
                 mySnake.applyMove(currentMove);
                 updateBoard(mySnake);
                 returnMove = maximize(enemy, depth + 1, alpha, beta);
@@ -94,9 +94,7 @@ public class Minimax {
             // check snake state
             List<Move> moves = getPossibleMoves(enemy.getHead(), true);
             if(moves.size() <= 0) System.out.println("Well fuck");
-            Iterator<Move> movesIterator = moves.iterator();
-            while (movesIterator.hasNext()) {
-                Move currentMove = movesIterator.next();
+            for (Move currentMove : moves) {
                 enemy.applyMove(currentMove);
                 updateBoard(enemy);
                 returnMove = maximize(enemy, depth + 1, alpha, beta);
