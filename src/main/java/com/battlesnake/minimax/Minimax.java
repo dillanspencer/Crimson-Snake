@@ -66,9 +66,11 @@ public class Minimax {
             List<Move> moves = getPossibleMoves(mySnake.getHead(), true);
             if(moves.size() <= 0) System.out.println("Well fuck");
             for (Move currentMove : moves) {
+                clearSnake(mySnake);
                 mySnake.applyMove(currentMove);
                 updateBoard(mySnake);
                 returnMove = maximize(enemy, depth + 1, alpha, beta);
+                clearSnake(mySnake);
                 mySnake.undoMove();
                 updateBoard(mySnake);
 
@@ -98,9 +100,11 @@ public class Minimax {
             List<Move> moves = getPossibleMoves(enemy.getHead(), true);
             if(moves.size() <= 0) System.out.println("Well fuck");
             for (Move currentMove : moves) {
+                clearSnake(enemy);
                 enemy.applyMove(currentMove);
                 updateBoard(enemy);
                 returnMove = maximize(mySnake, depth + 1, alpha, beta);
+                clearSnake(enemy);
                 enemy.undoMove();
                 updateBoard(enemy);
 
@@ -306,6 +310,12 @@ public class Minimax {
                     }
                 }
             }
+        }
+    }
+
+    private void clearSnake(Snake snake){
+        for(Point p: snake.getBody()){
+            tiles[p.getX()][p.getY()] = new Tile(TileType.EMPTY, p.getX(), p.getY());
         }
     }
 
