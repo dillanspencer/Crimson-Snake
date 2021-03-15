@@ -54,7 +54,7 @@ public class Minimax {
 
             // get value for pathfinding
             int value = evaluate(enemy, mySnake);
-            System.out.println("Value: " + value + ", Maximizing: " + isMaximizing + ", Depth: " + depth);
+            //System.out.println("Value: " + value + ", Maximizing: " + isMaximizing + ", Depth: " + depth);
             if(depth == 3) return new MoveValue(value);
 
             // check snake state
@@ -88,7 +88,7 @@ public class Minimax {
 
             // get value for pathfinding
             int value = evaluate(mySnake, enemy);
-            System.out.println("Value: " + value + ", Maximizing: " + isMaximizing + ", Depth: " + depth);
+            //System.out.println("Value: " + value + ", Maximizing: " + isMaximizing + ", Depth: " + depth);
             if(depth == 3) return new MoveValue(value);
 
             // check snake state
@@ -100,6 +100,7 @@ public class Minimax {
                 mySnake.applyMove(currentMove);
                 updateBoard(tiles, mySnake);
                 returnMove = maximize(enemy, depth + 1, alpha, beta);
+                System.out.println("Return Move: " + returnMove.returnMove);
                 mySnake.undoMove();
                 updateBoard(tiles, mySnake);
 
