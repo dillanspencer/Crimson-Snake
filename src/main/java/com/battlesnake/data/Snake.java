@@ -25,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Stack;
 
-public class Snake {
+public class Snake implements Cloneable{
 
     public enum SnakeState{
         HUNGRY,
@@ -52,6 +52,15 @@ public class Snake {
     public Snake() {
         state = SnakeState.HUNGRY;
         previousBody = new Stack<>();
+    }
+
+    public Snake(String id, List<Point> body){
+        this.id = id;
+        this.body = body;
+    }
+
+    public Object clone(){
+        return new Snake(this.id, this.body);
     }
 
 

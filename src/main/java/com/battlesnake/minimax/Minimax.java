@@ -70,9 +70,10 @@ public class Minimax {
             }
             for (Move currentMove : moves) {
                 Tile[][] tempBoard = board.clone();
-                player.applyMove(currentMove);
-                tempBoard = updateBoard(tempBoard, player, player);
-                returnMove = maximize(tempBoard, player, enemy, depth + 1, alpha, beta);
+                Snake tempSnake = (Snake)player.clone();
+                tempSnake.applyMove(currentMove);
+                tempBoard = updateBoard(tempBoard, tempSnake, player);
+                returnMove = maximize(tempBoard, tempSnake, enemy, depth + 1, alpha, beta);
 
                 if ((bestMove == null) || (bestMove.returnValue < returnMove.returnValue)) {
                     bestMove = returnMove;
@@ -104,9 +105,10 @@ public class Minimax {
             }
             for (Move currentMove : moves) {
                 Tile[][] tempBoard = board.clone();
-                enemy.applyMove(currentMove);
-                tempBoard = updateBoard(tempBoard, enemy, enemy);
-                returnMove = maximize(tempBoard, player, enemy, depth + 1, alpha, beta);
+                Snake tempSnake = (Snake) enemy.clone();
+                tempSnake.applyMove(currentMove);
+                tempBoard = updateBoard(tempBoard, tempSnake, enemy);
+                returnMove = maximize(tempBoard, player, tempSnake, depth + 1, alpha, beta);
 
                 if ((bestMove == null) || (bestMove.returnValue > returnMove.returnValue)) {
                     bestMove = returnMove;
