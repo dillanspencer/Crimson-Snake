@@ -71,7 +71,7 @@ public class Minimax {
                 updateBoard(mySnake);
                 returnMove = maximize(enemy, depth + 1, alpha, beta);
                 mySnake.undoMove();
-                System.out.println("Start pos: " + mySnake.getHead());
+                System.out.println("End pos: " + mySnake.getHead());
                 updateBoard(mySnake);
 
                 if ((bestMove == null) || (bestMove.returnValue < returnMove.returnValue)) {
