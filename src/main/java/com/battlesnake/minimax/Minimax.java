@@ -43,7 +43,7 @@ public class Minimax {
     }
 
     public MoveValue maximize(){
-       return maximize(mySnake, enemy, 0, Minimax.MIN, Minimax.MAX);
+       return maximize(tiles, mySnake, enemy, 0, Minimax.MIN, Minimax.MAX);
     }
 
     public MoveValue maximize(Tile[][] board, Snake player, Snake enemy, int depth, double alpha, double beta){
