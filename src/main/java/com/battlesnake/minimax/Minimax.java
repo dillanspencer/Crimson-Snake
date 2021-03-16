@@ -101,8 +101,8 @@ public class Minimax {
                 enemy.applyMove(currentMove);
                 updateBoard(enemy);
                 returnMove = maximize(mySnake, depth + 1, alpha, beta);
-                enemy.undoMove();
-                updateBoard(enemy);
+                //enemy.undoMove();
+                //updateBoard(enemy);
 
                 if ((bestMove == null) || (bestMove.returnValue > returnMove.returnValue)) {
                     bestMove = returnMove;
