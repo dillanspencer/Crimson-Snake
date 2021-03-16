@@ -72,7 +72,7 @@ public class Minimax {
                 Tile[][] tempBoard = board.clone();
                 Snake tempSnake = player;
                 tempSnake.applyMove(currentMove);
-                tempBoard = updateBoard(tempBoard, tempSnake);
+                tempBoard = updateBoard(tempBoard, tempSnake, player);
                 System.out.println("Player pos: " + player.getHead() + ", Depth: " + depth);
                 System.out.println("End pos: " + tempSnake.getHead() + ", Depth: " + depth);
                 returnMove = maximize(tempBoard, tempSnake, enemy, depth + 1, alpha, beta);
@@ -109,7 +109,7 @@ public class Minimax {
                 Tile[][] tempBoard = board.clone();
                 Snake tempSnake = enemy;
                 tempSnake.applyMove(currentMove);
-                tempBoard = updateBoard(tempBoard, enemy);
+                tempBoard = updateBoard(tempBoard, tempSnake, enemy);
                 returnMove = maximize(tempBoard, player, tempSnake, depth + 1, alpha, beta);
 
                 if ((bestMove == null) || (bestMove.returnValue > returnMove.returnValue)) {
@@ -283,8 +283,14 @@ public class Minimax {
         return len;
     }
 
-    private Tile[][] updateBoard(Tile[][] b, Snake snake) {
+    private Tile[][] updateBoard(Tile[][] b, Snake snake, Snake prev) {
         Tile[][] board = b;
+
+        // clear board
+        for(Point p: prev.getBody()){
+            board[p.getX()][p.getY()] = new Tile(TileType.EMPTY, p.getX(), p.getY());
+        }
+
         List<Point> body = snake.getBody();
         Point head = body.get(0);
         for (int i = 0; i < body.size(); i++) {
