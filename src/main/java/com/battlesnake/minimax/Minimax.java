@@ -70,10 +70,9 @@ public class Minimax {
             }
             for (Move currentMove : moves) {
                 Tile[][] tempBoard = board.clone();
-                Snake tempSnake = player;
-                tempSnake.applyMove(currentMove);
-                tempBoard = updateBoard(tempBoard, tempSnake, player);
-                returnMove = maximize(tempBoard, tempSnake, enemy, depth + 1, alpha, beta);
+                player.applyMove(currentMove);
+                tempBoard = updateBoard(tempBoard, player, player);
+                returnMove = maximize(tempBoard, player, enemy, depth + 1, alpha, beta);
 
                 if ((bestMove == null) || (bestMove.returnValue < returnMove.returnValue)) {
                     bestMove = returnMove;
@@ -105,10 +104,9 @@ public class Minimax {
             }
             for (Move currentMove : moves) {
                 Tile[][] tempBoard = board.clone();
-                Snake tempSnake = enemy;
-                tempSnake.applyMove(currentMove);
-                tempBoard = updateBoard(tempBoard, tempSnake, enemy);
-                returnMove = maximize(tempBoard, player, tempSnake, depth + 1, alpha, beta);
+                enemy.applyMove(currentMove);
+                tempBoard = updateBoard(tempBoard, enemy, enemy);
+                returnMove = maximize(tempBoard, player, enemy, depth + 1, alpha, beta);
 
                 if ((bestMove == null) || (bestMove.returnValue > returnMove.returnValue)) {
                     bestMove = returnMove;
@@ -282,11 +280,10 @@ public class Minimax {
     }
 
     private Tile[][] updateBoard(Tile[][] b, Snake snake, Snake prev) {
-        Tile[][] board = b;
 
         // clear board
         for(Point p: prev.getBody()){
-            board[p.getX()][p.getY()] = new Tile(TileType.EMPTY, p.getX(), p.getY());
+            b[p.getX()][p.getY()] = new Tile(TileType.EMPTY, p.getX(), p.getY());
         }
 
         List<Point> body = snake.getBody();
@@ -295,32 +292,32 @@ public class Minimax {
             if ((i == body.size() - 1)
                     && body.size() > 1
                     && !snake.justAte()) {
-                board[body.get(i).getX()][body.get(i).getY()] = new Tile(TileType.TAIL, body.get(i).getX(), body.get(i).getY());
+                b[body.get(i).getX()][body.get(i).getY()] = new Tile(TileType.TAIL, body.get(i).getX(), body.get(i).getY());
             } else {
                 if (body.get(i).getX() < 0 || body.get(i).getY() < 0)
                     System.out.println(body.get(i).getX() + ", " + body.get(i).getY());
-                board[body.get(i).getX()][body.get(i).getY()] = new Tile(TileType.WALL, body.get(i).getX(), body.get(i).getY());
+                b[body.get(i).getX()][body.get(i).getY()] = new Tile(TileType.WALL, body.get(i).getX(), body.get(i).getY());
             }
         }
 
         if (snake.equals(mySnake)) {
-            board[head.getX()][head.getY()] = new Tile(TileType.ME, head.getX(), head.getY());
+            b[head.getX()][head.getY()] = new Tile(TileType.ME, head.getX(), head.getY());
         } else {
-            board[head.getX()][head.getY()] = new Tile(TileType.HEADS, head.getX(), head.getY());
+            b[head.getX()][head.getY()] = new Tile(TileType.HEADS, head.getX(), head.getY());
 
             if (!mySnake.longerThan(snake)) {
                 List<Point> around = findAdjacent(head);
                 for (Point point : around) {
                     if (exists(point)) {
-                        if (board[point.getX()][point.getY()].getTileType() == TileType.EMPTY
-                                || board[point.getX()][point.getY()].getTileType() == TileType.FOOD) {
-                            board[point.getX()][point.getY()].setTileType(TileType.FAKE_WALL);
+                        if (b[point.getX()][point.getY()].getTileType() == TileType.EMPTY
+                                || b[point.getX()][point.getY()].getTileType() == TileType.FOOD) {
+                            b[point.getX()][point.getY()].setTileType(TileType.FAKE_WALL);
                         }
                     }
                 }
             }
         }
-        return board;
+        return b;
     }
 
     private void clearSnake(Snake snake){
