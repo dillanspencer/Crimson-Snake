@@ -54,6 +54,7 @@ public class Snake {
         previousBody = new Stack<>();
     }
 
+
     public int checkCollision(Snake other) {
         for (int i = 0; i < other.getBody().size() - 1; i++) {
             if (getHead().getX() == other.getBody().get(i).getX()) {
