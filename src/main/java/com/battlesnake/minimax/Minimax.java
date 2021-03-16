@@ -64,7 +64,10 @@ public class Minimax {
 
             // check snake state
             List<Move> moves = getPossibleMoves(player.getHead(), true);
-            if(moves.size() <= 0) System.out.println("Well fuck");
+            if(moves.size() <= 0){
+                System.out.println("Well fuck");
+                printBoard(board);
+            }
             for (Move currentMove : moves) {
                 Tile[][] tempBoard = board.clone();
                 Snake tempSnake = player;
@@ -96,7 +99,10 @@ public class Minimax {
 
             // check snake state
             List<Move> moves = getPossibleMoves(enemy.getHead(), true);
-            if(moves.size() <= 0) System.out.println("Well fuck");
+            if(moves.size() <= 0){
+                System.out.println("Well fuck");
+                printBoard(board);
+            }
             for (Move currentMove : moves) {
                 Tile[][] tempBoard = board.clone();
                 Snake tempSnake = enemy;
@@ -315,6 +321,23 @@ public class Minimax {
         for(Point p: snake.getBody()){
             tiles[p.getX()][p.getY()] = new Tile(TileType.EMPTY, p.getX(), p.getY());
         }
+    }
+
+    public void printBoard(Tile[][] board) {
+        System.out.println("----------------------------");
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                if (board[j][i].getTileType() == TileType.WALL) System.out.print("W, ");
+                if (board[j][i].getTileType()  == TileType.ME) System.out.print("ME, ");
+                if (board[j][i].getTileType()  == TileType.EMPTY) System.out.print("E, ");
+                if (board[j][i].getTileType()  == TileType.HEADS) System.out.print("H, ");
+                if (board[j][i].getTileType()  == TileType.TAIL) System.out.print("T, ");
+                if (board[j][i].getTileType()  == TileType.FOOD) System.out.print("F, ");
+            }
+            System.out.println();
+        }
+        System.out.println("----------------------------");
+
     }
 
 }
