@@ -58,12 +58,12 @@ public class Minimax {
         if(isMaximizing){
 
             // get value for pathfinding
-            int value = evaluate(mySnake, enemy);
+            int value = evaluate(player, enemy);
             //System.out.println("Value: " + value + ", Maximizing: " + isMaximizing + ", Depth: " + depth);
             if(depth == 3) return new MoveValue(value);
 
             // check snake state
-            List<Move> moves = getPossibleMoves(mySnake.getHead(), true);
+            List<Move> moves = getPossibleMoves(player.getHead(), true);
             if(moves.size() <= 0) System.out.println("Well fuck");
             for (Move currentMove : moves) {
                 Tile[][] tempBoard = board.clone();
@@ -90,7 +90,7 @@ public class Minimax {
         }else {
 
             // get value for pathfinding
-            int value = evaluate(enemy, mySnake);
+            int value = evaluate(enemy, player);
             //System.out.println("Value: " + value + ", Maximizing: " + isMaximizing + ", Depth: " + depth);
             if(depth == 3) return new MoveValue(value);
 
