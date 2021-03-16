@@ -283,11 +283,6 @@ public class Minimax {
 
     private Tile[][] updateBoard(Tile[][] b, Snake snake, Snake prev) {
 
-        // clear board
-        for(Point p: prev.getBody()){
-            b[p.getX()][p.getY()] = new Tile(TileType.EMPTY, p.getX(), p.getY());
-        }
-
         List<Point> body = snake.getBody();
         Point head = body.get(0);
         for (int i = 0; i < body.size(); i++) {
