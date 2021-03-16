@@ -66,12 +66,12 @@ public class Minimax {
             List<Move> moves = getPossibleMoves(mySnake.getHead(), true);
             if(moves.size() <= 0) System.out.println("Well fuck");
             for (Move currentMove : moves) {
-                System.out.println("Start pos: " + mySnake.getHead());
+                System.out.println("Start pos: " + mySnake.getHead() + ", Depth: " + depth);
                 mySnake.applyMove(currentMove);
                 updateBoard(mySnake);
                 returnMove = maximize(enemy, depth + 1, alpha, beta);
                 mySnake.undoMove();
-                System.out.println("End pos: " + mySnake.getHead());
+                System.out.println("End pos: " + mySnake.getHead() + ", Depth: " + depth);
                 updateBoard(mySnake);
 
                 if ((bestMove == null) || (bestMove.returnValue < returnMove.returnValue)) {
