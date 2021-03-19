@@ -73,9 +73,10 @@ public class Minimax {
                 tempBoard = updateBoard(tempBoard, tempSnake, enemy);
                 returnMove = maximize(tempBoard, tempSnake, enemy, depth+1, alpha, beta);
 
-               if(bestMove == null || returnMove.returnValue > alpha){
+               if(bestMove == null || returnMove.returnValue > bestMove.returnValue){
                    bestMove = returnMove;
                    bestMove.returnMove = currentMove;
+                   bestMove.returnValue = returnMove.returnValue;
                    alpha = returnMove.returnValue;
                }
             }
@@ -99,10 +100,11 @@ public class Minimax {
                 tempBoard = updateBoard(tempBoard, player, tempSnake);
                 returnMove = maximize(tempBoard, player, tempSnake, depth+1, alpha, beta);
 
-                if(returnMove.returnValue < beta){
-                    beta = returnMove.returnValue;
+                if(bestMove == null || returnMove.returnValue > bestMove.returnValue){
+                    bestMove = returnMove;
+                    bestMove.returnMove = currentMove;
+                    bestMove.returnValue = returnMove.returnValue;
                 }
-                bestMove = returnMove;
             }
         }
 
