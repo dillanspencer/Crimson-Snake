@@ -281,8 +281,8 @@ public class Minimax {
         return len;
     }
 
-    private Tile[][] updateBoard(Tile[][] b, Snake snake, Snake prev) {
-
+    private Tile[][] updateBoard(Tile[][] board, Snake snake, Snake prev) {
+        Tile[][] b = board.clone();
         List<Point> body = snake.getBody();
         Point head = body.get(0);
         for (int i = 0; i < body.size(); i++) {
