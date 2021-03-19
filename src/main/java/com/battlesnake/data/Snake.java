@@ -25,9 +25,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Stack;
 
-public class Snake implements Cloneable{
+public class Snake implements Cloneable {
 
-    public enum SnakeState{
+    public enum SnakeState {
         HUNGRY,
         AGRESSIVE,
         FINDTAIL,
@@ -54,7 +54,7 @@ public class Snake implements Cloneable{
         previousBody = new Stack<>();
     }
 
-    public Snake(String id, String name, List<Point> body){
+    public Snake(String id, String name, List<Point> body) {
         this.id = id;
         this.body = body;
         this.name = name;
@@ -62,7 +62,7 @@ public class Snake implements Cloneable{
         previousBody = new Stack<>();
     }
 
-    public Object clone(){
+    public Object clone() {
         return new Snake(this.id, this.name, this.body);
     }
 
@@ -87,62 +87,57 @@ public class Snake implements Cloneable{
         return false;
     }
 
-    public void applyMove(Move move){
+    public void applyMove(Move move) {
         //System.out.println("Before: " + body.get(0));
-        if(move == null){
+        if (move == null) {
             System.out.println("MOVE IS NULL");
             move = Move.UP;
         }
-        for(int i = body.size() - 1; i > 0; i--){
-            body.get(i).setX(body.get(i-1).getX());
-            body.get(i).setY(body.get(i-1).getY());
-            if(body.get(i).getX() == -1 || body.get(i).getX() == 11 ) System.out.print("why are you out of bounds?");
-            if(body.get(i).getY() == -1 || body.get(i).getY() == 11 ) System.out.print("why are you out of bounds?");
+        for (int i = body.size() - 1; i > 0; i--) {
+            body.get(i).setX(body.get(i - 1).getX());
+            body.get(i).setY(body.get(i - 1).getY());
+            if (body.get(i).getX() == -1 || body.get(i).getX() == 11) System.out.print("why are you out of bounds?");
+            if (body.get(i).getY() == -1 || body.get(i).getY() == 11) System.out.print("why are you out of bounds?");
         }
         body.set(0, move.translate(body.get(0)));
         //System.out.println("After: " + body.get(0));
     }
 
-    public void undoMove(){
+    public void undoMove() {
         body = previousBody.pop();
     }
 
 
-    public SnakeState getState(Minimax board, Snake enemy){
-        if(health < 85){
+    public SnakeState getState(Minimax board, Snake enemy) {
+        if (health < 85) {
             System.out.println("HUNGRY");
             return SnakeState.HUNGRY;
-        }
-        else if(enemy == null ){
-            if(body.size() > 3)
+        } else if (enemy == null) {
+            if (body.size() > 3)
                 return SnakeState.FINDTAIL;
             return SnakeState.HUNGRY;
-        }
-        else if(length() > board.longestSnake()){
+        } else if (length() > board.longestSnake()) {
             System.out.println("AGRESSIVE");
             return SnakeState.AGRESSIVE;
-        }else if(length() > board.longestSnake() + 4){
+        } else if (length() > board.longestSnake() + 4) {
             return SnakeState.FINDTAIL;
         }
         return SnakeState.CENTER;
     }
 
-    public SnakeState getState(BoardGame board, Snake enemy){
-        if(health < 50 || board.getTurn() < 5){
+    public SnakeState getState(BoardGame board, Snake enemy) {
+        if (health < 50 || board.getTurn() < 5) {
             System.out.println("HUNGRY");
             return SnakeState.HUNGRY;
+        } else if (length() > board.longestSnake()) {
+            System.out.println("AGRESSIVE");
+            return SnakeState.AGRESSIVE;
         }
+
         return SnakeState.SMART;
-//        else if(length() > board.longestSnake()){
-//           System.out.println("AGRESSIVE");
-//           return SnakeState.AGRESSIVE;
-//       }else if(length() > board.longestSnake() + 4){
-//           return SnakeState.FINDTAIL;
-//       }
-//        return SnakeState.CENTER;
     }
 
-    public Move move(BoardGame board, Snake enemy){
+    public Move move(BoardGame board, Snake enemy) {
 
         SnakeState state = getState(board, enemy);
         Move move = null;
@@ -182,7 +177,7 @@ public class Snake implements Cloneable{
                 move = board.findCenter(getHead());
                 if (move == null) {
                     System.out.println("Center was null");
-                    move = board.findFood(getHead()) ;
+                    move = board.findFood(getHead());
                 }
                 if (move == null) {
                     System.out.println("Food was null");
@@ -193,14 +188,14 @@ public class Snake implements Cloneable{
                 move = new Minimax(board.getBoard(), this, board.getSnakes(), board.getFood()).maximize().returnMove;
                 if (move == null) {
                     System.out.println("Minimax was null");
-                    move = board.findFood(getHead()) ;
+                    move = board.findFood(getHead());
                 }
                 if (move == null) {
                     System.out.println("Food was null");
                     move = board.findTail(getHead());
                 }
         }
-        if(move == null){
+        if (move == null) {
             System.out.println("Tail was null...finding exit");
             return board.findExit(getHead());
         }
@@ -208,7 +203,7 @@ public class Snake implements Cloneable{
         return move;
     }
 
-    public Move moveMinMax(Minimax board, Snake enemy, Point current){
+    public Move moveMinMax(Minimax board, Snake enemy, Point current) {
         SnakeState state = getState(board, enemy);
         Move move = null;
         switch (state) {
@@ -246,13 +241,13 @@ public class Snake implements Cloneable{
                 System.out.println("CENTER");
                 move = board.findCenter(current);
                 if (move == null) {
-                    move = board.findFood(current) ;
+                    move = board.findFood(current);
                 }
                 if (move == null) {
                     move = board.findTail(current);
                 }
         }
-        if(move == null) return board.findExit(current);
+        if (move == null) return board.findExit(current);
 
         return move;
     }
@@ -317,12 +312,12 @@ public class Snake implements Cloneable{
         return this.health;
     }
 
-    public void setHead(Point point){
+    public void setHead(Point point) {
         this.body.set(0, point);
     }
 
-    public void setTail(Point point){
-         this.body.set(this.body.size() - 1, point);
+    public void setTail(Point point) {
+        this.body.set(this.body.size() - 1, point);
     }
 
 }
