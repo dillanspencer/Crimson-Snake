@@ -77,7 +77,6 @@ public class Minimax {
 
             if(depth == 3){
                 int value = evaluate(player, enemy);
-                System.out.println(player.getId() + ", " + enemy.getId());
                 return new MoveValue(value);
             }
 
@@ -116,7 +115,6 @@ public class Minimax {
             score = Minimax.MIN;
             System.out.println("BAD");
         }
-        System.out.println(score);
         return score;
     }
 
