@@ -59,7 +59,7 @@ public class Minimax {
         if(isMaximizing){
 
             // check snake state
-            List<Move> moves = getPossibleMoves(board, player.getHead(), true);
+            List<Move> moves = getPossibleMoves(board, player.getHead(), false);
             if(moves.size() == 0){
                 System.out.println("NO move for me " + depth + ", " + player.getHead());
                 printBoard(board);
