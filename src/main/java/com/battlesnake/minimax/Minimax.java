@@ -58,7 +58,7 @@ public class Minimax {
 
             for (Move currentMove : moves) {
                 Tile[][] tempBoard = board.clone();
-                Snake tempSnake = (Snake) player.clone();
+                Snake tempSnake = player;
                 tempSnake.applyMove(currentMove);
                 tempBoard = updateBoard(tempBoard, tempSnake, player);
                 System.out.println(tempSnake.getHead() + ", " + player.getHead());
