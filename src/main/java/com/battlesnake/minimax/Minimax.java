@@ -278,8 +278,8 @@ public class Minimax {
         }
 
         for (Snake snake : snakes) {
-            if(snake.equals(s)) snake = s;
-            else if(snake.equals(e)) snake = e;
+            if(snake.equals(s)) snake = (Snake) s.clone();
+            else if(snake.equals(e)) snake = (Snake) e.clone();
 
             List<Point> body = snake.getBody();
             Point head = body.get(0);
