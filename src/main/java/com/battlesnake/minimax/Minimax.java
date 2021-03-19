@@ -51,7 +51,7 @@ public class Minimax {
         boolean isMaximizing = (depth % 2 == 0);
 
         int value = evaluate(player, enemy);
-        if(value == 1000 || value == -1000) return new MoveValue(value);
+        if(value == 1000 || value == -1000) return new MoveValue();
 
         MoveValue returnMove;
         MoveValue bestMove = null;
