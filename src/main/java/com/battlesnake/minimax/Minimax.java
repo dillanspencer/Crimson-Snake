@@ -53,7 +53,8 @@ public class Minimax {
         MoveValue bestMove = null;
        // System.out.println("Snake pos: " + mySnake.getHead().getX() + ", " + mySnake.getHead().getY() + ", Depth: " + depth);
         //System.out.println("enemy pos: " + enemy.getHead().getX() + ", " + enemy.getHead().getY() + ", Depth: " + depth);
-        printBoard(board);
+        //printBoard(board);
+        System.out.println("Player size: " + player.length());
 
         if(isMaximizing){
 
