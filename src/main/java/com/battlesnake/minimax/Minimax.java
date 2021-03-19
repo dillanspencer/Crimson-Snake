@@ -50,6 +50,9 @@ public class Minimax {
     public MoveValue maximize(Tile[][] board, Snake player, Snake enemy, int depth, double alpha, double beta){
         boolean isMaximizing = (depth % 2 == 0);
 
+        int value = evaluate(player, enemy);
+        if(value == 1000 || value == -1000) return new MoveValue(value);
+
         MoveValue returnMove;
         MoveValue bestMove = null;
 
@@ -57,7 +60,7 @@ public class Minimax {
 
             // check snake state
             List<Move> moves = getPossibleMoves(board, player.getHead(), true);
-            if(moves.size() == 0 || player.getHead() == enemy.getHead()){
+            if(moves.size() == 0){
                 System.out.println("NO move for me " + depth + ", " + player.getHead());
                 return new MoveValue(MIN);
             }
@@ -79,13 +82,12 @@ public class Minimax {
         }else {
 
             if(depth == 3){
-                int value = evaluate(player, enemy);
                 return new MoveValue(value);
             }
 
             // check snake state
             List<Move> moves = getPossibleMoves(board, enemy.getHead(), true);
-            if(moves.size() == 0 || player.getHead() == enemy.getHead()){
+            if(moves.size() == 0){
                 System.out.println("NO move for ENEMY");
                 return new MoveValue(MAX);
             }
