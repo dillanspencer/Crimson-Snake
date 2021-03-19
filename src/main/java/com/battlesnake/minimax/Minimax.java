@@ -92,7 +92,6 @@ public class Minimax {
                     beta = returnMove.returnValue;
                 }
                 bestMove = returnMove;
-                if(alpha >= beta) break;
             }
         }
 
