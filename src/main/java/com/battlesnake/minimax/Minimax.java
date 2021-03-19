@@ -73,9 +73,9 @@ public class Minimax {
             }
         }else {
 
-            //System.out.println("Value: " + value + ", Maximizing: " + isMaximizing + ", Depth: " + depth);
             if(depth == 3){
                 int value = evaluate(player, enemy);
+                System.out.println(player.getId() + ", " + enemy.getId());
                 return new MoveValue(value);
             }
 
@@ -112,7 +112,6 @@ public class Minimax {
         }
         else if(!snake.longerThan(enemy) && snake.checkCollision(enemy) != -1){
             score = Minimax.MIN;
-            System.out.println("BAD, " + snake.getHead() + ", " + enemy.getHead());
         }
         System.out.println(score);
         return score;
