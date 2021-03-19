@@ -116,10 +116,10 @@ public class Minimax {
         int score = -5;
 
         Point center = new Point(width/2, height/2);
-        score -= Math.abs(snake.getHead().getX() - center.getX()) + Math.abs(snake.getHead().getY()-center.getY());
+        score -= (Math.abs(snake.getHead().getX() - center.getX()) + Math.abs(snake.getHead().getY()-center.getY()));
 
         if(!snake.longerThan(enemy)){
-            score += Math.abs(snake.getHead().getX() - enemy.getHead().getX()) + Math.abs(snake.getHead().getY()- enemy.getHead().getY());
+            score += (Math.abs(snake.getHead().getX() - enemy.getHead().getX()) + Math.abs(snake.getHead().getY()- enemy.getHead().getY())) * 5;
         }
 
         if(snake.longerThan(enemy) && snake.checkCollision(enemy) != -1){
