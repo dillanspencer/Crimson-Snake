@@ -57,6 +57,7 @@ public class Snake implements Cloneable{
     public Snake(String id, String name, List<Point> body){
         this.id = id;
         this.body = body;
+        this.name = name;
         state = SnakeState.HUNGRY;
         previousBody = new Stack<>();
     }
@@ -295,6 +296,7 @@ public class Snake implements Cloneable{
         return this.id;
     }
 
+    @JsonProperty("name")
     public String getName() {
         return this.name;
     }
