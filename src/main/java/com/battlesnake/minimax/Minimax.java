@@ -10,7 +10,6 @@ import com.battlesnake.math.Point;
 import com.battlesnake.pathfinding.Pathfinding;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -60,8 +59,8 @@ public class Minimax {
             if(depth == 3) return new MoveValue(value);
 
             // check snake state
-            List<Move> moves = getPossibleMoves(player.getHead(), true);
-          
+            List<Move> moves = getPossibleMoves(player.getHead(), false);
+
             for (Move currentMove : moves) {
                 Tile[][] tempBoard = board.clone();
                 Snake tempSnake = (Snake)player.clone();
@@ -92,7 +91,7 @@ public class Minimax {
             if(depth == 3) return new MoveValue(value);
 
             // check snake state
-            List<Move> moves = getPossibleMoves(enemy.getHead(), true);
+            List<Move> moves = getPossibleMoves(enemy.getHead(), false);
 
             for (Move currentMove : moves) {
                 Tile[][] tempBoard = board.clone();
