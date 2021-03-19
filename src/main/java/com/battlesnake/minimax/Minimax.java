@@ -264,7 +264,7 @@ public class Minimax {
         return len;
     }
 
-    private Tile[][] updateBoard(Tile[][] b, Snake s, Snake e) {
+    private Tile[][] updateBoard(Tile[][] b, Snake sn, Snake e) {
         Tile[][] board = b.clone();
 
         for (int y = 0; y < height; y++) {
@@ -278,7 +278,7 @@ public class Minimax {
         }
 
         for (Snake snake : snakes) {
-            if(snake.equals(s)) snake = (Snake) s.clone();
+            if(snake.equals(sn)) snake = (Snake) sn.clone();
             else if(snake.equals(e)) snake = (Snake) e.clone();
 
             List<Point> body = snake.getBody();
@@ -306,7 +306,7 @@ public class Minimax {
             } else {
                 board[head.getX()][head.getY()] = new Tile(TileType.HEADS, head.getX(), head.getY());
 
-                if (!s.longerThan(snake)) {
+                if (!mySnake.longerThan(snake)) {
                     List<Point> around = findAdjacent(head);
                     for (Point point : around) {
                         if (exists(point)) {
