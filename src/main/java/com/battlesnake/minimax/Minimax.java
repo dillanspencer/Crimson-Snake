@@ -70,7 +70,6 @@ public class Minimax {
                    bestMove.returnMove = currentMove;
                    alpha = returnMove.returnValue;
                }
-                if(alpha >= beta) break;
             }
         }else {
 
@@ -286,12 +285,12 @@ public class Minimax {
                 }
             }
 
-            if (snake.equals(mySnake)) {
+            if (snake.equals(s)) {
                 board[head.getX()][head.getY()] = new Tile(TileType.ME, head.getX(), head.getY());
             } else {
                 board[head.getX()][head.getY()] = new Tile(TileType.HEADS, head.getX(), head.getY());
 
-                if (!mySnake.longerThan(snake)) {
+                if (!s.longerThan(snake)) {
                     List<Point> around = findAdjacent(head);
                     for (Point point : around) {
                         if (exists(point)) {
