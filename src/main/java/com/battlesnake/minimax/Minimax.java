@@ -61,7 +61,6 @@ public class Minimax {
                 Snake tempSnake = (Snake) player.clone();
                 tempSnake.applyMove(currentMove);
                 tempBoard = updateBoard(tempBoard, tempSnake, enemy);
-                printBoard(tempBoard);
                 returnMove = maximize(tempBoard, tempSnake, enemy, depth+1, alpha, beta);
 
                 if ((bestMove == null) || returnMove.returnValue > alpha) {
@@ -74,10 +73,11 @@ public class Minimax {
             }
         }else {
 
-            // get value for pathfinding
-            int value = evaluate(player, enemy);
             //System.out.println("Value: " + value + ", Maximizing: " + isMaximizing + ", Depth: " + depth);
-            if(depth == 3) return new MoveValue(value);
+            if(depth == 3){
+                int value = evaluate(player, enemy);
+                return new MoveValue(value);
+            }
 
             // check snake state
             List<Move> moves = getPossibleMoves(enemy.getHead(), true);
@@ -108,10 +108,13 @@ public class Minimax {
 
         if(snake.longerThan(enemy) && snake.checkCollision(enemy) != -1){
             score = Minimax.MAX;
+            System.out.println("GOOD");
         }
         else if(!snake.longerThan(enemy) && snake.checkCollision(enemy) != -1){
             score = Minimax.MIN;
+            System.out.println("BAD");
         }
+        System.out.println(score);
         return score;
     }
 
