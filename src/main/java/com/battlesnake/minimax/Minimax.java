@@ -297,7 +297,7 @@ public class Minimax {
                 }
             }
 
-            if (snake.equals(s)) {
+            if (snake.equals(mySnake)) {
                 try {
                     board[head.getX()][head.getY()] = new Tile(TileType.ME, head.getX(), head.getY());
                 }catch (ArrayIndexOutOfBoundsException as){
