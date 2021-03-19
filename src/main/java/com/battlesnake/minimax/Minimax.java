@@ -52,6 +52,7 @@ public class Minimax {
 
         MoveValue returnMove;
         MoveValue bestMove = null;
+        printBoard(board);
 
         if(isMaximizing){
 
