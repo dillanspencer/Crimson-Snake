@@ -88,6 +88,7 @@ public class Snake implements Cloneable{
     }
 
     public void applyMove(Move move){
+        System.out.println("Before: " + body.get(0));
         if(move == null){
             System.out.println("MOVE IS NULL");
             move = Move.UP;
@@ -99,6 +100,7 @@ public class Snake implements Cloneable{
             if(body.get(i).getY() == -1 || body.get(i).getY() == 11 ) System.out.print("why are you out of bounds?");
         }
         body.set(0, move.translate(body.get(0)));
+        System.out.println("After: " + body.get(0));
     }
 
     public void undoMove(){
