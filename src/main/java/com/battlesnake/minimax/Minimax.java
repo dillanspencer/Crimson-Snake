@@ -75,7 +75,7 @@ public class Minimax {
         }else {
 
             // get value for pathfinding
-            int value = evaluate(enemy, player);
+            int value = evaluate(player, enemy);
             //System.out.println("Value: " + value + ", Maximizing: " + isMaximizing + ", Depth: " + depth);
             if(depth == 3) return new MoveValue(value);
 
@@ -276,7 +276,6 @@ public class Minimax {
                         && !snake.justAte()) {
                     board[body.get(i).getX()][body.get(i).getY()] = new Tile(TileType.TAIL, body.get(i).getX(), body.get(i).getY());
                 } else {
-                    if (body.get(i).getX() < 0 || body.get(i).getY() < 0)
                         board[body.get(i).getX()][body.get(i).getY()] = new Tile(TileType.WALL, body.get(i).getX(), body.get(i).getY());
                 }
             }
