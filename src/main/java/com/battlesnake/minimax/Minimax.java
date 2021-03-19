@@ -53,11 +53,6 @@ public class Minimax {
 
         if(isMaximizing){
 
-            // get value for pathfinding
-            int value = evaluate(player, enemy);
-            //System.out.println("Value: " + value + ", Maximizing: " + isMaximizing + ", Depth: " + depth);
-            if(depth == 3) return new MoveValue(value);
-
             // check snake state
             List<Move> moves = getPossibleMoves(player.getHead(), true);
 
@@ -75,7 +70,7 @@ public class Minimax {
                     alpha = bestMove.returnValue;
                     System.out.println("Return move > alpha: " + alpha + ", " + beta + ", " + depth);
                 }
-                if(alpha > beta) break;
+               // if(alpha > beta) break;
             }
         }else {
 
@@ -100,7 +95,7 @@ public class Minimax {
                 if(returnMove.returnValue < beta){
                     beta = returnMove.returnValue;
                 }
-                if(alpha > beta) break;
+                //if(alpha > beta) break;
             }
         }
 
