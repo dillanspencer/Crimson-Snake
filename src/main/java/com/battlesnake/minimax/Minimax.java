@@ -62,13 +62,15 @@ public class Minimax {
                 tempSnake.applyMove(currentMove);
                 tempBoard = updateBoard(tempBoard, tempSnake, player);
                 returnMove = maximize(tempBoard, tempSnake, enemy, depth+1, alpha, beta);
-
-                if(bestMove == null || returnMove.returnValue > alpha){
-                    bestMove = returnMove;
-                    bestMove.returnMove = currentMove;
-                    bestMove.returnValue = returnMove.returnValue;
-                    alpha = bestMove.returnValue;
-                    System.out.println("Return move > alpha: " + alpha + ", " + beta + ", " + depth);
+                try {
+                    if ((bestMove == null) || returnMove.returnValue > alpha) {
+                        bestMove = returnMove;
+                        bestMove.returnMove = currentMove;
+                        bestMove.returnValue = returnMove.returnValue;
+                        alpha = bestMove.returnValue;
+                    }
+                }catch (NullPointerException e){
+                    System.out.println("Null at depth: " + depth);
                 }
                if(alpha >= beta) break;
             }
@@ -77,10 +79,7 @@ public class Minimax {
             // get value for pathfinding
             int value = evaluate(enemy, player);
             //System.out.println("Value: " + value + ", Maximizing: " + isMaximizing + ", Depth: " + depth);
-            if(depth == 3){
-                System.out.println("Reached MAx Depth " + alpha + ", " + beta + ", " + depth);
-                return new MoveValue(value);
-            }
+            if(depth == 3) return new MoveValue(value);
 
             // check snake state
             List<Move> moves = getPossibleMoves(enemy.getHead(), true);
