@@ -73,6 +73,7 @@ public class Minimax {
                     bestMove.returnMove = currentMove;
                     bestMove.returnValue = returnMove.returnValue;
                     alpha = bestMove.returnValue;
+                    System.out.println("Return move > alpha: " + alpha + ", " + beta + ", " + depth);
                 }
                 if(alpha >= beta) break;
             }
@@ -81,7 +82,10 @@ public class Minimax {
             // get value for pathfinding
             int value = evaluate(enemy, player);
             //System.out.println("Value: " + value + ", Maximizing: " + isMaximizing + ", Depth: " + depth);
-            if(depth == 3) return new MoveValue(value);
+            if(depth == 3){
+                System.out.println("Reached MAx Depth " + alpha + ", " + beta + ", " + depth);
+                return new MoveValue(value);
+            }
 
             // check snake state
             List<Move> moves = getPossibleMoves(enemy.getHead(), true);
@@ -109,12 +113,12 @@ public class Minimax {
         //Point center = new Point(width/2, height/2);
         //score -= Math.abs(snake.getHead().getX() - center.getX()) + Math.abs(snake.getHead().getY()-center.getY());
 
-        if(snake.longerThan(enemy) && snake.checkCollision(enemy) != -1){
-            score = Minimax.MAX;
-        }
-        else if(!snake.longerThan(enemy) && snake.checkCollision(enemy) != -1){
-            score = Minimax.MIN;
-        }
+//        if(snake.longerThan(enemy) && snake.checkCollision(enemy) != -1){
+//            score = Minimax.MAX;
+//        }
+//        else if(!snake.longerThan(enemy) && snake.checkCollision(enemy) != -1){
+//            score = Minimax.MIN;
+//        }
         return score;
     }
 
