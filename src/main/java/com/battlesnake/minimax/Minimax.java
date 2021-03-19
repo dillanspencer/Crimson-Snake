@@ -103,7 +103,6 @@ public class Minimax {
 
                 if(bestMove == null || returnMove.returnValue > bestMove.returnValue){
                     bestMove = returnMove;
-                    bestMove.returnMove = currentMove;
                     bestMove.returnValue = returnMove.returnValue;
                 }
             }
@@ -335,7 +334,7 @@ public class Minimax {
     }
 
     public void printBoard(Tile[][] board) {
-        System.out.println("----------------------------");
+        System.out.println("---------------------------- Turn: " );
         for (int i = height-1; i >= 0; i--) {
             for (int j = 0; j < width; j++) {
                 if (board[j][i].getTileType() == TileType.WALL) System.out.print("W, ");
