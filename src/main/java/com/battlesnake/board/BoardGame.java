@@ -61,7 +61,6 @@ public class BoardGame {
                         && !snake.justAte()) {
                     board[body.get(i).getX()][body.get(i).getY()] = new Tile(TileType.TAIL, body.get(i).getX(), body.get(i).getY());
                 } else {
-                    if (body.get(i).getX() < 0 || body.get(i).getY() < 0)
                     board[body.get(i).getX()][body.get(i).getY()] = new Tile(TileType.WALL, body.get(i).getX(), body.get(i).getY());
                 }
             }
