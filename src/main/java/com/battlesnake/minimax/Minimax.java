@@ -112,7 +112,7 @@ public class Minimax {
         }
         else if(!snake.longerThan(enemy) && snake.checkCollision(enemy) != -1){
             score = Minimax.MIN;
-            System.out.println("BAD");
+            System.out.println("BAD, " + snake.getHead() + ", " + enemy.getHead());
         }
         System.out.println(score);
         return score;
