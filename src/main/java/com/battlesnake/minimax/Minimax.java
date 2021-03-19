@@ -57,7 +57,7 @@ public class Minimax {
 
             // check snake state
             List<Move> moves = getPossibleMoves(board, player.getHead(), true);
-            if(moves.size() == 0){
+            if(moves.size() == 0 || player.getHead() == enemy.getHead()){
                 System.out.println("NO move for me " + depth + ", " + player.getHead());
                 return new MoveValue(MIN);
             }
@@ -85,7 +85,7 @@ public class Minimax {
 
             // check snake state
             List<Move> moves = getPossibleMoves(board, enemy.getHead(), true);
-            if(moves.size() == 0){
+            if(moves.size() == 0 || player.getHead() == enemy.getHead()){
                 System.out.println("NO move for ENEMY");
                 return new MoveValue(MAX);
             }
