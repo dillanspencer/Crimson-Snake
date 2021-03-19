@@ -72,10 +72,12 @@ public class Minimax {
                 if(returnMove.returnValue > alpha){
                     alpha = returnMove.returnValue;
                     bestMove = returnMove;
+                    bestMove.returnMove = currentMove;
                 }
                 if (beta <= alpha) {
                     bestMove.returnValue = beta;
-                    break;
+                    bestMove.returnMove = null;
+                    return bestMove; // pruning
                 }
             }
         }else {
@@ -102,10 +104,12 @@ public class Minimax {
                 if(returnMove.returnValue < beta){
                     beta = returnMove.returnValue;
                     bestMove = returnMove;
+                    bestMove.returnMove = currentMove;
                 }
                 if(beta <= alpha){
                     bestMove.returnValue = alpha;
-                    break;
+                    bestMove.returnMove = null;
+                    return bestMove; // pruning
                 }
             }
         }
