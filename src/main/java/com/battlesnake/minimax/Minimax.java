@@ -103,15 +103,15 @@ public class Minimax {
     private int evaluate(Snake snake, Snake enemy){
         int score = -5;
 
-        //Point center = new Point(width/2, height/2);
-        //score -= Math.abs(snake.getHead().getX() - center.getX()) + Math.abs(snake.getHead().getY()-center.getY());
+        Point center = new Point(width/2, height/2);
+        score -= Math.abs(snake.getHead().getX() - center.getX()) + Math.abs(snake.getHead().getY()-center.getY());
 
-//        if(snake.longerThan(enemy) && snake.checkCollision(enemy) != -1){
-//            score = Minimax.MAX;
-//        }
-//        else if(!snake.longerThan(enemy) && snake.checkCollision(enemy) != -1){
-//            score = Minimax.MIN;
-//        }
+        if(snake.longerThan(enemy) && snake.checkCollision(enemy) != -1){
+            score = Minimax.MAX;
+        }
+        else if(!snake.longerThan(enemy) && snake.checkCollision(enemy) != -1){
+            score = Minimax.MIN;
+        }
         return score;
     }
 
