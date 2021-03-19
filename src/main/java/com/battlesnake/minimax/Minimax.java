@@ -73,7 +73,7 @@ public class Minimax {
             }
         }else {
 
-            if(depth == 5){
+            if(depth == 3){
                 int value = evaluate(player, enemy);
                 return new MoveValue(value);
             }
