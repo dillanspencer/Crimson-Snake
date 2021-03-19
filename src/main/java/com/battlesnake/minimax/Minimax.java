@@ -59,29 +59,20 @@ public class Minimax {
             if(depth == 3) return new MoveValue(value);
 
             // check snake state
-            List<Move> moves = getPossibleMoves(player.getHead(), false);
+            List<Move> moves = getPossibleMoves(player.getHead(), true);
 
             for (Move currentMove : moves) {
                 Tile[][] tempBoard = board.clone();
-                Snake tempSnake = (Snake)player.clone();
+                Snake tempSnake = (Snake) player.clone();
                 tempSnake.applyMove(currentMove);
                 tempBoard = updateBoard(tempBoard, tempSnake, player);
-                returnMove = maximize(tempBoard, tempSnake, enemy, depth + 1, alpha, beta);
+                returnMove = maximize(tempBoard, tempSnake, enemy, depth+1, alpha, beta);
 
-                if ((bestMove == null) || (bestMove.returnValue < returnMove.returnValue)) {
+                if(returnMove.returnValue > alpha){
                     bestMove = returnMove;
-                    bestMove.returnMove = currentMove;
+                    alpha = bestMove.returnValue;
                 }
-                if (returnMove.returnValue > alpha) {
-                    alpha = returnMove.returnValue;
-                    bestMove = returnMove;
-                }
-                if (beta <= alpha) {
-                    //System.out.println("Beta <= Alpha: " + beta + ", " + alpha);
-                    bestMove.returnValue = beta;
-                    bestMove.returnMove = null;
-                    return bestMove; // pruning
-                }
+                if(alpha >= beta) break;
             }
         }else {
 
@@ -91,32 +82,22 @@ public class Minimax {
             if(depth == 3) return new MoveValue(value);
 
             // check snake state
-            List<Move> moves = getPossibleMoves(enemy.getHead(), false);
+            List<Move> moves = getPossibleMoves(enemy.getHead(), true);
 
             for (Move currentMove : moves) {
                 Tile[][] tempBoard = board.clone();
                 Snake tempSnake = (Snake) enemy.clone();
                 tempSnake.applyMove(currentMove);
                 tempBoard = updateBoard(tempBoard, tempSnake, enemy);
-                returnMove = maximize(tempBoard, player, tempSnake, depth + 1, alpha, beta);
+                returnMove = maximize(tempBoard, tempSnake, enemy, depth+1, alpha, beta);
 
-                if ((bestMove == null) || (bestMove.returnValue > returnMove.returnValue)) {
-                    bestMove = returnMove;
-                    bestMove.returnMove = currentMove;
-                }
-                if (returnMove.returnValue < beta) {
+                if(returnMove.returnValue < beta){
                     beta = returnMove.returnValue;
-                    bestMove = returnMove;
                 }
-                if (beta <= alpha) {
-                    //System.out.println("Beta <= Alpha: " + beta + ", " + alpha);
-                    bestMove.returnValue = alpha;
-                    bestMove.returnMove = null;
-                    return bestMove; // pruning
-                }
+                if(alpha >= beta) break;
             }
         }
-        //System.out.println("Best Move: " + bestMove.returnMove + ", Value: " + bestMove.returnValue + ", Depth: " + depth + ", " + isMaximizing);
+
         return bestMove;
     }
 
