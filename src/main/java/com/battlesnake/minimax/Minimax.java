@@ -62,15 +62,12 @@ public class Minimax {
                 tempSnake.applyMove(currentMove);
                 tempBoard = updateBoard(tempBoard, tempSnake, player);
                 returnMove = maximize(tempBoard, tempSnake, enemy, depth+1, alpha, beta);
-                try {
-                    if ((bestMove == null) || returnMove.returnValue > alpha) {
-                        bestMove = returnMove;
-                        bestMove.returnMove = currentMove;
-                        bestMove.returnValue = returnMove.returnValue;
-                        alpha = bestMove.returnValue;
-                    }
-                }catch (NullPointerException e){
-                    System.out.println("Null at depth: " + depth);
+
+                if ((bestMove == null) || returnMove.returnValue > alpha) {
+                    bestMove = returnMove;
+                    bestMove.returnMove = currentMove;
+                    bestMove.returnValue = returnMove.returnValue;
+                    alpha = bestMove.returnValue;
                 }
                if(alpha >= beta) break;
             }
@@ -94,8 +91,8 @@ public class Minimax {
                 if(returnMove.returnValue < beta){
                     beta = returnMove.returnValue;
                 }
-                if(alpha >= beta) break;
                 bestMove = returnMove;
+                if(alpha >= beta) break;
             }
         }
 
