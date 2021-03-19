@@ -60,7 +60,7 @@ public class Minimax {
                 Tile[][] tempBoard = board.clone();
                 Snake tempSnake = player;
                 tempSnake.applyMove(currentMove);
-                tempBoard = updateBoard(tempBoard, tempSnake, player);
+                tempBoard = updateBoard(tempBoard, tempSnake, enemy);
                 System.out.println(tempSnake.getHead() + ", " + player.getHead());
                 returnMove = maximize(tempBoard, tempSnake, enemy, depth+1, alpha, beta);
 
@@ -86,7 +86,7 @@ public class Minimax {
                 Tile[][] tempBoard = board.clone();
                 Snake tempSnake = (Snake) enemy.clone();
                 tempSnake.applyMove(currentMove);
-                tempBoard = updateBoard(tempBoard, tempSnake, enemy);
+                tempBoard = updateBoard(tempBoard, player, tempSnake);
                 returnMove = maximize(tempBoard, tempSnake, enemy, depth+1, alpha, beta);
 
                 if(returnMove.returnValue < beta){
@@ -251,40 +251,50 @@ public class Minimax {
         return len;
     }
 
-    private Tile[][] updateBoard(Tile[][] board, Snake snake, Snake prev) {
-        Tile[][] b = board.clone();
+    private Tile[][] updateBoard(Tile[][] b, Snake s, Snake e) {
+        Tile[][] board = b.clone();
 
-        // Clear old snake
-        for(Point p : prev.getBody()){
-            b[p.getX()][p.getY()] = new Tile(TileType.EMPTY, p.getX(), p.getY());
-        }
-
-        List<Point> body = snake.getBody();
-        Point head = body.get(0);
-        for (int i = 0; i < body.size(); i++) {
-            if ((i == body.size() - 1)
-                    && body.size() > 1
-                    && !snake.justAte()) {
-                b[body.get(i).getX()][body.get(i).getY()] = new Tile(TileType.TAIL, body.get(i).getX(), body.get(i).getY());
-            } else {
-                if (body.get(i).getX() < 0 || body.get(i).getY() < 0)
-                    System.out.println(body.get(i).getX() + ", " + body.get(i).getY());
-                b[body.get(i).getX()][body.get(i).getY()] = new Tile(TileType.WALL, body.get(i).getX(), body.get(i).getY());
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                board[x][y] = new Tile(TileType.EMPTY, x, y);
             }
         }
 
-        if (snake.equals(mySnake)) {
-            b[head.getX()][head.getY()] = new Tile(TileType.ME, head.getX(), head.getY());
-        } else {
-            b[head.getX()][head.getY()] = new Tile(TileType.HEADS, head.getX(), head.getY());
+        for (Point snack : food) {
+            board[snack.getX()][snack.getY()] = new Tile(TileType.FOOD, snack.getX(), snack.getY());
+        }
 
-            if (!mySnake.longerThan(snake)) {
-                List<Point> around = findAdjacent(head);
-                for (Point point : around) {
-                    if (exists(point)) {
-                        if (b[point.getX()][point.getY()].getTileType() == TileType.EMPTY
-                                || b[point.getX()][point.getY()].getTileType() == TileType.FOOD) {
-                            b[point.getX()][point.getY()].setTileType(TileType.FAKE_WALL);
+        for (Snake snake : snakes) {
+            if(snake.equals(s)) snake = s;
+            else if(snake.equals(e)) snake = e;
+
+            List<Point> body = snake.getBody();
+            Point head = body.get(0);
+            for (int i = 0; i < body.size(); i++) {
+                if ((i == body.size() - 1)
+                        && body.size() > 1
+                        && !snake.justAte()) {
+                    board[body.get(i).getX()][body.get(i).getY()] = new Tile(TileType.TAIL, body.get(i).getX(), body.get(i).getY());
+                } else {
+                    if (body.get(i).getX() < 0 || body.get(i).getY() < 0)
+                        board[body.get(i).getX()][body.get(i).getY()] = new Tile(TileType.WALL, body.get(i).getX(), body.get(i).getY());
+                }
+            }
+
+            if (snake.equals(mySnake)) {
+                board[head.getX()][head.getY()] = new Tile(TileType.ME, head.getX(), head.getY());
+            } else {
+                board[head.getX()][head.getY()] = new Tile(TileType.HEADS, head.getX(), head.getY());
+
+                if (!mySnake.longerThan(snake)) {
+                    List<Point> around = findAdjacent(head);
+                    for (Point point : around) {
+                        if (exists(point)) {
+                            if (board[point.getX()][point.getY()].getTileType() == TileType.EMPTY
+                                    || board[point.getX()][point.getY()].getTileType() == TileType.FOOD
+                                    || board[point.getX()][point.getY()].getTileType() == TileType.TAIL) {
+                                board[point.getX()][point.getY()].setTileType(TileType.FAKE_WALL);
+                            }
                         }
                     }
                 }
