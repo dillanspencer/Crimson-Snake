@@ -51,7 +51,7 @@ public class Minimax {
         boolean isMaximizing = (depth % 2 == 0);
 
         int value = evaluate(player, enemy);
-        if(value == 1000 || value == -1000) return new MoveValue();
+        if(value == MAX || value == -MIN) return new MoveValue(value);
 
         MoveValue returnMove;
         MoveValue bestMove = null;
@@ -116,11 +116,11 @@ public class Minimax {
         score -= Math.abs(snake.getHead().getX() - center.getX()) + Math.abs(snake.getHead().getY()-center.getY());
 
         if(snake.length() <= 3 && snake.getHead() == snake.getTail()){
-            score = -1000;
+            score = -MIN;
         }
 
         if(snake.longerThan(enemy) && snake.checkCollision(enemy) != -1){
-            score = 1000;
+            score = MAX;
             System.out.println("GOOD, " + snake.getHead() + ", " + snake.getName());
         }
         else if(!snake.longerThan(enemy) && snake.checkCollision(enemy) != -1){
