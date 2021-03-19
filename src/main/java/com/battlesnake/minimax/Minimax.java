@@ -291,7 +291,11 @@ public class Minimax {
             }
 
             if (snake.equals(s)) {
-                board[head.getX()][head.getY()] = new Tile(TileType.ME, head.getX(), head.getY());
+                try {
+                    board[head.getX()][head.getY()] = new Tile(TileType.ME, head.getX(), head.getY());
+                }catch (ArrayIndexOutOfBoundsException as){
+                    System.out.println("Out of bounds at index: " + head.getX() + ", " + head.getY());
+                }
             } else {
                 board[head.getX()][head.getY()] = new Tile(TileType.HEADS, head.getX(), head.getY());
 
