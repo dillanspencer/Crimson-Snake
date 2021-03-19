@@ -75,10 +75,8 @@ public class Minimax {
                 }
                 if (beta <= alpha) {
                     bestMove.returnValue = beta;
-                    bestMove.returnMove = null;
-                    return bestMove; // pruning
+                    break;
                 }
-                System.out.println(returnMove.returnMove + ", " + returnMove.returnValue);
             }
         }else {
 
@@ -107,8 +105,7 @@ public class Minimax {
                 }
                 if(beta <= alpha){
                     bestMove.returnValue = alpha;
-                    bestMove.returnMove = null;
-                    return bestMove; // pruning
+                    break;
                 }
             }
         }
