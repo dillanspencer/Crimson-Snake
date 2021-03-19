@@ -280,7 +280,11 @@ public class Minimax {
                         && !snake.justAte()) {
                     board[body.get(i).getX()][body.get(i).getY()] = new Tile(TileType.TAIL, body.get(i).getX(), body.get(i).getY());
                 } else {
+                    try {
                         board[body.get(i).getX()][body.get(i).getY()] = new Tile(TileType.WALL, body.get(i).getX(), body.get(i).getY());
+                    }catch (ArrayIndexOutOfBoundsException arr){
+                        System.out.println("Out of bounds at index: " + i);
+                    }
                 }
             }
 
