@@ -91,6 +91,7 @@ public class Minimax {
             List<Move> moves = getPossibleMoves(board, enemy.getHead(), true);
             if(moves.size() == 0){
                 System.out.println("NO move for ENEMY");
+                printBoard(board);
                 return new MoveValue(MAX);
             }
 
@@ -117,8 +118,8 @@ public class Minimax {
         Point center = new Point(width/2, height/2);
         score -= Math.abs(snake.getHead().getX() - center.getX()) + Math.abs(snake.getHead().getY()-center.getY());
 
-        if(snake.length() <= 3 && snake.getHead() == snake.getTail()){
-            score = -MIN;
+        if(!snake.longerThan(enemy)){
+            score += Math.abs(snake.getHead().getX() - enemy.getHead().getX()) + Math.abs(snake.getHead().getY()- enemy.getHead().getY());
         }
 
         if(snake.longerThan(enemy) && snake.checkCollision(enemy) != -1){
