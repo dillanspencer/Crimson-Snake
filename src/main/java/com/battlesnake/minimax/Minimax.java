@@ -75,7 +75,7 @@ public class Minimax {
                     alpha = bestMove.returnValue;
                     System.out.println("Return move > alpha: " + alpha + ", " + beta + ", " + depth);
                 }
-                if(alpha >= beta) break;
+                if(alpha > beta) break;
             }
         }else {
 
@@ -100,7 +100,7 @@ public class Minimax {
                 if(returnMove.returnValue < beta){
                     beta = returnMove.returnValue;
                 }
-                if(alpha >= beta) break;
+                if(alpha > beta) break;
             }
         }
 
