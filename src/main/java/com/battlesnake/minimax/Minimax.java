@@ -61,7 +61,7 @@ public class Minimax {
                 Snake tempSnake = player;
                 tempSnake.applyMove(currentMove);
                 tempBoard = updateBoard(tempBoard, tempSnake, enemy);
-                System.out.println(tempSnake.getHead() + ", " + player.getHead());
+                printBoard(tempBoard);
                 returnMove = maximize(tempBoard, tempSnake, enemy, depth+1, alpha, beta);
 
                 if ((bestMove == null) || returnMove.returnValue > alpha) {
