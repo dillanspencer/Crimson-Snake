@@ -62,6 +62,7 @@ public class Minimax {
             List<Move> moves = getPossibleMoves(board, player.getHead(), true);
             if(moves.size() == 0){
                 System.out.println("NO move for me " + depth + ", " + player.getHead());
+                printBoard(board);
                 return new MoveValue(MIN);
             }
 
