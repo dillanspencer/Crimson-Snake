@@ -18,6 +18,7 @@ public class BoardGame {
     private int height;
     private final int TILE_WIDTH = 1;
     private final int TILE_HEIGHT = 1;
+    private int turn;
 
     // Pathfinding
     private Pathfinding pathfinding;
@@ -32,8 +33,9 @@ public class BoardGame {
 
     private Tile[][] board;
 
-    public void init(Snake mySnake) {
+    public void init(Snake mySnake, int turn) {
         this.mySnake = mySnake;
+        this.turn = turn;
         this.pathfinding = new Pathfinding();
         setupBoard();
     }
@@ -255,6 +257,8 @@ public class BoardGame {
     public void setDeadSnakes(List<Snake> deadSnakes) {
         this.deadSnakes = deadSnakes;
     }
+
+    public int getTurn() {return this.turn;}
 
     @JsonProperty("food")
     public List<Point> getFood() {

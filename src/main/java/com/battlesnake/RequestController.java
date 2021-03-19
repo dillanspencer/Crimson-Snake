@@ -44,7 +44,8 @@ public class RequestController {
         
         Snake mySnake = findOurSnake(request); // kind of handy to have our snake at this level
         BoardGame board = request.getBoard();
-        board.init(mySnake);
+        int turn = request.getTurn();
+        board.init(mySnake, turn);
 
         //Move move = mySnake.move(board, findEnemySnake(request, mySnake));
         Move move = mySnake.move(board, findEnemySnake(request, mySnake));

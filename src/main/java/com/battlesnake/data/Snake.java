@@ -126,81 +126,84 @@ public class Snake implements Cloneable{
     }
 
     public SnakeState getState(BoardGame board, Snake enemy){
-        if(health < 85){
+        if(health < 85 || board.getTurn() < 5){
             System.out.println("HUNGRY");
             return SnakeState.HUNGRY;
         }
-        else if(enemy == null ){
-            if(body.size() > 3)
-                return SnakeState.FINDTAIL;
-            return SnakeState.HUNGRY;
-        }
-        else if(length() > board.longestSnake()){
-           System.out.println("AGRESSIVE");
-           return SnakeState.AGRESSIVE;
-       }else if(length() > board.longestSnake() + 4){
-           return SnakeState.FINDTAIL;
-       }
-        return SnakeState.CENTER;
+        return SnakeState.SMART;
+//        else if(length() > board.longestSnake()){
+//           System.out.println("AGRESSIVE");
+//           return SnakeState.AGRESSIVE;
+//       }else if(length() > board.longestSnake() + 4){
+//           return SnakeState.FINDTAIL;
+//       }
+//        return SnakeState.CENTER;
     }
 
     public Move move(BoardGame board, Snake enemy){
 
-        //MINIMAX
-       return new Minimax(board.getBoard(), this, board.getSnakes(), board.getFood()).maximize().returnMove;
+        SnakeState state = getState(board, enemy);
+        Move move = null;
+        switch (state) {
+            case HUNGRY:
+                System.out.println("HUNGRY");
+                move = board.findFood(getHead());
+                if (move == null) {
+                    move = board.findCenter(getHead());
+                }
+                if (move == null) {
+                    move = board.findTail(getHead());
+                }
+                break;
+            case AGRESSIVE:
+                System.out.println("AGGRESSIVE");
+                move = board.findHead(getHead(), enemy);
+                if (move == null) {
+                    move = board.findCenter(getHead());
+                }
+                if (move == null) {
+                    move = board.findTail(getHead());
+                }
+                break;
+            case FINDTAIL:
+                System.out.println("FINDTAIL");
+                move = board.findTail(getHead());
+                if (move == null) {
+                    move = board.findCenter(getHead());
+                }
+                if (move == null) {
+                    move = board.findHead(getHead(), enemy);
+                }
+                break;
+            case CENTER:
+                System.out.println("CENTER");
+                move = board.findCenter(getHead());
+                if (move == null) {
+                    System.out.println("Center was null");
+                    move = board.findFood(getHead()) ;
+                }
+                if (move == null) {
+                    System.out.println("Food was null");
+                    move = board.findTail(getHead());
+                }
+                break;
+            case SMART:
+                move = new Minimax(board.getBoard(), this, board.getSnakes(), board.getFood()).maximize().returnMove;
+                if (move == null) {
+                    System.out.println("Minimax was null");
+                    move = board.findFood(getHead()) ;
+                }
+                if (move == null) {
+                    System.out.println("Food was null");
+                    move = board.findTail(getHead());
+                }
+        }
+        if(move == null){
+            System.out.println("Tail was null...finding exit");
+            return board.findExit(getHead());
+        }
 
-//        SnakeState state = getState(board, enemy);
-//        Move move = null;
-//        switch (state) {
-//            case HUNGRY:
-//                System.out.println("HUNGRY");
-//                move = board.findFood(getHead());
-//                if (move == null) {
-//                    move = board.findCenter(getHead());
-//                }
-//                if (move == null) {
-//                    move = board.findTail(getHead());
-//                }
-//                break;
-//            case AGRESSIVE:
-//                System.out.println("AGGRESSIVE");
-//                move = board.findHead(getHead(), enemy);
-//                if (move == null) {
-//                    move = board.findCenter(getHead());
-//                }
-//                if (move == null) {
-//                    move = board.findTail(getHead());
-//                }
-//                break;
-//            case FINDTAIL:
-//                System.out.println("FINDTAIL");
-//                move = board.findTail(getHead());
-//                if (move == null) {
-//                    move = board.findCenter(getHead());
-//                }
-//                if (move == null) {
-//                    move = board.findHead(getHead(), enemy);
-//                }
-//                break;
-//            case CENTER:
-//                System.out.println("CENTER");
-//                move = board.findCenter(getHead());
-//                if (move == null) {
-//                    System.out.println("Center was null");
-//                    move = board.findFood(getHead()) ;
-//                }
-//                if (move == null) {
-//                    System.out.println("Food was null");
-//                    move = board.findTail(getHead());
-//                }
-//                break;
-//        }
-//        if(move == null){
-//            System.out.println("Tail was null...finding exit");
-//            return board.findExit(getHead());
-//        }
-//
-//        return move;
+        return move;
     }
 
     public Move moveMinMax(Minimax board, Snake enemy, Point current){
