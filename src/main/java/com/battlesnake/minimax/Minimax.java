@@ -65,13 +65,19 @@ public class Minimax {
                 tempBoard = updateBoard(tempBoard, tempSnake, enemy);
                 returnMove = maximize(tempBoard, tempSnake, enemy, depth+1, alpha, beta);
 
-                if ((bestMove == null) || returnMove.returnValue > alpha) {
+                if ((bestMove == null) || (bestMove.returnValue < returnMove.returnValue)) {
                     bestMove = returnMove;
                     bestMove.returnMove = currentMove;
-                    bestMove.returnValue = returnMove.returnValue;
-                    alpha = bestMove.returnValue;
                 }
-               if(alpha >= beta) break;
+                if(returnMove.returnValue > alpha){
+                    alpha = returnMove.returnValue;
+                    bestMove = returnMove;
+                }
+                if (beta <= alpha) {
+                    bestMove.returnValue = beta;
+                    bestMove.returnMove = null;
+                    return bestMove; // pruning
+                }
             }
         }else {
 
@@ -90,11 +96,19 @@ public class Minimax {
                 tempBoard = updateBoard(tempBoard, player, tempSnake);
                 returnMove = maximize(tempBoard, tempSnake, player, depth+1, alpha, beta);
 
+                if((bestMove == null) || (bestMove.returnValue > returnMove.returnValue)){
+                    bestMove = returnMove;
+                    bestMove.returnMove = currentMove;
+                }
                 if(returnMove.returnValue < beta){
                     beta = returnMove.returnValue;
+                    bestMove = returnMove;
                 }
-                bestMove = returnMove;
-                if(alpha >= beta) break;
+                if(beta <= alpha){
+                    bestMove.returnValue = alpha;
+                    bestMove.returnMove = null;
+                    return bestMove; // pruning
+                }
             }
         }
 
