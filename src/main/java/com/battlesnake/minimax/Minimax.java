@@ -76,7 +76,6 @@ public class Minimax {
                 }
                 if (beta <= alpha) {
                     bestMove.returnValue = beta;
-                    bestMove.returnMove = null;
                     return bestMove; // pruning
                 }
             }
@@ -108,7 +107,6 @@ public class Minimax {
                 }
                 if(beta <= alpha){
                     bestMove.returnValue = alpha;
-                    bestMove.returnMove = null;
                     return bestMove; // pruning
                 }
             }
@@ -122,6 +120,10 @@ public class Minimax {
 
         Point center = new Point(width/2, height/2);
         score -= Math.abs(snake.getHead().getX() - center.getX()) + Math.abs(snake.getHead().getY()-center.getY());
+
+        if(snake.length() <= 3 && snake.getHead() == snake.getTail()){
+            score = -1000;
+        }
 
         if(snake.longerThan(enemy) && snake.checkCollision(enemy) != -1){
             score = 1000;
