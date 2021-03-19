@@ -64,7 +64,6 @@ public class Minimax {
                 tempSnake.applyMove(currentMove);
                 tempBoard = updateBoard(tempBoard, tempSnake, enemy);
                 returnMove = maximize(tempBoard, tempSnake, enemy, depth+1, alpha, beta);
-                System.out.println(returnMove.returnMove + ", " + returnMove.returnValue);
 
                 if ((bestMove == null) || (bestMove.returnValue < returnMove.returnValue)) {
                     bestMove = returnMove;
@@ -79,6 +78,7 @@ public class Minimax {
                     bestMove.returnMove = null;
                     return bestMove; // pruning
                 }
+                System.out.println(returnMove.returnMove + ", " + returnMove.returnValue);
             }
         }else {
 
