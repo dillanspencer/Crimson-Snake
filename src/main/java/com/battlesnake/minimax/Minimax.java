@@ -50,6 +50,7 @@ public class Minimax {
 
         MoveValue returnMove;
         MoveValue bestMove = null;
+        printBoard(board);
 
         if(isMaximizing){
 
@@ -112,6 +113,7 @@ public class Minimax {
         }
         else if(!snake.longerThan(enemy) && snake.checkCollision(enemy) != -1){
             score = Minimax.MIN;
+            System.out.println("BAD");
         }
         System.out.println(score);
         return score;
