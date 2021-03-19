@@ -46,7 +46,7 @@ public class Minimax {
     }
 
     public MoveValue maximize(Tile[][] board, Snake player, Snake enemy, int depth, double alpha, double beta){
-        boolean isMaximizing = (depth % 2 == 1);
+        boolean isMaximizing = (depth % 2 == 0);
 
         MoveValue returnMove;
         MoveValue bestMove = null;
@@ -71,6 +71,7 @@ public class Minimax {
                 if(returnMove.returnValue > alpha){
                     bestMove = returnMove;
                     bestMove.returnMove = currentMove;
+                    bestMove.returnValue = returnMove.returnValue;
                     alpha = bestMove.returnValue;
                 }
                 if(alpha >= beta) break;
