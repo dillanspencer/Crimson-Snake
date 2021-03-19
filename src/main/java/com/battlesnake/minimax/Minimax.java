@@ -274,7 +274,7 @@ public class Minimax {
 
             List<Point> body = snake.getBody();
             Point head = body.get(0);
-            for (int i = 0; i < body.size(); i++) {
+            for (int i = 1; i < body.size(); i++) {
                 if ((i == body.size() - 1)
                         && body.size() > 1
                         && !snake.justAte()) {
