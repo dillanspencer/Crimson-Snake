@@ -126,7 +126,7 @@ public class Snake implements Cloneable {
     }
 
     public SnakeState getState(BoardGame board, Snake enemy) {
-        if (health < 50 || board.getTurn() < 5) {
+        if (health < 80 || board.getTurn() < 5) {
             System.out.println("HUNGRY");
             return SnakeState.HUNGRY;
         } else if (length() > board.longestSnake()) {
