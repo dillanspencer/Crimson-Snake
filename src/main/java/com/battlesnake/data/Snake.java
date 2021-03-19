@@ -91,7 +91,6 @@ public class Snake implements Cloneable{
             System.out.println("MOVE IS NULL");
             move = Move.UP;
         }
-        previousBody.push(body);
         for(int i = body.size() - 1; i > 0; i--){
             body.get(i).setX(body.get(i-1).getX());
             body.get(i).setY(body.get(i-1).getY());

@@ -56,7 +56,7 @@ public class Minimax {
         if(isMaximizing){
 
             // check snake state
-            List<Move> moves = getPossibleMoves(player.getHead(), true);
+            List<Move> moves = getPossibleMoves(board, player.getHead(), true);
 
             for (Move currentMove : moves) {
                 Tile[][] tempBoard = board.clone();
@@ -79,7 +79,7 @@ public class Minimax {
             }
 
             // check snake state
-            List<Move> moves = getPossibleMoves(enemy.getHead(), true);
+            List<Move> moves = getPossibleMoves(board, enemy.getHead(), true);
 
             for (Move currentMove : moves) {
                 Tile[][] tempBoard = board.clone();
@@ -123,8 +123,8 @@ public class Minimax {
     public boolean exists(Point point) {
         if (point.getX() < 0) return false;
         if (point.getY() < 0) return false;
-        if (point.getX() > tiles[0].length - 1) return false;
-        if (point.getY() > tiles.length - 1) return false;
+        if (point.getX() > width-1) return false;
+        if (point.getY() > height-1) return false;
         return true;
     }
 
@@ -152,14 +152,14 @@ public class Minimax {
     }
 
 
-    private boolean movable(Point point, boolean flag) {
-        return !isFilled(point, tiles, flag);
+    private boolean movable(Tile[][] board, Point point, boolean flag) {
+        return !isFilled(point, board, flag);
     }
 
-    private List<Move> getPossibleMoves(Point point, boolean flag) {
+    private List<Move> getPossibleMoves(Tile[][] board, Point point, boolean flag) {
         List<Move> moves = new ArrayList<>();
         for (Map.Entry<Move, Point> move : Move.adjacent(point).entrySet()) {
-            if (movable(move.getValue(), flag))
+            if (movable(board, move.getValue(), flag))
                 moves.add(move.getKey());
         }
         return moves;
@@ -240,7 +240,7 @@ public class Minimax {
 
     public Move findExit(Point current) {
         System.out.println("FINDING EXIT");
-        Move move = getPossibleMoves(current, true).get(0);
+        Move move = getPossibleMoves(tiles, current, true).get(0);
         if (move == null) return Move.UP;
         return move;
     }
