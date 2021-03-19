@@ -70,6 +70,7 @@ public class Minimax {
 
                 if(returnMove.returnValue > alpha){
                     bestMove = returnMove;
+                    bestMove.returnMove = currentMove;
                     alpha = bestMove.returnValue;
                 }
                 if(alpha >= beta) break;
