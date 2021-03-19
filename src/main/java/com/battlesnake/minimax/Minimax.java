@@ -51,10 +51,6 @@ public class Minimax {
 
         MoveValue returnMove;
         MoveValue bestMove = null;
-       // System.out.println("Snake pos: " + mySnake.getHead().getX() + ", " + mySnake.getHead().getY() + ", Depth: " + depth);
-        //System.out.println("enemy pos: " + enemy.getHead().getX() + ", " + enemy.getHead().getY() + ", Depth: " + depth);
-        //printBoard(board);
-        System.out.println("Player size: " + player.length());
 
         if(isMaximizing){
 
@@ -65,10 +61,7 @@ public class Minimax {
 
             // check snake state
             List<Move> moves = getPossibleMoves(player.getHead(), true);
-            if(moves.size() <= 0){
-                System.out.println("Well fuck");
-                printBoard(board);
-            }
+          
             for (Move currentMove : moves) {
                 Tile[][] tempBoard = board.clone();
                 Snake tempSnake = (Snake)player.clone();
@@ -100,10 +93,7 @@ public class Minimax {
 
             // check snake state
             List<Move> moves = getPossibleMoves(enemy.getHead(), true);
-            if(moves.size() <= 0){
-                System.out.println("Well fuck");
-                printBoard(board);
-            }
+
             for (Move currentMove : moves) {
                 Tile[][] tempBoard = board.clone();
                 Snake tempSnake = (Snake) enemy.clone();
