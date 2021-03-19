@@ -42,7 +42,9 @@ public class Minimax {
     }
 
     public MoveValue maximize(){
-       return maximize(tiles, mySnake, enemy, 0, Minimax.MIN, Minimax.MAX);
+        MoveValue move = maximize(tiles, mySnake, enemy, 0, Minimax.MIN, Minimax.MAX);
+        System.out.println(move.returnMove + ", " + move.returnValue);
+        return move;
     }
 
     public MoveValue maximize(Tile[][] board, Snake player, Snake enemy, int depth, double alpha, double beta){
@@ -50,7 +52,6 @@ public class Minimax {
 
         MoveValue returnMove;
         MoveValue bestMove = null;
-        printBoard(board);
 
         if(isMaximizing){
 

@@ -61,6 +61,11 @@ public enum Move {
     return moves;
   }
 
+  @Override
+  public String toString() {
+    return getName();
+  }
+
   @JsonValue
   public String getName() {
     return name().toLowerCase();
