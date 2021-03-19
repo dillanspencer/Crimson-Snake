@@ -122,11 +122,11 @@ public class Minimax {
         score -= Math.abs(snake.getHead().getX() - center.getX()) + Math.abs(snake.getHead().getY()-center.getY());
 
         if(snake.longerThan(enemy) && snake.checkCollision(enemy) != -1){
-            score = -1000;
+            score = 1000;
             System.out.println("GOOD");
         }
         else if(!snake.longerThan(enemy) && snake.checkCollision(enemy) != -1){
-            score = 1000;
+            score = -1000;
             System.out.println("BAD");
         }
         return score;
