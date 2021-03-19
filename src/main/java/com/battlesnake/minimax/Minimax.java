@@ -61,6 +61,7 @@ public class Minimax {
                 Snake tempSnake = (Snake) player.clone();
                 tempSnake.applyMove(currentMove);
                 tempBoard = updateBoard(tempBoard, tempSnake, player);
+                printBoard(tempBoard);
                 returnMove = maximize(tempBoard, tempSnake, enemy, depth+1, alpha, beta);
 
                 if ((bestMove == null) || returnMove.returnValue > alpha) {
@@ -303,11 +304,11 @@ public class Minimax {
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
                 if (board[j][i].getTileType() == TileType.WALL) System.out.print("W, ");
-                if (board[j][i].getTileType()  == TileType.ME) System.out.print("ME, ");
+                if (board[j][i].getTileType()  == TileType.ME) System.out.print("M, ");
                 if (board[j][i].getTileType()  == TileType.EMPTY) System.out.print("E, ");
                 if (board[j][i].getTileType()  == TileType.HEADS) System.out.print("H, ");
                 if (board[j][i].getTileType()  == TileType.TAIL) System.out.print("T, ");
-                if (board[j][i].getTileType()  == TileType.FOOD) System.out.print("F, ");
+                if (board[j][i].getTileType()  == TileType.FAKE_WALL) System.out.print("F, ");
             }
             System.out.println();
         }
