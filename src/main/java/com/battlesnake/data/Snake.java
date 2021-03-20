@@ -129,7 +129,7 @@ public class Snake implements Cloneable {
         if(distance(enemy) < 3){
             return SnakeState.SMART;
         }
-        if (health < 90 || board.getTurn() < 5) {
+        if (health < 75 || board.getTurn() < 5) {
             System.out.println("HUNGRY");
             return SnakeState.HUNGRY;
         } else if (length() > board.longestSnake()) {
