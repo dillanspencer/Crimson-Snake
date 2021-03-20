@@ -119,7 +119,7 @@ public class Minimax {
         score -= (Math.abs(snake.getHead().getX() - center.getX()) + Math.abs(snake.getHead().getY()-center.getY()));
 
         if(!snake.longerThan(enemy)){
-            score += (Math.abs(snake.getHead().getX() - enemy.getHead().getX()) + Math.abs(snake.getHead().getY()- enemy.getHead().getY())) * 2;
+            score += (Math.abs(snake.getHead().getX() - enemy.getHead().getX()) + Math.abs(snake.getHead().getY()- enemy.getHead().getY()));
         }
 
         if(snake.longerThan(enemy) && snake.checkCollision(enemy) != -1){
