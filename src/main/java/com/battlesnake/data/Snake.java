@@ -126,7 +126,10 @@ public class Snake implements Cloneable {
     }
 
     public SnakeState getState(BoardGame board, Snake enemy) {
-        if (health < 80 || board.getTurn() < 5) {
+        if(distance(enemy) < 3){
+            return SnakeState.SMART;
+        }
+        if (health < 90 || board.getTurn() < 5) {
             System.out.println("HUNGRY");
             return SnakeState.HUNGRY;
         } else if (length() > board.longestSnake()) {
@@ -250,6 +253,11 @@ public class Snake implements Cloneable {
         if (move == null) return board.findExit(current);
 
         return move;
+    }
+
+    public int distance(Snake other){
+        Point pos = other.getHead();
+        return Math.abs(getHead().getX() - pos.getX()) + Math.abs(getHead().getY() - pos.getY());
     }
 
     public boolean equals(Object other) {
