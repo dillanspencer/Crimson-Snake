@@ -113,7 +113,7 @@ public class Minimax {
     }
 
     private int evaluate(Snake snake, Snake enemy){
-        int score = -5;
+        int score = 0;
 
         Point center = new Point(width/2, height/2);
         score -= (Math.abs(snake.getHead().getX() - center.getX()) + Math.abs(snake.getHead().getY()-center.getY()));
@@ -121,6 +121,9 @@ public class Minimax {
         if(!snake.longerThan(enemy)){
             score += (Math.abs(snake.getHead().getX() - enemy.getHead().getX()) + Math.abs(snake.getHead().getY()- enemy.getHead().getY()));
         }
+
+        Point food = nearestFood(snake.getHead());
+        if(snake.getHead().equals(food)) score += (100/snake.getHealth()) * 0.25;
 
         if(snake.longerThan(enemy) && snake.checkCollision(enemy) != -1){
             score = MAX;
@@ -208,7 +211,7 @@ public class Minimax {
         int dist = 0;
         Point found = food.get(0);
         for (Point snack : food) {
-            dist = Math.abs((tiles[0].length / 2) - snack.getX()) + (Math.abs((tiles.length / 2) - snack.getY()));
+            dist = Math.abs((current.getX()) - snack.getX()) + (Math.abs((current.getY()) - snack.getY()));
             if (dist < min) {
                 min = dist;
                 found = snack;
