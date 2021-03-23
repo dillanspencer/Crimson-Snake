@@ -85,7 +85,7 @@ public class Minimax {
             }
         }else {
 
-            if(depth == 3){
+            if(depth == 5){
                 return new MoveValue(value);
             }
 
