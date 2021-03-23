@@ -343,7 +343,7 @@ public class Minimax {
     public void printBoard(Tile[][] board) {
         System.out.println("---------------------------- Turn: " );
         for (int i = height-1; i >= 0; i--) {
-            for (int j = width -1; j >= 0; j--) {
+            for (int j = 0; j < width-1; j++) {
                 if (board[j][i].getTileType() == TileType.WALL) System.out.print("W, ");
                 if (board[j][i].getTileType()  == TileType.ME) System.out.print("M, ");
                 if (board[j][i].getTileType()  == TileType.EMPTY) System.out.print("E, ");
