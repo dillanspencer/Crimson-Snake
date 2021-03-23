@@ -54,16 +54,17 @@ public class Snake implements Cloneable {
         previousBody = new Stack<>();
     }
 
-    public Snake(String id, String name, List<Point> body) {
+    public Snake(String id, String name, int health, List<Point> body) {
         this.id = id;
         this.body = body;
         this.name = name;
+        this.health = health;
         state = SnakeState.HUNGRY;
         previousBody = new Stack<>();
     }
 
     public Object clone() {
-        return new Snake(this.id, this.name, this.body);
+        return new Snake(this.id, this.name, this.health, this.body);
     }
 
 
