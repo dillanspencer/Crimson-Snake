@@ -69,7 +69,6 @@ public class Minimax {
             List<Move> moves = getPossibleMoves(board, player.getHead(), false);
             if(moves.size() == 0){
                 System.out.println("NO move for me " + depth + ", " + player.getHead());
-                printBoard(board);
                 return new MoveValue(MIN);
             }
 
@@ -100,7 +99,6 @@ public class Minimax {
             List<Move> moves = getPossibleMoves(board, enemy.getHead(), true);
             if(moves.size() == 0){
                 System.out.println("NO move for ENEMY");
-                printBoard(board);
                 return new MoveValue(MAX);
             }
 
