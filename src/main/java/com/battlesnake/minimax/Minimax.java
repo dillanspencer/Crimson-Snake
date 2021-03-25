@@ -136,7 +136,7 @@ public class Minimax {
             }
         }
         Point center = new Point(width/2, height/2);
-        score -= (Math.abs(snake.getHead().getX() - center.getX()) + Math.abs(snake.getHead().getY()-center.getY())) * 10;
+        score -= (Math.abs(snake.getHead().getX() - center.getX()) + Math.abs(snake.getHead().getY()-center.getY())) * 2;
         score -= (Math.abs(snake.getHead().getX() - enemy.getHead().getX()) + Math.abs(snake.getHead().getY()-enemy.getHead().getY())) * 10;
 
 //        Point food = nearestFood(snake.getHead());
