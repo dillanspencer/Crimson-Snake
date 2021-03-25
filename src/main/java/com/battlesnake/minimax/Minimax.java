@@ -135,9 +135,9 @@ public class Minimax {
                 score += regions[move.getValue().getX()][move.getValue().getY()];
             }
         }
-//        Point center = new Point(width/2, height/2);
-//        score -= (Math.abs(snake.getHead().getX() - center.getX()) + Math.abs(snake.getHead().getY()-center.getY()));
-//
+        Point center = new Point(width/2, height/2);
+        score -= (Math.abs(snake.getHead().getX() - center.getX()) + Math.abs(snake.getHead().getY()-center.getY())) * 10;
+
 //        Point food = nearestFood(snake.getHead());
 //        if(snake.getHead().equals(food)) score += (100/snake.getHealth()) * 0.25;
 //
