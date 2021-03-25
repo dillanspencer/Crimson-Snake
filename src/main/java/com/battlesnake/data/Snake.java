@@ -149,7 +149,7 @@ public class Snake implements Cloneable {
                 System.out.println("HUNGRY");
                 move = board.findFood(getHead());
                 if (move == null) {
-                    move = board.findCenter(getHead());
+                    move = new Minimax(board.getBoard(), this, board.getSnakes(), board.getFood(), turn).maximize().returnMove;
                 }
                 if (move == null) {
                     move = board.findTail(getHead());
@@ -159,7 +159,7 @@ public class Snake implements Cloneable {
                 System.out.println("AGGRESSIVE");
                 move = board.findHead(getHead(), enemy);
                 if (move == null) {
-                    move = board.findCenter(getHead());
+                    move = new Minimax(board.getBoard(), this, board.getSnakes(), board.getFood(), turn).maximize().returnMove;
                 }
                 if (move == null) {
                     move = board.findTail(getHead());
@@ -169,7 +169,7 @@ public class Snake implements Cloneable {
                 System.out.println("FINDTAIL");
                 move = board.findTail(getHead());
                 if (move == null) {
-                    move = board.findCenter(getHead());
+                    move = new Minimax(board.getBoard(), this, board.getSnakes(), board.getFood(), turn).maximize().returnMove;
                 }
                 if (move == null) {
                     move = board.findHead(getHead(), enemy);
@@ -179,7 +179,7 @@ public class Snake implements Cloneable {
                 System.out.println("CENTER");
                 move = board.findCenter(getHead());
                 if (move == null) {
-                    System.out.println("Center was null");
+                    move = new Minimax(board.getBoard(), this, board.getSnakes(), board.getFood(), turn).maximize().returnMove;
                     move = board.findFood(getHead());
                 }
                 if (move == null) {
