@@ -34,7 +34,6 @@ public class Minimax {
 
     public Minimax(Tile[][] tiles, Snake mySnake, List<Snake> snakes, List<Point> food){
         this.tiles = tiles;
-        this.regions = new Integer[width][height];
         this.mySnake = mySnake;
         this.snakes = snakes;
         this.food = food;
@@ -43,6 +42,7 @@ public class Minimax {
         this.width = tiles[0].length;
         this.height = tiles.length;
         this.enemy = findEnemySnake();
+        this.regions = new Integer[width][height];
         fillIn(tiles, this.regions, mySnake);
     }
 
