@@ -134,7 +134,7 @@ public class Snake implements Cloneable {
         } else if (length() > board.longestSnake()) {
             System.out.println("AGRESSIVE");
             return SnakeState.AGRESSIVE;
-        }else if(distance(enemy) > 3){
+        }else if(distance(enemy) > 4){
             System.out.println("HUNGRY");
             return SnakeState.HUNGRY;
         }
