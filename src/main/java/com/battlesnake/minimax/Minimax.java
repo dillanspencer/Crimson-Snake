@@ -136,12 +136,12 @@ public class Minimax {
             }
         }
         Point center = new Point(width/2, height/2);
-        score -= (Math.abs(snake.getHead().getX() - center.getX()) + Math.abs(snake.getHead().getY()-center.getY())) * 2;
-        score += (Math.abs(snake.getHead().getX() - enemy.getHead().getX()) + Math.abs(snake.getHead().getY()-enemy.getHead().getY())) * 10;
+        score -= (Math.abs(snake.getHead().getX() - center.getX()) + Math.abs(snake.getHead().getY()-center.getY())) * 5;
+        score += (Math.abs(snake.getHead().getX() - enemy.getHead().getX()) + Math.abs(snake.getHead().getY()-enemy.getHead().getY())) * 5;
 
-//        Point food = nearestFood(snake.getHead());
-//        if(snake.getHead().equals(food)) score += (100/snake.getHealth()) * 0.25;
-//
+        for(Point f : food)
+            if(snake.getHead().equals(f)) score += (1000/snake.getHealth());
+
         if(snake.longerThan(enemy) && snake.checkCollision(enemy) != -1){
             score = MAX;
             System.out.println("GOOD, " + snake.getHead() + ", " + snake.getName());
