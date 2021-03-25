@@ -128,12 +128,15 @@ public class Snake implements Cloneable {
     }
 
     public SnakeState getState(BoardGame board, Snake enemy) {
-        if (health < 25 || distance(enemy) > 3) {
+        if (health < 25) {
             System.out.println("HUNGRY");
             return SnakeState.HUNGRY;
         } else if (length() > board.longestSnake()) {
             System.out.println("AGRESSIVE");
             return SnakeState.AGRESSIVE;
+        }else if(distance(enemy) > 3){
+            System.out.println("HUNGRY");
+            return SnakeState.HUNGRY;
         }
 
         return SnakeState.SMART;
