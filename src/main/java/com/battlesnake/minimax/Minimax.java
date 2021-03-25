@@ -141,14 +141,14 @@ public class Minimax {
 //        Point food = nearestFood(snake.getHead());
 //        if(snake.getHead().equals(food)) score += (100/snake.getHealth()) * 0.25;
 //
-//        if(snake.longerThan(enemy) && snake.checkCollision(enemy) != -1){
-//            score = MAX;
-//            System.out.println("GOOD, " + snake.getHead() + ", " + snake.getName());
-//        }
-//        else if(!snake.longerThan(enemy) && snake.checkCollision(enemy) != -1){
-//            score = MIN;
-//            System.out.println("BAD");
-//        }
+        if(snake.longerThan(enemy) && snake.checkCollision(enemy) != -1){
+            score = MAX;
+            System.out.println("GOOD, " + snake.getHead() + ", " + snake.getName());
+        }
+        else if(!snake.longerThan(enemy) && snake.checkCollision(enemy) != -1){
+            score = MIN;
+            System.out.println("BAD");
+        }
         System.out.println("Score: " + score);
         return score;
     }
