@@ -42,6 +42,7 @@ public class Snake implements Cloneable {
     private String name;      //string
     private String taunt;     // optional
     private int health; //0..100
+    private int turn;
     private Point position;
     private List<Point> body;
     private Stack<List<Point>> previousBody;
@@ -141,6 +142,7 @@ public class Snake implements Cloneable {
     public Move move(BoardGame board, Snake enemy) {
 
         SnakeState state = getState(board, enemy);
+        this.turn = board.getTurn();
         Move move = null;
         switch (state) {
             case HUNGRY:
@@ -189,7 +191,7 @@ public class Snake implements Cloneable {
                 if(enemy == null) {
                     return board.findFood(getHead());
                 }
-                move = new Minimax(board.getBoard(), this, board.getSnakes(), board.getFood()).maximize().returnMove;
+                move = new Minimax(board.getBoard(), this, board.getSnakes(), board.getFood(), turn).maximize().returnMove;
                 if (move == null) {
                     System.out.println("Minimax was null");
                     move = board.findFood(getHead());

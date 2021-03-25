@@ -31,12 +31,14 @@ public class Minimax {
 
     private int width;
     private int height;
+    private int turn;
 
-    public Minimax(Tile[][] tiles, Snake mySnake, List<Snake> snakes, List<Point> food){
+    public Minimax(Tile[][] tiles, Snake mySnake, List<Snake> snakes, List<Point> food, int turn){
         this.tiles = tiles;
         this.mySnake = mySnake;
         this.snakes = snakes;
         this.food = food;
+        this.turn = turn;
         this.pathfinding = new Pathfinding();
 
         this.width = tiles[0].length;
@@ -136,8 +138,8 @@ public class Minimax {
             }
         }
         Point center = new Point(width/2, height/2);
-        score -= (Math.abs(snake.getHead().getX() - center.getX()) + Math.abs(snake.getHead().getY()-center.getY())) * 10;
-        score += (Math.abs(snake.getHead().getX() - enemy.getHead().getX()) + Math.abs(snake.getHead().getY()-enemy.getHead().getY()))*2;
+        score -= (Math.abs(snake.getHead().getX() - center.getX()) + Math.abs(snake.getHead().getY()-center.getY())) * 5;
+        score += (Math.abs(snake.getHead().getX() - enemy.getHead().getX()) + Math.abs(snake.getHead().getY()-enemy.getHead().getY()));
 
         for(Point f : food)
             if(snake.getHead().equals(f)) score += (1000/snake.getHealth());
@@ -444,7 +446,7 @@ public class Minimax {
     }
 
     public void printBoard(Tile[][] board) {
-        System.out.println("---------------------------- Turn: " );
+        System.out.println("---------------------------- Turn: " + turn);
         for (int i = height-1; i >= 0; i--) {
             for (int j = 0; j < width-1; j++) {
                 if (board[j][i].getTileType() == TileType.WALL) System.out.print("W, ");
