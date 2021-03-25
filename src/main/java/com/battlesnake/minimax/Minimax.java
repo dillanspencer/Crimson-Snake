@@ -4,12 +4,14 @@ import com.battlesnake.board.Board;
 import com.battlesnake.board.Tile;
 import com.battlesnake.board.TileType;
 import com.battlesnake.data.Move;
+import com.battlesnake.data.MovePoint;
 import com.battlesnake.data.MoveValue;
 import com.battlesnake.data.Snake;
 import com.battlesnake.math.Point;
 import com.battlesnake.pathfinding.Pathfinding;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -19,7 +21,8 @@ public class Minimax {
     private static final int NONE = -50;
     private static final int MAX = 999999;
 
-    private Tile[][] tiles;
+    private transient Tile[][] tiles;
+    private transient Integer[][] regions;
     private Snake mySnake;
     private Snake enemy;
     private List<Snake> snakes;
@@ -31,6 +34,7 @@ public class Minimax {
 
     public Minimax(Tile[][] tiles, Snake mySnake, List<Snake> snakes, List<Point> food){
         this.tiles = tiles;
+        this.regions = new Integer[width][height];
         this.mySnake = mySnake;
         this.snakes = snakes;
         this.food = food;
@@ -39,6 +43,7 @@ public class Minimax {
         this.width = tiles[0].length;
         this.height = tiles.length;
         this.enemy = findEnemySnake();
+        fillIn(tiles, regions, mySnake);
     }
 
     public MoveValue maximize(){
@@ -50,7 +55,7 @@ public class Minimax {
     public MoveValue maximize(Tile[][] board, Snake player, Snake enemy, int depth, double alpha, double beta){
         boolean isMaximizing = (depth % 2 == 0);
 
-        int value = evaluate(player, enemy);
+        int value = evaluate(board, player, enemy);
         if(value == MAX || value == -MIN) return new MoveValue(value);
 
         MoveValue returnMove;
@@ -118,23 +123,28 @@ public class Minimax {
         return bestMove;
     }
 
-    private int evaluate(Snake snake, Snake enemy){
+    private int evaluate(Tile[][] board, Snake snake, Snake enemy){
         int score = 0;
 
-        Point center = new Point(width/2, height/2);
-        score -= (Math.abs(snake.getHead().getX() - center.getX()) + Math.abs(snake.getHead().getY()-center.getY()));
-
-        Point food = nearestFood(snake.getHead());
-        if(snake.getHead().equals(food)) score += (100/snake.getHealth()) * 0.25;
-
-        if(snake.longerThan(enemy) && snake.checkCollision(enemy) != -1){
-            score = MAX;
-            System.out.println("GOOD, " + snake.getHead() + ", " + snake.getName());
-        }
-        else if(!snake.longerThan(enemy) && snake.checkCollision(enemy) != -1){
-            score = MIN;
-            System.out.println("BAD");
-        }
+        Integer[][] regions = new Integer[width][height];
+        fillIn(board, regions, snake);
+        Point head = snake.getHead();
+        score = regions[head.getX()][head.getY()];
+//        Point center = new Point(width/2, height/2);
+//        score -= (Math.abs(snake.getHead().getX() - center.getX()) + Math.abs(snake.getHead().getY()-center.getY()));
+//
+//        Point food = nearestFood(snake.getHead());
+//        if(snake.getHead().equals(food)) score += (100/snake.getHealth()) * 0.25;
+//
+//        if(snake.longerThan(enemy) && snake.checkCollision(enemy) != -1){
+//            score = MAX;
+//            System.out.println("GOOD, " + snake.getHead() + ", " + snake.getName());
+//        }
+//        else if(!snake.longerThan(enemy) && snake.checkCollision(enemy) != -1){
+//            score = MIN;
+//            System.out.println("BAD");
+//        }
+        System.out.println("Score: " + score);
         return score;
     }
 
@@ -182,6 +192,95 @@ public class Minimax {
                 moves.add(move.getKey());
         }
         return moves;
+    }
+
+    private List<MovePoint> getPossibleMoves(Tile[][] board, MovePoint point, boolean excludeDanger) {
+        ArrayList<MovePoint> moves = new ArrayList<>();
+        Move initial = point.getInitialMove();
+        for (Map.Entry<Move, Point> move : Move.adjacent(point.getPoint()).entrySet()) {
+            if (movable(board, move.getValue(), excludeDanger)) {
+                moves.add(new MovePoint(
+                                move.getKey(),
+                                move.getValue(),
+                                initial != null ? initial : move.getKey()
+                        )
+                );
+            }
+        }
+        return moves;
+    }
+
+    private void fillIn(Tile[][] tiles, Integer[][] regions, Snake s) {
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                if (isFilled(new Point(x, y), tiles, true)) {
+                    regions[x][y] = 0;
+                }
+            }
+        }
+        for (Snake snake : snakes) {
+            if (snake.equals(s) || snake.length() <= 1) continue;
+            Point head = snake.getHead();
+            Point neck = snake.getBody().get(1);
+            Point delta = head.delta(neck);
+            for (int i = 1; i <= 2; i++) {
+                fill(regions, new Point(head.getX() + delta.getX() * i, head.getY() + delta.getY() * i));
+            }
+        }
+        Exit condition = new Exit() {
+            public boolean shouldExit(MovePoint point, Point initial) {
+                return false;
+            }
+
+            public List<MovePoint> onFailure(List<MovePoint> path) {
+                return path;
+            }
+        };
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                if (regions[x][y] != null) continue;
+                List<MovePoint> region = floodFill(tiles, new Point(x, y), condition, false);
+                for (MovePoint point : region) {
+                    regions[point.getPoint().getX()][point.getPoint().getY()] = region.size();
+                }
+            }
+        }
+    }
+
+    private interface Exit {
+        boolean shouldExit(MovePoint point, Point initial);
+
+        List<MovePoint> onFailure(List<MovePoint> path);
+    }
+
+    private void fill(Integer[][] regions, Point point) {
+        if (!exists(point)) return;
+        regions[point.getX()][point.getY()] = 0;
+    }
+
+    protected List<MovePoint> floodFill(Tile[][] tiles, Point point, Exit condition, boolean excludeDanger) {
+        LinkedList<MovePoint> points = new LinkedList<>();
+        ArrayList<MovePoint> list = new ArrayList<>();
+        ArrayList<MovePoint> visited = new ArrayList<>();
+
+        MovePoint loopPoint = new MovePoint(null, point, null);
+        points.add(loopPoint);
+        list.add(loopPoint);
+        while (!points.isEmpty()) {
+            loopPoint = points.pollFirst();
+            visited.add(loopPoint);
+            if (condition.shouldExit(loopPoint, point)) {
+                return visited;
+            }
+            List<MovePoint> moves = getPossibleMoves(tiles, loopPoint, excludeDanger);
+            for (MovePoint move : moves) {
+                move.setLength(loopPoint.getLength() + 1);
+                if (list.contains(move)) continue;
+                points.add(move);
+                list.add(move);
+            }
+        }
+        return condition.onFailure(visited);
     }
 
     private Snake findEnemySnake(){
