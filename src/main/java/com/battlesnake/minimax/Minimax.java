@@ -124,7 +124,6 @@ public class Minimax {
         Point center = new Point(width/2, height/2);
         score -= (Math.abs(snake.getHead().getX() - center.getX()) + Math.abs(snake.getHead().getY()-center.getY()));
 
-
         Point food = nearestFood(snake.getHead());
         if(snake.getHead().equals(food)) score += (100/snake.getHealth()) * 0.25;
 

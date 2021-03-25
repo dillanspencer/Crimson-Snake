@@ -186,6 +186,9 @@ public class Snake implements Cloneable {
                 }
                 break;
             case SMART:
+                if(enemy == null) {
+                    return board.findFood(getHead());
+                }
                 move = new Minimax(board.getBoard(), this, board.getSnakes(), board.getFood()).maximize().returnMove;
                 if (move == null) {
                     System.out.println("Minimax was null");
