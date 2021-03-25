@@ -38,12 +38,12 @@ public class Minimax {
         this.mySnake = mySnake;
         this.snakes = snakes;
         this.food = food;
-        pathfinding = new Pathfinding();
+        this.pathfinding = new Pathfinding();
 
         this.width = tiles[0].length;
         this.height = tiles.length;
         this.enemy = findEnemySnake();
-        fillIn(tiles, regions, mySnake);
+        fillIn(tiles, this.regions, mySnake);
     }
 
     public MoveValue maximize(){
