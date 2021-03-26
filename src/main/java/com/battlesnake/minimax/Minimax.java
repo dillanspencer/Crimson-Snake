@@ -1,6 +1,5 @@
 package com.battlesnake.minimax;
 
-import com.battlesnake.board.Board;
 import com.battlesnake.board.Tile;
 import com.battlesnake.board.TileType;
 import com.battlesnake.data.Move;
@@ -331,7 +330,7 @@ public class Minimax {
     public Move findFood(Point current) {
         Point food = nearestFood(current);
         if(food == null) return null;
-        List<Tile> path = pathfinding.getRoute(tiles, current, food);
+        List<Tile> path = pathfinding.getRoute(tiles, regions, current, food);
         if (path.size() <= 1) return null;
         Move move = moveToTile(path.get(path.size() - 2), current);
         System.out.println("Current Position: " + current + ", Tile Position: " + path.get(path.size() - 2).getX() + ", " + path.get(path.size() - 2).getY());
@@ -340,7 +339,7 @@ public class Minimax {
     }
 
     public Move findTail(Point current) {
-        List<Tile> path = pathfinding.getRoute(tiles, current, mySnake.getTail());
+        List<Tile> path = pathfinding.getRoute(tiles, regions, current, mySnake.getTail());
         if (path.size() <= 1) return null;
         Move move = moveToTile(path.get(path.size() - 2), current);
 
@@ -349,7 +348,7 @@ public class Minimax {
 
     public Move findHead(Point current, Snake enemy) {
         if (enemy == null || enemy.longerThan(mySnake)) return findTail(current);
-        List<Tile> path = pathfinding.getRoute(tiles, current, enemy.getHead());
+        List<Tile> path = pathfinding.getRoute(tiles, regions, current, enemy.getHead());
         if (path.size() <= 1) return null;
         Move move = moveToTile(path.get(path.size() - 2), current);
 
@@ -358,7 +357,7 @@ public class Minimax {
 
     public Move findCenter(Point current) {
         Point center = new Point(tiles[0].length / 2, tiles.length / 2);
-        List<Tile> path = pathfinding.getRoute(tiles, current, center);
+        List<Tile> path = pathfinding.getRoute(tiles, regions, current, center);
         if (path.size() <= 1) return null;
         Move move = moveToTile(path.get(path.size() - 2), current);
 

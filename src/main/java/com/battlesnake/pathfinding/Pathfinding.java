@@ -19,7 +19,7 @@ public class Pathfinding {
 
     private final TileScoreComparator tileScoreComparator = new TileScoreComparator();
 
-    public List<Tile> getRoute(Tile[][] tiles, Point startPosition, Point endPosition) {
+    public List<Tile> getRoute(Tile[][] tiles, Integer[][] regions, Point startPosition, Point endPosition) {
         this.tiles = tiles;
         this.maxWidth = tiles.length;
         this.maxHeight = tiles[0].length;
@@ -122,10 +122,10 @@ public class Pathfinding {
         return Math.abs(currentTile.getX() - (maxWidth/2)) + Math.abs(currentTile.getY() - (maxHeight/2));
     }
 
-    public int getScoreOfTile(Tile tile, int currentScore) {
+    public int getScoreOfTile(Integer[][] regions, Tile tile, int currentScore) {
         int guessScoreLeft = distanceScoreAway(tile);
         int centerCost = distanceFromEdges(tile) * 10;
-        int neighborCost = checkNeighbours(tile);
+        int neighborCost = (regions[tile.getX()][tile.getY()])/10;
         int extraMovementCost = 0;
         if (tile.getTileType() == TileType.FAKE_WALL) {
             extraMovementCost+=1000;
@@ -134,7 +134,7 @@ public class Pathfinding {
             extraMovementCost -= 50;
         }
         int movementScore = currentScore + 1;
-        return guessScoreLeft + movementScore + extraMovementCost + centerCost + neighborCost;
+        return guessScoreLeft + movementScore + extraMovementCost + centerCost - neighborCost;
     }
 
     public int evaluateTile(Tile tile){

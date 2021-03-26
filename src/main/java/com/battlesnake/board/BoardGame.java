@@ -9,7 +9,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 public class BoardGame {
 
@@ -182,14 +181,14 @@ public class BoardGame {
     }
 
     public Move findFood(Point current) {
-        List<Tile> path = pathfinding.getRoute(board, current, nearestFood(current));
+        List<Tile> path = pathfinding.getRoute(board, new Integer[width][height], current, nearestFood(current));
         if (path.size() <= 1) return null;
         Move move = moveToTile(path.get(path.size() - 2), current);
         return move;
     }
 
     public Move findTail(Point current) {
-        List<Tile> path = pathfinding.getRoute(board, current, mySnake.getTail());
+        List<Tile> path = pathfinding.getRoute(board, new Integer[width][height], current, mySnake.getTail());
         if (path.size() <= 1) return null;
         Move move = moveToTile(path.get(path.size() - 2), current);
 
@@ -198,7 +197,7 @@ public class BoardGame {
 
     public Move findHead(Point current, Snake enemy) {
         if (enemy == null || enemy.longerThan(mySnake)) return findTail(current);
-        List<Tile> path = pathfinding.getRoute(board, current, enemy.getHead());
+        List<Tile> path = pathfinding.getRoute(board, new Integer[width][height], current, enemy.getHead());
         if (path.size() <= 1) return null;
         Move move = moveToTile(path.get(path.size() - 2), current);
 
@@ -207,7 +206,7 @@ public class BoardGame {
 
     public Move findCenter(Point current) {
         Point center = new Point(width / 2, height / 2);
-        List<Tile> path = pathfinding.getRoute(board, current, center);
+        List<Tile> path = pathfinding.getRoute(board, new Integer[width][height], current, center);
         if (path.size() <= 1) return null;
         Move move = moveToTile(path.get(path.size() - 2), current);
 
