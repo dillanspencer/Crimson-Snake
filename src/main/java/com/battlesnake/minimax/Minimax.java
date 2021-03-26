@@ -318,6 +318,7 @@ public class Minimax {
         Point found = food.get(0);
         for (Point snack : food) {
             dist = Math.abs((current.getX()) - snack.getX()) + (Math.abs((current.getY()) - snack.getY()));
+            dist -= regions[snack.getX()][snack.getY()];
             if (dist < min) {
                 min = dist;
                 found = snack;
