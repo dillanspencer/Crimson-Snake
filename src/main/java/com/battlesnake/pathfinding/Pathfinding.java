@@ -58,7 +58,7 @@ public class Pathfinding {
                 int nextX = currentX + x;
                 // currentY is now nextY
                 if (validTile(nextX, currentY)) {
-                    int score = getScoreOfTile(tiles[nextX][currentY], currentScore);
+                    int score = getScoreOfTile(regions, tiles[nextX][currentY], currentScore);
                     newestScore += score;
                     if (score < smallestScore) {
                         smallestScore = score;
@@ -74,7 +74,7 @@ public class Pathfinding {
                 // currentX is now nextX
                 int nextY = currentY + y;
                 if (validTile(currentX, nextY)) {
-                    int score = getScoreOfTile(tiles[currentX][nextY], currentScore);
+                    int score = getScoreOfTile(regions, tiles[currentX][nextY], currentScore);
                     newestScore += score;
                     if (score < smallestScore) {
                         smallestScore = score;
