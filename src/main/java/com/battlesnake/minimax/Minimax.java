@@ -45,10 +45,11 @@ public class Minimax {
 
     public void init(Snake mySnake, int turn){
         this.turn = turn;
+        this.mySnake = mySnake;
         this.pathfinding = new Pathfinding();
         this.enemy = findEnemySnake();
-        this.board = updateBoard(this.board, mySnake, enemy);
-        fillIn(board, this.regions, mySnake);
+        this.board = updateBoard(this.board, this.mySnake, enemy);
+        fillIn(board, this.regions, this.mySnake);
     }
 
     public MoveValue maximize(){
