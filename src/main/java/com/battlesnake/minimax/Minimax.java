@@ -388,6 +388,8 @@ public class Minimax {
     }
 
     private Tile[][] updateBoard(Tile[][] b, Snake sn, Snake e) {
+        if(board == null)
+            board = new Tile[width][height];
         Tile[][] board = b.clone();
 
         for (int y = 0; y < height; y++) {
