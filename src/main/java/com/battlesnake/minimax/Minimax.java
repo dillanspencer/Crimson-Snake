@@ -21,22 +21,31 @@ public class Minimax {
     private static final int NONE = -50;
     private static final int MAX = 999999;
 
-    private transient Tile[][] board;
-    private transient Integer[][] regions;
-    private Snake mySnake;
-    private Snake enemy;
-    private List<Snake> snakes;
-    private List<Point> food;
-    private Pathfinding pathfinding;
-
+    // board size
     private int width;
     private int height;
+    private final int TILE_WIDTH = 1;
+    private final int TILE_HEIGHT = 1;
     private int turn;
+
+    // Pathfinding
+    private Pathfinding pathfinding;
+
+    // my snake
+    private Snake mySnake;
+    private Snake enemy;
+
+    // board data
+    private List<Snake> snakes;
+    private List<Snake> deadSnakes;
+    private List<Point> food;
+
+    private Tile[][] board;
+    private Integer[][] regions;
 
     public void init(Snake mySnake, int turn){
         this.turn = turn;
         this.pathfinding = new Pathfinding();
-        this.regions = new Integer[width][height];
         this.enemy = findEnemySnake();
         this.board = updateBoard(this.board, mySnake, enemy);
         fillIn(board, this.regions, mySnake);
@@ -210,6 +219,7 @@ public class Minimax {
     }
 
     private void fillIn(Tile[][] tiles, Integer[][] regions, Snake s) {
+        if(regions == null) regions = new Integer[width][height];
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
                 if (isFilled(new Point(x, y), tiles, true)) {
