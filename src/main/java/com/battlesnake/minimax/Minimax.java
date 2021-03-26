@@ -324,11 +324,14 @@ public class Minimax {
                 found = snack;
             }
         }
+        if(regions[found.getX()][found.getY()] < mySnake.length()*2) return null;
         return found;
     }
 
     public Move findFood(Point current) {
-        List<Tile> path = pathfinding.getRoute(tiles, current, nearestFood(current));
+        Point food = nearestFood(current);
+        if(food == null) return null;
+        List<Tile> path = pathfinding.getRoute(tiles, current, food);
         if (path.size() <= 1) return null;
         Move move = moveToTile(path.get(path.size() - 2), current);
         System.out.println("Current Position: " + current + ", Tile Position: " + path.get(path.size() - 2).getX() + ", " + path.get(path.size() - 2).getY());
