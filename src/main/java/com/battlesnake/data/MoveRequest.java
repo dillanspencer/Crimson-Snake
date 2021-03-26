@@ -18,6 +18,7 @@ package com.battlesnake.data;
 
 import com.battlesnake.board.Board;
 import com.battlesnake.board.BoardGame;
+import com.battlesnake.minimax.Minimax;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MoveRequest {
@@ -26,13 +27,13 @@ public class MoveRequest {
 
   private int turn; // The current turn.
 
-  private BoardGame board;
+  private Minimax board;
 
   public MoveRequest() {
   }
 
   @JsonProperty("board")
-  public BoardGame getBoard(){return this.board;}
+  public Minimax getBoard(){return this.board;}
 
   @JsonProperty("game_id")
   public String getGameId() {

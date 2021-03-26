@@ -8,6 +8,7 @@ import com.battlesnake.data.MoveValue;
 import com.battlesnake.data.Snake;
 import com.battlesnake.math.Point;
 import com.battlesnake.pathfinding.Pathfinding;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -20,7 +21,7 @@ public class Minimax {
     private static final int NONE = -50;
     private static final int MAX = 999999;
 
-    private transient Tile[][] tiles;
+    private transient Tile[][] board;
     private transient Integer[][] regions;
     private Snake mySnake;
     private Snake enemy;
@@ -32,23 +33,19 @@ public class Minimax {
     private int height;
     private int turn;
 
-    public Minimax(Tile[][] tiles, Snake mySnake, List<Snake> snakes, List<Point> food, int turn){
-        this.tiles = tiles;
-        this.mySnake = mySnake;
-        this.snakes = snakes;
-        this.food = food;
+    public void init(Snake mySnake, int turn){
         this.turn = turn;
         this.pathfinding = new Pathfinding();
-
-        this.width = tiles[0].length;
-        this.height = tiles.length;
-        this.enemy = findEnemySnake();
+        this.width = board[0].length;
+        this.height = board.length;
         this.regions = new Integer[width][height];
-        fillIn(tiles, this.regions, mySnake);
+        this.enemy = findEnemySnake();
+        this.board = updateBoard(this.board, mySnake, enemy);
+        fillIn(board, this.regions, mySnake);
     }
 
     public MoveValue maximize(){
-        MoveValue move = maximize(tiles, mySnake, enemy, 0, Minimax.MIN, Minimax.MAX);
+        MoveValue move = maximize(board, mySnake, enemy, 0, Minimax.MIN, Minimax.MAX);
        // System.out.println(move.returnMove + ", " + move.returnValue);
         return move;
     }
@@ -330,7 +327,7 @@ public class Minimax {
     public Move findFood(Point current) {
         Point food = nearestFood(current);
         if(food == null) return null;
-        List<Tile> path = pathfinding.getRoute(tiles, regions, current, food);
+        List<Tile> path = pathfinding.getRoute(board, regions, current, food);
         if (path.size() <= 1) return null;
         Move move = moveToTile(path.get(path.size() - 2), current);
         System.out.println("Current Position: " + current + ", Tile Position: " + path.get(path.size() - 2).getX() + ", " + path.get(path.size() - 2).getY());
@@ -339,7 +336,7 @@ public class Minimax {
     }
 
     public Move findTail(Point current) {
-        List<Tile> path = pathfinding.getRoute(tiles, regions, current, mySnake.getTail());
+        List<Tile> path = pathfinding.getRoute(board, regions, current, mySnake.getTail());
         if (path.size() <= 1) return null;
         Move move = moveToTile(path.get(path.size() - 2), current);
 
@@ -348,7 +345,7 @@ public class Minimax {
 
     public Move findHead(Point current, Snake enemy) {
         if (enemy == null || enemy.longerThan(mySnake)) return findTail(current);
-        List<Tile> path = pathfinding.getRoute(tiles, regions, current, enemy.getHead());
+        List<Tile> path = pathfinding.getRoute(board, regions, current, enemy.getHead());
         if (path.size() <= 1) return null;
         Move move = moveToTile(path.get(path.size() - 2), current);
 
@@ -356,8 +353,8 @@ public class Minimax {
     }
 
     public Move findCenter(Point current) {
-        Point center = new Point(tiles[0].length / 2, tiles.length / 2);
-        List<Tile> path = pathfinding.getRoute(tiles, regions, current, center);
+        Point center = new Point(board[0].length / 2, board.length / 2);
+        List<Tile> path = pathfinding.getRoute(board, regions, current, center);
         if (path.size() <= 1) return null;
         Move move = moveToTile(path.get(path.size() - 2), current);
 
@@ -366,7 +363,7 @@ public class Minimax {
 
     public Move findExit(Point current) {
         System.out.println("FINDING EXIT");
-        Move move = getPossibleMoves(tiles, current, true).get(0);
+        Move move = getPossibleMoves(board, current, true).get(0);
         if (move == null) return Move.UP;
         return move;
     }
@@ -442,7 +439,7 @@ public class Minimax {
 
     private void clearSnake(Snake snake){
         for(Point p: snake.getBody()){
-            tiles[p.getX()][p.getY()] = new Tile(TileType.EMPTY, p.getX(), p.getY());
+            board[p.getX()][p.getY()] = new Tile(TileType.EMPTY, p.getX(), p.getY());
         }
     }
 
@@ -463,5 +460,50 @@ public class Minimax {
         System.out.println("----------------------------");
 
     }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public Snake getMySnake() {
+        return mySnake;
+    }
+
+    public void setMySnake(Snake mySnake) {
+        this.mySnake = mySnake;
+    }
+
+    public List<Snake> getSnakes() {
+        return snakes;
+    }
+
+    public void setSnakes(List<Snake> snakes) {
+        this.snakes = snakes;
+    }
+
+    public int getTurn() {return this.turn;}
+
+    @JsonProperty("food")
+    public List<Point> getFood() {
+        return food;
+    }
+
+    public void setFood(List<Point> food) {
+        this.food = food;
+    }
+
+    public Tile[][] getBoard(){ return board;}
 
 }

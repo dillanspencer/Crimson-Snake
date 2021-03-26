@@ -31,6 +31,7 @@ public class BoardGame {
     private List<Point> food;
 
     private Tile[][] board;
+    private Integer[][] regions;
 
     public void init(Snake mySnake, int turn) {
         this.mySnake = mySnake;

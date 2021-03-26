@@ -22,6 +22,7 @@ import com.battlesnake.data.*;
 import java.util.*;
 
 import com.battlesnake.math.Point;
+import com.battlesnake.minimax.Minimax;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -43,7 +44,7 @@ public class RequestController {
         MoveResponse moveResponse = new MoveResponse();
         
         Snake mySnake = findOurSnake(request); // kind of handy to have our snake at this level
-        BoardGame board = request.getBoard();
+        Minimax board = request.getBoard();
         int turn = request.getTurn();
         board.init(mySnake, turn);
 
