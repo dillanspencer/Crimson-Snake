@@ -95,13 +95,20 @@ public class Snake implements Cloneable {
             System.out.println("MOVE IS NULL");
             move = Move.UP;
         }
-        for (int i = body.size() - 1; i > 0; i--) {
-            body.get(i).setX(body.get(i - 1).getX());
-            body.get(i).setY(body.get(i - 1).getY());
-            if (body.get(i).getX() == -1 || body.get(i).getX() == 11) System.out.print("why are you out of bounds?");
-            if (body.get(i).getY() == -1 || body.get(i).getY() == 11) System.out.print("why are you out of bounds?");
+        if(!justAte()) {
+            for (int i = body.size() - 1; i > 0; i--) {
+                body.get(i).setX(body.get(i - 1).getX());
+                body.get(i).setY(body.get(i - 1).getY());
+                if (body.get(i).getX() == -1 || body.get(i).getX() == 11)
+                    System.out.print("why are you out of bounds?");
+                if (body.get(i).getY() == -1 || body.get(i).getY() == 11)
+                    System.out.print("why are you out of bounds?");
+            }
+            body.set(0, move.translate(body.get(0)));
+        }else{
+            body.add(0, move.translate(body.get(0)));
         }
-        body.set(0, move.translate(body.get(0)));
+
         //System.out.println("After: " + body.get(0));
     }
 
