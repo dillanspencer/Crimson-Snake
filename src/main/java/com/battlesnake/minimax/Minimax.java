@@ -36,8 +36,6 @@ public class Minimax {
     public void init(Snake mySnake, int turn){
         this.turn = turn;
         this.pathfinding = new Pathfinding();
-        this.width = board[0].length;
-        this.height = board.length;
         this.regions = new Integer[width][height];
         this.enemy = findEnemySnake();
         this.board = updateBoard(this.board, mySnake, enemy);
