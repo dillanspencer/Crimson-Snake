@@ -118,23 +118,6 @@ public class Snake implements Cloneable {
 
 
     public SnakeState getState(Minimax board, Snake enemy) {
-        if (health < 85) {
-            System.out.println("HUNGRY");
-            return SnakeState.HUNGRY;
-        } else if (enemy == null) {
-            if (body.size() > 3)
-                return SnakeState.FINDTAIL;
-            return SnakeState.HUNGRY;
-        } else if (length() > board.longestSnake()) {
-            System.out.println("AGRESSIVE");
-            return SnakeState.AGRESSIVE;
-        } else if (length() > board.longestSnake() + 4) {
-            return SnakeState.FINDTAIL;
-        }
-        return SnakeState.CENTER;
-    }
-
-    public SnakeState getState(BoardGame board, Snake enemy) {
         if (health < 25) {
             System.out.println("HUNGRY");
             return SnakeState.HUNGRY;
@@ -148,7 +131,7 @@ public class Snake implements Cloneable {
 
         return SnakeState.SMART;
     }
-
+    
     public Move move(Minimax board, Snake enemy) {
 
         SnakeState state = getState(board, enemy);
@@ -160,7 +143,7 @@ public class Snake implements Cloneable {
                 move = board.findFood(getHead());
                 if (move == null) {
                     System.out.println("Hungry was null my dude");
-                    move = new Minimax().maximize().returnMove;
+                    move = board.maximize().returnMove;
                 }
                 if (move == null) {
                     move = board.findTail(getHead());
