@@ -40,8 +40,8 @@ public class Minimax {
     private List<Snake> deadSnakes;
     private List<Point> food;
 
-    private Tile[][] board;
-    private Integer[][] regions;
+    private transient Tile[][] board;
+    private transient Integer[][] regions;
 
     public void init(Snake mySnake, int turn){
         this.turn = turn;
@@ -49,7 +49,7 @@ public class Minimax {
         this.pathfinding = new Pathfinding();
         this.enemy = findEnemySnake();
         this.board = updateBoard(this.board, this.mySnake, enemy);
-        fillIn(board, this.regions, this.mySnake);
+        this. regions = fillIn(board, regions, this.mySnake);
     }
 
     public MoveValue maximize(){
@@ -219,7 +219,7 @@ public class Minimax {
         return moves;
     }
 
-    private void fillIn(Tile[][] tiles, Integer[][] regions, Snake s) {
+    private Integer[][] fillIn(Tile[][] tiles, Integer[][] regions, Snake s) {
         if(regions == null) regions = new Integer[width][height];
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
@@ -255,6 +255,7 @@ public class Minimax {
                 }
             }
         }
+        return regions;
     }
 
     private interface Exit {
