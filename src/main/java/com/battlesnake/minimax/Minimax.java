@@ -324,7 +324,7 @@ public class Minimax {
         Point found = food.get(0);
         for (Point snack : food) {
             dist = Math.abs((current.getX()) - snack.getX()) + (Math.abs((current.getY()) - snack.getY()));
-            dist -= regions[snack.getX()][snack.getY()];
+            dist -= regions[snack.getX()][snack.getY()]/100;
             if (dist < min) {
                 min = dist;
                 found = snack;
@@ -336,10 +336,11 @@ public class Minimax {
 
     public Move findFood(Point current) {
         Point food = nearestFood(current);
-        if(food == null) return null;
+        if(food == null || mySnake.distance(food) > enemy.distance(food)) return null;
+
         List<Tile> path = pathfinding.getRoute(board, regions, current, food);
-        List<Tile> enemyPath = pathfinding.getRoute(board, regions, enemy.getHead(), food);
-        if (path.size() <= 1 || path.size() > enemyPath.size()) return null;
+
+        if (path.size() <= 1) return null;
         Move move = moveToTile(path.get(path.size() - 2), current);
 
         return move;

@@ -256,6 +256,11 @@ public class Snake implements Cloneable {
         return Math.abs(getHead().getX() - pos.getX()) + Math.abs(getHead().getY() - pos.getY());
     }
 
+    public int distance(Point other){ ;
+        return Math.abs(getHead().getX() - other.getX()) + Math.abs(getHead().getY() - other.getY());
+    }
+
+
     public boolean equals(Object other) {
         if (other instanceof Snake) return equals((Snake) other);
         return false;
