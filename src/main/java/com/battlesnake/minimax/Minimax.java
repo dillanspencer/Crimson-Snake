@@ -398,8 +398,8 @@ public class Minimax {
             board = b.clone();
         }
 
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
+        for (int y = 0; y < 11; y++) {
+            for (int x = 0; x < 11; x++) {
                 board[x][y] = new Tile(TileType.EMPTY, x, y);
             }
         }
