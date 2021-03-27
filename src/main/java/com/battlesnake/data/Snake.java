@@ -139,6 +139,7 @@ public class Snake implements Cloneable {
                     move = board.maximize().returnMove;
                 }
                 if (move == null) {
+                    System.out.println("MAXimize was null my dude");
                     move = board.findTail(getHead());
                 }
                 break;
