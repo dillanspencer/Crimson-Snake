@@ -48,7 +48,7 @@ public class Minimax {
         this.mySnake = mySnake;
         this.pathfinding = new Pathfinding();
         this.enemy = findEnemySnake();
-        updateBoard(this.board, this.mySnake, enemy);
+        this.board = updateBoard(this.mySnake, enemy);
         this. regions = fillIn(board, regions, this.mySnake);
     }
 
@@ -78,10 +78,10 @@ public class Minimax {
             }
 
             for (Move currentMove : moves) {
-                Tile[][] tempBoard = board.clone();
+                Tile[][] tempBoard;
                 Snake tempSnake = (Snake) player.clone();
                 tempSnake.applyMove(currentMove);
-                updateBoard(tempBoard, tempSnake, enemy);
+                tempBoard = updateBoard(tempSnake, enemy);
                 returnMove = maximize(tempBoard, tempSnake, enemy, depth+1, alpha, beta);
 
                if(bestMove == null || returnMove.returnValue > bestMove.returnValue){
@@ -108,10 +108,10 @@ public class Minimax {
             }
 
             for (Move currentMove : moves) {
-                Tile[][] tempBoard = board.clone();
+                Tile[][] tempBoard;
                 Snake tempSnake = (Snake) enemy.clone();
                 tempSnake.applyMove(currentMove);
-                updateBoard(tempBoard, player, tempSnake);
+                tempBoard = updateBoard(player, tempSnake);
                 returnMove = maximize(tempBoard, player, tempSnake, depth+1, alpha, beta);
 
                 if(bestMove == null || returnMove.returnValue < bestMove.returnValue){
@@ -390,9 +390,8 @@ public class Minimax {
         return len;
     }
 
-    private void updateBoard(Tile[][] board, Snake sn, Snake e) {
-        if(board == null)
-            board = new Tile[11][11];
+    private Tile[][] updateBoard(Snake sn, Snake e) {
+        Tile[][] board = new Tile[11][11];
 
         for (int y = 0; y < 11; y++) {
             for (int x = 0; x < 11; x++) {
@@ -447,6 +446,7 @@ public class Minimax {
                 }
             }
         }
+        return board;
     }
 
     private void clearSnake(Snake snake){
