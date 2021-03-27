@@ -338,7 +338,8 @@ public class Minimax {
         Point food = nearestFood(current);
         if(food == null) return null;
         List<Tile> path = pathfinding.getRoute(board, regions, current, food);
-        if (path.size() <= 1) return null;
+        List<Tile> enemyPath = pathfinding.getRoute(board, regions, enemy.getHead(), food);
+        if (path.size() <= 1 || path.size() > enemyPath.size()) return null;
         Move move = moveToTile(path.get(path.size() - 2), current);
 
         return move;
