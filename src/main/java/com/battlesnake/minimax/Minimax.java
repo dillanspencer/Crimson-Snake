@@ -141,7 +141,7 @@ public class Minimax {
             }
         }
         Point center = new Point(width/2, height/2);
-        score -= (Math.abs(snake.getHead().getX() - center.getX()) + Math.abs(snake.getHead().getY()-center.getY())) * 5;
+        score -= (Math.abs(snake.getHead().getX() - center.getX()) + Math.abs(snake.getHead().getY()-center.getY()));
         score += (Math.abs(snake.getHead().getX() - enemy.getHead().getX()) + Math.abs(snake.getHead().getY()-enemy.getHead().getY()));
 
         for(Point f : food)
@@ -428,7 +428,7 @@ public class Minimax {
                 }
             }
 
-            if (snake.equals(mySnake)) {
+            if (snake.equals(sn)) {
                 try {
                     board[head.getX()][head.getY()] = new Tile(TileType.ME, head.getX(), head.getY());
                 }catch (ArrayIndexOutOfBoundsException as){
@@ -437,7 +437,7 @@ public class Minimax {
             } else {
                 board[head.getX()][head.getY()] = new Tile(TileType.HEADS, head.getX(), head.getY());
 
-                if (!mySnake.longerThan(snake)) {
+                if (!sn.longerThan(snake)) {
                     List<Point> around = findAdjacent(head);
                     for (Point point : around) {
                         if (exists(point)) {
