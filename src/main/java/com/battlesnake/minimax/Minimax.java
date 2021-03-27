@@ -340,7 +340,6 @@ public class Minimax {
         List<Tile> path = pathfinding.getRoute(board, regions, current, food);
         if (path.size() <= 1) return null;
         Move move = moveToTile(path.get(path.size() - 2), current);
-        System.out.println("Current Position: " + current + ", Tile Position: " + path.get(path.size() - 2).getX() + ", " + path.get(path.size() - 2).getY());
 
         return move;
     }
