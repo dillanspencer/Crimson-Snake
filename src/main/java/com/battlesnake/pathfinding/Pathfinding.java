@@ -124,7 +124,7 @@ public class Pathfinding {
 
     public int getScoreOfTile(Integer[][] regions, Tile tile, int currentScore) {
         int guessScoreLeft = distanceScoreAway(tile);
-        int centerCost = distanceFromEdges(tile) * 10;
+        int centerCost = distanceFromEdges(tile);
         //int neighborCost = (regions[tile.getX()][tile.getY()]);
         int extraMovementCost = 0;
         if (tile.getTileType() == TileType.FAKE_WALL) {

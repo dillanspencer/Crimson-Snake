@@ -48,7 +48,7 @@ public class Minimax {
         this.mySnake = mySnake;
         this.pathfinding = new Pathfinding();
         this.enemy = findEnemySnake();
-        this.board = updateBoard(this.board, this.mySnake, enemy);
+        updateBoard(this.board, this.mySnake, enemy);
         this. regions = fillIn(board, regions, this.mySnake);
     }
 
@@ -81,7 +81,7 @@ public class Minimax {
                 Tile[][] tempBoard = board.clone();
                 Snake tempSnake = (Snake) player.clone();
                 tempSnake.applyMove(currentMove);
-                tempBoard = updateBoard(tempBoard, tempSnake, enemy);
+                updateBoard(tempBoard, tempSnake, enemy);
                 returnMove = maximize(tempBoard, tempSnake, enemy, depth+1, alpha, beta);
 
                if(bestMove == null || returnMove.returnValue > bestMove.returnValue){
@@ -111,7 +111,7 @@ public class Minimax {
                 Tile[][] tempBoard = board.clone();
                 Snake tempSnake = (Snake) enemy.clone();
                 tempSnake.applyMove(currentMove);
-                tempBoard = updateBoard(tempBoard, player, tempSnake);
+                updateBoard(tempBoard, player, tempSnake);
                 returnMove = maximize(tempBoard, player, tempSnake, depth+1, alpha, beta);
 
                 if(bestMove == null || returnMove.returnValue < bestMove.returnValue){
@@ -390,13 +390,9 @@ public class Minimax {
         return len;
     }
 
-    private Tile[][] updateBoard(Tile[][] b, Snake sn, Snake e) {
-        Tile[][] board;
-        if(b == null)
+    private void updateBoard(Tile[][] board, Snake sn, Snake e) {
+        if(board == null)
             board = new Tile[11][11];
-        else {
-            board = b.clone();
-        }
 
         for (int y = 0; y < 11; y++) {
             for (int x = 0; x < 11; x++) {
@@ -451,7 +447,6 @@ public class Minimax {
                 }
             }
         }
-        return board;
     }
 
     private void clearSnake(Snake snake){
