@@ -69,15 +69,8 @@ public class Snake implements Cloneable {
     }
 
 
-    public int checkCollision(Snake other) {
-        for (int i = 0; i < other.getBody().size() - 1; i++) {
-            if (getHead().getX() == other.getBody().get(i).getX()) {
-                if (getHead().getY() == other.getBody().get(i).getY()) {
-                    return i;
-                }
-            }
-        }
-        return -1;
+    public boolean checkCollision(Snake other) {
+        return getHead().equals(other.getHead());
     }
 
     public boolean checkCollision(Point other) {

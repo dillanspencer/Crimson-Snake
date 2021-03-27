@@ -147,11 +147,11 @@ public class Minimax {
         for(Point f : food)
             if(snake.getHead().equals(f)) score += (1000/snake.getHealth());
 
-        if(snake.longerThan(enemy) && snake.checkCollision(enemy) != -1){
+        if(snake.longerThan(enemy) && snake.checkCollision(enemy)){
             score = MAX;
             System.out.println("GOOD, " + snake.getHead() + ", " + snake.getName());
         }
-        else if(!snake.longerThan(enemy) && snake.checkCollision(enemy) != -1){
+        else if(!snake.longerThan(enemy) && snake.checkCollision(enemy)){
             score = MIN;
             System.out.println("BAD");
         }
@@ -463,7 +463,7 @@ public class Minimax {
     public void printBoard(Tile[][] board) {
         System.out.println("---------------------------- Turn: " + turn);
         for (int i = height-1; i >= 0; i--) {
-            for (int j = 0; j < width-1; j++) {
+            for (int j = 0; j < width; j++) {
                 if (board[j][i].getTileType() == TileType.WALL) System.out.print("W, ");
                 if (board[j][i].getTileType()  == TileType.ME) System.out.print("M, ");
                 if (board[j][i].getTileType()  == TileType.EMPTY) System.out.print("E, ");
