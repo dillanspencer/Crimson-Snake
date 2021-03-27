@@ -374,9 +374,9 @@ public class Minimax {
 
     public Move findExit(Point current) {
         System.out.println("FINDING EXIT");
-        Move move = getPossibleMoves(board, current, true).get(0);
-        if (move == null) return Move.UP;
-        return move;
+        List<Move> moves = getPossibleMoves(board, current, true);
+        if (moves.size() <= 0) return Move.UP;
+        return moves.get(0);
     }
 
     public int longestSnake() {
