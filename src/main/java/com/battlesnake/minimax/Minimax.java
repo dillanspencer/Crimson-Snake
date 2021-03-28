@@ -154,6 +154,11 @@ public class Minimax {
             System.out.println("BAD Not enough room");
             return score;
         }
+        if(regions[enemy.getHead().getX()][enemy.getHead().getY()] < enemy.length()/2) {
+            score = MAX;
+            System.out.println("ENENMY has Not enough room");
+            return score;
+        }
 
         for (Map.Entry<Move, Point> move : Move.adjacent(head).entrySet()) {
             if (movable(board, move.getValue(), true)) {
