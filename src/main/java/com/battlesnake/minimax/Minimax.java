@@ -141,8 +141,8 @@ public class Minimax {
             }
         }
         Point center = new Point(width/2, height/2);
-        score -= (Math.abs(snake.getHead().getX() - center.getX()) + Math.abs(snake.getHead().getY()-center.getY()));
-        score += (Math.abs(snake.getHead().getX() - enemy.getHead().getX()) + Math.abs(snake.getHead().getY()-enemy.getHead().getY()));
+        score -= (Math.abs(snake.getHead().getX() - center.getX()) + Math.abs(snake.getHead().getY()-center.getY())) * 10;
+        //score += (Math.abs(snake.getHead().getX() - enemy.getHead().getX()) + Math.abs(snake.getHead().getY()-enemy.getHead().getY()));
 
         for(Point f : food)
             if(snake.getHead().equals(f)) score += (1000/snake.getHealth());
@@ -321,7 +321,7 @@ public class Minimax {
 
     private Point nearestFood(Point current) {
         int min = 1000;
-        int dist = 0;
+        int dist;
         Point found = food.get(0);
         for (Point snack : food) {
             dist = Math.abs((current.getX()) - snack.getX()) + (Math.abs((current.getY()) - snack.getY()));
