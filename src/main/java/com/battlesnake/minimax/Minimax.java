@@ -137,11 +137,11 @@ public class Minimax {
 
         for (Map.Entry<Move, Point> move : Move.adjacent(head).entrySet()) {
             if (movable(board, move.getValue(), true)) {
-                score += regions[move.getValue().getX()][move.getValue().getY()]/40;
+                score += regions[move.getValue().getX()][move.getValue().getY()]/10;
             }
         }
         Point center = new Point(width/2, height/2);
-        score -= (Math.abs(snake.getHead().getX() - center.getX()) + Math.abs(snake.getHead().getY()-center.getY())) * 10;
+        score -= (Math.abs(snake.getHead().getX() - center.getX()) + Math.abs(snake.getHead().getY()-center.getY())) * 2;
         //score += (Math.abs(snake.getHead().getX() - enemy.getHead().getX()) + Math.abs(snake.getHead().getY()-enemy.getHead().getY()));
 
         for(Point f : food)
