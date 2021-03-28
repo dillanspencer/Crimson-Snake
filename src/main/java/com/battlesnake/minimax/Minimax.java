@@ -192,14 +192,15 @@ public class Minimax {
                     && board[point.getX()][point.getY()].getTileType() != TileType.FOOD
                     && board[point.getX()][point.getY()].getTileType() != TileType.TAIL
                     && board[point.getX()][point.getY()].getTileType() != TileType.HEADS
-                    && board[point.getX()][point.getY()].getTileType() != TileType.FAKE_WALL;
+                    && board[point.getX()][point.getY()].getTileType() != TileType.FAKE_WALL
+                    && board[point.getX()][point.getY()].getTileType() != TileType.ME;
         }
         else{
             return board[point.getX()][point.getY()].getTileType() != TileType.EMPTY
                     && board[point.getX()][point.getY()].getTileType() != TileType.FOOD
                     && board[point.getX()][point.getY()].getTileType() != TileType.TAIL
-                    && board[point.getX()][point.getY()].getTileType() != TileType.HEADS
-                    && board[point.getX()][point.getY()].getTileType() != TileType.ME;
+                    && board[point.getX()][point.getY()].getTileType() != TileType.HEADS;
+
         }
     }
 
