@@ -85,11 +85,6 @@ public class Snake implements Serializable {
     }
 
     public void applyMove(Move move, List<Point> food) {
-        //System.out.println("Before: " + body.get(0));
-        for(Point f : food){
-            if(getHead().equals(f)) health = MAX_HEALTH;
-            size += 1;
-        }
         if (move == null) {
             System.out.println("MOVE IS NULL");
             move = Move.UP;
@@ -108,7 +103,12 @@ public class Snake implements Serializable {
             body.add(0, move.translate(body.get(0)));
         }
 
-        //System.out.println("After: " + body.get(0));
+        for(Point f : food){
+            if(this.getHead().equals(f)){
+                health = MAX_HEALTH;
+                size += 1;
+            }
+        }
     }
 
     public void undoMove() {
