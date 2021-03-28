@@ -117,7 +117,7 @@ public class Snake implements Serializable {
 
 
     public SnakeState getState(Minimax board, Snake enemy) {
-        if (health < 25) {
+        if (health < 25 || board.getTurn() <= 10) {
             System.out.println("HUNGRY");
             return SnakeState.HUNGRY;
         }
