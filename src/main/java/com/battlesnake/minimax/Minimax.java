@@ -139,9 +139,22 @@ public class Minimax {
         int enemyReg = 0;
         int playerReg = 0;
 
+        if(snake.checkCollision(enemy)){
+            score = MIN;
+            System.out.println("BAD");
+            return score;
+        }
+
         Integer[][] regions = new Integer[width][height];
         fillIn(board, regions, snake);
         Point head = snake.getHead();
+
+        if(regions[head.getX()][head.getY()] < snake.length()/2) {
+            score = MIN;
+            System.out.println("BAD Not enough room");
+            return score;
+        }
+
         for (Map.Entry<Move, Point> move : Move.adjacent(head).entrySet()) {
             if (movable(board, move.getValue(), true)) {
                 playerReg += regions[move.getValue().getX()][move.getValue().getY()];
@@ -163,10 +176,7 @@ public class Minimax {
 //            score = MAX;
 //            System.out.println("GOOD, " + snake.getHead() + ", " + snake.getName() + ", " + turn);
 //        }
-        if(snake.checkCollision(enemy)){
-            score = MIN;
-            System.out.println("BAD");
-        }
+
         return score;
     }
 
