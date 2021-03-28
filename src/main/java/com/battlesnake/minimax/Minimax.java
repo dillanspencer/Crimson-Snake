@@ -10,6 +10,7 @@ import com.battlesnake.math.ObjectCloner;
 import com.battlesnake.math.Point;
 import com.battlesnake.pathfinding.Pathfinding;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import sun.reflect.generics.scope.Scope;
 
 import java.util.*;
 
@@ -134,6 +135,8 @@ public class Minimax {
 
     private int evaluate(Tile[][] board, Snake snake, Snake enemy){
         int score = 0;
+        int enemyReg = 0;
+        int playerReg = 0;
 
         Integer[][] regions = new Integer[width][height];
         fillIn(board, regions, snake);
@@ -141,9 +144,18 @@ public class Minimax {
 
         for (Map.Entry<Move, Point> move : Move.adjacent(head).entrySet()) {
             if (movable(board, move.getValue(), true)) {
+                playerReg += regions[move.getValue().getX()][move.getValue().getY()];
                 score += regions[move.getValue().getX()][move.getValue().getY()]/10;
             }
         }
+        for (Map.Entry<Move, Point> move : Move.adjacent(enemy.getHead()).entrySet()) {
+            if (movable(board, move.getValue(), true)) {
+                enemyReg += regions[move.getValue().getX()][move.getValue().getY()];
+            }
+        }
+        if(enemyReg < enemy.length()) score = MAX;
+        if(playerReg < snake.length()) score = MIN;
+
         Point center = new Point(width/2, height/2);
         score -= Point.distance(head, center) * 2;
 //        if(head.getX() == 0 || head.getY() == 0 || head.getX() == width-1 || head.getY() == height-1) {
