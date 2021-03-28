@@ -166,6 +166,10 @@ public class Minimax {
         //score += (Math.abs(snake.getHead().getX() - enemy.getHead().getX()) + Math.abs(snake.getHead().getY()-enemy.getHead().getY()));
         //if(Point.distance(snake.getHead(), center) < Point.distance(enemy.getHead(), center)) score += 100;
 
+        for(Point f : food){
+            if(head.equals(f)) score += 100;
+        }
+
         if(snake.longerThan(enemy) && snake.checkCollision(enemy)){
             score = MAX;
             System.out.println("GOOD, " + snake.getHead() + ", " + snake.getName() + ", " + turn);
