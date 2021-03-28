@@ -75,10 +75,9 @@ public class Minimax {
             }
 
             for (Move currentMove : moves) {
-                Tile[][] tempBoard;
                 Snake tempSnake = (Snake) player.clone();
                 tempSnake.applyMove(currentMove);
-                tempBoard = updateBoard(tempSnake, enemy);
+                Tile[][] tempBoard = updateBoard(tempSnake, enemy);
                 returnMove = maximize(tempBoard, tempSnake, enemy, depth+1, alpha, beta);
 
                if(bestMove == null || returnMove.returnValue > bestMove.returnValue){
@@ -105,10 +104,9 @@ public class Minimax {
             }
 
             for (Move currentMove : moves) {
-                Tile[][] tempBoard;
                 Snake tempSnake = (Snake) enemy.clone();
                 tempSnake.applyMove(currentMove);
-                tempBoard = updateBoard(player, tempSnake);
+                Tile[][] tempBoard = updateBoard(player, tempSnake);
                 returnMove = maximize(tempBoard, player, tempSnake, depth+1, alpha, beta);
 
                 if(bestMove == null || returnMove.returnValue > bestMove.returnValue){
@@ -145,8 +143,6 @@ public class Minimax {
         }
         //score += (Math.abs(snake.getHead().getX() - enemy.getHead().getX()) + Math.abs(snake.getHead().getY()-enemy.getHead().getY()));
         //if(Point.distance(snake.getHead(), center) < Point.distance(enemy.getHead(), center)) score += 100;
-        for(Point f : food)
-            if(snake.getHead().equals(f)) score += (1000/snake.getHealth());
 
         if(snake.longerThan(enemy) && snake.checkCollision(enemy)){
             score = MAX;
