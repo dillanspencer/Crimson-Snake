@@ -64,8 +64,9 @@ public class Snake implements Cloneable {
         previousBody = new Stack<>();
     }
 
-    public Object clone() {
-        return new Snake(this.id, this.name, this.health, this.body);
+    public Object clone() throws CloneNotSupportedException{
+        Snake cloned = (Snake) super.clone();
+        return cloned;
     }
 
 

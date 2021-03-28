@@ -50,12 +50,17 @@ public class Minimax {
     }
 
     public MoveValue maximize(){
-        MoveValue move = maximize(board, mySnake, enemy, 0, Minimax.MIN, Minimax.MAX);
-       // System.out.println(move.returnMove + ", " + move.returnValue);
+        MoveValue move = null;
+        try {
+            move = maximize(board, mySnake, enemy, 0, Minimax.MIN, Minimax.MAX);
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        // System.out.println(move.returnMove + ", " + move.returnValue);
         return move;
     }
 
-    public MoveValue maximize(Tile[][] board, Snake player, Snake enemy, int depth, double alpha, double beta){
+    public MoveValue maximize(Tile[][] board, Snake player, Snake enemy, int depth, double alpha, double beta) throws CloneNotSupportedException {
         boolean isMaximizing = (depth % 2 == 0);
 
         int value = evaluate(board, player, enemy);
@@ -442,8 +447,20 @@ public class Minimax {
         }
 
         for (Snake snake : snakes) {
-            if(snake.equals(sn)) snake = (Snake) sn.clone();
-            else if(snake.equals(e)) snake = (Snake) e.clone();
+            if(snake.equals(sn)) {
+                try {
+                    snake = (Snake) sn.clone();
+                } catch (CloneNotSupportedException cloneNotSupportedException) {
+                    cloneNotSupportedException.printStackTrace();
+                }
+            }
+            else if(snake.equals(e)) {
+                try {
+                    snake = (Snake) e.clone();
+                } catch (CloneNotSupportedException cloneNotSupportedException) {
+                    cloneNotSupportedException.printStackTrace();
+                }
+            }
 
             List<Point> body = snake.getBody();
             Point head = body.get(0);
