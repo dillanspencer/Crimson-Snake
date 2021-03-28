@@ -141,7 +141,7 @@ public class Minimax {
         score -= (Math.abs(snake.getHead().getX() - center.getX()) + Math.abs(snake.getHead().getY()-center.getY())) * 2;
         if(snake.getHead().getX() == 0 || snake.getHead().getY() == 0) score -= 50;
         //score += (Math.abs(snake.getHead().getX() - enemy.getHead().getX()) + Math.abs(snake.getHead().getY()-enemy.getHead().getY()));
-
+        if(Point.distance(snake.getHead(), center) < Point.distance(enemy.getHead(), center)) score += 1000;
         for(Point f : food)
             if(snake.getHead().equals(f)) score += (1000/snake.getHealth());
 
