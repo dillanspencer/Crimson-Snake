@@ -99,7 +99,7 @@ public class Minimax {
             }
         }else {
 
-            if(depth == 3){
+            if(depth == 5){
                 return new MoveValue(value);
             }
 
@@ -159,7 +159,7 @@ public class Minimax {
 
         if(snake.longerThan(enemy) && snake.checkCollision(enemy)){
             score = MAX;
-            System.out.println("GOOD, " + snake.getHead() + ", " + snake.getName());
+            System.out.println("GOOD, " + snake.getHead() + ", " + snake.getName() + ", " + turn);
         }
         else if(!snake.longerThan(enemy) && snake.checkCollision(enemy)){
             score = MIN;
