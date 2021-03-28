@@ -158,11 +158,11 @@ public class Minimax {
 
         if(playerReg > enemyReg) score += 20;
 
-        if(snake.longerThan(enemy) && snake.checkCollision(enemy)){
-            score = MAX;
-            System.out.println("GOOD, " + snake.getHead() + ", " + snake.getName() + ", " + turn);
-        }
-        else if(!snake.longerThan(enemy) && snake.checkCollision(enemy)){
+//        if(snake.longerThan(enemy) && snake.checkCollision(enemy)){
+//            score = MAX;
+//            System.out.println("GOOD, " + snake.getHead() + ", " + snake.getName() + ", " + turn);
+//        }
+        if(snake.checkCollision(enemy)){
             score = MIN;
             System.out.println("BAD");
         }

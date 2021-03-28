@@ -293,7 +293,7 @@ public class Snake implements Serializable {
     }
 
     public int length() {
-        return this.body.size() + size;
+        return this.body.size();
     }
 
     public boolean longerThan(int len) {
