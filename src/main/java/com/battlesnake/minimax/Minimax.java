@@ -144,7 +144,7 @@ public class Minimax {
 
         for (Map.Entry<Move, Point> move : Move.adjacent(head).entrySet()) {
             if (movable(board, move.getValue(), true)) {
-                //score += regions[move.getValue().getX()][move.getValue().getY()]/10;
+                score += regions[move.getValue().getX()][move.getValue().getY()]/10;
             }
         }
         Point center = new Point(width/2, height/2);
