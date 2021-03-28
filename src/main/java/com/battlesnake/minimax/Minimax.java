@@ -6,6 +6,7 @@ import com.battlesnake.data.Move;
 import com.battlesnake.data.MovePoint;
 import com.battlesnake.data.MoveValue;
 import com.battlesnake.data.Snake;
+import com.battlesnake.math.ObjectCloner;
 import com.battlesnake.math.Point;
 import com.battlesnake.pathfinding.Pathfinding;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -50,17 +51,12 @@ public class Minimax {
     }
 
     public MoveValue maximize(){
-        MoveValue move = null;
-        try {
-            move = maximize(board, mySnake, enemy, 0, Minimax.MIN, Minimax.MAX);
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-        }
-        // System.out.println(move.returnMove + ", " + move.returnValue);
+        MoveValue move = maximize(board, mySnake, enemy, 0, Minimax.MIN, Minimax.MAX);
+       // System.out.println(move.returnMove + ", " + move.returnValue);
         return move;
     }
 
-    public MoveValue maximize(Tile[][] board, Snake player, Snake enemy, int depth, double alpha, double beta) throws CloneNotSupportedException {
+    public MoveValue maximize(Tile[][] board, Snake player, Snake enemy, int depth, double alpha, double beta){
         boolean isMaximizing = (depth % 2 == 0);
 
         int value = evaluate(board, player, enemy);
@@ -81,21 +77,25 @@ public class Minimax {
             }
 
             for (Move currentMove : moves) {
-                Snake tempSnake = (Snake) player.clone();
-                Snake tempEnemy = (Snake) enemy.clone();
-                tempSnake.applyMove(currentMove);
-                Tile[][] tempBoard = updateBoard(tempSnake, tempEnemy);
-                returnMove = maximize(tempBoard, tempSnake, tempEnemy, depth+1, alpha, beta);
+                try {
+                    Snake tempSnake = (Snake) ObjectCloner.deepCopy(player);
+                    Snake tempEnemy = (Snake) ObjectCloner.deepCopy(enemy);
+                    tempSnake.applyMove(currentMove);
+                    Tile[][] tempBoard = updateBoard(tempSnake, tempEnemy);
+                    returnMove = maximize(tempBoard, tempSnake, tempEnemy, depth + 1, alpha, beta);
 
-               if(bestMove == null || returnMove.returnValue > bestMove.returnValue){
-                   bestMove = returnMove;
-                   bestMove.returnMove = currentMove;
-                   bestMove.returnValue = returnMove.returnValue;
-               }
-               if(returnMove.returnValue > alpha){
-                   alpha = returnMove.returnValue;
-               }
-               if(beta <= alpha) break;
+                    if (bestMove == null || returnMove.returnValue > bestMove.returnValue) {
+                        bestMove = returnMove;
+                        bestMove.returnMove = currentMove;
+                        bestMove.returnValue = returnMove.returnValue;
+                    }
+                    if (returnMove.returnValue > alpha) {
+                        alpha = returnMove.returnValue;
+                    }
+                    if (beta <= alpha) break;
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
         }else {
 
@@ -111,20 +111,24 @@ public class Minimax {
             }
 
             for (Move currentMove : moves) {
-                Snake tempSnake = (Snake) enemy.clone();
-                Snake tempPlayer = (Snake) player.clone();
-                tempSnake.applyMove(currentMove);
-                Tile[][] tempBoard = updateBoard(tempPlayer, tempSnake);
-                returnMove = maximize(tempBoard, tempPlayer, tempSnake, depth+1, alpha, beta);
+                try {
+                    Snake tempSnake = (Snake) ObjectCloner.deepCopy(enemy);
+                    Snake tempPlayer = (Snake) ObjectCloner.deepCopy(player);
+                    tempSnake.applyMove(currentMove);
+                    Tile[][] tempBoard = updateBoard(tempPlayer, tempSnake);
+                    returnMove = maximize(tempBoard, tempPlayer, tempSnake, depth + 1, alpha, beta);
 
-                if(bestMove == null || returnMove.returnValue < bestMove.returnValue){
-                    bestMove = returnMove;
-                    bestMove.returnValue = returnMove.returnValue;
+                    if (bestMove == null || returnMove.returnValue < bestMove.returnValue) {
+                        bestMove = returnMove;
+                        bestMove.returnValue = returnMove.returnValue;
+                    }
+                    if (returnMove.returnValue < beta) {
+                        beta = returnMove.returnValue;
+                    }
+                    if (beta <= alpha) break;
+                }catch(Exception e){
+                    e.printStackTrace();
                 }
-                if(returnMove.returnValue < beta){
-                    beta = returnMove.returnValue;
-                }
-                if(beta <= alpha) break;
             }
         }
 
@@ -149,7 +153,7 @@ public class Minimax {
             score = MIN;
             System.out.println("I hit the floor, " + turn);
         }
-        //if(Point.distance(head, snake.getTail()) == 1) score += 100;
+        if(Point.distance(head, snake.getTail()) == 1) score += 100;
         //score += (Math.abs(snake.getHead().getX() - enemy.getHead().getX()) + Math.abs(snake.getHead().getY()-enemy.getHead().getY()));
         //if(Point.distance(snake.getHead(), center) < Point.distance(enemy.getHead(), center)) score += 100;
 
@@ -447,19 +451,11 @@ public class Minimax {
         }
 
         for (Snake snake : snakes) {
-            if(snake.equals(sn)) {
-                try {
-                    snake = (Snake) sn.clone();
-                } catch (CloneNotSupportedException cloneNotSupportedException) {
-                    cloneNotSupportedException.printStackTrace();
-                }
-            }
-            else if(snake.equals(e)) {
-                try {
-                    snake = (Snake) e.clone();
-                } catch (CloneNotSupportedException cloneNotSupportedException) {
-                    cloneNotSupportedException.printStackTrace();
-                }
+            try {
+                if (snake.equals(sn)) snake = (Snake) ObjectCloner.deepCopy(sn);
+                else if (snake.equals(e)) snake = (Snake) ObjectCloner.deepCopy(e);
+            }catch (Exception exc){
+                exc.printStackTrace();
             }
 
             List<Point> body = snake.getBody();
