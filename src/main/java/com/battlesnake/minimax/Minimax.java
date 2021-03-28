@@ -138,8 +138,11 @@ public class Minimax {
             }
         }
         Point center = new Point(width/2, height/2);
-        score -= (Math.abs(snake.getHead().getX() - center.getX()) + Math.abs(snake.getHead().getY()-center.getY())) * 2;
-        if(head.getX() == 0 || head.getY() == 0 || head.getX() == width-1 || head.getY() == height-1) score -= 1000;
+        score -= Point.distance(head, center) * 2;
+        if(head.getX() == 0 || head.getY() == 0 || head.getX() == width-1 || head.getY() == height-1) {
+            score -= 1000;
+            System.out.println("I hit the floor, " + turn);
+        }
         //score += (Math.abs(snake.getHead().getX() - enemy.getHead().getX()) + Math.abs(snake.getHead().getY()-enemy.getHead().getY()));
         //if(Point.distance(snake.getHead(), center) < Point.distance(enemy.getHead(), center)) score += 100;
         for(Point f : food)
@@ -400,9 +403,19 @@ public class Minimax {
 
     public Move findExit(Point current) {
         System.out.println("FINDING EXIT");
-        List<Move> moves = getPossibleMoves(board, current, true);
-        if (moves.size() <= 0) return Move.UP;
-        return moves.get(0);
+        int size = 999;
+        Move move = null;
+        for(Map.Entry<Move, Point> m : Move.adjacent(current).entrySet()){
+            if (movable(board, m.getValue(), true)) {
+                Point p = m.getValue();
+                if (regions[p.getX()][p.getY()] < size) {
+                    size = regions[p.getX()][p.getY()];
+                    move = m.getKey();
+                }
+            }
+        }
+        if (move == null) return Move.UP;
+        return move;
     }
 
     public int longestSnake() {
