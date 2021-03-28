@@ -144,16 +144,16 @@ public class Minimax {
 
         for (Map.Entry<Move, Point> move : Move.adjacent(head).entrySet()) {
             if (movable(board, move.getValue(), true)) {
-                score += regions[move.getValue().getX()][move.getValue().getY()]/10;
+                //score += regions[move.getValue().getX()][move.getValue().getY()]/10;
             }
         }
-        Point center = new Point(width/2, height/2);
-        score -= Point.distance(head, center) * 2;
-        if(head.getX() == 0 || head.getY() == 0 || head.getX() == width-1 || head.getY() == height-1) {
-            score = MIN;
-            System.out.println("I hit the floor, " + turn);
-        }
-        if(Point.distance(head, snake.getTail()) == 1) score += 100;
+//        Point center = new Point(width/2, height/2);
+//        score -= Point.distance(head, center) * 2;
+//        if(head.getX() == 0 || head.getY() == 0 || head.getX() == width-1 || head.getY() == height-1) {
+//            score -= 1000;
+//            System.out.println("I hit the floor, " + turn);
+//        }
+
         //score += (Math.abs(snake.getHead().getX() - enemy.getHead().getX()) + Math.abs(snake.getHead().getY()-enemy.getHead().getY()));
         //if(Point.distance(snake.getHead(), center) < Point.distance(enemy.getHead(), center)) score += 100;
 
