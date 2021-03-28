@@ -147,8 +147,8 @@ public class Minimax {
                 //score += regions[move.getValue().getX()][move.getValue().getY()]/10;
             }
         }
-//        Point center = new Point(width/2, height/2);
-//        score -= Point.distance(head, center) * 2;
+        Point center = new Point(width/2, height/2);
+        score -= Point.distance(head, center) * 2;
 //        if(head.getX() == 0 || head.getY() == 0 || head.getX() == width-1 || head.getY() == height-1) {
 //            score -= 1000;
 //            System.out.println("I hit the floor, " + turn);
