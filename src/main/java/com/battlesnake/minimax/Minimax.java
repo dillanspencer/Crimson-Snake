@@ -55,17 +55,14 @@ public class Minimax {
         return move;
     }
 
-    public MoveValue maximize(Tile[][] board, Snake p, Snake e, int depth, double alpha, double beta){
+    public MoveValue maximize(Tile[][] board, Snake player, Snake enemy, int depth, double alpha, double beta){
         boolean isMaximizing = (depth % 2 == 0);
 
-        int value = evaluate(board, p, e);
+        int value = evaluate(board, player, enemy);
         if(value == MAX || value == -MIN) return new MoveValue(value);
 
         MoveValue returnMove;
         MoveValue bestMove = null;
-
-        Snake player = (Snake) p.clone();
-        Snake enemy = (Snake) e.clone();
 
         if(isMaximizing){
 
@@ -73,6 +70,7 @@ public class Minimax {
             List<Move> moves = getPossibleMoves(board, player.getHead(), false);
             if(moves.size() == 0){
                 System.out.println("NO move for me " + depth + ", " + player.getHead());
+                System.out.println(mySnake.getHead());
                 printBoard(board);
                 return new MoveValue(MIN);
             }
