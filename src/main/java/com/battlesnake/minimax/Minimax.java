@@ -50,22 +50,22 @@ public class Minimax {
     }
 
     public MoveValue maximize(){
-        Tile[][] b = board.clone();
-        Snake snake = (Snake) mySnake.clone();
-        Snake e = (Snake) enemy.clone();
-        MoveValue move = maximize(b, snake, e, 0, Minimax.MIN, Minimax.MAX);
+        MoveValue move = maximize(board, mySnake, enemy, 0, Minimax.MIN, Minimax.MAX);
        // System.out.println(move.returnMove + ", " + move.returnValue);
         return move;
     }
 
-    public MoveValue maximize(Tile[][] board, Snake player, Snake enemy, int depth, double alpha, double beta){
+    public MoveValue maximize(Tile[][] board, Snake p, Snake e, int depth, double alpha, double beta){
         boolean isMaximizing = (depth % 2 == 0);
 
-        int value = evaluate(board, player, enemy);
+        int value = evaluate(board, p, e);
         if(value == MAX || value == -MIN) return new MoveValue(value);
 
         MoveValue returnMove;
         MoveValue bestMove = null;
+
+        Snake player = (Snake) p.clone();
+        Snake enemy = (Snake) e.clone();
 
         if(isMaximizing){
 
