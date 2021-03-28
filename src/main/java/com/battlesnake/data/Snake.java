@@ -44,6 +44,7 @@ public class Snake implements Serializable {
     private String taunt;     // optional
     private int health; //0..100
     private int turn;
+    private int size;
     private Point position;
     private List<Point> body;
     private Stack<List<Point>> previousBody;
@@ -55,6 +56,7 @@ public class Snake implements Serializable {
         super();
         state = SnakeState.HUNGRY;
         previousBody = new Stack<>();
+        size = body.size();
     }
 
     public Snake(String id, String name, int health, List<Point> body) {
@@ -85,6 +87,7 @@ public class Snake implements Serializable {
         //System.out.println("Before: " + body.get(0));
         for(Point f : food){
             if(getHead().equals(f)) health = MAX_HEALTH;
+            size += 1;
         }
         if (move == null) {
             System.out.println("MOVE IS NULL");
@@ -289,7 +292,7 @@ public class Snake implements Serializable {
     }
 
     public int length() {
-        return this.body.size();
+        return this.size;
     }
 
     public boolean longerThan(int len) {
