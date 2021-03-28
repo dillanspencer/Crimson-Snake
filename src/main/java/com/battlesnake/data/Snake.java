@@ -22,10 +22,11 @@ import com.battlesnake.math.Point;
 import com.battlesnake.minimax.Minimax;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Stack;
 
-public class Snake {
+public class Snake implements Serializable {
 
     public enum SnakeState {
         HUNGRY,
@@ -51,11 +52,13 @@ public class Snake {
     private SnakeState state;
 
     public Snake() {
+        super();
         state = SnakeState.HUNGRY;
         previousBody = new Stack<>();
     }
 
     public Snake(String id, String name, int health, List<Point> body) {
+        super();
         this.id = id;
         this.body = body;
         this.name = name;
