@@ -70,9 +70,6 @@ public class Minimax {
             // check snake state
             List<Move> moves = getPossibleMoves(board, player.getHead(), false);
             if(moves.size() == 0){
-                System.out.println("NO move for me " + depth + ", " + player.getHead());
-                System.out.println(mySnake.getHead());
-                printBoard(board);
                 return new MoveValue(MIN);
             }
 
@@ -99,7 +96,7 @@ public class Minimax {
             }
         }else {
 
-            if(depth == 5){
+            if(depth == 7){
                 return new MoveValue(value);
             }
 
