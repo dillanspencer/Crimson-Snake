@@ -80,7 +80,7 @@ public class Minimax {
                 try {
                     Snake tempSnake = (Snake) ObjectCloner.deepCopy(player);
                     Snake tempEnemy = (Snake) ObjectCloner.deepCopy(enemy);
-                    tempSnake.applyMove(currentMove);
+                    tempSnake.applyMove(currentMove, food);
                     Tile[][] tempBoard = updateBoard(tempSnake, tempEnemy);
                     returnMove = maximize(tempBoard, tempSnake, tempEnemy, depth + 1, alpha, beta);
 
@@ -114,7 +114,7 @@ public class Minimax {
                 try {
                     Snake tempSnake = (Snake) ObjectCloner.deepCopy(enemy);
                     Snake tempPlayer = (Snake) ObjectCloner.deepCopy(player);
-                    tempSnake.applyMove(currentMove);
+                    tempSnake.applyMove(currentMove, food);
                     Tile[][] tempBoard = updateBoard(tempPlayer, tempSnake);
                     returnMove = maximize(tempBoard, tempPlayer, tempSnake, depth + 1, alpha, beta);
 

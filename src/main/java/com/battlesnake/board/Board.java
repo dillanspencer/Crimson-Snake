@@ -318,7 +318,7 @@ public class Board {
         TileType[][] board;
         previousBoard.push(currentBoard);
         board = clearSnakeOffBoard(snake, currentBoard);
-        snake.applyMove(move);
+        //snake.applyMove(move);
         snakes.add(snake);
         //fillIn();
         return appendBoard(snake, board);
