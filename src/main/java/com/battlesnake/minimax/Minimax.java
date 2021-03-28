@@ -143,6 +143,7 @@ public class Minimax {
             score -= 1000;
             System.out.println("I hit the floor, " + turn);
         }
+        if(Point.distance(head, snake.getTail()) == 1) score += 100;
         //score += (Math.abs(snake.getHead().getX() - enemy.getHead().getX()) + Math.abs(snake.getHead().getY()-enemy.getHead().getY()));
         //if(Point.distance(snake.getHead(), center) < Point.distance(enemy.getHead(), center)) score += 100;
 
