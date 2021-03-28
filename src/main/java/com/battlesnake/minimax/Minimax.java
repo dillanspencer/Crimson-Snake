@@ -146,7 +146,9 @@ public class Minimax {
         }
 
         Integer[][] regions = new Integer[width][height];
+        Integer[][] enemyRegions = new Integer[width][height];
         fillIn(board, regions, snake);
+        fillIn(board, enemyRegions, enemy);
         Point head = snake.getHead();
 
         if(regions[head.getX()][head.getY()] < snake.length()/2) {
@@ -154,9 +156,9 @@ public class Minimax {
             System.out.println("BAD Not enough room");
             return score;
         }
-        if(regions[enemy.getHead().getX()][enemy.getHead().getY()] < enemy.length()/2) {
-            score = MAX;
-            System.out.println("ENENMY has Not enough room");
+        if(enemyRegions[enemy.getHead().getX()][enemy.getHead().getY()] < enemy.length()/2) {
+            score = MIN;
+            System.out.println("BAD Not enough room");
             return score;
         }
 
@@ -168,7 +170,7 @@ public class Minimax {
         }
         for (Map.Entry<Move, Point> move : Move.adjacent(enemy.getHead()).entrySet()) {
             if (movable(board, move.getValue(), true)) {
-                enemyReg += regions[move.getValue().getX()][move.getValue().getY()];
+                enemyReg += enemyRegions[move.getValue().getX()][move.getValue().getY()];
             }
         }
 
