@@ -119,6 +119,9 @@ public class Snake implements Serializable {
         if (health < 25) {
             System.out.println("HUNGRY");
             return SnakeState.HUNGRY;
+        }else if(length() < board.longestSnake() && distance(enemy) > 5){
+            System.out.println("HUNGRY");
+            return SnakeState.HUNGRY;
         }
 
         return SnakeState.SMART;
