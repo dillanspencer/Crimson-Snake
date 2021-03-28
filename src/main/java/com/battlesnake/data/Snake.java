@@ -56,7 +56,7 @@ public class Snake implements Serializable {
         super();
         state = SnakeState.HUNGRY;
         previousBody = new Stack<>();
-        size = body.size();
+        size = 0;
     }
 
     public Snake(String id, String name, int health, List<Point> body) {
@@ -292,7 +292,7 @@ public class Snake implements Serializable {
     }
 
     public int length() {
-        return this.size;
+        return this.body.size() + size;
     }
 
     public boolean longerThan(int len) {
