@@ -140,7 +140,7 @@ public class Minimax {
         Point center = new Point(width/2, height/2);
         score -= Point.distance(head, center) * 2;
         if(head.getX() == 0 || head.getY() == 0 || head.getX() == width-1 || head.getY() == height-1) {
-            score -= 1000;
+            score = MIN;
             System.out.println("I hit the floor, " + turn);
         }
         if(Point.distance(head, snake.getTail()) == 1) score += 100;
