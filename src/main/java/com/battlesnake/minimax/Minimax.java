@@ -141,7 +141,7 @@ public class Minimax {
         Integer[][] regions = new Integer[width][height];
         fillIn(board, regions, snake);
         Point head = snake.getHead();
-        
+        System.out.println(snake.getHead() + ", " + enemy.getHead());
         for (Map.Entry<Move, Point> move : Move.adjacent(head).entrySet()) {
             if (movable(board, move.getValue(), true)) {
                 playerReg += regions[move.getValue().getX()][move.getValue().getY()];
