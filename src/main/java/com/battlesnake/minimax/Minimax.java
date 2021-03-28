@@ -153,11 +153,11 @@ public class Minimax {
                 enemyReg += regions[move.getValue().getX()][move.getValue().getY()];
             }
         }
-        if(enemyReg < enemy.length()){
+        if(enemyReg < enemy.length()/3){
             score = MAX;
             System.out.println("GOOD Shit, " + snake.getHead() + ", " + snake.getName() + ", " + turn);
         }
-        if(playerReg < snake.length()) {
+        if(playerReg < snake.length()/3) {
             score = MIN;
             System.out.println("BAD Shit, " + snake.getHead() + ", " + snake.getName() + ", " + turn);
         }
