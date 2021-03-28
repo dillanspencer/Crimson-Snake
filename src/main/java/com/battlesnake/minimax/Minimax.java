@@ -156,7 +156,7 @@ public class Minimax {
         Point center = new Point(width/2, height/2);
         score -= Point.distance(head, center) * 2;
 
-        if(playerReg > enemyReg || getPossibleMoves(board, enemy.getHead(), true).size() == 1) score += 1000;
+        if(playerReg > enemyReg || getPossibleMoves(board, enemy.getHead(), true).size() == 1) score += 200;
 
         if(snake.longerThan(enemy) && snake.checkCollision(enemy)){
             score = MAX;
@@ -166,6 +166,7 @@ public class Minimax {
             score = MIN;
             System.out.println("BAD");
         }
+        System.out.println(score + ", " + turn);
         return score;
     }
 
