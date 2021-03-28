@@ -10,10 +10,7 @@ import com.battlesnake.math.Point;
 import com.battlesnake.pathfinding.Pathfinding;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Minimax {
 
@@ -347,6 +344,12 @@ public class Minimax {
                 Point curr = new Point(head.getX()+x, head.getY()+y);
                 if(movable(board, curr, true))
                     points.add(curr);
+            }
+        }
+        if(points.size() == 0) {
+            for(Map.Entry<Move, Point> move : Move.adjacent(head).entrySet()){
+                if (movable(board, move.getValue(), true))
+                    points.add(move.getValue());
             }
         }
         for(Point p : points){
