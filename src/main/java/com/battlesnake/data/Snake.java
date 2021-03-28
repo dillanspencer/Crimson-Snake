@@ -64,6 +64,7 @@ public class Snake implements Cloneable {
         previousBody = new Stack<>();
     }
 
+    @Override
     public Object clone() throws CloneNotSupportedException{
         Snake cloned = (Snake) super.clone();
         return cloned;
@@ -257,6 +258,18 @@ public class Snake implements Cloneable {
 
     public boolean equals(Snake other) {
         return getId().equals(other.getId());
+    }
+
+    public void setBody(List<Point> body) {
+        this.body = body;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public Point getHead() {
