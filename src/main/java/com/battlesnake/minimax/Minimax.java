@@ -142,6 +142,7 @@ public class Minimax {
         }
         Point center = new Point(width/2, height/2);
         score -= (Math.abs(snake.getHead().getX() - center.getX()) + Math.abs(snake.getHead().getY()-center.getY())) * 2;
+        if(snake.getHead().getX() == 0 || snake.getHead().getY() == 0) score -= 50;
         //score += (Math.abs(snake.getHead().getX() - enemy.getHead().getX()) + Math.abs(snake.getHead().getY()-enemy.getHead().getY()));
 
         for(Point f : food)
@@ -335,6 +336,27 @@ public class Minimax {
         return found;
     }
 
+    private Point bestHeadTile(Point head){
+        List<Point> points = new ArrayList<Point>();
+        Point tile = null;
+        Point center = new Point(width/2, height/2);
+        for(int x = -1; x <= 1; x++){
+            if(x == 0) continue;
+            for(int y = -1; y <= 1; y++){
+                if(y == 0) continue;
+                Point curr = new Point(head.getX()+x, head.getY()+y);
+                if(movable(board, curr, true))
+                    points.add(curr);
+            }
+        }
+        for(Point p : points){
+            if(tile == null || Point.distance(p, center) < Point.distance(tile, center)){
+                tile = p;
+            }
+        }
+        return tile;
+    }
+
     public Move findFood(Point current) {
         Point food = nearestFood(current);
         if(food == null || mySnake.distance(food) > enemy.distance(food)) return null;
@@ -356,8 +378,8 @@ public class Minimax {
     }
 
     public Move findHead(Point current, Snake enemy) {
-        if (enemy == null || enemy.longerThan(mySnake)) return findTail(current);
-        List<Tile> path = pathfinding.getRoute(board, regions, current, enemy.getHead());
+        Point cutoff = bestHeadTile(enemy.getHead());
+        List<Tile> path = pathfinding.getRoute(board, regions, current, cutoff);
         if (path.size() <= 1) return null;
         Move move = moveToTile(path.get(path.size() - 2), current);
 
