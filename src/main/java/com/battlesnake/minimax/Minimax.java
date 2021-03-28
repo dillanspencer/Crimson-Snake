@@ -166,7 +166,6 @@ public class Minimax {
             score = MIN;
             System.out.println("BAD");
         }
-        System.out.println(score + ", " + turn);
         return score;
     }
 
