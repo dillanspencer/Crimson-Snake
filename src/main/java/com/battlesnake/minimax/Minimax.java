@@ -153,28 +153,11 @@ public class Minimax {
                 enemyReg += regions[move.getValue().getX()][move.getValue().getY()];
             }
         }
-//        if(enemyReg < enemy.length()/3){
-//            score = MAX;
-//            System.out.println("GOOD Shit, " + snake.getHead() + ", " + snake.getName() + ", " + turn);
-//        }
-//        if(playerReg < snake.length()/3) {
-//            score = MIN;
-//            System.out.println("BAD Shit, " + snake.getHead() + ", " + snake.getName() + ", " + turn);
-//        }
 
         Point center = new Point(width/2, height/2);
         score -= Point.distance(head, center) * 2;
-//        if(head.getX() == 0 || head.getY() == 0 || head.getX() == width-1 || head.getY() == height-1) {
-//            score -= 1000;
-//            System.out.println("I hit the floor, " + turn);
-//        }
 
-        //score += (Math.abs(snake.getHead().getX() - enemy.getHead().getX()) + Math.abs(snake.getHead().getY()-enemy.getHead().getY()));
-        //if(Point.distance(snake.getHead(), center) < Point.distance(enemy.getHead(), center)) score += 100;
-
-//        for(Point f : food){
-//            if(head.equals(f)) score += 100;
-//        }
+        if(playerReg > enemyReg) score += 1000;
 
         if(snake.longerThan(enemy) && snake.checkCollision(enemy)){
             score = MAX;

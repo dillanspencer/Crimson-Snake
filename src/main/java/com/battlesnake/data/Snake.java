@@ -67,6 +67,7 @@ public class Snake implements Serializable {
         this.health = health;
         state = SnakeState.HUNGRY;
         previousBody = new Stack<>();
+        size = 0;
     }
 
 
