@@ -158,7 +158,7 @@ public class Minimax {
         for (Map.Entry<Move, Point> move : Move.adjacent(head).entrySet()) {
             if (movable(board, move.getValue(), true)) {
                 playerReg += regions[move.getValue().getX()][move.getValue().getY()];
-                score += regions[move.getValue().getX()][move.getValue().getY()]/10;
+                score += regions[move.getValue().getX()][move.getValue().getY()]/2;
             }
         }
         for (Map.Entry<Move, Point> move : Move.adjacent(enemy.getHead()).entrySet()) {
