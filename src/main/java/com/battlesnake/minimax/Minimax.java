@@ -157,7 +157,7 @@ public class Minimax {
         Point center = new Point(width/2, height/2);
         score -= Point.distance(head, center) * 2;
 
-        if(playerReg > enemyReg) score += 20;
+        if(playerReg > enemyReg) score += (playerReg - enemyReg);
 
 //        if(snake.longerThan(enemy) && snake.checkCollision(enemy)){
 //            score = MAX;
