@@ -153,8 +153,14 @@ public class Minimax {
                 enemyReg += regions[move.getValue().getX()][move.getValue().getY()];
             }
         }
-        if(enemyReg < enemy.length()) score = MAX;
-        if(playerReg < snake.length()) score = MIN;
+        if(enemyReg < enemy.length()){
+            score = MAX;
+            System.out.println("GOOD Shit, " + snake.getHead() + ", " + snake.getName() + ", " + turn);
+        }
+        if(playerReg < snake.length()) {
+            score = MIN;
+            System.out.println("BAD Shit, " + snake.getHead() + ", " + snake.getName() + ", " + turn);
+        }
 
         Point center = new Point(width/2, height/2);
         score -= Point.distance(head, center) * 2;

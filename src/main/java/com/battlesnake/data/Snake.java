@@ -71,7 +71,7 @@ public class Snake implements Serializable {
 
 
     public boolean checkCollision(Snake other) {
-        return getHead().equals(other.getHead());
+        return this.getHead().equals(other.getHead());
     }
 
     public boolean checkCollision(Point other) {
