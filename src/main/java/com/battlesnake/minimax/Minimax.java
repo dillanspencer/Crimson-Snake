@@ -111,7 +111,7 @@ public class Minimax {
                 Tile[][] tempBoard = updateBoard(tempPlayer, tempSnake);
                 returnMove = maximize(tempBoard, tempPlayer, tempSnake, depth+1, alpha, beta);
 
-                if(bestMove == null || returnMove.returnValue > bestMove.returnValue){
+                if(bestMove == null || returnMove.returnValue < bestMove.returnValue){
                     bestMove = returnMove;
                     bestMove.returnValue = returnMove.returnValue;
                 }
