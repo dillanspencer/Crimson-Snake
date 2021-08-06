@@ -66,11 +66,6 @@ public class Minimax {
         int value = evaluate(board, player, enemy);
         if(value == MAX || value == -MIN) return new MoveValue(value);
 
-        // Check if time has reached max
-        if(System.currentTimeMillis() - startTime >= 450){
-            return new MoveValue(value);
-        }
-
         MoveValue returnMove;
         MoveValue bestMove = null;
 
@@ -106,12 +101,7 @@ public class Minimax {
             }
         }else {
 
-            if(depth == 3){
-                return new MoveValue(value);
-            }
-
-            // Check if time has reached max
-            if(System.currentTimeMillis() - startTime >= 450){
+            if(System.currentTimeMillis() - startTime >= 450 || depth == 7){
                 return new MoveValue(value);
             }
 
