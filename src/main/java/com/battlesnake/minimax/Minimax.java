@@ -10,7 +10,6 @@ import com.battlesnake.math.ObjectCloner;
 import com.battlesnake.math.Point;
 import com.battlesnake.pathfinding.Pathfinding;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import sun.reflect.generics.scope.Scope;
 
 import java.util.*;
 
@@ -140,6 +139,11 @@ public class Minimax {
         int playerReg = 0;
 
         if(snake.checkCollision(enemy)){
+            if(snake.length() > enemy.length()){
+                score = MAX;
+                System.out.println("REALLY GOOD");
+                return score;
+            }
             score = MIN;
             System.out.println("BAD");
             return score;
