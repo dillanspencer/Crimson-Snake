@@ -26,6 +26,9 @@ public class Minimax {
     private final int TILE_HEIGHT = 1;
     private int turn;
 
+    // Time for MinMax
+    private long startTime;
+
     // Pathfinding
     private Pathfinding pathfinding;
 
@@ -51,6 +54,7 @@ public class Minimax {
     }
 
     public MoveValue maximize(){
+        startTime = System.currentTimeMillis();
         MoveValue move = maximize(board, mySnake, enemy, 0, Minimax.MIN, Minimax.MAX);
        // System.out.println(move.returnMove + ", " + move.returnValue);
         return move;
@@ -61,6 +65,11 @@ public class Minimax {
 
         int value = evaluate(board, player, enemy);
         if(value == MAX || value == -MIN) return new MoveValue(value);
+
+        // Check if time has reached max
+        if(System.currentTimeMillis() - startTime >= 450){
+            return new MoveValue(value);
+        }
 
         MoveValue returnMove;
         MoveValue bestMove = null;
@@ -98,6 +107,11 @@ public class Minimax {
         }else {
 
             if(depth == 3){
+                return new MoveValue(value);
+            }
+
+            // Check if time has reached max
+            if(System.currentTimeMillis() - startTime >= 450){
                 return new MoveValue(value);
             }
 
