@@ -101,7 +101,7 @@ public class Minimax {
             }
         }else {
 
-            if(System.currentTimeMillis() - startTime >= 450 || depth == 7){
+            if(System.currentTimeMillis() - startTime >= 350 || depth == 5){
                 return new MoveValue(value);
             }
 
