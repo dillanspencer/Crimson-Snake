@@ -29,7 +29,8 @@ public enum HeadType {
   SHADES("shades"),
   SMILE("smile"),
   SKI("bwc-ski"),
-  TONGUE("tongue");
+  TONGUE("tongue"),
+  TIGER("tiger-king");
 
   private String name;
   private HeadType(String name) {

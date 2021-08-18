@@ -24,8 +24,9 @@ public class Point implements Serializable {
     }
 
     public static double distance(Point point, Point other) {
-        return Math.sqrt(Math.pow(other.getX() - point.getX(), 2) +
-                Math.pow(other.getY() - point.getY(), 2));
+        double dx = point.getX() - other.getX();
+        double dy = point.getY() - other.getY();
+        return Math.abs(dx) + Math.abs(dy);
     }
 
     public boolean equals(Point other){
